@@ -7,7 +7,7 @@
 
 PL18N.org = International Programming Language Stardard Promotion Org
 
-![pl18n-logo](document/pl18n-standard-n.png)
+![pl18n-logo](pl18n-standard-n.png)
 
 
 
