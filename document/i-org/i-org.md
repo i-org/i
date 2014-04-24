@@ -1,13 +1,13 @@
-尔雅国际化编程语言促进会 PL18N.org
+尔雅国际化编程语言促进会 I.org
 ==================================
 
-![pi18n-logo](pi18n-org.png)
+![i-org-logo](i-org.png)
 
 尔雅国际化编程语言促进会：一个致力于推动编程语言国际化的组织。
 
-PI18N.org = International Programming Language Stardard Promotion Org
+i-org = International Programming Language Stardard Promotion Org
 
-![pi18n-logo](pi18n-org-standard-n.png)
+![i-org-logo](i-org-standard-n.png)
 
 
 

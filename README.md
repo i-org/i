@@ -117,7 +117,7 @@ With your familiar terminology, you can easily write your code, which is neat tr
 
 尔雅国际化编程语言促进会：一个致力于推动编程语言国际化的组织。
 
-PI18N.org = International Programming Language Stardard Promotion Org
+i.org = International Programming Language Stardard Promotion Org
 
 
 ### 注 Notes：
