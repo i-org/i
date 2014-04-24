@@ -21,7 +21,7 @@
 
 让世界上的每个种族、文化背景的人，都可以使用其最熟悉的名词、术语、语法、工具，快速地写出适合自己需求的代码；而且，这些代码在不同的语言环境下的效果都是无差别的。
 
-I programming language explores to program in any idiom and character system in the world.
+I programming language explores to program with any idiom and character system in the world.
 
 With your familiar terminology, you can easily write your code, which is neat translated into any race, any religion, any cultrue background... 
 
@@ -117,7 +117,7 @@ With your familiar terminology, you can easily write your code, which is neat tr
 
 尔雅国际化编程语言促进会：一个致力于推动编程语言国际化的组织。
 
-PL18N.org = International Programming Language Stardard Promotion Org
+PI18N.org = International Programming Language Stardard Promotion Org
 
 
 ### 注 Notes：
