@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 22.2.1.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="22_ba.htm">
+<LINK REL=UP HREF="22_ba.htm">
+<LINK REL=NEXT HREF="22_bab.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="22_ba.htm">◀</A><A REL=UP HREF="22_ba.htm">▲</A><A REL=NEXT HREF="22_bab.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+22.2.1.1 Dynamic Control of the Arrangement of Output</H2>  <P>
+The actions of the <A REL=DEFINITION HREF="26_glo_p.htm#pretty_printer"><I>pretty printer</I></A> when a piece of output is too large to fit in the space available can be precisely controlled. Three concepts underlie the way these operations work---<A REL=DEFINITION HREF="26_glo_l.htm#logical_block"><I>logical blocks</I></A>, <A REL=DEFINITION HREF="26_glo_c.htm#conditional_newline"><I>conditional newlines</I></A>, and <A REL=DEFINITION HREF="26_glo_s.htm#section"><I>sections</I></A>. Before proceeding further, it is important to define these terms. <P>
+The first line of the next figure shows a schematic piece of output. Each of the characters in the output is represented by ``<b>-</b>''. The positions of conditional newlines are indicated by digits. The beginnings and ends of logical blocks are indicated by ``<b>&lt;</b>'' and ``<b>&gt;</b>'' respectively. <P>
+The output as a whole is a logical block and the outermost section. This section is indicated by the <b>0</b>'s on the second line of Figure 1. Logical blocks nested within the output are specified by the macro <A REL=DEFINITION HREF="m_ppr_lo.htm#pprint-logical-block"><B>pprint-logical-block</B></A>. Conditional newline positions are specified by calls to <A REL=DEFINITION HREF="f_ppr_nl.htm#pprint-newline"><B>pprint-newline</B></A>. Each conditional newline defines two sections (one before it and one after it) and is associated with a third (the section immediately containing it). <P>
+The section after a conditional newline consists of: all the output up to, but not including, (a) the next conditional newline immediately contained in the same logical block; or if (a) is not applicable, (b) the next newline that is at a lesser level of nesting in logical blocks; or if (b) is not applicable, (c) the end of the output. <P>
+The section before a conditional newline consists of: all the output back to, but not including, (a) the previous conditional newline that is immediately contained in the same logical block; or if (a) is not applicable, (b) the beginning of the immediately containing logical block. The last four lines in Figure 1 indicate the sections before and after the four conditional newlines. <P>
+The section immediately containing a conditional newline is the shortest section that contains the conditional newline in question. In the next figure, the first conditional newline is immediately contained in the section marked with <b>0</b>'s, the second and third conditional newlines are immediately contained in the section before the fourth conditional newline, and the fourth conditional newline is immediately contained in the section after the first conditional newline. <P>
+<PRE>
+ &lt;-1---&lt;--&lt;--2---3-&gt;--4--&gt;-&gt;
+ 000000000000000000000000000
+ 11 111111111111111111111111
+           22 222
+              333 3333
+        44444444444444 44444
+</PRE>
+</b> <p><b>■图表 22-3.  Example of Logical Blocks, Conditional Newlines, and Sections</B> <P>
+Whenever possible, the pretty printer displays the entire contents of a section on a single line. However, if the section is too long to fit in the space available, line breaks are inserted at conditional newline positions within the section. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

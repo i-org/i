@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 9.1.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="09_a.htm">
+<LINK REL=UP HREF="09_a.htm">
+<LINK REL=NEXT HREF="09_aaa.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="09_a.htm">◀</A><A REL=UP HREF="09_a.htm">▲</A><A REL=NEXT HREF="09_aaa.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+9.1.1 Condition Types</H2> <P>
+The next figure lists the <A REL=DEFINITION HREF="26_glo_s.htm#standardized"><I>standardized</I></A> <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>types</I></A>. Additional <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>types</I></A> can be defined by using <A REL=DEFINITION HREF="m_defi_5.htm#define-condition"><B>define-condition</B></A>. <P>
+       <A NAME="standardizedconditiontypes"> <PRE>
+<A REL=DEFINITION HREF="e_arithm.htm#arithmetic-error">arithmetic-error</A>                  <A REL=DEFINITION HREF="e_floa_2.htm#floating-point-overflow">floating-point-overflow</A>   <A REL=DEFINITION HREF="e_smp_tp.htm#simple-type-error">simple-type-error</A>   
+<A REL=DEFINITION HREF="e_cell_e.htm#cell-error">cell-error</A>                        <A REL=DEFINITION HREF="e_floa_3.htm#floating-point-underflow">floating-point-underflow</A>  <A REL=DEFINITION HREF="e_smp_wa.htm#simple-warning">simple-warning</A>      
+<A REL=DEFINITION HREF="e_cnd.htm#condition">condition</A>                         <A REL=DEFINITION HREF="e_pkg_er.htm#package-error">package-error</A>             <A REL=DEFINITION HREF="e_storag.htm#storage-condition">storage-condition</A>   
+<A REL=DEFINITION HREF="e_contro.htm#control-error">control-error</A>                     <A REL=DEFINITION HREF="e_parse_.htm#parse-error">parse-error</A>               <A REL=DEFINITION HREF="e_stm_er.htm#stream-error">stream-error</A>        
+<A REL=DEFINITION HREF="e_divisi.htm#division-by-zero">division-by-zero</A>                  <A REL=DEFINITION HREF="e_pr_not.htm#print-not-readable">print-not-readable</A>        <A REL=DEFINITION HREF="e_style_.htm#style-warning">style-warning</A>       
+<A REL=DEFINITION HREF="e_end_of.htm#end-of-file">end-of-file</A>                       <A REL=DEFINITION HREF="e_progra.htm#program-error">program-error</A>             <A REL=DEFINITION HREF="e_tp_err.htm#type-error">type-error</A>          
+<A REL=DEFINITION HREF="a_error.htm#error">error</A>                             <A REL=DEFINITION HREF="e_rder_e.htm#reader-error">reader-error</A>              <A REL=DEFINITION HREF="e_unboun.htm#unbound-slot">unbound-slot</A>        
+<A REL=DEFINITION HREF="e_file_e.htm#file-error">file-error</A>                        <A REL=DEFINITION HREF="e_seriou.htm#serious-condition">serious-condition</A>         <A REL=DEFINITION HREF="e_unbo_1.htm#unbound-variable">unbound-variable</A>    
+<A REL=DEFINITION HREF="e_floa_1.htm#floating-point-inexact">floating-point-inexact</A>            <A REL=DEFINITION HREF="e_smp_cn.htm#simple-condition">simple-condition</A>          <A REL=DEFINITION HREF="e_undefi.htm#undefined-function">undefined-function</A>  
+<A REL=DEFINITION HREF="e_floati.htm#floating-point-invalid-operation">floating-point-invalid-operation</A>  <A REL=DEFINITION HREF="e_smp_er.htm#simple-error">simple-error</A>              <A REL=DEFINITION HREF="e_warnin.htm#warning">warning</A>             
+</PRE>
+<p><b>■图表 9-1.  Standardized Condition Types</B></A>        <P>
+All <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> types are <A REL=DEFINITION HREF="26_glo_s.htm#subtype"><I>subtypes</I></A> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_cnd.htm#condition"><B>condition</B></A>. That is, <P>
+<PRE>
+ (typep c 'condition) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+</PRE>
+</b> if and only if <I>c</I> is a <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A>. <P>
+<A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>Implementations</I></A> must define all specified <A REL=DEFINITION HREF="26_glo_s.htm#subtype"><I>subtype</I></A> relationships. Except where noted, all <A REL=DEFINITION HREF="26_glo_s.htm#subtype"><I>subtype</I></A> relationships indicated in this document are not mutually exclusive. A <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> inherits the structure of its <A REL=DEFINITION HREF="26_glo_s.htm#supertype"><I>supertypes</I></A>. <P>
+The metaclass of the <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> <A REL=DEFINITION HREF="e_cnd.htm#condition"><B>condition</B></A> is not specified. <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>Names</I></A> of <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>types</I></A> may be used to specify <A REL=DEFINITION HREF="26_glo_s.htm#supertype"><I>supertype</I></A> relationships in <A REL=DEFINITION HREF="m_defi_5.htm#define-condition"><B>define-condition</B></A>, but the consequences are not specified if an attempt is made to use a <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> as a <A REL=DEFINITION HREF="26_glo_s.htm#superclass"><I>superclass</I></A> in a <A REL=DEFINITION HREF="m_defcla.htm#defclass"><B>defclass</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. <P>
+The next figure shows <A REL=DEFINITION HREF="26_glo_o.htm#operator"><I>operators</I></A> that define <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>types</I></A> and creating <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>conditions</I></A>. <P>
+<PRE>
+<A REL=DEFINITION HREF="m_defi_5.htm#define-condition">define-condition</A>  <A REL=DEFINITION HREF="f_mk_cnd.htm#make-condition">make-condition</A>    
+</PRE>
+<p><b>■图表 9-2.  Operators that define and create conditions.</B> <P>
+The next figure shows <A REL=DEFINITION HREF="26_glo_o.htm#operator"><I>operators</I></A> that <A REL=DEFINITION HREF="26_glo_r.htm#read"><I>read</I></A> the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> of <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A>. <P>
+  <PRE>
+<A REL=DEFINITION HREF="f_arithm.htm#arithmetic-error-operands">arithmetic-error-operands</A>   <A REL=DEFINITION HREF="f_smp_cn.htm#simple-condition-format-arguments">simple-condition-format-arguments</A>  
+<A REL=DEFINITION HREF="f_arithm.htm#arithmetic-error-operation">arithmetic-error-operation</A>  <A REL=DEFINITION HREF="f_smp_cn.htm#simple-condition-format-control">simple-condition-format-control</A>    
+<A REL=DEFINITION HREF="f_cell_e.htm#cell-error-name">cell-error-name</A>             <A REL=DEFINITION HREF="f_stm_er.htm#stream-error-stream">stream-error-stream</A>                
+<A REL=DEFINITION HREF="f_file_e.htm#file-error-pathname">file-error-pathname</A>         <A REL=DEFINITION HREF="f_tp_err.htm#type-error-datum">type-error-datum</A>                   
+<A REL=DEFINITION HREF="f_pkg_er.htm#package-error-package">package-error-package</A>       <A REL=DEFINITION HREF="f_tp_err.htm#type-error-expected-type">type-error-expected-type</A>           
+<A REL=DEFINITION HREF="f_pr_not.htm#print-not-readable-object">print-not-readable-object</A>   <A REL=DEFINITION HREF="f_unboun.htm#unbound-slot-instance">unbound-slot-instance</A>              
+</PRE>
+<p><b>■图表 9-3.  Operators that read condition slots.</B>   <P>
+
+ 
+<h2><A REL=CHILD HREF="09_aaa.htm">
+9.1.1.1 严重状况 Serious Conditions</a></h2><p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss170.htm">FORMAT-STRING-ARGUMENTS:SPECIFY</A><LI> <A REL=CHILD HREF="../Issues/iss065.htm">COMPILER-DIAGNOSTICS:USE-HANDLER</A><LI> <A REL=CHILD HREF="../Issues/iss163.htm">FLOATING-POINT-CONDITION-NAMES:X3J13-NOV-89</A><LI> <A REL=CHILD HREF="../Issues/iss289.htm">READER-ERROR:NEW-TYPE</A><LI> <A REL=CHILD HREF="../Issues/iss002.htm">ACCESS-ERROR-NAME</A><LI> <A REL=CHILD HREF="../Issues/iss255.htm">PARSE-ERROR-STREAM:SPLIT-TYPES</A><LI> <A REL=CHILD HREF="../Issues/iss089.htm">DATA-IO:ADD-SUPPORT</A><LI> <A REL=CHILD HREF="../Issues/iss354.htm">UNDEFINED-VARIABLES-AND-FUNCTIONS:COMPROMISE</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

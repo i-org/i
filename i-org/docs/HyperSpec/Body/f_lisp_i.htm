@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function LISP-IMPLEMENTATION-TYPE...</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="v_sl_sls.htm">
+<LINK REL=UP HREF="c_enviro.htm">
+<LINK REL=NEXT HREF="f_short_.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="v_sl_sls.htm">◀</A><A REL=UP HREF="c_enviro.htm">▲</A><A REL=NEXT HREF="f_short_.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="lisp-implementation-type"><A NAME="lisp-implementation-version"><I>Function</I> <B>LISP-IMPLEMENTATION-TYPE, LISP-IMPLEMENTATION-VERSION</B></A></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>lisp-implementation-type</B> <I><I>&lt;no arguments&gt;</I></I> =&gt; <I>description</I><P>
+ <P>
+
+<B>lisp-implementation-version</B> <I><I>&lt;no arguments&gt;</I></I> =&gt; <I>description</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>description</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#lisp-implementation-type"><B>lisp-implementation-type</B></A> and <A REL=DEFINITION HREF="#lisp-implementation-version"><B>lisp-implementation-version</B></A> identify the current implementation of Common Lisp. <P>
+<A REL=DEFINITION HREF="#lisp-implementation-type"><B>lisp-implementation-type</B></A> returns a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> that identifies the generic name of the particular Common Lisp implementation. <P>
+<A REL=DEFINITION HREF="#lisp-implementation-version"><B>lisp-implementation-version</B></A> returns a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> that identifies the version of the particular Common Lisp implementation. <P>
+If no appropriate and relevant result can be produced, <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> is returned instead of a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (lisp-implementation-type)
+=&gt;  &quot;ACME Lisp&quot;
+OR=&gt;  &quot;Joe's Common Lisp&quot;
+ (lisp-implementation-version)
+=&gt;  &quot;1.3a&quot;
+=&gt;  &quot;V2&quot;
+OR=&gt;  &quot;Release 17.3, ECO #6&quot;
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b> None.
+ <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

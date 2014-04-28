@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 22.3</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="22_bc.htm">
+<LINK REL=UP HREF="22_.htm">
+<LINK REL=NEXT HREF="22_ca.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="22_bc.htm">◀</A><A REL=UP HREF="22_.htm">▲</A><A REL=NEXT HREF="22_ca.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+22.3 Formatted Output</H2>   <P>
+  <P>
+<A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A> is useful for producing nicely formatted text, producing good-looking messages, and so on. <A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A> can generate and return a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> or output to <I>destination</I>. <P>
+The <I>control-string</I> argument to <A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A> is actually a <A REL=DEFINITION HREF="26_glo_f.htm#format_control"><I>format control</I></A>. That is, it can be either a <A REL=DEFINITION HREF="26_glo_f.htm#format_string"><I>format string</I></A> or a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A>, for example a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> returned by the <A REL=DEFINITION HREF="m_format.htm#formatter"><B>formatter</B></A> <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macro</I></A>. <P>
+If it is a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A>, the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> is called with the appropriate output stream as its first argument and the data arguments to <A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A> as its remaining arguments. The function should perform whatever output is necessary and return the unused tail of the arguments (if any). <P>
+The compilation process performed by <A REL=DEFINITION HREF="m_format.htm#formatter"><B>formatter</B></A> produces a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> that would do with its <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>arguments</I></A> as the <A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A> interpreter would do with those <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>arguments</I></A>. <P>
+The remainder of this section describes what happens if the <I>control-string</I> is a <A REL=DEFINITION HREF="26_glo_f.htm#format_string"><I>format string</I></A>.  <P>
+<I>Control-string</I> is composed of simple text (<A REL=DEFINITION HREF="26_glo_c.htm#character"><I>characters</I></A>) and embedded directives. <P>
+<A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A> writes the simple text as is; each embedded directive specifies further text output that is to appear at the corresponding point within the simple text. Most directives use one or more elements of <I>args</I> to create their output. <P>
+A directive consists of a <A REL=DEFINITION HREF="26_glo_t.htm#tilde"><I>tilde</I></A>, optional prefix parameters separated by commas, optional <A REL=DEFINITION HREF="26_glo_c.htm#colon"><I>colon</I></A> and <A REL=DEFINITION HREF="26_glo_a.htm#at-sign"><I>at-sign</I></A> modifiers, and a single character indicating what kind of directive this is.  There is no required ordering between the <A REL=DEFINITION HREF="26_glo_a.htm#at-sign"><I>at-sign</I></A> and <A REL=DEFINITION HREF="26_glo_c.htm#colon"><I>colon</I></A> modifier.  The <A REL=DEFINITION HREF="26_glo_c.htm#case"><I>case</I></A> of the directive character is ignored. Prefix parameters are notated as signed (sign is optional) decimal numbers, or as a <A REL=DEFINITION HREF="26_glo_s.htm#single-quote"><I>single-quote</I></A> followed by a character. For example, <b>~5,'0d</b> can be used to print an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> in decimal radix in five columns with leading zeros, or <b>~5,'*d</b> to get leading asterisks. <P>
+In place of a prefix parameter to a directive, <b>V</b> (or <b>v</b>) can be used. In this case, <A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A> takes an argument from <I>args</I> as a parameter to the directive. The argument should be an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> or <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>character</I></A>. If the <I>arg</I> used by a <b>V</b> parameter is <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>, the effect is as if the parameter had been omitted. <b>#</b> can be used in place of a prefix parameter; it represents the number of <I>args</I> remaining to be processed. When used within a recursive format, in the context of <b>~?</b> or <b>~{</b>, the <b>#</b> prefix parameter represents the number of <A REL=DEFINITION HREF="26_glo_f.htm#format_argument"><I>format arguments</I></A> remaining within the recursive call. <P>
+Examples of <A REL=DEFINITION HREF="26_glo_f.htm#format_string"><I>format strings</I></A>: <P>
+<PRE>
+&quot;~S&quot;        ;This is an S directive with no parameters or modifiers.  
+&quot;~3,-4:@s&quot;  ;This is an S directive with two parameters, 3 and -4,    
+            ; and both the <A REL=DEFINITION HREF="26_glo_c.htm#colon">colon</A> and <A REL=DEFINITION HREF="26_glo_a.htm#at-sign">at-sign</A> flags.                   
+&quot;~,+4S&quot;     ;Here the first prefix parameter is omitted and takes     
+            ; on its default value, while the second parameter is 4.  
+</PRE>
+<p><b>■图表 22-6.  Examples of format control strings</B> <P>
+<A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A> sends the output to <I>destination</I>. If <I>destination</I> is <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>, <A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A> creates and returns a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> containing the output from <I>control-string</I>. If <I>destination</I> is <A REL=DEFINITION HREF="26_glo_n.htm#non-nil"><I>non-nil</I></A>, it must be a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> with a <A REL=DEFINITION HREF="26_glo_f.htm#fill_pointer"><I>fill pointer</I></A>, a <A REL=DEFINITION HREF="26_glo_s.htm#stream"><I>stream</I></A>, or the symbol <A REL=DEFINITION HREF="a_t.htm#t"><B>t</B></A>. If <I>destination</I> is a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> with a <A REL=DEFINITION HREF="26_glo_f.htm#fill_pointer"><I>fill pointer</I></A>, the output is added to the end of the <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A>. If <I>destination</I> is a <A REL=DEFINITION HREF="26_glo_s.htm#stream"><I>stream</I></A>, the output is sent to that <A REL=DEFINITION HREF="26_glo_s.htm#stream"><I>stream</I></A>. If <I>destination</I> is <A REL=DEFINITION HREF="a_t.htm#t"><B>t</B></A>, the output is sent to <A REL=DEFINITION HREF="26_glo_s.htm#standard_output"><I>standard output</I></A>. <P>
+In the description of the directives that follows, the term <I>arg</I> in general refers to the next item of the set of <I>args</I> to be processed. The word or phrase at the beginning of each description is a mnemonic for the directive.  <A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A> directives do not bind any of the printer control variables (<B>*print-...*</B>) except as specified in the following descriptions. Implementations may specify the binding of new, implementation-specific printer control variables for each <A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A> directive, but they may neither bind any standard printer control variables not specified in description of a <A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A> directive nor fail to bind any standard printer control variables as specified in the description.  <P>
+
+ 
+<h2><A REL=CHILD HREF="22_ca.htm">
+22.3.1 FORMAT Basic Output</a></h2>
+ 
+<h2><A REL=CHILD HREF="22_cb.htm">
+22.3.2 FORMAT Radix Control</a></h2>
+ 
+<h2><A REL=CHILD HREF="22_cc.htm">
+22.3.3 FORMAT Floating-Point Printers</a></h2>
+ 
+<h2><A REL=CHILD HREF="22_cd.htm">
+22.3.4 FORMAT Printer Operations</a></h2>
+ 
+<h2><A REL=CHILD HREF="22_ce.htm">
+22.3.5 FORMAT Pretty Printer Operations</a></h2>
+ 
+<h2><A REL=CHILD HREF="22_cf.htm">
+22.3.6 FORMAT Layout Control</a></h2>
+ 
+<h2><A REL=CHILD HREF="22_cg.htm">
+22.3.7 FORMAT Control-Flow Operations</a></h2>
+ 
+<h2><A REL=CHILD HREF="22_ch.htm">
+22.3.8 FORMAT Miscellaneous Operations</a></h2>
+ 
+<h2><A REL=CHILD HREF="22_ci.htm">
+22.3.9 FORMAT Miscellaneous Pseudo-Operations</a></h2>
+ 
+<h2><A REL=CHILD HREF="22_cj.htm">
+22.3.10 Additional Information about FORMAT Operations</a></h2>
+ 
+<h2><A REL=CHILD HREF="22_ck.htm">
+22.3.11 Examples of FORMAT</a></h2>
+ 
+<h2><A REL=CHILD HREF="22_cl.htm">
+22.3.12 Notes about FORMAT</a></h2><p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss169.htm">FORMAT-PRETTY-PRINT:YES</A><LI> <A REL=CHILD HREF="../Issues/iss164.htm">FORMAT-ATSIGN-COLON</A><LI> <A REL=CHILD HREF="../Issues/iss270.htm">PRETTY-PRINT-INTERFACE</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

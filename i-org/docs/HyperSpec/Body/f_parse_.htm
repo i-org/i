@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function PARSE-INTEGER</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_inte_1.htm">
+<LINK REL=UP HREF="c_number.htm">
+<LINK REL=NEXT HREF="f_boole.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_inte_1.htm">◀</A><A REL=UP HREF="c_number.htm">▲</A><A REL=NEXT HREF="f_boole.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="parse-integer"><I>Function</I> <B>PARSE-INTEGER</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>parse-integer</B> <I>string <b>&amp;key</b> start end radix junk-allowed</I> =&gt; <I>integer, pos</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>string</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A>. <P>
+  <I>start</I>, <I>end</I>---<A REL=DEFINITION HREF="26_glo_b.htm#bounding_index_designator"><I>bounding index designators</I></A> of <I>string</I>. The defaults for <I>start</I> and <I>end</I> are <b>0</b> and <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>, respectively.   <P>
+<I>radix</I>---a <A REL=DEFINITION HREF="26_glo_r.htm#radix"><I>radix</I></A>. The default is <b>10</b>. <P>
+<I>junk-allowed</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. The default is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>. <P>
+<I>integer</I>---an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> or <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>. <P>
+<I>pos</I>---a <A REL=DEFINITION HREF="26_glo_b.htm#bounding_index"><I>bounding index</I></A> of <I>string</I>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#parse-integer"><B>parse-integer</B></A> parses an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> in the specified <I>radix</I> from the substring of <I>string</I> delimited by <I>start</I> and <I>end</I>. <P>
+<A REL=DEFINITION HREF="#parse-integer"><B>parse-integer</B></A> expects an optional sign (<b>+</b> or <b>-</b>) followed by a a non-empty sequence of digits to be interpreted in the specified <I>radix</I>. Optional leading and trailing <A REL=DEFINITION HREF="26_glo_w.htm#whitespace"><I>whitespace</I></A>[1] is ignored. <P>
+<A REL=DEFINITION HREF="#parse-integer"><B>parse-integer</B></A> does not recognize the syntactic radix-specifier prefixes <b>#O</b>, <b>#B</b>, <b>#X</b>, and <b>#</b><I>n</I><b>R</b>, nor does it recognize a trailing decimal point. <P>
+If <I>junk-allowed</I> is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>, an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_parse_.htm#parse-error"><B>parse-error</B></A> is signaled if substring does not consist entirely of the representation of a signed <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>, possibly surrounded on either side by <A REL=DEFINITION HREF="26_glo_w.htm#whitespace"><I>whitespace</I></A>[1] <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>characters</I></A>. <P>
+The first <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> returned is either the <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> that was parsed, or else <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> if no syntactically correct <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> was seen but <I>junk-allowed</I> was <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A>. <P>
+The second <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> is either the index into the <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> of the delimiter that terminated the parse, or the upper <A REL=DEFINITION HREF="26_glo_b.htm#bounding_index"><I>bounding index</I></A> of the substring if the parse terminated at the end of the substring (as is always the case if <I>junk-allowed</I> is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>). <P>
+<p><b>●例子:</b><P>
+ 
+<PRE>
+ (parse-integer &quot;123&quot;) =&gt;  123, 3
+ (parse-integer &quot;123&quot; :start 1 :radix 5) =&gt;  13, 3
+ (parse-integer &quot;no-integer&quot; :junk-allowed t) =&gt;  NIL, 0
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+If <I>junk-allowed</I> is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>, an error is signaled if substring does not consist entirely of the representation of an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>, possibly surrounded on either side by <A REL=DEFINITION HREF="26_glo_w.htm#whitespace"><I>whitespace</I></A>[1] characters. <P>
+<p><b>●更多信息:</b> None.
+ <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss284.htm">RANGE-OF-START-AND-END-PARAMETERS:INTEGER-AND-INTEGER-NIL</A><LI> <A REL=CHILD HREF="../Issues/iss332.htm">SUBSEQ-OUT-OF-BOUNDS</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

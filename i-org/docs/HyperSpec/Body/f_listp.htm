@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function LISTP</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_list_l.htm">
+<LINK REL=UP HREF="c_conses.htm">
+<LINK REL=NEXT HREF="f_mk_lis.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_list_l.htm">◀</A><A REL=UP HREF="c_conses.htm">▲</A><A REL=NEXT HREF="f_mk_lis.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="listp"><I>Function</I> <B>LISTP</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>listp</B> <I>object</I> =&gt; <I>generalized-boolean</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>object</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<I>generalized-boolean</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Returns <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> if <I>object</I> is of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="t_list.htm#list"><B>list</B></A>; otherwise, returns <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>. <P>
+<p><b>●例子:</b><P>
+ 
+<PRE>
+ (listp nil) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (listp (cons 1 2)) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (listp (make-array 6)) =&gt;  <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+ (listp t) =&gt;  <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_consp.htm#consp"><B>consp</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+If <I>object</I> is a <A REL=DEFINITION HREF="26_glo_c.htm#cons"><I>cons</I></A>, <A REL=DEFINITION HREF="#listp"><B>listp</B></A> does not check whether <I>object</I> is a <A REL=DEFINITION HREF="26_glo_p.htm#proper_list"><I>proper list</I></A>; it returns <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> for any kind of <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A>. <P>
+<PRE>
+ (listp object) ==  (typep object 'list) ==  (typep object '(or cons null))
+</PRE>
+</b> <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

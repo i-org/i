@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 12.1.4.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="12_ad.htm">
+<LINK REL=UP HREF="12_ad.htm">
+<LINK REL=NEXT HREF="12_adaa.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="12_ad.htm">◀</A><A REL=UP HREF="12_ad.htm">▲</A><A REL=NEXT HREF="12_adaa.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+12.1.4.1 Rule of Float and Rational Contagion</H2>  <P>
+When <A REL=DEFINITION HREF="26_glo_r.htm#rational"><I>rationals</I></A> and <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>floats</I></A> are combined by a numerical function, the <A REL=DEFINITION HREF="26_glo_r.htm#rational"><I>rational</I></A> is first converted to a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A> of the same format. For <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>functions</I></A> such as <A REL=DEFINITION HREF="f_pl.htm#PL"><B>+</B></A> that take more than two arguments, it is permitted that part of the operation be carried out exactly using <A REL=DEFINITION HREF="26_glo_r.htm#rational"><I>rationals</I></A> and the rest be done using floating-point arithmetic. <P>
+When <A REL=DEFINITION HREF="26_glo_r.htm#rational"><I>rationals</I></A> and <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>floats</I></A> are compared by a numerical function, the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="f_ration.htm#rational"><B>rational</B></A> is effectively called to convert the <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A> to a <A REL=DEFINITION HREF="26_glo_r.htm#rational"><I>rational</I></A> and then an exact comparison is performed. In the case of <A REL=DEFINITION HREF="26_glo_c.htm#complex"><I>complex</I></A> numbers, the real and imaginary parts are effectively handled individually. <P>
+
+ 
+<h2><A REL=CHILD HREF="12_adaa.htm">
+12.1.4.1.1 Examples of Rule of Float and Rational Contagion</a></h2> <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

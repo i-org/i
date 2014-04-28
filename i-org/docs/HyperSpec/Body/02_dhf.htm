@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 2.4.8.6</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="02_dhe.htm">
+<LINK REL=UP HREF="02_dh.htm">
+<LINK REL=NEXT HREF="02_dhg.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="02_dhe.htm">◀</A><A REL=UP HREF="02_dh.htm">▲</A><A REL=NEXT HREF="02_dhg.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+2.4.8.6 Sharpsign Dot</H2>   <P>
+<b>#.</b><I>foo</I><b></b> is read as the <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> resulting from the evaluation of the <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> represented by <I>foo</I>. The evaluation is done during the <A REL=DEFINITION HREF="f_rd_rd.htm#read"><B>read</B></A> process, when the <b>#.</b> notation is encountered. The <b>#.</b> syntax therefore performs a read-time evaluation of <I>foo</I>. <P>
+The normal effect of <b>#.</b> is inhibited when the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> of <A REL=DEFINITION HREF="v_rd_eva.htm#STread-evalST"><B>*read-eval*</B></A> is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>.  In that situation, an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_rder_e.htm#reader-error"><B>reader-error</B></A> is signaled.  <P>
+For an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> that does not have a convenient printed representation, a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> that computes the <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> can be given using the <b>#.</b> notation.   <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss315.htm">SHARP-COMMA-CONFUSION:REMOVE</A><LI> <A REL=CHILD HREF="../Issues/iss255.htm">PARSE-ERROR-STREAM:SPLIT-TYPES</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function FUNCALL</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="s_flet_.htm">
+<LINK REL=UP HREF="c_data_a.htm">
+<LINK REL=NEXT HREF="s_fn.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="s_flet_.htm">◀</A><A REL=UP HREF="c_data_a.htm">▲</A><A REL=NEXT HREF="s_fn.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="funcall"><I>Function</I> <B>FUNCALL</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>funcall</B> <I>function <b>&amp;rest</b> args</I> =&gt; <I><I>result</I><B>*</B></I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>function</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#function_designator"><I>function designator</I></A>. <P>
+<I>args</I>---<A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>arguments</I></A> to the <I>function</I>. <P>
+<I>results</I>---the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> returned by the <I>function</I>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#funcall"><B>funcall</B></A> applies <I>function</I> to <I>args</I>.  If <I>function</I> is a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>, it is coerced to a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> as if by finding its <A REL=DEFINITION HREF="26_glo_f.htm#functional_value"><I>functional value</I></A> in the <A REL=DEFINITION HREF="26_glo_g.htm#global_environment"><I>global environment</I></A>.  <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (funcall #'+ 1 2 3) =&gt;  6
+ (funcall 'car '(1 2 3)) =&gt;  1
+ (funcall 'position 1 '(1 2 3 2 1) :start 1) =&gt;  4
+ (cons 1 2) =&gt;  (1 . 2)
+ (flet ((cons (x y) `(kons ,x ,y)))
+   (let ((cons (symbol-function '+)))
+     (funcall #'cons
+              (funcall 'cons 1 2)
+              (funcall cons 1 2))))
+=&gt;  (KONS (1 . 2) 3)
+</PRE>
+</b> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+An error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_undefi.htm#undefined-function"><B>undefined-function</B></A> should be signaled if <I>function</I> is a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> that does not have a global definition as a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> or that has a global definition as a <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macro</I></A> or a <A REL=DEFINITION HREF="26_glo_s.htm#special_operator"><I>special operator</I></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_apply.htm#apply"><B>apply</B></A>, <A REL=DEFINITION HREF="s_fn.htm#function"><B>function</B></A>, <A REL=CHILD HREF="03_a.htm">Section 3.1 (Evaluation)</A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<PRE>
+ (funcall function arg1 arg2 ...)
+ ==  (apply function arg1 arg2 ... nil)
+ ==  (apply function (list arg1 arg2 ...))
+</PRE>
+</b> <P>
+The difference between <A REL=DEFINITION HREF="#funcall"><B>funcall</B></A> and an ordinary function call is that in the former case the <I>function</I> is obtained by ordinary <A REL=DEFINITION HREF="26_glo_e.htm#evaluation"><I>evaluation</I></A> of a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>, and in the latter case it is obtained by the special interpretation of the function position that normally occurs. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss179.htm">FUNCTION-TYPE:X3J13-MARCH-88</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

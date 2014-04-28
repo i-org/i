@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function MACROEXPAND, MACROEXPAND-1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_macro_.htm">
+<LINK REL=UP HREF="c_evalua.htm">
+<LINK REL=NEXT HREF="m_defi_1.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_macro_.htm">◀</A><A REL=UP HREF="c_evalua.htm">▲</A><A REL=NEXT HREF="m_defi_1.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="macroexpand"><A NAME="macroexpand-1"><I>Function</I> <B>MACROEXPAND, MACROEXPAND-1</B></A></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>macroexpand</B> <I>form <b>&amp;optional</b> env</I> =&gt; <I>expansion, expanded-p</I><P>
+ 
+<B>macroexpand-1</B> <I>form <b>&amp;optional</b> env</I> =&gt; <I>expansion, expanded-p</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>form</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. <P>
+<I>env</I>---an <A REL=DEFINITION HREF="26_glo_e.htm#environment"><I>environment</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. The default is <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<I>expansion</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. <P>
+ <I>expanded-p</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>.  <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#macroexpand"><B>macroexpand</B></A> and <A REL=DEFINITION HREF="#macroexpand-1"><B>macroexpand-1</B></A> expand <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macros</I></A>. <P>
+If <I>form</I> is a <A REL=DEFINITION HREF="26_glo_m.htm#macro_form"><I>macro form</I></A>, then <A REL=DEFINITION HREF="#macroexpand-1"><B>macroexpand-1</B></A> expands the <A REL=DEFINITION HREF="26_glo_m.htm#macro_form"><I>macro form</I></A> call once. <P>
+<A REL=DEFINITION HREF="#macroexpand"><B>macroexpand</B></A> repeatedly expands <I>form</I> until it is no longer a <A REL=DEFINITION HREF="26_glo_m.htm#macro_form"><I>macro form</I></A>. In effect, <A REL=DEFINITION HREF="#macroexpand"><B>macroexpand</B></A> calls <A REL=DEFINITION HREF="#macroexpand-1"><B>macroexpand-1</B></A> repeatedly until the <A REL=DEFINITION HREF="26_glo_s.htm#secondary_value"><I>secondary value</I></A> it returns is <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+If <I>form</I> is a <A REL=DEFINITION HREF="26_glo_m.htm#macro_form"><I>macro form</I></A>, then the <I>expansion</I> is a <A REL=DEFINITION HREF="26_glo_m.htm#macro_expansion"><I>macro expansion</I></A> and <I>expanded-p</I> is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A>. Otherwise, the <I>expansion</I> is the given <I>form</I> and <I>expanded-p</I> is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>. <P>
+Macro expansion is carried out as follows. Once <A REL=DEFINITION HREF="#macroexpand-1"><B>macroexpand-1</B></A> has determined that the <I>form</I> is a <A REL=DEFINITION HREF="26_glo_m.htm#macro_form"><I>macro form</I></A>, it obtains an appropriate expansion <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> for the <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macro</I></A> or <A REL=DEFINITION HREF="26_glo_s.htm#symbol_macro"><I>symbol macro</I></A>. The value of <A REL=DEFINITION HREF="v_mexp_h.htm#STmacroexpand-hookST"><B>*macroexpand-hook*</B></A> is  coerced to a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> and  then called as a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> of three arguments: the expansion <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A>, the <I>form</I>, and the <I>env</I>. The <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> returned from this call is taken to be the expansion of the 
+<I>form</I>. <P>
+In addition to <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macro</I></A> definitions in the global environment, any local macro definitions established within <I>env</I> by <A REL=DEFINITION HREF="s_flet_.htm#macrolet"><B>macrolet</B></A> or <A REL=DEFINITION HREF="s_symbol.htm#symbol-macrolet"><B>symbol-macrolet</B></A> are considered. If only <I>form</I> is supplied as an argument, then the environment is effectively null, and only global macro definitions as established by <A REL=DEFINITION HREF="m_defmac.htm#defmacro"><B>defmacro</B></A> are considered. <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>Macro</I></A> definitions are shadowed by local <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> definitions. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (defmacro alpha (x y) `(beta ,x ,y)) =&gt;  ALPHA
+ (defmacro beta (x y) `(gamma ,x ,y)) =&gt;  BETA
+ (defmacro delta (x y) `(gamma ,x ,y)) =&gt;  EPSILON
+
+ (defmacro expand (form &amp;environment env)
+   (multiple-value-bind (expansion expanded-p)
+       (macroexpand form env)
+     `(values ',expansion ',expanded-p))) =&gt;  EXPAND
+ (defmacro expand-1 (form &amp;environment env)
+   (multiple-value-bind (expansion expanded-p)
+       (macroexpand-1 form env)
+     `(values ',expansion ',expanded-p))) =&gt;  EXPAND-1
+
+;; Simple examples involving just the global environment
+ (macroexpand-1 '(alpha a b)) =&gt;  (BETA A B), <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (expand-1 (alpha a b)) =&gt;  (BETA A B), <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ 
+ (macroexpand '(alpha a b)) =&gt;  (GAMMA A B), <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (expand (alpha a b)) =&gt;  (GAMMA A B), <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ 
+ (macroexpand-1 'not-a-macro) =&gt;  NOT-A-MACRO, <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+ (expand-1 not-a-macro) =&gt;  NOT-A-MACRO, <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+ (macroexpand '(not-a-macro a b)) =&gt;  (NOT-A-MACRO A B), <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+ (expand (not-a-macro a b)) =&gt;  (NOT-A-MACRO A B), <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+
+;; Examples involving lexical environments
+ (macrolet ((alpha (x y) `(delta ,x ,y)))
+   (macroexpand-1 '(alpha a b))) =&gt;  (BETA A B), <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (macrolet ((alpha (x y) `(delta ,x ,y)))
+   (expand-1 (alpha a b))) =&gt;  (DELTA A B), <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+   
+ (macrolet ((alpha (x y) `(delta ,x ,y)))
+   (macroexpand '(alpha a b))) =&gt;  (GAMMA A B), <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (macrolet ((alpha (x y) `(delta ,x ,y)))
+   (expand (alpha a b))) =&gt;  (GAMMA A B), <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+   
+ (macrolet ((beta (x y) `(epsilon ,x ,y)))
+   (expand (alpha a b))) =&gt;  (EPSILON A B), <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+   
+ (let ((x (list 1 2 3)))
+   (symbol-macrolet ((a (first x)))
+     (expand a))) =&gt;  (FIRST X), <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (let ((x (list 1 2 3)))
+   (symbol-macrolet ((a (first x)))
+     (macroexpand 'a))) =&gt;  A, <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+     
+ (symbol-macrolet ((b (alpha x y)))
+   (expand-1 b)) =&gt;  (ALPHA X Y), <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (symbol-macrolet ((b (alpha x y)))
+   (expand b)) =&gt;  (GAMMA X Y), <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (symbol-macrolet ((b (alpha x y))
+                   (a b))
+   (expand-1 a)) =&gt;  B, <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (symbol-macrolet ((b (alpha x y))
+                   (a b))
+   (expand a)) =&gt;  (GAMMA X Y), <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+
+;; Examples of shadowing behavior
+ (flet ((beta (x y) (+ x y)))
+   (expand (alpha a b))) =&gt;  (BETA A B), <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (macrolet ((alpha (x y) `(delta ,x ,y)))
+   (flet ((alpha (x y) (+ x y)))
+     (expand (alpha a b)))) =&gt;  (ALPHA A B), <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+ (let ((x (list 1 2 3)))
+   (symbol-macrolet ((a (first x)))
+     (let ((a x))
+       (expand a)))) =&gt;  A, <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+</PRE>
+</b> <P>
+<p><b>●受制于:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_defmac.htm#defmacro"><B>defmacro</B></A>, <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A> of <A REL=DEFINITION HREF="f_macro_.htm#macro-function"><B>macro-function</B></A>, <A REL=DEFINITION HREF="s_flet_.htm#macrolet"><B>macrolet</B></A>, <A REL=DEFINITION HREF="s_symbol.htm#symbol-macrolet"><B>symbol-macrolet</B></A> <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="v_mexp_h.htm#STmacroexpand-hookST"><B>*macroexpand-hook*</B></A>, <A REL=DEFINITION HREF="m_defmac.htm#defmacro"><B>defmacro</B></A>, <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A> of <A REL=DEFINITION HREF="f_macro_.htm#macro-function"><B>macro-function</B></A>, <A REL=DEFINITION HREF="s_flet_.htm#macrolet"><B>macrolet</B></A>, <A REL=DEFINITION HREF="s_symbol.htm#symbol-macrolet"><B>symbol-macrolet</B></A>, <A REL=CHILD HREF="03_a.htm">Section 3.1 (Evaluation)</A> <P>
+<p><b>●说明:</b><P>
+ <P>
+Neither <A REL=DEFINITION HREF="#macroexpand"><B>macroexpand</B></A> nor <A REL=DEFINITION HREF="#macroexpand-1"><B>macroexpand-1</B></A> makes any explicit attempt to expand <A REL=DEFINITION HREF="26_glo_m.htm#macro_form"><I>macro forms</I></A> that are either <A REL=DEFINITION HREF="26_glo_s.htm#subform"><I>subforms</I></A> of the <I>form</I> or 
+<A REL=DEFINITION HREF="26_glo_s.htm#subform"><I>subforms</I></A> of the <I>expansion</I>. Such expansion might occur implicitly, however, due to the semantics or implementation of the <A REL=DEFINITION HREF="26_glo_m.htm#macro_function"><I>macro function</I></A>. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss179.htm">FUNCTION-TYPE:X3J13-MARCH-88</A><LI> <A REL=CHILD HREF="../Issues/iss235.htm">MACROEXPAND-RETURN-VALUE:TRUE</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

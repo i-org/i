@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function FILE-LENGTH</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_wr_seq.htm">
+<LINK REL=UP HREF="c_stream.htm">
+<LINK REL=NEXT HREF="f_file_p.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_wr_seq.htm">◀</A><A REL=UP HREF="c_stream.htm">▲</A><A REL=NEXT HREF="f_file_p.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="file-length"><I>Function</I> <B>FILE-LENGTH</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>file-length</B> <I>stream</I> =&gt; <I>length</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>stream</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#stream_associated_with_a_file"><I>stream associated with a file</I></A>. <P>
+<I>length</I>---a non-negative <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#file-length"><B>file-length</B></A> returns the length of <I>stream</I>, or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> if the length cannot be determined. <P>
+For a binary file, the length is measured in units of the <A REL=DEFINITION HREF="26_glo_e.htm#element_type"><I>element type</I></A> of the <I>stream</I>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (with-open-file (s &quot;decimal-digits.text&quot; 
+                    :direction :output :if-exists :error)
+   (princ &quot;0123456789&quot; s)
+   (truename s))
+=&gt;  #P&quot;A:&gt;Joe&gt;decimal-digits.text.1&quot;
+ (with-open-file (s &quot;decimal-digits.text&quot;)
+   (file-length s))
+=&gt;  10
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+Should signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if <I>stream</I> is not a <A REL=DEFINITION HREF="26_glo_s.htm#stream_associated_with_a_file"><I>stream associated with a file</I></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_open.htm#open"><B>open</B></A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

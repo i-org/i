@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function ARRAY-DISPLACEMENT</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_ar_has.htm">
+<LINK REL=UP HREF="c_arrays.htm">
+<LINK REL=NEXT HREF="f_ar_in_.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_ar_has.htm">◀</A><A REL=UP HREF="c_arrays.htm">▲</A><A REL=NEXT HREF="f_ar_in_.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="array-displacement"><I>Function</I> <B>ARRAY-DISPLACEMENT</B></A> <P>
+ <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>array-displacement</B> <I>array</I> =&gt; <I>displaced-to, displaced-index-offset</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>array</I>---an <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A>. <P>
+<I>displaced-to</I>---an <I>array</I> or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<I>displaced-index-offset</I>---a non-negative <A REL=DEFINITION HREF="26_glo_f.htm#fixnum"><I>fixnum</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+If the <I>array</I> is a <A REL=DEFINITION HREF="26_glo_d.htm#displaced_array"><I>displaced array</I></A>, returns the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> of the <b>:displaced-to</b> and <b>:displaced-index-offset</b> options for the <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> (see the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>functions</I></A> <A REL=DEFINITION HREF="f_mk_ar.htm#make-array"><B>make-array</B></A> and <A REL=DEFINITION HREF="f_adjust.htm#adjust-array"><B>adjust-array</B></A>). If the <I>array</I> is not a <A REL=DEFINITION HREF="26_glo_d.htm#displaced_array"><I>displaced array</I></A>, <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> and <b>0</b> are returned. <P>
+If <A REL=DEFINITION HREF="#array-displacement"><B>array-displacement</B></A> is called on an <I>array</I> for which a <A REL=DEFINITION HREF="26_glo_n.htm#non-nil"><I>non-nil</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> was provided as the <b>:displaced-to</b> <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A> to <A REL=DEFINITION HREF="f_mk_ar.htm#make-array"><B>make-array</B></A> or <A REL=DEFINITION HREF="f_adjust.htm#adjust-array"><B>adjust-array</B></A>, it must return that <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> as its first value. It is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> whether <A REL=DEFINITION HREF="#array-displacement"><B>array-displacement</B></A> returns a <A REL=DEFINITION HREF="26_glo_n.htm#non-nil"><I>non-nil</I></A> <A REL=DEFINITION HREF="26_glo_p.htm#primary_value"><I>primary value</I></A> for any other <I>array</I>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (setq a1 (make-array 5)) =&gt;  #&lt;ARRAY 5 simple 46115576&gt;
+ (setq a2 (make-array 4 :displaced-to a1
+                        :displaced-index-offset 1))
+=&gt;  #&lt;ARRAY 4 indirect 46117134&gt;
+ (array-displacement a2)
+=&gt;  #&lt;ARRAY 5 simple 46115576&gt;, 1
+ (setq a3 (make-array 2 :displaced-to a2
+                        :displaced-index-offset 2))
+=&gt;  #&lt;ARRAY 2 indirect 46122527&gt;
+ (array-displacement a3)
+=&gt;  #&lt;ARRAY 4 indirect 46117134&gt;, 2
+</PRE>
+</b> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+Should signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if <I>array</I> is not an <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_mk_ar.htm#make-array"><B>make-array</B></A> <P>
+<p><b>●说明：</b> 无。</p>
+  <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss132.htm">DISPLACED-ARRAY-PREDICATE:ADD</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

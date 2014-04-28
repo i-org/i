@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Macro WITH-HASH-TABLE-ITERATOR</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_maphas.htm">
+<LINK REL=UP HREF="c_hash_t.htm">
+<LINK REL=NEXT HREF="f_clrhas.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_maphas.htm">◀</A><A REL=UP HREF="c_hash_t.htm">▲</A><A REL=NEXT HREF="f_clrhas.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="with-hash-table-iterator"><I>Macro</I> <B>WITH-HASH-TABLE-ITERATOR</B></A> <P>
+ <P>
+ <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>with-hash-table-iterator</B> <I>(name hash-table) <I>declaration</I><B>*</B> <I>form</I><B>*</B></I> =&gt; <I><I>result</I><B>*</B></I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>name</I>---a name suitable for the first argument to <A REL=DEFINITION HREF="s_flet_.htm#macrolet"><B>macrolet</B></A>. <P>
+<I>hash-table</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>, evaluated once, that should produce a <A REL=DEFINITION HREF="26_glo_h.htm#hash_table"><I>hash table</I></A>. <P>
+<I>declaration</I>---a <A REL=DEFINITION HREF="s_declar.htm#declare"><B>declare</B></A> <A REL=DEFINITION HREF="26_glo_e.htm#expression"><I>expression</I></A>; not evaluated. <P>
+<I>forms</I>---an <A REL=DEFINITION HREF="26_glo_i.htm#implicit_progn"><I>implicit progn</I></A>. <P>
+<I>results</I>---the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> returned by <I>forms</I>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Within the lexical scope of the body, <I>name</I> is defined via <A REL=DEFINITION HREF="s_flet_.htm#macrolet"><B>macrolet</B></A> such that successive invocations of <b>(</b><I>name</I><b>)</b> return the items, one by one, from the <A REL=DEFINITION HREF="26_glo_h.htm#hash_table"><I>hash table</I></A> that is obtained by evaluating <I>hash-table</I> only once. <P>
+An invocation <b>(</b><I>name</I><b>)</b> returns three values as follows: <P>
+<P><ul><li>1.  A <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A> that is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> if an entry is returned. </li><li>2.  The key from the <I>hash-table</I> entry. </li><li>3.  The value from the <I>hash-table</I> entry. <P></li></ul>After all entries have been returned by successive invocations of <b>(</b><I>name</I><b>)</b>, then only one value is returned, namely <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+It is unspecified what happens if any of the implicit interior state of an iteration is returned outside the dynamic extent of the <A REL=DEFINITION HREF="#with-hash-table-iterator"><B>with-hash-table-iterator</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> such as by returning some <A REL=DEFINITION HREF="26_glo_c.htm#closure"><I>closure</I></A> over the invocation <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. <P>
+Any number of invocations of <A REL=DEFINITION HREF="#with-hash-table-iterator"><B>with-hash-table-iterator</B></A> can be nested, and the body of the innermost one can invoke all of the locally <I>established</I> <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macros</I></A>, provided all of those <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macros</I></A> have <A REL=DEFINITION HREF="26_glo_d.htm#distinct"><I>distinct</I></A> names. <P>
+<p><b>●例子:</b><P>
+ <P>
+The following function should return <A REL=DEFINITION HREF="a_t.htm#t"><B>t</B></A> on any <A REL=DEFINITION HREF="26_glo_h.htm#hash_table"><I>hash table</I></A>, and signal an error if the usage of <A REL=DEFINITION HREF="#with-hash-table-iterator"><B>with-hash-table-iterator</B></A> does not agree with the corresponding usage of <A REL=DEFINITION HREF="f_maphas.htm#maphash"><B>maphash</B></A>. <P>
+<PRE>
+ (defun test-hash-table-iterator (hash-table)
+   (let ((all-entries '())
+         (generated-entries '())
+         (unique (list nil)))
+     (maphash #'(lambda (key value) (push (list key value) all-entries))
+              hash-table)
+     (with-hash-table-iterator (generator-fn hash-table)
+       (loop     
+         (multiple-value-bind (more? key value) (generator-fn)
+           (unless more? (return))
+           (unless (eql value (gethash key hash-table unique))
+             (error &quot;Key ~S not found for value ~S&quot; key value))
+           (push (list key value) generated-entries))))
+     (unless (= (length all-entries)
+                (length generated-entries)
+                (length (union all-entries generated-entries
+                               :key #'car :test (hash-table-test hash-table))))
+       (error &quot;Generated entries and Maphash entries don't correspond&quot;))
+     t))
+</PRE>
+</b> <P>
+The following could be an acceptable definition of <A REL=DEFINITION HREF="f_maphas.htm#maphash"><B>maphash</B></A>, implemented by <A REL=DEFINITION HREF="#with-hash-table-iterator"><B>with-hash-table-iterator</B></A>. <P>
+<PRE>
+ (defun maphash (function hash-table)
+   (with-hash-table-iterator (next-entry hash-table)
+     (loop (multiple-value-bind (more key value) (next-entry)
+             (unless more (return nil))
+             (funcall function key value)))))
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+The consequences are undefined if the local function named <I>name</I> <I>established</I> by <A REL=DEFINITION HREF="#with-hash-table-iterator"><B>with-hash-table-iterator</B></A> is called after it has returned <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A> as its <A REL=DEFINITION HREF="26_glo_p.htm#primary_value"><I>primary value</I></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+ <A REL=CHILD HREF="03_f.htm">Section 3.6 (Traversal Rules and Side Effects)</A>  <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+  <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss240.htm">MAPPING-DESTRUCTIVE-INTERACTION:EXPLICITLY-VAGUE</A><LI> <A REL=CHILD HREF="../Issues/iss188.htm">HASH-TABLE-PACKAGE-GENERATORS:ADD-WITH-WRAPPER</A><LI> <A REL=CHILD HREF="../Issues/iss097.htm">DECLS-AND-DOC</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

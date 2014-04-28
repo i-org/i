@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 19.2.2.5</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="19_bbdg.htm">
+<LINK REL=UP HREF="19_bb.htm">
+<LINK REL=NEXT HREF="19_bc.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="19_bbdg.htm">◀</A><A REL=UP HREF="19_bb.htm">▲</A><A REL=NEXT HREF="19_bc.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+19.2.2.5 Restrictions on Constructing Pathnames</H2>  <P>
+ When constructing a <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathname</I></A> from components, conforming programs must follow these rules: <P>
+<P><ul><P>
+<li>*  Any component can be <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> in the host might mean a default host rather than an actual <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> in some implementations. <P></li>
+<li>*  The host, device, directory, name, and type can be <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>strings</I></A>. There are <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> limits on the number and type of <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>characters</I></A> in these <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>strings</I></A>. <P></li>
+<li>*  The directory can be a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> of <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>strings</I></A> and <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A>. There are <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> limits on the <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A>'s length and contents. <P></li>
+<li>*  The version can be <b>:newest</b>. <P></li>
+<li>*  Any component can be taken from the corresponding component of another <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathname</I></A>. When the two <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathnames</I></A> are for different file systems (in implementations that support multiple file systems), an appropriate translation occurs. If no meaningful translation is possible, an error is signaled. The definitions of ``appropriate'' and ``meaningful'' are <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A>. <P></li>
+<li>*  An implementation might support other values for some components, but a portable program cannot use those values. A conforming program can use <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> values but this can make it non-portable; for example, it might work only with Unix file systems. <P></li></ul><P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Issue PRINT-CIRCLE-SHARED Writeup</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="../Issues/iss273_w.htm">
+<LINK REL=UP HREF="../Issues/iss274.htm">
+<LINK REL=NEXT HREF="../Issues/iss275_w.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="../Issues/iss273_w.htm">◀</A><A REL=UP HREF="../Issues/iss274.htm">▲</A><A REL=NEXT HREF="../Issues/iss275_w.htm">▶</A></h1>
+
+<HR>
+
+
+
+<H2>Issue PRINT-CIRCLE-SHARED Writeup</H2>
+
+<PRE><B>Status:</B> proposal RESPECT-PRINT-CIRCLE passed, as amended, Jun 89 X3J13<P>
+ (another proposal NEW-VALUE was passed <A REL=DEFINITION HREF="../Body/a_and.htm#and"><B>and</B></A> then reconsidered.)<P>
+<P>
+<B>Issue:</B> <A HREF="iss274.htm">PRINT-CIRCLE-SHARED</A><P>
+<B>Edit history:</B> Version 1, 		KMP 3/30/89<P>
+	      Version 2, Masinter, 2 Jul 89, as amended Jun 89 X3J13<P>
+<P>
+<B>Problem Description:<P>
+</B><P>
+ A label defined with #n= is valid for the rest of <P>
+ the top-level call to <A REL=DEFINITION HREF="../Body/f_rd_rd.htm#read"><B>READ</B></A> on input, permitting<P>
+    '(#1=(A B) #1#)<P>
+ to designate ((A B) (A B)), where the two lists<P>
+ (A B) are <A REL=DEFINITION HREF="../Body/f_eq.htm#eq"><B>EQ</B></A>.  However, on output the implementations<P>
+ are only required to detect circularities, not sharing,<P>
+ when <A REL=DEFINITION HREF="../Body/v_pr_cir.htm#STprint-circleST"><B>*PRINT-CIRCLE*</B></A> is T.  That is<P>
+    (<A REL=DEFINITION HREF="../Body/f_wr_pr.htm#print"><B>PRINT</B></A> '(#1=(A #1#) #1#))<P>
+ may print as<P>
+    (#1=(A #1#) #2=(A #2#))<P>
+ or (#1=(A #1#) #1#)<P>
+<P>
+<B>Proposal (PRINT-CIRCLE-SHARED:RESPECT-PRINT-CIRCLE):<P>
+</B><P>
+ Require the printer to use #n# to identify sharing<P>
+ of <A REL=DEFINITION HREF="../Body/a_eql.htm#eql"><B>EQL</B></A> objects that would not <A REL=DEFINITION HREF="../Body/f_rd_rd.htm#read"><B>READ</B></A> to be <A REL=DEFINITION HREF="../Body/a_eql.htm#eql"><B>EQL</B></A><P>
+ when <A REL=DEFINITION HREF="../Body/v_pr_cir.htm#STprint-circleST"><B>*PRINT-CIRCLE*</B></A> is true, and not if false.<P>
+<P>
+<B>Proposal (PRINT-CIRCLE-SHARED:NEW-VARIABLE):<P>
+</B><P>
+ Introduce *PRINT-SHARED*.  When <A REL=DEFINITION HREF="../Body/v_pr_cir.htm#STprint-circleST"><B>*PRINT-CIRCLE*</B></A><P>
+ and *PRINT-SHARED* are both true [rationale: <P>
+ check one variable first for efficiency], identify sharing <P>
+ with #n# in the printer. Otherwise, don't.<P>
+<P>
+<B>Cost to Users:<P>
+</B><P>
+ Storage needed for detecting shared <A REL=DEFINITION HREF="../Body/f_docume.htm#structure"><B>structure</B></A> is slightly more.<P>
+<P>
+<B>Current Practice:<P>
+</B><P>
+ Several implementations implement RESPECT-PRINT-CIRCLE.<P>
+<P>
+<P>
+</PRE>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

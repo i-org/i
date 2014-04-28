@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function PROCLAIM</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="v_mexp_h.htm">
+<LINK REL=UP HREF="c_evalua.htm">
+<LINK REL=NEXT HREF="m_declai.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="v_mexp_h.htm">◀</A><A REL=UP HREF="c_evalua.htm">▲</A><A REL=NEXT HREF="m_declai.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="proclaim"><I>Function</I> <B>PROCLAIM</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>proclaim</B> <I>declaration-specifier</I> =&gt; <I><A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A></I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>declaration-specifier</I>---a <A REL=DEFINITION HREF="26_glo_d.htm#declaration_specifier"><I>declaration specifier</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="26_glo_e.htm#establish"><I>Establishes</I></A> the <A REL=DEFINITION HREF="26_glo_d.htm#declaration"><I>declaration</I></A> specified by <I>declaration-specifier</I> in the <A REL=DEFINITION HREF="26_glo_g.htm#global_environment"><I>global environment</I></A>. <P>
+Such a <A REL=DEFINITION HREF="26_glo_d.htm#declaration"><I>declaration</I></A>, sometimes called a <A REL=DEFINITION HREF="26_glo_g.htm#global_declaration"><I>global declaration</I></A> or a <A REL=DEFINITION HREF="26_glo_p.htm#proclamation"><I>proclamation</I></A>, is always in force unless locally <I>shadowed</I>. <P>
+<A REL=DEFINITION HREF="26_glo_n.htm#name"><I>Names</I></A> of <A REL=DEFINITION HREF="26_glo_v.htm#variable"><I>variables</I></A> and <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>functions</I></A> within <I>declaration-specifier</I> refer to <A REL=DEFINITION HREF="26_glo_d.htm#dynamic_variable"><I>dynamic variables</I></A> and global <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> definitions, respectively. <P>
+The next figure shows a list of <I>declaration identifiers</I> that can be used with <A REL=DEFINITION HREF="#proclaim"><B>proclaim</B></A>. <P>
+  <PRE>
+<A REL=DEFINITION HREF="d_declar.htm#declaration">declaration</A>  <A REL=DEFINITION HREF="d_inline.htm#inline">inline</A>     <A REL=DEFINITION HREF="d_optimi.htm#optimize">optimize</A>  <A REL=DEFINITION HREF="a_type.htm#type">type</A>  
+<A REL=DEFINITION HREF="d_ftype.htm#ftype">ftype</A>        <A REL=DEFINITION HREF="d_inline.htm#notinline">notinline</A>  <A REL=DEFINITION HREF="d_specia.htm#special">special</A>         
+</PRE>
+<p><b>■图表 3-22.  Global Declaration Specifiers</B>   <P>
+An implementation is free to support other (<A REL=DEFINITION HREF="26_glo_i.htm#implementation-defined"><I>implementation-defined</I></A>) <A REL=DEFINITION HREF="26_glo_d.htm#declaration_identifier"><I>declaration identifiers</I></A> as well. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (defun declare-variable-types-globally (type vars)
+   (proclaim `(type ,type ,@vars))
+   type)
+
+ ;; Once this form is executed, the dynamic variable *TOLERANCE*
+ ;; must always contain a float.
+ (declare-variable-types-globally 'float '(*tolerance*))
+=&gt;  FLOAT
+</PRE>
+</b> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_declai.htm#declaim"><B>declaim</B></A>, <A REL=DEFINITION HREF="s_declar.htm#declare"><B>declare</B></A>, <A REL=CHILD HREF="03_b.htm">Section 3.2 (Compilation)</A> <P>
+<p><b>●说明:</b><P>
+ <P>
+Although the <I>execution</I> of a <A REL=DEFINITION HREF="#proclaim"><B>proclaim</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> has effects that might affect compilation, the compiler does not make any attempt to recognize and specially process <A REL=DEFINITION HREF="#proclaim"><B>proclaim</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A>. A <A REL=DEFINITION HREF="26_glo_p.htm#proclamation"><I>proclamation</I></A> such as the following, even if a <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level form</I></A>, does not have any effect until it is executed: <P>
+<PRE>
+(proclaim '(special *x*))
+</PRE>
+</b> <P>
+If compile time side effects are desired, <A REL=DEFINITION HREF="s_eval_w.htm#eval-when"><B>eval-when</B></A> may be useful. For example: <P>
+<PRE>
+ (eval-when (:execute :compile-toplevel :load-toplevel)
+   (proclaim '(special *x*)))
+</PRE>
+</b> <P>
+In most such cases, however, it is preferrable to use <A REL=DEFINITION HREF="m_declai.htm#declaim"><B>declaim</B></A> for this purpose. <P>
+ Since <A REL=DEFINITION HREF="#proclaim"><B>proclaim</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A> are ordinary <A REL=DEFINITION HREF="26_glo_f.htm#function_form"><I>function forms</I></A>, <A REL=DEFINITION HREF="26_glo_m.htm#macro_form"><I>macro forms</I></A> can expand into them.  <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss095.htm">DECLARE-MACROS:FLUSH</A><LI> <A REL=CHILD HREF="../Issues/iss094.htm">DECLARE-FUNCTION-AMBIGUITY:DELETE-FTYPE-ABBREVIATION</A><LI> <A REL=CHILD HREF="../Issues/iss142.htm">DYNAMIC-EXTENT:NEW-DECLARATION</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

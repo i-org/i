@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function GET-SETF-EXPANSION</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="m_defi_3.htm">
+<LINK REL=UP HREF="c_data_a.htm">
+<LINK REL=NEXT HREF="m_setf_.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="m_defi_3.htm">◀</A><A REL=UP HREF="c_data_a.htm">▲</A><A REL=NEXT HREF="m_setf_.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="get-setf-expansion"><I>Function</I> <B>GET-SETF-EXPANSION</B></A> <P>
+ <P>
+<p><b>●语法设定:</b><p>
+ <P>
+ 
+<B>get-setf-expansion</B> <I>place <b>&amp;optional</b> environment</I><P> =&gt; <I>vars, vals, store-vars, writer-form, reader-form</I><P>
+  <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>place</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#place"><I>place</I></A>. <P>
+ <I>environment</I>---an <A REL=DEFINITION HREF="26_glo_e.htm#environment"><I>environment</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>.  <P>
+<I>vars, vals, store-vars, writer-form, reader-form</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#setf_expansion"><I>setf expansion</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Determines five values constituting the <A REL=DEFINITION HREF="26_glo_s.htm#setf_expansion"><I>setf expansion</I></A> for <I>place</I> in <I>environment</I>; see <A REL=CHILD HREF="05_aab.htm">Section 5.1.1.2 (Setf Expansions)</A>. <P>
+  If <I>environment</I> is not supplied or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>, the environment is the <A REL=DEFINITION HREF="26_glo_n.htm#null_lexical_environment"><I>null lexical environment</I></A>.  <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (get-setf-expansion 'x)
+=&gt;  NIL, NIL, (#:G0001), (SETQ X #:G0001), X 
+</PRE>
+</b> <P>
+ 
+<PRE>
+;;; This macro is like POP 
+
+ (defmacro xpop (place &amp;environment env)
+   (multiple-value-bind (dummies vals new setter getter)
+                        (get-setf-expansion place env)
+      `(let* (,@(mapcar #'list dummies vals) (,(car new) ,getter))
+         (if (cdr new) (error &quot;Can't expand this.&quot;))
+         (prog1 (car ,(car new))
+                (setq ,(car new) (cdr ,(car new)))
+                ,setter))))
+ 
+ (defsetf frob (x) (value) 
+     `(setf (car ,x) ,value)) =&gt;  FROB
+;;; The following is an error; an error might be signaled at macro expansion time
+ (flet ((frob (x) (cdr x)))  ;Invalid
+   (xpop (frob z)))
+ 
+</PRE>
+</b>  <P>
+ <p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_defset.htm#defsetf"><B>defsetf</B></A>, <A REL=DEFINITION HREF="m_defi_3.htm#define-setf-expander"><B>define-setf-expander</B></A>, <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+Any <A REL=DEFINITION HREF="26_glo_c.htm#compound_form"><I>compound form</I></A> is a valid <A REL=DEFINITION HREF="26_glo_p.htm#place"><I>place</I></A>, since any <A REL=DEFINITION HREF="26_glo_c.htm#compound_form"><I>compound form</I></A> whose <A REL=DEFINITION HREF="26_glo_o.htm#operator"><I>operator</I></A> <I>f</I> has no <A REL=DEFINITION HREF="26_glo_s.htm#setf_expander"><I>setf expander</I></A> are expanded into a call to <b>(setf </b><I>f</I><b>)</b>. <P>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss185.htm">GET-SETF-METHOD-ENVIRONMENT:ADD-ARG</A><LI> <A REL=CHILD HREF="../Issues/iss308.htm">SETF-METHOD-VS-SETF-METHOD:RENAME-OLD-TERMS</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

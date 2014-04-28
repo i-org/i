@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function MAP</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_subseq.htm">
+<LINK REL=UP HREF="c_sequen.htm">
+<LINK REL=NEXT HREF="f_map_in.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_subseq.htm">◀</A><A REL=UP HREF="c_sequen.htm">▲</A><A REL=NEXT HREF="f_map_in.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="map"><I>Function</I> <B>MAP</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>map</B> <I>result-type function <b>&amp;rest</b> sequences+</I> =&gt; <I>result</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+ <I>result-type</I> -- a <A REL=DEFINITION HREF="t_seq.htm#sequence"><B>sequence</B></A> <A REL=DEFINITION HREF="26_glo_t.htm#type_specifier"><I>type specifier</I></A>, or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>.  <P>
+ <I>function</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#function_designator"><I>function designator</I></A>. <I>function</I> must take as many arguments as there are <I>sequences</I>.  <P>
+<I>sequence</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#proper_sequence"><I>proper sequence</I></A>. <P>
+<I>result</I>---if <I>result-type</I> is a <A REL=DEFINITION HREF="26_glo_t.htm#type_specifier"><I>type specifier</I></A> other than <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>, then a <A REL=DEFINITION HREF="26_glo_s.htm#sequence"><I>sequence</I></A> of the <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> it denotes; otherwise (if the <I>result-type</I> is <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>), <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Applies <I>function</I> to successive sets of arguments in which one argument is obtained from each <A REL=DEFINITION HREF="26_glo_s.htm#sequence"><I>sequence</I></A>. The <I>function</I> is called first on all the elements with index <b>0</b>, then on all those with index <b>1</b>, and so on. The <I>result-type</I> specifies the <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> of the resulting <A REL=DEFINITION HREF="26_glo_s.htm#sequence"><I>sequence</I></A>. <P>
+<A REL=DEFINITION HREF="#map"><B>map</B></A> returns <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> if <I>result-type</I> is <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. Otherwise, <A REL=DEFINITION HREF="#map"><B>map</B></A> returns a <A REL=DEFINITION HREF="26_glo_s.htm#sequence"><I>sequence</I></A> such that element <b>j</b> is the result of applying <I>function</I> to element <b>j</b> of each of the <I>sequences</I>. The result <A REL=DEFINITION HREF="26_glo_s.htm#sequence"><I>sequence</I></A> is as long as the shortest of the <I>sequences</I>. The consequences are undefined if the result of applying <I>function</I> to the successive elements of the <I>sequences</I> cannot be contained in a <A REL=DEFINITION HREF="26_glo_s.htm#sequence"><I>sequence</I></A> of the <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> given by <I>result-type</I>. <P>
+ If the <I>result-type</I> is a <A REL=DEFINITION HREF="26_glo_s.htm#subtype"><I>subtype</I></A> of <A REL=DEFINITION HREF="t_list.htm#list"><B>list</B></A>, the result will be a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A>. <P>
+If the <I>result-type</I> is a <A REL=DEFINITION HREF="26_glo_s.htm#subtype"><I>subtype</I></A> of <A REL=DEFINITION HREF="t_vector.htm#vector"><B>vector</B></A>, then if the implementation can determine the element type specified for the <I>result-type</I>, the element type of the resulting array is the result of <I>upgrading</I> that element type; or, if the implementation can determine that the element type is unspecified (or <b>*</b>), the element type of the resulting array is <A REL=DEFINITION HREF="t_t.htm#t"><B>t</B></A>; otherwise, an error is signaled.  <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (map 'string #'(lambda (x y)
+                  (char &quot;01234567890ABCDEF&quot; (mod (+ x y) 16)))
+       '(1 2 3 4)
+       '(10 9 8 7)) =&gt;  &quot;AAAA&quot;
+ (setq seq '(&quot;lower&quot; &quot;UPPER&quot; &quot;&quot; &quot;123&quot;)) =&gt;  (&quot;lower&quot; &quot;UPPER&quot; &quot;&quot; &quot;123&quot;)
+ (map nil #'nstring-upcase seq) =&gt;  NIL
+ seq =&gt;  (&quot;LOWER&quot; &quot;UPPER&quot; &quot;&quot; &quot;123&quot;)
+ (map 'list #'- '(1 2 3 4)) =&gt;  (-1 -2 -3 -4)
+ (map 'string
+      #'(lambda (x) (if (oddp x) #\1 #\0))
+      '(1 2 3 4)) =&gt;  &quot;1010&quot;
+</PRE>
+</b> <P>
+ 
+<PRE>
+ (map '(vector * 4) #'cons &quot;abc&quot; &quot;de&quot;) should signal an error
+</PRE>
+</b>  <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+ An error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> must be signaled if the <I>result-type</I> is not a <A REL=DEFINITION HREF="26_glo_r.htm#recognizable_subtype"><I>recognizable subtype</I></A> of <A REL=DEFINITION HREF="t_list.htm#list"><B>list</B></A>, not a <A REL=DEFINITION HREF="26_glo_r.htm#recognizable_subtype"><I>recognizable subtype</I></A> of <A REL=DEFINITION HREF="t_vector.htm#vector"><B>vector</B></A>, and not <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>.  <P>
+Should be prepared to signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if any <I>sequence</I> is not a <A REL=DEFINITION HREF="26_glo_p.htm#proper_sequence"><I>proper sequence</I></A>. <P>
+ An error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> should be signaled if <I>result-type</I> specifies the number of elements and the minimum length of the <I>sequences</I> is different from that number.  <P>
+<p><b>●更多信息:</b><P>
+ <P>
+ <A REL=CHILD HREF="03_f.htm">Section 3.6 (Traversal Rules and Side Effects)</A>  <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss240.htm">MAPPING-DESTRUCTIVE-INTERACTION:EXPLICITLY-VAGUE</A><LI> <A REL=CHILD HREF="../Issues/iss302.htm">SEQUENCE-TYPE-LENGTH:MUST-MATCH</A><LI> <A REL=CHILD HREF="../Issues/iss179.htm">FUNCTION-TYPE:X3J13-MARCH-88</A><LI> <A REL=CHILD HREF="../Issues/iss073.htm">CONCATENATE-SEQUENCE:SIGNAL-ERROR</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

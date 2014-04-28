@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Constant Variable MOST-POSITIVE-SHORT-FLOAT...</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_floatp.htm">
+<LINK REL=UP HREF="c_number.htm">
+<LINK REL=NEXT HREF="v_short_.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_floatp.htm">◀</A><A REL=UP HREF="c_number.htm">▲</A><A REL=NEXT HREF="v_short_.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="most-positive-short-float"><A NAME="least-positive-short-float"><A NAME="least-positive-normalized-short-float"><A NAME="most-positive-double-float"><A NAME="least-positive-double-float"><A NAME="least-positive-normalized-double-float"><A NAME="most-positive-long-float"><A NAME="least-positive-long-float"><A NAME="least-positive-normalized-long-float"><A NAME="most-positive-single-float"><A NAME="least-positive-single-float"><A NAME="least-positive-normalized-single-float"><A NAME="most-negative-short-float"><A NAME="least-negative-short-float"><A NAME="least-negative-normalized-short-float"><A NAME="most-negative-single-float"><A NAME="least-negative-single-float"><A NAME="least-negative-normalized-single-float"><A NAME="most-negative-double-float"><A NAME="least-negative-double-float"><A NAME="least-negative-normalized-double-float"><A NAME="most-negative-long-float"><A NAME="least-negative-long-float"><A NAME="least-negative-normalized-long-float"><I>Constant Variable</I> <B>MOST-POSITIVE-SHORT-FLOAT, LEAST-POSITIVE-SHORT-FLOAT, LEAST-POSITIVE-NORMALIZED-SHORT-FLOAT, MOST-POSITIVE-DOUBLE-FLOAT, LEAST-POSITIVE-DOUBLE-FLOAT, LEAST-POSITIVE-NORMALIZED-DOUBLE-FLOAT, MOST-POSITIVE-LONG-FLOAT, LEAST-POSITIVE-LONG-FLOAT, LEAST-POSITIVE-NORMALIZED-LONG-FLOAT, MOST-POSITIVE-SINGLE-FLOAT, LEAST-POSITIVE-SINGLE-FLOAT, LEAST-POSITIVE-NORMALIZED-SINGLE-FLOAT, MOST-NEGATIVE-SHORT-FLOAT, LEAST-NEGATIVE-SHORT-FLOAT, LEAST-NEGATIVE-NORMALIZED-SHORT-FLOAT, MOST-NEGATIVE-SINGLE-FLOAT, LEAST-NEGATIVE-SINGLE-FLOAT, LEAST-NEGATIVE-NORMALIZED-SINGLE-FLOAT, MOST-NEGATIVE-DOUBLE-FLOAT, LEAST-NEGATIVE-DOUBLE-FLOAT, LEAST-NEGATIVE-NORMALIZED-DOUBLE-FLOAT, MOST-NEGATIVE-LONG-FLOAT, LEAST-NEGATIVE-LONG-FLOAT, LEAST-NEGATIVE-NORMALIZED-LONG-FLOAT</B></A></A></A></A></A></A></A></A></A></A></A></A></A></A></A></A></A></A></A></A></A></A></A></A> <P>
+ <P>
+<P><B>Constant Value:</B><P>
+ <P>
+<A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+These <A REL=DEFINITION HREF="26_glo_c.htm#constant_variable"><I>constant variables</I></A> provide a way for programs to examine the <A REL=DEFINITION HREF="26_glo_i.htm#implementation-defined"><I>implementation-defined</I></A> limits for the various float formats. <P>
+Of these <A REL=DEFINITION HREF="26_glo_v.htm#variable"><I>variables</I></A>, each which has ``<b>-normalized</b>'' in its <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>name</I></A> must have a <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> which is a <A REL=DEFINITION HREF="26_glo_n.htm#normalized"><I>normalized</I></A> <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A>, and each which does not have ``<b>-normalized</b>'' in its name may have a <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> which is either a <A REL=DEFINITION HREF="26_glo_n.htm#normalized"><I>normalized</I></A> <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A> or a <A REL=DEFINITION HREF="26_glo_d.htm#denormalized"><I>denormalized</I></A> <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A>, as appropriate. <P>
+Of these <A REL=DEFINITION HREF="26_glo_v.htm#variable"><I>variables</I></A>, each which has ``<b>short-float</b>'' in its name must have a <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> which is a <A REL=DEFINITION HREF="26_glo_s.htm#short_float"><I>short float</I></A>, each which has ``<b>single-float</b>'' in its name must have a <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> which is a <A REL=DEFINITION HREF="26_glo_s.htm#single_float"><I>single float</I></A>, each which has ``<b>double-float</b>'' in its name must have a <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> which is a <A REL=DEFINITION HREF="26_glo_d.htm#double_float"><I>double float</I></A>, and each which has ``<b>long-float</b>'' in its name must have a <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> which is a <A REL=DEFINITION HREF="26_glo_l.htm#long_float"><I>long float</I></A>. <P>
+<P><UL><P>
+<LI>  <A REL=DEFINITION HREF="#most-positive-short-float"><B>most-positive-short-float</B></A>, <A REL=DEFINITION HREF="#most-positive-single-float"><B>most-positive-single-float</B></A>, <A REL=DEFINITION HREF="#most-positive-double-float"><B>most-positive-double-float</B></A>, <A REL=DEFINITION HREF="#most-positive-long-float"><B>most-positive-long-float</B></A> <P> <P>
+ Each of these <A REL=DEFINITION HREF="26_glo_c.htm#constant_variable"><I>constant variables</I></A> has as its <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> the positive <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A> of the largest magnitude (closest in value to, but not equal to, positive infinity) for the float format implied by its name. <P>
+<LI>  <A REL=DEFINITION HREF="#least-positive-short-float"><B>least-positive-short-float</B></A>, <A REL=DEFINITION HREF="#least-positive-normalized-short-float"><B>least-positive-normalized-short-float</B></A>, <A REL=DEFINITION HREF="#least-positive-single-float"><B>least-positive-single-float</B></A>, <A REL=DEFINITION HREF="#least-positive-normalized-single-float"><B>least-positive-normalized-single-float</B></A>, <A REL=DEFINITION HREF="#least-positive-double-float"><B>least-positive-double-float</B></A>, <A REL=DEFINITION HREF="#least-positive-normalized-double-float"><B>least-positive-normalized-double-float</B></A>, <A REL=DEFINITION HREF="#least-positive-long-float"><B>least-positive-long-float</B></A>, <A REL=DEFINITION HREF="#least-positive-normalized-long-float"><B>least-positive-normalized-long-float</B></A> <P> <P>
+ Each of these <A REL=DEFINITION HREF="26_glo_c.htm#constant_variable"><I>constant variables</I></A> has as its <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> the smallest positive (nonzero) <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A> for the float format implied by its name. <P>
+<LI>  <A REL=DEFINITION HREF="#least-negative-short-float"><B>least-negative-short-float</B></A>, <A REL=DEFINITION HREF="#least-negative-normalized-short-float"><B>least-negative-normalized-short-float</B></A>, <A REL=DEFINITION HREF="#least-negative-single-float"><B>least-negative-single-float</B></A>, <A REL=DEFINITION HREF="#least-negative-normalized-single-float"><B>least-negative-normalized-single-float</B></A>, <A REL=DEFINITION HREF="#least-negative-double-float"><B>least-negative-double-float</B></A>, <A REL=DEFINITION HREF="#least-negative-normalized-double-float"><B>least-negative-normalized-double-float</B></A>, <A REL=DEFINITION HREF="#least-negative-long-float"><B>least-negative-long-float</B></A>, <A REL=DEFINITION HREF="#least-negative-normalized-long-float"><B>least-negative-normalized-long-float</B></A> <P> <P>
+ Each of these <A REL=DEFINITION HREF="26_glo_c.htm#constant_variable"><I>constant variables</I></A> has as its <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> the negative (nonzero) <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A> of the smallest magnitude for the float format implied by its name. (If an implementation supports minus zero as a <A REL=DEFINITION HREF="26_glo_d.htm#different"><I>different</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> from positive zero, this value must not be minus zero.) <P>
+<LI>  <A REL=DEFINITION HREF="#most-negative-short-float"><B>most-negative-short-float</B></A>, <A REL=DEFINITION HREF="#most-negative-single-float"><B>most-negative-single-float</B></A>, <A REL=DEFINITION HREF="#most-negative-double-float"><B>most-negative-double-float</B></A>, <A REL=DEFINITION HREF="#most-negative-long-float"><B>most-negative-long-float</B></A> <P> <P>
+ Each of these <A REL=DEFINITION HREF="26_glo_c.htm#constant_variable"><I>constant variables</I></A> has as its <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> the negative <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A> of the largest magnitude (closest in value to, but not equal to, negative infinity) for the float format implied by its name. <P>
+<P></UL><P>
+<p><b>●例子:</b> None.
+ <P>
+<p><b>●更多信息:</b> None.
+ <P>
+<p><b>●说明:</b><P>
+ <P>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss162.htm">FLOAT-UNDERFLOW:ADD-VARIABLES</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

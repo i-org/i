@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Issue LCM-NO-ARGUMENTS Writeup</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="../Issues/iss209_w.htm">
+<LINK REL=UP HREF="../Issues/iss210.htm">
+<LINK REL=NEXT HREF="../Issues/iss211_w.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="../Issues/iss209_w.htm">◀</A><A REL=UP HREF="../Issues/iss210.htm">▲</A><A REL=NEXT HREF="../Issues/iss211_w.htm">▶</A></h1>
+
+<HR>
+
+
+
+<H2>Issue LCM-NO-ARGUMENTS Writeup</H2>
+
+<PRE><B>Issue:</B>         <A HREF="iss210.htm">LCM-NO-ARGUMENTS</A><P>
+<P>
+<B>References:</B>    CLtL p. 202<P>
+<P>
+Related issues: none<P>
+<P>
+<B>Category:</B>      ADDITION<P>
+<P>
+<B>Edit history:</B>  Version 1, Guy Steele 10/17/88<P>
+<P>
+<B>Problem description:<P>
+</B><P>
+   CLtL incorrectly states that (<A REL=DEFINITION HREF="../Body/f_lcm.htm#lcm"><B>lcm</B></A>) should return infinity, and<P>
+   therefore specifies that giving <A REL=DEFINITION HREF="../Body/f_lcm.htm#lcm"><B>lcm</B></A> no arguments is an error.<P>
+<P>
+   In point of mathematical fact, 1 is the identity for the <A REL=DEFINITION HREF="../Body/f_lcm.htm#lcm"><B>lcm</B></A> operation.<P>
+<P>
+Proposal (<A HREF="iss210.htm">LCM-NO-ARGUMENTS:1</A>):  Define (<A REL=DEFINITION HREF="../Body/f_lcm.htm#lcm"><B>lcm</B></A>) to return the integer 1.<P>
+<P>
+Examples:   (<A REL=DEFINITION HREF="../Body/f_lcm.htm#lcm"><B>lcm</B></A>) =&gt; 1<P>
+<P>
+Test Cases:  (<A REL=DEFINITION HREF="../Body/f_lcm.htm#lcm"><B>lcm</B></A>) =&gt; 1<P>
+<P>
+   Currently the behavior in this case is implementation-dependent.<P>
+<P>
+Rationale:  Doing what is mathematically right.<P>
+<P>
+<B>Current practice:<P>
+</B>   KCL signals an error.<P>
+   Lucid Lisp returns 1.<P>
+   Symbolics Common Lisp returns 1.<P>
+<P>
+Cost to Implementors:  Pretty small (one-line fix).<P>
+<P>
+Cost to Users:  None.<P>
+<P>
+Cost of non-adoption:  Continued embarassment for Steele.<P>
+<P>
+Performance impact:  Negligible.<P>
+<P>
+Benefits:  Correct handling of a seldom-used boundary case.<P>
+<P>
+Esthetics:  Mild improvement.<P>
+<P>
+Discussion:  Mentioned in Steele's December 1985 &quot;clarifications&quot;.<P>
+<P>
+</PRE>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

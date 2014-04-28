@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 19.1.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="19_a.htm">
+<LINK REL=UP HREF="19_a.htm">
+<LINK REL=NEXT HREF="19_ab.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="19_a.htm">◀</A><A REL=UP HREF="19_a.htm">▲</A><A REL=NEXT HREF="19_ab.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+19.1.1 Namestrings as Filenames</H2> <P>
+ A <A REL=DEFINITION HREF="26_glo_n.htm#namestring"><I>namestring</I></A> is a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> that represents a <A REL=DEFINITION HREF="26_glo_f.htm#filename"><I>filename</I></A>. <P>
+In general, the syntax of <A REL=DEFINITION HREF="26_glo_n.htm#namestring"><I>namestrings</I></A> involves the use of <A REL=DEFINITION HREF="26_glo_i.htm#implementation-defined"><I>implementation-defined</I></A> conventions, usually those customary for the <A REL=DEFINITION HREF="26_glo_f.htm#file_system"><I>file system</I></A> in which the named <A REL=DEFINITION HREF="26_glo_f.htm#file"><I>file</I></A> resides. The only exception is the syntax of a <A REL=DEFINITION HREF="26_glo_l.htm#logical_pathname"><I>logical pathname</I></A> <A REL=DEFINITION HREF="26_glo_n.htm#namestring"><I>namestring</I></A>, which is defined in this specification; see <A REL=CHILD HREF="19_ca.htm">Section 19.3.1 (Syntax of Logical Pathname Namestrings)</A>. </h2> <P>
+A <A REL=DEFINITION HREF="26_glo_c.htm#conforming_program"><I>conforming program</I></A> must never unconditionally use a <A REL=DEFINITION HREF="26_glo_l.htm#literal"><I>literal</I></A> <A REL=DEFINITION HREF="26_glo_n.htm#namestring"><I>namestring</I></A> other than a <A REL=DEFINITION HREF="26_glo_l.htm#logical_pathname"><I>logical pathname</I></A> <A REL=DEFINITION HREF="26_glo_n.htm#namestring"><I>namestring</I></A> because Common Lisp does not define any <A REL=DEFINITION HREF="26_glo_n.htm#namestring"><I>namestring</I></A> syntax other than that for <A REL=DEFINITION HREF="26_glo_l.htm#logical_pathname"><I>logical pathnames</I></A> that would be guaranteed to be portable. However, a <A REL=DEFINITION HREF="26_glo_c.htm#conforming_program"><I>conforming program</I></A> can, if it is careful, successfully manipulate user-supplied data which contains or refers to non-portable <A REL=DEFINITION HREF="26_glo_n.htm#namestring"><I>namestrings</I></A>. <P>
+A <A REL=DEFINITION HREF="26_glo_n.htm#namestring"><I>namestring</I></A> can be <I>coerced</I> to a <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathname</I></A> by the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>functions</I></A> <A REL=DEFINITION HREF="f_pn.htm#pathname"><B>pathname</B></A> or <A REL=DEFINITION HREF="f_pars_1.htm#parse-namestring"><B>parse-namestring</B></A>. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss258.htm">PATHNAME-HOST-PARSING:RECOGNIZE-LOGICAL-HOST-NAMES</A></h2><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

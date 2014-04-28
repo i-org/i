@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function COERCE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="t_eql.htm">
+<LINK REL=UP HREF="c_types_.htm">
+<LINK REL=NEXT HREF="m_deftp.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="t_eql.htm">◀</A><A REL=UP HREF="c_types_.htm">▲</A><A REL=NEXT HREF="m_deftp.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="coerce"><I>Function</I> <B>COERCE</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>coerce</B> <I>object result-type</I> =&gt; <I>result</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>object</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<I>result-type</I>---a <A REL=DEFINITION HREF="26_glo_t.htm#type_specifier"><I>type specifier</I></A>. <P>
+<I>result</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>, of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <I>result-type</I> except in situations described in <A REL HREF="12_aec.htm">Section 12.1.5.3 (Rule of Canonical Representation for Complex Rationals)</A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="26_glo_c.htm#coerce"><I>Coerces</I></A> the <I>object</I> to <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <I>result-type</I>. <P>
+If <I>object</I> is already of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <I>result-type</I>, the <I>object</I> itself is returned, regardless of whether it would have been possible in general to coerce an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> of some other <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> to <I>result-type</I>. <P>
+Otherwise, the <I>object</I> is <I>coerced</I> to <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <I>result-type</I> according to the following rules: <P>
+<P><ul><P>
+<li><A REL=DEFINITION HREF="t_seq.htm#sequence"><B>sequence</B></A>  <P>
+ <P>
+If the <I>result-type</I> is a <A REL=DEFINITION HREF="26_glo_r.htm#recognizable_subtype"><I>recognizable subtype</I></A> of <A REL=DEFINITION HREF="t_list.htm#list"><B>list</B></A>, and the <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> is a <A REL=DEFINITION HREF="26_glo_s.htm#sequence"><I>sequence</I></A>, then the <I>result</I> is a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> that has the <A REL=DEFINITION HREF="26_glo_s.htm#same"><I>same</I></A> <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>elements</I></A> as <I>object</I>. <P>
+If the <I>result-type</I> is a <A REL=DEFINITION HREF="26_glo_r.htm#recognizable_subtype"><I>recognizable subtype</I></A> of <A REL=DEFINITION HREF="t_vector.htm#vector"><B>vector</B></A>, and the <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> is a <A REL=DEFINITION HREF="26_glo_s.htm#sequence"><I>sequence</I></A>, then the <I>result</I> is a <A REL=DEFINITION HREF="26_glo_v.htm#vector"><I>vector</I></A> that has the <A REL=DEFINITION HREF="26_glo_s.htm#same"><I>same</I></A> <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>elements</I></A> as <I>object</I>. If <I>result-type</I> is a specialized <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A>, the <I>result</I> has an <A REL=DEFINITION HREF="26_glo_a.htm#actual_array_element_type"><I>actual array element type</I></A> that is the result of <I>upgrading</I> the element type part of that <A REL=DEFINITION HREF="26_glo_s.htm#specialized"><I>specialized</I></A> <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A>. If no element 
+type is specified, the element type defaults to <A REL=DEFINITION HREF="t_t.htm#t"><B>t</B></A>. If the <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> cannot determine the element type, an error is signaled. <P>
+ <P></li>
+<li><A REL=DEFINITION HREF="t_ch.htm#character"><B>character</B></A>  <P>
+If the <I>result-type</I> is <A REL=DEFINITION HREF="t_ch.htm#character"><B>character</B></A> and the <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> is a <A REL=DEFINITION HREF="26_glo_c.htm#character_designator"><I>character designator</I></A>, the <I>result</I> is the <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>character</I></A> it denotes. <P>
+  <P></li>
+<li><A REL=DEFINITION HREF="t_comple.htm#complex"><B>complex</B></A>  <P>
+If the <I>result-type</I> is <A REL=DEFINITION HREF="t_comple.htm#complex"><B>complex</B></A> and the <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> is a <A REL=DEFINITION HREF="t_real.htm#real"><I>real</I></A>, then the <I>result</I> is obtained by constructing a <A REL=DEFINITION HREF="26_glo_c.htm#complex"><I>complex</I></A> whose real part is the <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> and whose imaginary part is the result of <I>coercing</I> an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> zero to the <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> of the <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> (using <A REL=DEFINITION HREF="#coerce"><B>coerce</B></A>). (If the real part is a <A REL=DEFINITION HREF="26_glo_r.htm#rational"><I>rational</I></A>, however, then the result must be represented as a <A REL=DEFINITION HREF="26_glo_r.htm#rational"><I>rational</I></A> rather than a <A REL=DEFINITION HREF="26_glo_c.htm#
+complex"><I>complex</I></A>; see <A REL=CHILD HREF="12_aec.htm">Section 12.1.5.3 (Rule of Canonical Representation for Complex Rationals)</A>. So, for example, <b>(coerce 3 'complex)</b> is permissible, but will return <b>3</b>, which is not a <A REL=DEFINITION HREF="26_glo_c.htm#complex"><I>complex</I></A>.) <P></li>
+<li><A REL=DEFINITION HREF="t_float.htm#float"><B>float</B></A>  <P>
+If the <I>result-type</I> is any of <A REL=DEFINITION HREF="t_float.htm#float"><B>float</B></A>, <A REL=DEFINITION HREF="t_short_.htm#short-float"><B>short-float</B></A>, <A REL=DEFINITION HREF="t_short_.htm#single-float"><B>single-float</B></A>, <A REL=DEFINITION HREF="t_short_.htm#double-float"><B>double-float</B></A>, <A REL=DEFINITION HREF="t_short_.htm#long-float"><B>long-float</B></A>, and the <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> is a  <A REL=DEFINITION HREF="t_real.htm#real"><I>real</I></A>,  then the <I>result</I> is a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <I>result-type</I> which is equal in sign and magnitude to the <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> to whatever degree of representational precision is permitted by that <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A> representation. (If the <I>result-type</I> is <A REL=DEFINITION HREF="t_float.htm#
+float"><B>float</B></A> and <I>object</I> is not already a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A>, then the <I>result</I> is a <A REL=DEFINITION HREF="26_glo_s.htm#single_float"><I>single float</I></A>.) <P></li>
+ <li><A REL=DEFINITION HREF="t_fn.htm#function"><B>function</B></A>  <P>
+If the <I>result-type</I> is <A REL=DEFINITION HREF="t_fn.htm#function"><B>function</B></A>, and <I>object</I> is any  <A REL=DEFINITION HREF="26_glo_f.htm#function_name"><I>function name</I></A>  that is <A REL=DEFINITION HREF="26_glo_f.htm#fbound"><I>fbound</I></A> but that is globally defined neither as a <A REL=DEFINITION HREF="26_glo_m.htm#macro_name"><I>macro name</I></A> nor as a <A REL=DEFINITION HREF="26_glo_s.htm#special_operator"><I>special operator</I></A>, then the <I>result</I> is the <A REL=DEFINITION HREF="26_glo_f.htm#functional_value"><I>functional value</I></A> of <I>object</I>. <P>
+If the <I>result-type</I> is <A REL=DEFINITION HREF="t_fn.htm#function"><B>function</B></A>, and <I>object</I> is a <A REL=DEFINITION HREF="26_glo_l.htm#lambda_expression"><I>lambda expression</I></A>, then the <I>result</I> is a <A REL=DEFINITION HREF="26_glo_c.htm#closure"><I>closure</I></A> of <I>object</I> in the <A REL=DEFINITION HREF="26_glo_n.htm#null_lexical_environment"><I>null lexical environment</I></A>.  <P></li>
+<li><A REL=DEFINITION HREF="t_t.htm#t"><B>t</B></A>  <P>
+Any <I>object</I> can be <I>coerced</I> to an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="t_t.htm#t"><B>t</B></A>. In this case, the <I>object</I> is simply returned. <P></li>
+<P></ul><P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (coerce '(a b c) 'vector) =&gt;  #(A B C)
+ (coerce 'a 'character) =&gt;  #\A
+ (coerce 4.56 'complex) =&gt;  #C(4.56 0.0)
+ (coerce 4.5s0 'complex) =&gt;  #C(4.5s0 0.0s0)
+ (coerce 7/2 'complex) =&gt;  7/2
+ (coerce 0 'short-float) =&gt;  0.0s0
+ (coerce 3.5L0 'float) =&gt;  3.5L0
+ (coerce 7/2 'float) =&gt;  3.5
+ (coerce (cons 1 2) t) =&gt;  (1 . 2)
+</PRE>
+</b> <P>
+ All the following <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A> should signal an error: <P>
+<PRE>
+ (coerce '(a b c) '(vector * 4))
+ (coerce #(a b c) '(vector * 4))
+ (coerce '(a b c) '(vector * 2))
+ (coerce #(a b c) '(vector * 2))
+ (coerce &quot;foo&quot; '(string 2))
+ (coerce #(#\a #\b #\c) '(string 2))
+ (coerce '(0 1) '(simple-bit-vector 3))
+</PRE>
+</b>  <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+If a coercion is not possible, an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> is signaled. <P>
+<b>(coerce x 'nil)</b> always signals an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A>. <P>
+An error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_error.htm#error"><B>error</B></A> is signaled if the <I>result-type</I> is <A REL=DEFINITION HREF="t_fn.htm#function"><B>function</B></A> but <I>object</I> is a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> that is not <A REL=DEFINITION HREF="26_glo_f.htm#fbound"><I>fbound</I></A> or if the <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> names a <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macro</I></A> or a <A REL=DEFINITION HREF="26_glo_s.htm#special_operator"><I>special operator</I></A>. <P>
+ An error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> should be signaled if <I>result-type</I> specifies the number of elements and <I>object</I> is of a different length.  <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_ration.htm#rational"><B>rational</B></A>, <A REL=DEFINITION HREF="f_floorc.htm#floor"><B>floor</B></A>, <A REL=DEFINITION HREF="f_char_c.htm#char-code"><B>char-code</B></A>, <A REL=DEFINITION HREF="f_char_i.htm#char-int"><B>char-int</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+Coercions from <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>floats</I></A> to <A REL=DEFINITION HREF="26_glo_r.htm#rational"><I>rationals</I></A> and from <A REL=DEFINITION HREF="26_glo_r.htm#ratio"><I>ratios</I></A> to <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integers</I></A> are not provided because of rounding problems. <P>
+<PRE>
+ (coerce x 't) ==  (identity x) ==  x
+</PRE>
+</b> <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss302.htm">SEQUENCE-TYPE-LENGTH:MUST-MATCH</A><LI> <A REL=CHILD HREF="../Issues/iss054.htm">COERCING-SETF-NAME-TO-FUNCTION:ALL-FUNCTION-NAMES</A><LI> <A REL=CHILD HREF="../Issues/iss179.htm">FUNCTION-TYPE:X3J13-MARCH-88</A><LI> <A REL=CHILD HREF="../Issues/iss290.htm">REAL-NUMBER-TYPE:X3J13-MAR-89</A><LI> <A REL=CHILD HREF="../Issues/iss025.htm">CHARACTER-LOOSE-ENDS:FIX</A><LI> <A REL=CHILD HREF="../Issues/iss073.htm">CONCATENATE-SEQUENCE:SIGNAL-ERROR</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

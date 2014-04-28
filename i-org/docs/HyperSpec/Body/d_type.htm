@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Declaration TYPE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="d_dynami.htm">
+<LINK REL=UP HREF="c_evalua.htm">
+<LINK REL=NEXT HREF="d_inline.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="d_dynami.htm">◀</A><A REL=UP HREF="c_evalua.htm">▲</A><A REL=NEXT HREF="d_inline.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="type"><I>Declaration</I> <B>TYPE</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+<b>(type </b><I>typespec</I><b> </b><I>var</I><b></b><B>*</B><b>)</b> <P>
+<b>(</b><I>typespec</I><b> </b><I>var</I><b></b><B>*</B><b>)</b> <P>
+<P><B>Arguments:</B><P>
+ <P>
+<I>typespec</I>---a <A REL=DEFINITION HREF="26_glo_t.htm#type_specifier"><I>type specifier</I></A>. <P>
+<I>var</I>---a <A REL=DEFINITION HREF="26_glo_v.htm#variable"><I>variable</I></A> <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>name</I></A>. <P>
+<P><B>Valid Context:</B><P>
+ <P>
+<A REL=DEFINITION HREF="26_glo_d.htm#declaration"><I>declaration</I></A> or <A REL=DEFINITION HREF="26_glo_p.htm#proclamation"><I>proclamation</I></A> <P>
+<P><B>Binding Types Affected:</B><P>
+ <P>
+<A REL=DEFINITION HREF="26_glo_v.htm#variable"><I>variable</I></A> <P>
+<p><b>●详情:</b><P>
+ <P>
+Affects only variable <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>bindings</I></A> and specifies that the <I>vars</I> take on values only of the specified <I>typespec</I>. In particular, values assigned to the variables by <A REL=DEFINITION HREF="s_setq.htm#setq"><B>setq</B></A>, as well as the initial values of the <I>vars</I> must be of the specified <I>typespec</I>. <A REL=DEFINITION HREF="#type"><B>type</B></A> declarations never apply to function <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>bindings</I></A> (see <A REL=DEFINITION HREF="d_ftype.htm#ftype"><B>ftype</B></A>). <P>
+ A type declaration of a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> defined by <A REL=DEFINITION HREF="s_symbol.htm#symbol-macrolet"><B>symbol-macrolet</B></A> is equivalent to wrapping a <A REL=DEFINITION HREF="s_the.htm#the"><B>the</B></A> expression around the expansion of that <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>,   although the <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>'s <A REL=DEFINITION HREF="26_glo_m.htm#macro_expansion"><I>macro expansion</I></A> is not actually affected.  <P>
+ <P>
+The meaning of a type declaration is equivalent to changing each reference to a variable (<I>var</I>) within the scope of the declaration to <b>(the </b><I>typespec</I><b> </b><I>var</I><b>)</b>, changing each expression assigned to the variable (<I>new-value</I>) within the scope of the declaration to <b>(the </b><I>typespec</I><b> </b><I>new-value</I><b>)</b>, and executing <b>(the </b><I>typespec</I><b> </b><I>var</I><b>)</b> at the moment the scope of the declaration is entered. <P>
+A <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> declaration is valid in all declarations. The interpretation of a type declaration is as follows: <P><ul><li>1.  During the execution of any reference to the declared variable within the scope of the declaration, the consequences are undefined if the value of the declared variable is not of the declared <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A>. <P></li>
+<li>2.  During the execution of any <A REL=DEFINITION HREF="s_setq.htm#setq"><B>setq</B></A> of the declared variable within the scope of the declaration, the consequences are undefined if the newly assigned value of the declared variable is not of the declared <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A>. <P></li>
+<li>3.  At the moment the scope of the declaration is entered, the consequences are undefined if the value of the declared variable is not of the declared <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A>. <P></li></ul><P>
+A <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> declaration affects only variable references within its scope. <P>
+If nested <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> declarations refer to the same variable, then the value of the variable must be a member of the intersection of the declared <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>types</I></A>.  <P>
+ If there is a local <b>type</b> declaration for a dynamic variable, and there is also a global <b>type</b> proclamation for that same variable, then the value of the variable within the scope of the local declaration must be a member of the intersection of the two declared <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>types</I></A>.  <P>
+<A REL=DEFINITION HREF="#type"><B>type</B></A> declarations can be <A REL=DEFINITION HREF="26_glo_f.htm#free_declaration"><I>free declarations</I></A> or <A REL=DEFINITION HREF="26_glo_b.htm#bound_declaration"><I>bound declarations</I></A>. <P>
+ A <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> cannot be both the name of a <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> and the name of a declaration. Defining a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> as the <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>name</I></A> of a <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A>, <A REL=DEFINITION HREF="26_glo_s.htm#structure"><I>structure</I></A>, <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A>, or <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A>, when the <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> has been <I>declared</I> as a declaration name, or vice versa, signals an error.  <P>
+ Within the <A REL=DEFINITION HREF="26_glo_l.htm#lexical_scope"><I>lexical scope</I></A> of an <A REL=DEFINITION HREF="t_array.htm#array"><B>array</B></A> type declaration, all references to <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>elements</I></A> are assumed to satisfy the <A REL=DEFINITION HREF="26_glo_e.htm#expressed_array_element_type"><I>expressed array element type</I></A> (as opposed to the <A REL=DEFINITION HREF="26_glo_u.htm#upgraded_array_element_type"><I>upgraded array element type</I></A>). A compiler can treat the code within the scope of the <A REL=DEFINITION HREF="t_array.htm#array"><B>array</B></A> type declaration as if each <A REL=DEFINITION HREF="26_glo_a.htm#access"><I>access</I></A> of an <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>element</I></A> were surrounded by an appropriate <A REL=DEFINITION HREF="s_the.htm#the"><B>the</B></A> form.  <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (defun f (x y)
+   (declare (type fixnum x y))
+   (let ((z (+ x y)))
+     (declare (type fixnum z))
+     z)) =&gt;  F
+ (f 1 2) =&gt;  3
+ ;; The previous definition of F is equivalent to
+ (defun f (x y)
+   ;; This declaration is a shorthand form of the TYPE declaration
+   (declare (fixnum x y))
+   ;; To declare the type of a return value, it's not necessary to
+   ;; create a named variable.  A THE special form can be used instead.
+   (the fixnum (+ x y))) =&gt;  F
+ (f 1 2) =&gt;  3
+</PRE>
+</b> <P>
+ <P>
+<PRE>
+ (defvar *one-array* (make-array 10 :element-type '(signed-byte 5)))
+ (defvar *another-array* (make-array 10 :element-type '(signed-byte 8)))
+  
+ (defun frob (an-array)
+   (declare (type (array (signed-byte 5) 1) an-array))
+   (setf (aref an-array 1) 31)
+   (setf (aref an-array 2) 127)
+   (setf (aref an-array 3) (* 2 (aref an-array 3)))
+   (let ((foo 0))
+     (declare (type (signed-byte 5) foo))
+     (setf foo (aref an-array 0))))
+  
+ (frob *one-array*)
+ (frob *another-array*)
+</PRE>
+</b> <P>
+<P>
+The above definition of <b>frob</b> is equivalent to: <P>
+<PRE>
+ (defun frob (an-array)
+   (setf (the (signed-byte 5) (aref an-array 1)) 31)
+   (setf (the (signed-byte 5) (aref an-array 2)) 127)
+   (setf (the (signed-byte 5) (aref an-array 3))
+         (* 2 (the (signed-byte 5) (aref an-array 3))))
+   (let ((foo 0))
+     (declare (type (signed-byte 5) foo))
+     (setf foo (the (signed-byte 5) (aref an-array 0)))))
+</PRE>
+</b> <P>
+Given an implementation in which <I>fixnums</I> are 29 bits but <A REL=DEFINITION HREF="t_fixnum.htm#fixnum"><B>fixnum</B></A> <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>arrays</I></A> are upgraded to signed 32-bit <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>arrays</I></A>, the following could be compiled with all <A REL=DEFINITION HREF="26_glo_f.htm#fixnum"><I>fixnum</I></A> arithmetic: <P>
+<PRE>
+ (defun bump-counters (counters)
+   (declare (type (array fixnum *) bump-counters))
+   (dotimes (i (length counters))
+     (incf (aref counters i))))
+</PRE>
+</b>  <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="s_declar.htm#declare"><B>declare</B></A>, <A REL=DEFINITION HREF="m_declai.htm#declaim"><B>declaim</B></A>, <A REL=DEFINITION HREF="f_procla.htm#proclaim"><B>proclaim</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<b>(</b><I>typespec</I><b> </b><I>var</I><b></b><B>*</B><b>)</b> is an abbreviation for <b>(type </b><I>typespec</I><b> </b><I>var</I><b></b><B>*</B><b>)</b>.   <P>
+A <A REL=DEFINITION HREF="#type"><B>type</B></A> declaration for the arguments to a function does not necessarily imply anything about the type of the result. The following function is not permitted to be compiled using <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> <A REL=DEFINITION HREF="26_glo_f.htm#fixnum"><I>fixnum</I></A>-only arithmetic: <P>
+<PRE>
+ (defun f (x y) (declare (fixnum x y)) (+ x y))
+</PRE>
+</b> <P>
+To see why, consider <b>(f most-positive-fixnum 1)</b>. Common Lisp defines that <b>F</b> must return a <A REL=DEFINITION HREF="t_bignum.htm#bignum"><I>bignum</I></A> here, rather than signal an error or produce a mathematically incorrect result. If you have special knowledge such ``<A REL=DEFINITION HREF="26_glo_f.htm#fixnum"><I>fixnum</I></A> overflow'' cases will not come up, you can declare the result value to be in the <A REL=DEFINITION HREF="26_glo_f.htm#fixnum"><I>fixnum</I></A> range, enabling some compilers to use more efficient arithmetic: <P>
+<PRE>
+ (defun f (x y)
+   (declare (fixnum x y))
+   (the fixnum (+ x y)))
+</PRE>
+</b> <P>
+Note, however, that in the three-argument case, because of the possibility of an implicit intermediate value growing too large, the following will not cause <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> <A REL=DEFINITION HREF="26_glo_f.htm#fixnum"><I>fixnum</I></A>-only arithmetic to be used: <P>
+<PRE>
+ (defun f (x y)
+   (declare (fixnum x y z))
+   (the fixnum (+ x y z)))
+</PRE>
+</b> <P>
+To see why, consider <b>(f most-positive-fixnum 1 -1).</b> Although the arguments and the result are all <I>fixnums</I>, an intermediate value is not a <A REL=DEFINITION HREF="26_glo_f.htm#fixnum"><I>fixnum</I></A>. If it is important that <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> <A REL=DEFINITION HREF="26_glo_f.htm#fixnum"><I>fixnum</I></A>-only arithmetic be selected in <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementations</I></A> that provide it, consider writing something like this instead: <P>
+<PRE>
+ (defun f (x y)
+   (declare (fixnum x y z))
+   (the fixnum (+ (the fixnum (+ x y)) z)))
+</PRE>
+</b> <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss093.htm">DECLARE-ARRAY-TYPE-ELEMENT-REFERENCES:RESTRICTIVE</A><LI> <A REL=CHILD HREF="../Issues/iss349.htm">TYPE-DECLARATION-ABBREVIATION:ALLOW-ALL</A><LI> <A REL=CHILD HREF="../Issues/iss322.htm">SPECIAL-TYPE-SHADOWING:CLARIFY</A><LI> <A REL=CHILD HREF="../Issues/iss096.htm">DECLARE-TYPE-FREE:LEXICAL</A><LI> <A REL=CHILD HREF="../Issues/iss339.htm">SYMBOL-MACROLET-TYPE-DECLARATION:NO</A><LI> <A REL=CHILD HREF="../Issues/iss337.htm">SYMBOL-MACROLET-DECLARE:ALLOW</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

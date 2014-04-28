@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Macro LOOP</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="m_dolist.htm">
+<LINK REL=UP HREF="c_iterat.htm">
+<LINK REL=NEXT HREF="m_loop_f.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="m_dolist.htm">◀</A><A REL=UP HREF="c_iterat.htm">▲</A><A REL=NEXT HREF="m_loop_f.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="loop"><I>Macro</I> <B>LOOP</B></A> <P>
+ <P>
+<p><b>●语法设定:</b><p>
+ <P>
+The ``simple'' <A REL=DEFINITION HREF="#loop"><B>loop</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>: <P>
+
+<B>loop</B> <I><I>compound-form</I><B>*</B></I> =&gt; <I><I>result</I><B>*</B></I><P>
+ <P>
+The ``extended'' <A REL=DEFINITION HREF="#loop"><B>loop</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>: <P>
+
+<B>loop</B> <I>[<I>name-clause</I>] {<I>variable-clause</I>}<B>*</B> {<I>main-clause</I>}<B>*</B></I> =&gt; <I><I>result</I><B>*</B></I><P>
+ <P>
+<PRE>
+name-clause::= named name 
+</PRE>
+ <PRE>
+variable-clause::= with-clause | initial-final | for-as-clause 
+</PRE>
+ <PRE>
+with-clause::= with var1 [type-spec] [= form1] {and var2 [type-spec] [= form2]}* 
+</PRE>
+ <PRE>
+main-clause::= unconditional | accumulation | conditional | termination-test | initial-final 
+</PRE>
+ <PRE>
+initial-final::= initially compound-form+ | finally compound-form+ 
+</PRE>
+ <PRE>
+unconditional::= {do | doing} compound-form+ | return {form | it} 
+</PRE>
+ <PRE>
+accumulation::= list-accumulation | numeric-accumulation 
+</PRE>
+ <PRE>
+list-accumulation::= {collect | collecting | append | appending | nconc | nconcing} {form | it}  
+                     [into simple-var] 
+</PRE>
+ <PRE>
+numeric-accumulation::= {count | counting | sum | summing | } 
+                         maximize | maximizing | minimize | minimizing {form | it} 
+                        [into simple-var] [type-spec] 
+</PRE>
+ <PRE>
+conditional::= {if | when | unless} form selectable-clause {and selectable-clause}*  
+               [else selectable-clause {and selectable-clause}*]  
+               [end] 
+</PRE>
+ <PRE>
+selectable-clause::= unconditional | accumulation | conditional 
+</PRE>
+ <PRE>
+termination-test::= while form | until form | repeat form | always form | never form | thereis form 
+</PRE>
+ <PRE>
+for-as-clause::= {for | as} for-as-subclause {and for-as-subclause}* 
+</PRE>
+ <PRE>
+for-as-subclause::= for-as-arithmetic | for-as-in-list | for-as-on-list | for-as-equals-then | 
+                    for-as-across | for-as-hash | for-as-package 
+</PRE>
+ <PRE>
+for-as-arithmetic::= var [type-spec] for-as-arithmetic-subclause 
+</PRE>
+ <PRE>
+for-as-arithmetic-subclause::= arithmetic-up | arithmetic-downto | arithmetic-downfrom 
+</PRE>
+ <PRE>
+arithmetic-up::= [[{from | upfrom} form1 |   {to | upto | below} form2 |   by form3]]+ 
+</PRE>
+ <PRE>
+arithmetic-downto::= [[{{from form1}}1  |   {{{downto | above} form2}}1  |   by form3]] 
+</PRE>
+ <PRE>
+arithmetic-downfrom::= [[{{downfrom form1}}1  |   {to | downto | above} form2 |   by form3]] 
+</PRE>
+ <PRE>
+for-as-in-list::= var [type-spec] in form1 [by step-fun] 
+</PRE>
+ <PRE>
+for-as-on-list::= var [type-spec] on form1 [by step-fun] 
+</PRE>
+ <PRE>
+for-as-equals-then::= var [type-spec] = form1 [then form2] 
+</PRE>
+ <PRE>
+for-as-across::= var [type-spec] across vector 
+</PRE>
+ <PRE>
+for-as-hash::= var [type-spec] being {each | the}  
+               {{hash-key | hash-keys} {in | of} hash-table  
+                [using (hash-value other-var)] |  
+                {hash-value | hash-values} {in | of} hash-table  
+                [using (hash-key other-var)]} 
+</PRE>
+ <PRE>
+for-as-package::= var [type-spec] being {each | the}  
+                  {symbol | symbols | 
+                   present-symbol | present-symbols | 
+                   external-symbol | external-symbols} 
+                  [{in | of} package] 
+</PRE>
+ <PRE>
+type-spec::= simple-type-spec | destructured-type-spec 
+</PRE>
+ <PRE>
+simple-type-spec::= fixnum | float | t | nil 
+</PRE>
+ <PRE>
+destructured-type-spec::= of-type d-type-spec 
+</PRE>
+ <PRE>
+d-type-spec::= type-specifier | (d-type-spec . d-type-spec) 
+</PRE>
+ <PRE>
+var::= d-var-spec 
+</PRE>
+ <PRE>
+var1::= d-var-spec 
+</PRE>
+ <PRE>
+var2::= d-var-spec 
+</PRE>
+ <PRE>
+other-var::= d-var-spec 
+</PRE>
+ <PRE>
+d-var-spec::= simple-var | <A REL=DEFINITION HREF="a_nil.htm#nil">nil</A> | (d-var-spec . d-var-spec) 
+</PRE>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>compound-form</I>---a <A REL=DEFINITION HREF="26_glo_c.htm#compound_form"><I>compound form</I></A>. <P>
+<I>name</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>. <P>
+<I>simple-var</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> (a <A REL=DEFINITION HREF="26_glo_v.htm#variable"><I>variable</I></A> name). <P>
+<I>form</I>, <I>form1</I>, <I>form2</I>, <I>form3</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. <P>
+ <I>step-fun</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> that evaluates to a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> of one <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A>.  <P>
+<I>vector</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> that evaluates to a <A REL=DEFINITION HREF="26_glo_v.htm#vector"><I>vector</I></A>. <P>
+<I>hash-table</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> that evaluates to a <A REL=DEFINITION HREF="26_glo_h.htm#hash_table"><I>hash table</I></A>. <P>
+<I>package</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> that evaluates to a <A REL=DEFINITION HREF="26_glo_p.htm#package_designator"><I>package designator</I></A>. <P>
+<I>type-specifier</I>---a <A REL=DEFINITION HREF="26_glo_t.htm#type_specifier"><I>type specifier</I></A>. This might be either an <A REL=DEFINITION HREF="26_glo_a.htm#atomic_type_specifier"><I>atomic type specifier</I></A> or a <A REL=DEFINITION HREF="26_glo_c.htm#compound_type_specifier"><I>compound type specifier</I></A>, which introduces some additional complications to proper parsing in the face of destructuring; for further information, see <A REL=CHILD HREF="06_aag.htm">Section 6.1.1.7 (Destructuring)</A>. <P>
+<I>result</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+ <P>
+<p><b>●详情:</b><P>
+ <P>
+For details, see <A REL=CHILD HREF="06_a.htm">Section 6.1 (The LOOP Facility)</A>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+;; An example of the simple form of LOOP.
+ (defun sqrt-advisor ()
+   (loop (format t &quot;~&amp;Number: &quot;)
+         (let ((n (parse-integer (read-line) :junk-allowed t)))
+           (when (not n) (return))
+           (format t &quot;~&amp;The square root of ~D is ~D.~%&quot; n (sqrt n)))))
+=&gt;  SQRT-ADVISOR
+ (sqrt-advisor)
+&gt;&gt;  Number: 5&lt;NEWLINE&gt;
+&gt;&gt;  The square root of 5 is 2.236068.
+&gt;&gt;  Number: 4&lt;NEWLINE&gt;
+&gt;&gt;  The square root of 4 is 2.
+&gt;&gt;  Number: done&lt;NEWLINE&gt;
+=&gt;  NIL
+
+;; An example of the extended form of LOOP.
+ (defun square-advisor ()
+   (loop as n = (progn (format t &quot;~&amp;Number: &quot;)
+                       (parse-integer (read-line) :junk-allowed t))
+         while n
+         do (format t &quot;~&amp;The square of ~D is ~D.~%&quot; n (* n n))))
+=&gt;  SQUARE-ADVISOR
+ (square-advisor)
+&gt;&gt;  Number: 4&lt;NEWLINE&gt;
+&gt;&gt;  The square of 4 is 16.
+&gt;&gt;  Number: 23&lt;NEWLINE&gt;
+&gt;&gt;  The square of 23 is 529.
+&gt;&gt;  Number: done&lt;NEWLINE&gt;
+=&gt;  NIL
+
+;;推荐使用如下关键字方式，方便代码解读。
+;; Another example of the extended form of LOOP.
+ (loop :for n :from 1 :to 10
+       :when (oddp n)
+         :collect n)
+=&gt;  (1 3 5 7 9)
+</PRE>
+</b> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_do_do.htm#do"><B>do</B></A>, <A REL=DEFINITION HREF="m_dolist.htm#dolist"><B>dolist</B></A>, <A REL=DEFINITION HREF="m_dotime.htm#dotimes"><B>dotimes</B></A>, <A REL=DEFINITION HREF="m_return.htm#return"><B>return</B></A>, <A REL=DEFINITION HREF="s_go.htm#go"><B>go</B></A>, <A REL=DEFINITION HREF="s_throw.htm#throw"><B>throw</B></A>, <A REL=CHILD HREF="06_aag.htm">Section 6.1.1.7 (Destructuring)</A> <P>
+<p><b>●说明:</b><P>
+ <P>
+Except that <A REL=DEFINITION HREF="m_loop_f.htm#loop-finish"><B>loop-finish</B></A> cannot be used within a simple <A REL=DEFINITION HREF="#loop"><B>loop</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>, a simple <A REL=DEFINITION HREF="#loop"><B>loop</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> is related to an extended <A REL=DEFINITION HREF="#loop"><B>loop</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> in the following way: <P>
+<PRE>
+ (loop compound-form*) ==  (loop do compound-form*)
+</PRE>
+</b> <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss223.htm">LOOP-MISCELLANEOUS-REPAIRS:FIX</A><LI> <A REL=CHILD HREF="../Issues/iss226.htm">LOOP-SYNTAX-OVERHAUL:REPAIR</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

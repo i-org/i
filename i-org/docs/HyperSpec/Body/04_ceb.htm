@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 4.3.5.2</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="04_cea.htm">
+<LINK REL=UP HREF="04_ce.htm">
+<LINK REL=NEXT HREF="04_cf.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="04_cea.htm">◀</A><A REL=UP HREF="04_ce.htm">▲</A><A REL=NEXT HREF="04_cf.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+4.3.5.2 Examples of Class Precedence List Determination</H2> <P>
+This example determines a <A REL=DEFINITION HREF="26_glo_c.htm#class_precedence_list"><I>class precedence list</I></A> for the class <b>pie</b>. The following <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>classes</I></A> are defined: <P>
+<PRE>
+ (defclass pie (apple cinnamon) ())
+ 
+ (defclass apple (fruit) ())
+ 
+ (defclass cinnamon (spice) ())
+ 
+ (defclass fruit (food) ())
+
+ (defclass spice (food) ())
+
+ (defclass food () ())
+</PRE>
+</b> <P>
+The set Spie = {<b>pie, apple, cinnamon, fruit, spice, food, standard-object, t</b>}. The set R = {<b>(pie, apple), (apple, cinnamon), (apple, fruit), (cinnamon, spice), <BR>
+(fruit, food), (spice, food), (food, standard-object), (standard-object, t)</b>}. <P>
+The class <b>pie</b> is not preceded by anything, so it comes first; the result so far is <b>(pie)</b>. Remove <b>pie</b> from S and pairs mentioning <b>pie</b> from R to get S = {<b>apple, cinnamon, fruit, spice, food, standard-object, t</b>} and R = {<b>(apple, cinnamon), (apple, fruit), (cinnamon, spice),<BR>
+(fruit, food), (spice, food), (food, standard-object), (standard-object, t)</b>}. <P>
+The class <b>apple</b> is not preceded by anything, so it is next; the result is <b>(pie apple)</b>. Removing <b>apple</b> and the relevant pairs results in S = {<b>cinnamon, fruit, spice, food, standard-object, t</b>} and R = {<b>(cinnamon, spice), (fruit, food), (spice, food), (food, standard-object),<BR>
+(standard-object, t)</b>}. <P>
+The classes <b>cinnamon</b> and <b>fruit</b> are not preceded by anything, so the one with a direct <A REL=DEFINITION HREF="26_glo_s.htm#subclass"><I>subclass</I></A> rightmost in the <A REL=DEFINITION HREF="26_glo_c.htm#class_precedence_list"><I>class precedence list</I></A> computed so far goes next. The class <b>apple</b> is a direct <A REL=DEFINITION HREF="26_glo_s.htm#subclass"><I>subclass</I></A> of <b>fruit</b>, and the class <b>pie</b> is a direct <A REL=DEFINITION HREF="26_glo_s.htm#subclass"><I>subclass</I></A> of <b>cinnamon</b>. Because <b>apple</b> appears to the right of <b>pie</b> in the <A REL=DEFINITION HREF="26_glo_c.htm#class_precedence_list"><I>class precedence list</I></A>, <b>fruit</b> goes next, and the result so far is <b>(pie apple fruit)</b>. S = {<b>cinnamon, spice, food, standard-object, t</b>}; R = {<b>(cinnamon, spice), (spice, food),<BR>
+(food, standard-object), (standard-object, t)</b>}. <P>
+The class <b>cinnamon</b> is next, giving the result so far as <b>(pie apple fruit cinnamon)</b>. At this point S = {<b>spice, food, standard-object, t</b>}; R = {<b>(spice, food), (food, standard-object), (standard-object, t)</b>}. <P>
+The classes <b>spice</b>, <b>food</b>, <A REL=DEFINITION HREF="t_std_ob.htm#standard-object"><B>standard-object</B></A>, and <A REL=DEFINITION HREF="t_t.htm#t"><B>t</B></A> are added in that order, and the <A REL=DEFINITION HREF="26_glo_c.htm#class_precedence_list"><I>class precedence list</I></A> is <b>(pie apple fruit cinnamon spice food standard-object t)</b>. <P>
+It is possible to write a set of <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> definitions that cannot be ordered. For example: <P>
+<PRE>
+ (defclass new-class (fruit apple) ())
+ 
+ (defclass apple (fruit) ())
+</PRE>
+</b> <P>
+The class <b>fruit</b> must precede <b>apple</b> because the local ordering of <A REL=DEFINITION HREF="26_glo_s.htm#superclass"><I>superclasses</I></A> must be preserved. The class <b>apple</b> must precede <b>fruit</b> because a <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> always precedes its own <A REL=DEFINITION HREF="26_glo_s.htm#superclass"><I>superclasses</I></A>. When this situation occurs, an error is signaled, as happens here when the system tries to compute the <A REL=DEFINITION HREF="26_glo_c.htm#class_precedence_list"><I>class precedence list</I></A> of <b>new-class</b>. <P>
+The following might appear to be a conflicting set of definitions: <P>
+<PRE>
+ (defclass pie (apple cinnamon) ())
+ 
+ (defclass pastry (cinnamon apple) ())
+ 
+ (defclass apple () ())
+ 
+ (defclass cinnamon () ())
+</PRE>
+</b> <P>
+The <A REL=DEFINITION HREF="26_glo_c.htm#class_precedence_list"><I>class precedence list</I></A> for <b>pie</b> is <b>(pie apple cinnamon standard-object t)</b>. <P>
+The <A REL=DEFINITION HREF="26_glo_c.htm#class_precedence_list"><I>class precedence list</I></A> for <b>pastry</b> is <b>(pastry cinnamon apple standard-object t)</b>. <P>
+It is not a problem for <b>apple</b> to precede <b>cinnamon</b> in the ordering of the <A REL=DEFINITION HREF="26_glo_s.htm#superclass"><I>superclasses</I></A> of <b>pie</b> but not in the ordering for <b>pastry</b>. However, it is not possible to build a new <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> that has both <b>pie</b> and <b>pastry</b> as <A REL=DEFINITION HREF="26_glo_s.htm#superclass"><I>superclasses</I></A>. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function MAKE-PACKAGE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_del_pk.htm">
+<LINK REL=UP HREF="c_packag.htm">
+<LINK REL=NEXT HREF="m_w_pkg_.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_del_pk.htm">◀</A><A REL=UP HREF="c_packag.htm">▲</A><A REL=NEXT HREF="m_w_pkg_.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="make-package"><I>Function</I> <B>MAKE-PACKAGE</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>make-package</B> <I>package-name <b>&amp;key</b> nicknames use</I> =&gt; <I>package</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>package-name</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#string_designator"><I>string designator</I></A>. <P>
+<I>nicknames</I>---a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> of <A REL=DEFINITION HREF="26_glo_s.htm#string_designator"><I>string designators</I></A>. The default is the <A REL=DEFINITION HREF="26_glo_e.htm#empty_list"><I>empty list</I></A>. <P>
+ <I>use</I>---a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> of <A REL=DEFINITION HREF="26_glo_p.htm#package_designator"><I>package designators</I></A>.  The default is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-defined"><I>implementation-defined</I></A>.   <P>
+<I>package</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Creates a new <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> with the name <I>package-name</I>. <P>
+<I>Nicknames</I> are additional <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>names</I></A> which may be used to refer to the new <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A>. <P>
+<I>use</I> specifies zero or more <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>packages</I></A> the <A REL=DEFINITION HREF="26_glo_e.htm#external_symbol"><I>external symbols</I></A> of which are to be inherited by the new <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A>. See the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="f_use_pk.htm#use-package"><B>use-package</B></A>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (make-package 'temporary :nicknames '(&quot;TEMP&quot; &quot;temp&quot;)) =&gt;  #&lt;PACKAGE &quot;TEMPORARY&quot;&gt;
+ (make-package &quot;OWNER&quot; :use '(&quot;temp&quot;)) =&gt;  #&lt;PACKAGE &quot;OWNER&quot;&gt;
+ (package-used-by-list 'temp) =&gt;  (#&lt;PACKAGE &quot;OWNER&quot;&gt;)
+ (package-use-list 'owner) =&gt;  (#&lt;PACKAGE &quot;TEMPORARY&quot;&gt;)
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于:</b><P>
+ <P>
+The existence of other <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>packages</I></A> in the system. <P>
+<p><b>●例外情况：</b><P>
+ <P>
+The consequences are unspecified if <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>packages</I></A> denoted by <I>use</I> do not exist. <P>
+A <A REL=DEFINITION HREF="26_glo_c.htm#correctable"><I>correctable</I></A> error is signaled if the <I>package-name</I> or any of the <I>nicknames</I> is already the <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>name</I></A> or <A REL=DEFINITION HREF="26_glo_n.htm#nickname"><I>nickname</I></A> of an existing <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_defpkg.htm#defpackage"><B>defpackage</B></A>, <A REL=DEFINITION HREF="f_use_pk.htm#use-package"><B>use-package</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+In situations where the <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>packages</I></A> to be used contain symbols which would conflict, it is necessary to first create the package with <b>:use '()</b>, then to use <A REL=DEFINITION HREF="f_shadow.htm#shadow"><B>shadow</B></A> or <A REL=DEFINITION HREF="f_shdw_i.htm#shadowing-import"><B>shadowing-import</B></A> to address the conflicts, and then after that to use <A REL=DEFINITION HREF="f_use_pk.htm#use-package"><B>use-package</B></A> once the conflicts have been addressed. <P>
+When packages are being created as part of the static definition of a program rather than dynamically by the program, it is generally considered more stylistically appropriate to use <A REL=DEFINITION HREF="m_defpkg.htm#defpackage"><B>defpackage</B></A> rather than <A REL=DEFINITION HREF="#make-package"><B>make-package</B></A>. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss238.htm">MAKE-PACKAGE-USE-DEFAULT:IMPLEMENTATION-DEPENDENT</A><LI> <A REL=CHILD HREF="../Issues/iss254.htm">PACKAGE-FUNCTION-CONSISTENCY:MORE-PERMISSIVE</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

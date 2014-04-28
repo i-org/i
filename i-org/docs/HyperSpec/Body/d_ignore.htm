@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Declaration IGNORE, IGNORABLE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="s_declar.htm">
+<LINK REL=UP HREF="c_evalua.htm">
+<LINK REL=NEXT HREF="d_dynami.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="s_declar.htm">◀</A><A REL=UP HREF="c_evalua.htm">▲</A><A REL=NEXT HREF="d_dynami.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="ignore"><A NAME="ignorable"><I>Declaration</I> <B>IGNORE, IGNORABLE</B></A></A> <P>
+ <P>
+<p><b>●语法设定:</b><p>
+ <P>
+<b></b>(<b>ignore </b>{<b></b><I>var</I><b> </b>|<b> </b>(<b><A REL=DEFINITION HREF="a_fn.htm#function"></b><B>function</B><b></A> </b><I>fn</I><b></b>)<b></b>}<b></b>*<b></b>)<b></b> <P>
+<b></b>(<b>ignorable </b>{<b></b><I>var</I><b> </b>|<b> </b>(<b><A REL=DEFINITION HREF="a_fn.htm#function"></b><B>function</B><b></A> </b><I>fn</I><b></b>)<b></b>}<b></b>*<b></b>)<b></b> <P>
+<P><B>Arguments:</B><P>
+ <P>
+<I>var</I>---a <A REL=DEFINITION HREF="26_glo_v.htm#variable"><I>variable</I></A> <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>name</I></A>. <P>
+<I>fn</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>name</I></A>. <P>
+<P><B>Valid Context:</B><P>
+ <P>
+<A REL=DEFINITION HREF="26_glo_d.htm#declaration"><I>declaration</I></A> <P>
+<P><B>Binding Types Affected:</B><P>
+ <P>
+<A REL=DEFINITION HREF="26_glo_v.htm#variable"><I>variable</I></A>, <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <P>
+<p><b>●详情:</b><P>
+ <P>
+ The <A REL=DEFINITION HREF="#ignore"><B>ignore</B></A> and <A REL=DEFINITION HREF="#ignorable"><B>ignorable</B></A> declarations refer to <A REL=DEFINITION HREF="26_glo_f.htm#for-value"><I>for-value</I></A> <A REL=DEFINITION HREF="26_glo_r.htm#reference"><I>references</I></A> to <A REL=DEFINITION HREF="26_glo_v.htm#variable"><I>variable</I></A> <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>bindings</I></A> for the <I>vars</I> and to <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>bindings</I></A> for the <I>fns</I>. <P>
+An <A REL=DEFINITION HREF="#ignore"><B>ignore</B></A> <A REL=DEFINITION HREF="26_glo_d.htm#declaration"><I>declaration</I></A> specifies that <A REL=DEFINITION HREF="26_glo_f.htm#for-value"><I>for-value</I></A> <A REL=DEFINITION HREF="26_glo_r.htm#reference"><I>references</I></A> to the indicated <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>bindings</I></A> will not occur within the scope of the <A REL=DEFINITION HREF="26_glo_d.htm#declaration"><I>declaration</I></A>. Within the <A REL=DEFINITION HREF="26_glo_s.htm#scope"><I>scope</I></A> of such a <A REL=DEFINITION HREF="26_glo_d.htm#declaration"><I>declaration</I></A>, it is desirable for a compiler to issue a warning about the presence of either a <A REL=DEFINITION HREF="26_glo_f.htm#for-value"><I>for-value</I></A> <A REL=DEFINITION HREF="26_glo_r.htm#reference"><I>reference</I></A> to any <I>var</I> or <I>fn</I>, or a <A REL=DEFINITION HREF="d_specia.htm#special"><B>special</B></A> <A REL=DEFINITION HREF="26_glo_d.htm#declaration"><I>declaration</I></A> for any <I>var</I>. <P>
+An <A REL=DEFINITION HREF="#ignorable"><B>ignorable</B></A> <A REL=DEFINITION HREF="26_glo_d.htm#declaration"><I>declaration</I></A> specifies that <A REL=DEFINITION HREF="26_glo_f.htm#for-value"><I>for-value</I></A> <A REL=DEFINITION HREF="26_glo_r.htm#reference"><I>references</I></A> to the indicated <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>bindings</I></A> might or might not occur within the scope of the <A REL=DEFINITION HREF="26_glo_d.htm#declaration"><I>declaration</I></A>. Within the <A REL=DEFINITION HREF="26_glo_s.htm#scope"><I>scope</I></A> of such a <A REL=DEFINITION HREF="26_glo_d.htm#declaration"><I>declaration</I></A>, it is not desirable for a compiler to issue a warning about the presence or absence of either a <A REL=DEFINITION HREF="26_glo_f.htm#for-value"><I>for-value</I></A> <A REL=DEFINITION HREF="26_glo_r.htm#reference"><I>reference</I></A> to any <I>var</I> or <I>fn</I>, or a <A REL=DEFINITION HREF="d_specia.htm#special"><B>special</B></A> <A REL=DEFINITION HREF="26_glo_d.htm#declaration"><I>declaration</I></A> for any <I>var</I>. <P>
+When not within the <A REL=DEFINITION HREF="26_glo_s.htm#scope"><I>scope</I></A> of a <A REL=DEFINITION HREF="#ignore"><B>ignore</B></A> or <A REL=DEFINITION HREF="#ignorable"><B>ignorable</B></A> <A REL=DEFINITION HREF="26_glo_d.htm#declaration"><I>declaration</I></A>, it is desirable for a compiler to issue a warning about any <I>var</I> for which there is neither a <A REL=DEFINITION HREF="26_glo_f.htm#for-value"><I>for-value</I></A> <A REL=DEFINITION HREF="26_glo_r.htm#reference"><I>reference</I></A> nor a <A REL=DEFINITION HREF="d_specia.htm#special"><B>special</B></A> <A REL=DEFINITION HREF="26_glo_d.htm#declaration"><I>declaration</I></A>, or about any <I>fn</I> for which there is no <A REL=DEFINITION HREF="26_glo_f.htm#for-value"><I>for-value</I></A> <A REL=DEFINITION HREF="26_glo_r.htm#reference"><I>reference</I></A>. <P>
+Any warning about a ``used'' or ``unused'' <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>binding</I></A> must be of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_style_.htm#style-warning"><B>style-warning</B></A>, and may not affect program semantics. <P>
+ <P>
+The <A REL=DEFINITION HREF="26_glo_s.htm#stream_variable"><I>stream variables</I></A> established by <A REL=DEFINITION HREF="m_w_open.htm#with-open-file"><B>with-open-file</B></A>, <A REL=DEFINITION HREF="m_w_op_1.htm#with-open-stream"><B>with-open-stream</B></A>, <A REL=DEFINITION HREF="m_w_in_f.htm#with-input-from-string"><B>with-input-from-string</B></A>, and <A REL=DEFINITION HREF="m_w_out_.htm#with-output-to-string"><B>with-output-to-string</B></A>, and all <A REL=DEFINITION HREF="26_glo_i.htm#iteration_variable"><I>iteration variables</I></A> are, by definition, always ``used''. Using <b>(declare (ignore </b><I>v</I><b>))</b>, for such a <A REL=DEFINITION HREF="26_glo_v.htm#variable"><I>variable</I></A> <I>v</I> has unspecified consequences. <P>
+ <P>
+  <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="s_declar.htm#declare"><B>declare</B></A> <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss193.htm">IGNORE-USE-TERMINOLOGY:VALUE-ONLY</A><LI> <A REL=CHILD HREF="../Issues/iss137.htm">DOTIMES-IGNORE:X3J13-MAR91</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

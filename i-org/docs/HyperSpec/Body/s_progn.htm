@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Special Operator PROGN</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="m_prog1c.htm">
+<LINK REL=UP HREF="c_data_a.htm">
+<LINK REL=NEXT HREF="m_defi_2.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="m_prog1c.htm">◀</A><A REL=UP HREF="c_data_a.htm">▲</A><A REL=NEXT HREF="m_defi_2.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="progn"><I>Special Operator</I> <B>PROGN</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>progn</B> <I><I>form</I><B>*</B></I> =&gt; <I><I>result</I><B>*</B></I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>forms</I>---an <A REL=DEFINITION HREF="26_glo_i.htm#implicit_progn"><I>implicit progn</I></A>. <P>
+<I>results</I>---the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> of the <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#progn"><B>progn</B></A> evaluates <I>forms</I>, in the order in which they are given. <P>
+The values of each <I>form</I> but the last are discarded. <P>
+If <A REL=DEFINITION HREF="#progn"><B>progn</B></A> appears as a <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level form</I></A>, then all <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A> within that <A REL=DEFINITION HREF="#progn"><B>progn</B></A> are considered by the compiler to be <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level forms</I></A>. <P>
+<p><b>●例子:</b><P>
+ 
+<PRE>
+ (progn) =&gt;  NIL
+ (progn 1 2 3) =&gt;  3
+ (progn (values 1 2 3)) =&gt;  1, 2, 3
+ (setq a 1) =&gt;  1
+ (if a
+      (progn (setq a nil) 'here)
+      (progn (setq a t) 'there)) =&gt;  HERE
+ a =&gt;  NIL
+</PRE>
+</b> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_prog1c.htm#prog1"><B>prog1</B></A>, <A REL=DEFINITION HREF="m_prog1c.htm#prog2"><B>prog2</B></A>, <h2><A REL=CHILD HREF="03_a.htm">Section 3.1 (Evaluation)</A> <P>
+<p><b>●说明:</b><P>
+ <P>
+Many places in Common Lisp involve syntax that uses <A REL=DEFINITION HREF="26_glo_i.htm#implicit_progn"><I>implicit progns</I></A>. That is, part of their syntax allows many <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A> to be written that are to be evaluated sequentially, discarding the results of all <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A> but the last and returning the results of the last <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. Such places include, but are not limited to, the following: the body of a <A REL=DEFINITION HREF="26_glo_l.htm#lambda_expression"><I>lambda expression</I></A>; the bodies of various control and conditional <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A> (e.g., <A REL=DEFINITION HREF="m_case_.htm#case"><B>case</B></A>, <A REL=DEFINITION HREF="s_catch.htm#catch"><B>catch</B></A>, <A REL=DEFINITION HREF="#progn"><B>progn</B></A>, and <A REL=DEFINITION HREF="m_when_.htm#when"><B>when</B></A>). <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

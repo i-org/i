@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function =, /=, &lt;, &gt;, &lt;=, &gt;=</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="t_bignum.htm">
+<LINK REL=UP HREF="c_number.htm">
+<LINK REL=NEXT HREF="f_max_m.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="t_bignum.htm">◀</A><A REL=UP HREF="c_number.htm">▲</A><A REL=NEXT HREF="f_max_m.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="EQ"><A NAME="SLEQ"><A NAME="LT"><A NAME="GT"><A NAME="LTEQ"><A NAME="GTEQ"><I>Function</I> <B>=, /=, &lt;, &gt;, &lt;=, &gt;=</B></A></A></A></A></A></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>=</B> <I><b>&amp;rest</b> numbers+</I> =&gt; <I>generalized-boolean</I><P>
+ 
+<B>/=</B> <I><b>&amp;rest</b> numbers+</I> =&gt; <I>generalized-boolean</I><P>
+ 
+<B>&lt;</B> <I><b>&amp;rest</b> numbers+</I> =&gt; <I>generalized-boolean</I><P>
+ 
+<B>&gt;</B> <I><b>&amp;rest</b> numbers+</I> =&gt; <I>generalized-boolean</I><P>
+ 
+<B>&lt;=</B> <I><b>&amp;rest</b> numbers+</I> =&gt; <I>generalized-boolean</I><P>
+ 
+<B>&gt;=</B> <I><b>&amp;rest</b> numbers+</I> =&gt; <I>generalized-boolean</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>number</I>---for <A REL=DEFINITION HREF="#LT"><B>&lt;</B></A>, <A REL=DEFINITION HREF="#GT"><B>&gt;</B></A>, <A REL=DEFINITION HREF="#LTEQ"><B>&lt;=</B></A>, <A REL=DEFINITION HREF="#GTEQ"><B>&gt;=</B></A>: a <A REL=DEFINITION HREF="t_real.htm#real"><I>real</I></A>; for <A REL=DEFINITION HREF="#EQ"><B>=</B></A>, <A REL=DEFINITION HREF="#SLEQ"><B>/=</B></A>: a <A REL=DEFINITION HREF="26_glo_n.htm#number"><I>number</I></A>. <P>
+<I>generalized-boolean</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#EQ"><B>=</B></A>, <A REL=DEFINITION HREF="#SLEQ"><B>/=</B></A>, <A REL=DEFINITION HREF="#LT"><B>&lt;</B></A>, <A REL=DEFINITION HREF="#GT"><B>&gt;</B></A>, <A REL=DEFINITION HREF="#LTEQ"><B>&lt;=</B></A>, and <A REL=DEFINITION HREF="#GTEQ"><B>&gt;=</B></A> perform arithmetic comparisons on their arguments as follows: <P>
+<P><ul><li><A REL=DEFINITION HREF="#EQ"><B>=</B></A>  <P>
+The value of <A REL=DEFINITION HREF="#EQ"><B>=</B></A> is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> if all <I>numbers</I> are the same in value; otherwise it is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>. Two <A REL=DEFINITION HREF="26_glo_c.htm#complex"><I>complexes</I></A> are considered equal by <A REL=DEFINITION HREF="#EQ"><B>=</B></A> if their real and imaginary parts are equal according to <A REL=DEFINITION HREF="#EQ"><B>=</B></A>. <P></li>
+<li><A REL=DEFINITION HREF="#SLEQ"><B>/=</B></A>  <P>
+The value of <A REL=DEFINITION HREF="#SLEQ"><B>/=</B></A> is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> if no two <I>numbers</I> are the same in value; otherwise it is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>. <P></li>
+<li><A REL=DEFINITION HREF="#LT"><B>&lt;</B></A>  <P>
+The value of <A REL=DEFINITION HREF="#LT"><B>&lt;</B></A> is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> if the <I>numbers</I> are in monotonically increasing order; otherwise it is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>. <P></li>
+<li><A REL=DEFINITION HREF="#GT"><B>&gt;</B></A>  <P>
+The value of <A REL=DEFINITION HREF="#GT"><B>&gt;</B></A> is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> if the <I>numbers</I> are in monotonically decreasing order; otherwise it is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>. <P></li>
+<li><A REL=DEFINITION HREF="#LTEQ"><B>&lt;=</B></A>  <P>
+The value of <A REL=DEFINITION HREF="#LTEQ"><B>&lt;=</B></A> is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> if the <I>numbers</I> are in monotonically nondecreasing order; otherwise it is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>. <P></li>
+<li><A REL=DEFINITION HREF="#GTEQ"><B>&gt;=</B></A>  <P>
+The value of <A REL=DEFINITION HREF="#GTEQ"><B>&gt;=</B></A> is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> if the <I>numbers</I> are in monotonically nonincreasing order; otherwise it is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>. <P></li></ul><P>
+<A REL=DEFINITION HREF="#EQ"><B>=</B></A>, <A REL=DEFINITION HREF="#SLEQ"><B>/=</B></A>, <A REL=DEFINITION HREF="#LT"><B>&lt;</B></A>, <A REL=DEFINITION HREF="#GT"><B>&gt;</B></A>, <A REL=DEFINITION HREF="#LTEQ"><B>&lt;=</B></A>, and <A REL=DEFINITION HREF="#GTEQ"><B>&gt;=</B></A> perform necessary type conversions. <P>
+<p><b>●例子:</b><P>
+ <P>
+The uses of these functions are illustrated in the next figure. <P>
+<PRE>
+(= 3 3) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.              (/= 3 3) is <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>.             
+(= 3 5) is <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>.             (/= 3 5) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.              
+(= 3 3 3 3) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.          (/= 3 3 3 3) is <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>.         
+(= 3 3 5 3) is <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>.         (/= 3 3 5 3) is <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>.         
+(= 3 6 5 2) is <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>.         (/= 3 6 5 2) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.          
+(= 3 2 3) is <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>.           (/= 3 2 3) is <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>.           
+(&lt; 3 5) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.              (&lt;= 3 5) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.              
+(&lt; 3 -5) is <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>.            (&lt;= 3 -5) is <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>.            
+(&lt; 3 3) is <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>.             (&lt;= 3 3) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.              
+(&lt; 0 3 4 6 7) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.        (&lt;= 0 3 4 6 7) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.        
+(&lt; 0 3 4 4 6) is <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>.       (&lt;= 0 3 4 4 6) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.        
+(&gt; 4 3) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.              (&gt;= 4 3) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.              
+(&gt; 4 3 2 1 0) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.        (&gt;= 4 3 2 1 0) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.        
+(&gt; 4 3 3 2 0) is <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>.       (&gt;= 4 3 3 2 0) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.        
+(&gt; 4 3 1 2 0) is <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>.       (&gt;= 4 3 1 2 0) is <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>.       
+(= 3) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.                (/= 3) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.                
+(&lt; 3) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.                (&lt;= 3) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.                
+(= 3.0 #c(3.0 0.0)) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.  (/= 3.0 #c(3.0 1.0)) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.  
+(= 3 3.0) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.            (= 3.0s0 3.0d0) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.       
+(= 0.0 -0.0) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.         (= 5/2 2.5) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.           
+(&gt; 0.0 -0.0) is <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>.        (= 0 -0.0) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>.            
+(&lt;= 0 x 9) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A> if x is between 0 and 9, inclusive                               
+(&lt; 0.0 x 1.0) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A> if x is between 0.0 and 1.0, exclusive                               
+(&lt; -1 j (length v)) is <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A> if j is a <A REL=DEFINITION HREF="26_glo_v.htm#valid_array_index">valid array index</A> for a <A REL=DEFINITION HREF="26_glo_v.htm#vector">vector</A> v                               
+</PRE>
+<p><b>■图表 12-13.  Uses of /=, =, &lt;, &gt;, &lt;=, and &gt;=</B> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+Might signal <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if some <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A> is not a <A REL=DEFINITION HREF="t_real.htm#real"><I>real</I></A>. Might signal <A REL=DEFINITION HREF="e_arithm.htm#arithmetic-error"><B>arithmetic-error</B></A> if otherwise unable to fulfill its contract. <P>
+<p><b>●更多信息:</b> None.
+ <P>
+<p><b>●说明:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#EQ"><B>=</B></A> differs from <A REL=DEFINITION HREF="f_eql.htm#eql"><B>eql</B></A> in that <b>(= 0.0 -0.0)</b> is always true, because <A REL=DEFINITION HREF="#EQ"><B>=</B></A> compares the mathematical values of its operands, whereas <A REL=DEFINITION HREF="f_eql.htm#eql"><B>eql</B></A> compares the representational values, so to speak. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

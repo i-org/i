@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Special Operator LOAD-TIME-VALUE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="s_eval_w.htm">
+<LINK REL=UP HREF="c_evalua.htm">
+<LINK REL=NEXT HREF="s_quote.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="s_eval_w.htm">◀</A><A REL=UP HREF="c_evalua.htm">▲</A><A REL=NEXT HREF="s_quote.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="load-time-value"><I>Special Operator</I> <B>LOAD-TIME-VALUE</B></A>  <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>load-time-value</B> <I>form <b>&amp;optional</b> read-only-p</I> =&gt; <I>object</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>form</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>; evaluated as described below. <P>
+<I>read-only-p</I>---a <A REL=DEFINITION HREF="26_glo_b.htm#boolean"><I>boolean</I></A>; not evaluated. <P>
+<I>object</I>---the <A REL=DEFINITION HREF="26_glo_p.htm#primary_value"><I>primary value</I></A> resulting from evaluating <I>form</I>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#load-time-value"><B>load-time-value</B></A> provides a mechanism for delaying evaluation of <I>form</I> until the expression is in the run-time environment; see <A REL=CHILD HREF="03_b.htm">Section 3.2 (Compilation)</A>. <P>
+<I>Read-only-p</I> designates whether the result can be considered a <A REL=DEFINITION HREF="26_glo_c.htm#constant_object"><I>constant object</I></A>. If <A REL=DEFINITION HREF="a_t.htm#t"><B>t</B></A>, the result is a read-only quantity that can, if appropriate to the <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A>, be copied into read-only space and/or <I>coalesced</I> with <A REL=DEFINITION HREF="26_glo_s.htm#similar"><I>similar</I></A> <A REL=DEFINITION HREF="26_glo_c.htm#constant_object"><I>constant objects</I></A> from other <A REL=DEFINITION HREF="26_glo_p.htm#program"><I>programs</I></A>. If <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> (the default), the result must be neither copied nor coalesced; it must be considered to be potentially modifiable data. <P>
+If a <A REL=DEFINITION HREF="#load-time-value"><B>load-time-value</B></A> expression is processed by <A REL=DEFINITION HREF="f_cmp_fi.htm#compile-file"><B>compile-file</B></A>, the compiler performs its normal semantic processing (such as macro expansion and translation into machine code) on <I>form</I>, but arranges for the execution of <I>form</I> to occur at load time in a <A REL=DEFINITION HREF="26_glo_n.htm#null_lexical_environment"><I>null lexical environment</I></A>, with the result of this <A REL=DEFINITION HREF="26_glo_e.htm#evaluation"><I>evaluation</I></A> then being treated as a <A REL=DEFINITION HREF="26_glo_l.htm#literal"><I>literal</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> at run time. It is guaranteed that the evaluation of <I>form</I> will take place only once when the <A REL=DEFINITION HREF="26_glo_f.htm#file"><I>file</I></A> is <I>loaded</I>, but the order of evaluation with respect to the evaluation of <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level forms</I></A> in the file is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A>.  <P>
+If a <A REL=DEFINITION HREF="#load-time-value"><B>load-time-value</B></A> expression appears within a function compiled with <A REL=DEFINITION HREF="f_cmp.htm#compile"><B>compile</B></A>, the <I>form</I> is evaluated at compile time in a <A REL=DEFINITION HREF="26_glo_n.htm#null_lexical_environment"><I>null lexical environment</I></A>. The result of this compile-time evaluation is treated as a <A REL=DEFINITION HREF="26_glo_l.htm#literal"><I>literal</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> in the compiled code. <P>
+If a <A REL=DEFINITION HREF="#load-time-value"><B>load-time-value</B></A> expression is processed by <A REL=DEFINITION HREF="f_eval.htm#eval"><B>eval</B></A>, <I>form</I> is evaluated in a <A REL=DEFINITION HREF="26_glo_n.htm#null_lexical_environment"><I>null lexical environment</I></A>, and one value is returned. Implementations that implicitly compile (or partially compile) expressions processed by <A REL=DEFINITION HREF="f_eval.htm#eval"><B>eval</B></A> might evaluate <I>form</I> only once, at the time this compilation is performed. <P>
+If the <A REL=DEFINITION HREF="26_glo_s.htm#same"><I>same</I></A> <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> <b>(load-time-value </b><I>form</I><b>)</b> is evaluated or compiled more than once, it is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> whether <I>form</I> is evaluated only once or is evaluated more than once. This can happen both when an expression being evaluated or compiled shares substructure, and when the <A REL=DEFINITION HREF="26_glo_s.htm#same"><I>same</I></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> is processed by <A REL=DEFINITION HREF="f_eval.htm#eval"><B>eval</B></A> or <A REL=DEFINITION HREF="f_cmp.htm#compile"><B>compile</B></A> multiple times. Since a <A REL=DEFINITION HREF="#load-time-value"><B>load-time-value</B></A> expression can be referenced in more than one place and can be evaluated multiple times by <A REL=DEFINITION HREF="f_eval.htm#eval"><B>eval</B></A>, it is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> whether each execution returns a fresh <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> or returns the same <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> as some other execution. Users must use caution when destructively modifying the resulting <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+If two lists <b>(load-time-value </b><I>form</I><b>)</b> that are the <A REL=DEFINITION HREF="26_glo_s.htm#same"><I>same</I></A> under <A REL=DEFINITION HREF="f_equal.htm#equal"><B>equal</B></A> but are not <A REL=DEFINITION HREF="26_glo_i.htm#identical"><I>identical</I></A> are evaluated or compiled, their values always come from distinct evaluations of <I>form</I>. Their <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> may not be coalesced unless <I>read-only-p</I> is <A REL=DEFINITION HREF="a_t.htm#t"><B>t</B></A>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+;;; The function INCR1 always returns the same value, even in different images.
+;;; The function INCR2 always returns the same value in a given image, 
+;;; but the value it returns might vary from image to image.
+(defun incr1 (x) (+ x #.(random 17)))
+(defun incr2 (x) (+ x (load-time-value (random 17))))
+
+;;; The function FOO1-REF references the nth element of the first of 
+;;; the *FOO-ARRAYS* that is available at load time.  It is permissible for
+;;; that array to be modified (e.g., by SET-FOO1-REF); FOO1-REF will see the
+;;; updated values.
+(defvar *foo-arrays* (list (make-array 7) (make-array 8)))
+(defun foo1-ref (n) (aref (load-time-value (first *my-arrays*) nil) n))
+(defun set-foo1-ref (n val) 
+  (setf (aref (load-time-value (first *my-arrays*) nil) n) val))
+
+;;; The function BAR1-REF references the nth element of the first of 
+;;; the *BAR-ARRAYS* that is available at load time.  The programmer has
+;;; promised that the array will be treated as read-only, so the system 
+;;; can copy or coalesce the array.
+(defvar *bar-arrays* (list (make-array 7) (make-array 8)))
+(defun bar1-ref (n) (aref (load-time-value (first *my-arrays*) t) n))
+
+;;; This use of LOAD-TIME-VALUE permits the indicated vector to be coalesced
+;;; even though NIL was specified, because the object was already read-only
+;;; when it was written as a literal vector rather than created by a constructor.
+;;; User programs must treat the vector v as read-only.
+(defun baz-ref (n)
+  (let ((v (load-time-value #(A B C) nil)))
+    (values (svref v n) v)))
+
+;;; This use of LOAD-TIME-VALUE permits the indicated vector to be coalesced
+;;; even though NIL was specified in the outer situation because T was specified
+;;; in the inner situation.  User programs must treat the vector v as read-only.
+(defun baz-ref (n)
+  (let ((v (load-time-value (load-time-value (vector 1 2 3) t) nil)))
+    (values (svref v n) v)))
+</PRE>
+</b> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_cmp_fi.htm#compile-file"><B>compile-file</B></A>, <A REL=DEFINITION HREF="f_cmp.htm#compile"><B>compile</B></A>, <A REL=DEFINITION HREF="f_eval.htm#eval"><B>eval</B></A>, <h2><A REL=CHILD HREF="03_bbb.htm">Section 3.2.2.2 (Minimal Compilation)</A>, <h2><A REL=CHILD HREF="03_b.htm">Section 3.2 (Compilation)</A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#load-time-value"><B>load-time-value</B></A> must appear outside of quoted structure in a ``for <A REL=DEFINITION HREF="26_glo_e.htm#evaluation"><I>evaluation</I></A>'' position. In situations which would appear to call for use of <A REL=DEFINITION HREF="#load-time-value"><B>load-time-value</B></A> within a quoted structure, the <A REL=DEFINITION HREF="26_glo_b.htm#backquote"><I>backquote</I></A> <A REL=DEFINITION HREF="26_glo_r.htm#reader_macro"><I>reader macro</I></A> is probably called for; see <A REL=CHILD HREF="02_df.htm">Section 2.4.6 (Backquote)</A>. <P>
+Specifying <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> for <I>read-only-p</I> is not a way to force an object to become modifiable if it has already been made read-only. It is only a way to say that, for an object that is modifiable, this operation is not intended to make that object read-only. <P>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss217.htm">LOAD-TIME-EVAL:R**3-NEW-SPECIAL-FORM</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

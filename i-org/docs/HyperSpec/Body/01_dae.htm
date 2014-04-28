@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 1.4.1.5</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="01_dadd.htm">
+<LINK REL=UP HREF="01_da.htm">
+<LINK REL=NEXT HREF="01_daf.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="01_dadd.htm">◀</A><A REL=UP HREF="01_da.htm">▲</A><A REL=NEXT HREF="01_daf.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+1.4.1.5 Designators</H2>  <P>
+A <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> is an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> that denotes another <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+Where a <A REL=DEFINITION HREF="26_glo_p.htm#parameter"><I>parameter</I></A> of an <A REL=DEFINITION HREF="26_glo_o.htm#operator"><I>operator</I></A> is described as a <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A>, the description of the <A REL=DEFINITION HREF="26_glo_o.htm#operator"><I>operator</I></A> is written in a way that assumes that the value of the <A REL=DEFINITION HREF="26_glo_p.htm#parameter"><I>parameter</I></A> is the denoted <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>; that is, that the <A REL=DEFINITION HREF="26_glo_p.htm#parameter"><I>parameter</I></A> is already of the denoted <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A>. (The specific nature of the <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> denoted by a ``&lt;&lt;<I>type</I>&gt;&gt; <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A>'' or a ``<A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for a &lt;&lt;<I>type</I>&gt;&gt;'' can be found in the Glossary entry for ``&lt;&lt;<I>type</I>&gt;&gt; <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A>.'') <P>
+For example, ``<A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>'' and ``the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> of <A REL=DEFINITION HREF="v_debug_.htm#STstandard-outputST"><B>*standard-output*</B></A>'' are operationally indistinguishable as <A REL=DEFINITION HREF="26_glo_s.htm#stream_designator"><I>stream designators</I></A>. Similarly, the <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> <b>foo</b> and the <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> <b>&quot;FOO&quot;</b> are operationally indistinguishable as <A REL=DEFINITION HREF="26_glo_s.htm#string_designator"><I>string designators</I></A>. <P>
+Except as otherwise noted, in a situation where the denoted <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> might be used multiple times, it is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> whether the <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> is coerced only once or whether the coercion occurs each time the <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> must be used. <P>
+For example, <A REL=DEFINITION HREF="f_mapc_.htm#mapcar"><B>mapcar</B></A> receives a <A REL=DEFINITION HREF="26_glo_f.htm#function_designator"><I>function designator</I></A> as an argument, and its description is written as if this were simply a function. In fact, it is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> whether the <A REL=DEFINITION HREF="26_glo_f.htm#function_designator"><I>function designator</I></A> is coerced right away or whether it is carried around internally in the form that it was given as an <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A> and re-coerced each time it is needed. In most cases, <A REL=DEFINITION HREF="26_glo_c.htm#conforming_program"><I>conforming programs</I></A> cannot detect the distinction, but there are some pathological situations (particularly those involving self-redefining or mutually-redefining functions) which do conform and which can detect this difference. The following program is a <A REL=DEFINITION HREF="26_glo_c.htm#conforming_program"><I>conforming program</I></A>, but might or might not have portably correct results, depending on whether its correctness depends on one or the other of the results: <P>
+<PRE>
+ (defun add-some (x) 
+   (defun add-some (x) (+ x 2))
+   (+ x 1)) =&gt;  ADD-SOME
+ (mapcar 'add-some '(1 2 3 4))
+=&gt;  (2 3 4 5)
+OR=&gt;  (2 4 5 6)
+</PRE>
+</b> <P>
+In a few rare situations, there may be a need in a dictionary entry to refer to the <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> that was the original <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for a <A REL=DEFINITION HREF="26_glo_p.htm#parameter"><I>parameter</I></A>. Since naming the <A REL=DEFINITION HREF="26_glo_p.htm#parameter"><I>parameter</I></A> would refer to the denoted <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>, the phrase ``the &lt;&lt;<I>parameter-name</I>&gt;&gt; <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A>'' can be used to refer to the <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> which was the <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A> from which the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> of &lt;&lt;<I>parameter-name</I>&gt;&gt; was computed. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

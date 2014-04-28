@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Standard Generic Function UPDATE-INSTANCE-FOR-DIFFERENT-CLASS</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_shared.htm">
+<LINK REL=UP HREF="c_object.htm">
+<LINK REL=NEXT HREF="f_upda_1.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_shared.htm">◀</A><A REL=UP HREF="c_object.htm">▲</A><A REL=NEXT HREF="f_upda_1.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="update-instance-for-different-class"><I>Standard Generic Function</I> <B>UPDATE-INSTANCE-FOR-DIFFERENT-CLASS</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+ 
+<B>update-instance-for-different-class</B> <I>previous current <b>&amp;rest</b> initargs <b>&amp;key</b> <b>&amp;allow-other-keys</b></I> =&gt; <I><A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A></I><P>
+  <P>
+<P><B>Method Signatures:</B><P>
+ <P>
+
+<B>update-instance-for-different-class</B> <I>(<I>previous</I><B> <A REL=DEFINITION HREF="t_std_ob.htm#standard-object">standard-object</A></B>) (<I>current</I><B> <A REL=DEFINITION HREF="t_std_ob.htm#standard-object">standard-object</A></B>) <b>&amp;rest</b> initargs</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>previous</I>---a copy of the original <A REL=DEFINITION HREF="26_glo_i.htm#instance"><I>instance</I></A>. <P>
+<I>current</I>---the original <A REL=DEFINITION HREF="26_glo_i.htm#instance"><I>instance</I></A> (altered). <P>
+<I>initargs</I>---an <A REL=DEFINITION HREF="26_glo_i.htm#initialization_argument_list"><I>initialization argument list</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+The generic function <A REL=DEFINITION HREF="#update-instance-for-different-class"><B>update-instance-for-different-class</B></A> is not intended to be called by programmers. Programmers may write <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>methods</I></A> for it. The <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="#update-instance-for-different-class"><B>update-instance-for-different-class</B></A> is called only by the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="f_chg_cl.htm#change-class"><B>change-class</B></A>. <P>
+The system-supplied primary <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> on <A REL=DEFINITION HREF="#update-instance-for-different-class"><B>update-instance-for-different-class</B></A> checks the validity of <I>initargs</I> and signals an error if an <I>initarg</I> is supplied that is not declared as valid. This <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> then initializes <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A> with values according to the <I>initargs</I>, and initializes the newly added <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A> with values according to their <b>:initform</b> forms. It does this by calling the generic function <A REL=DEFINITION HREF="f_shared.htm#shared-initialize"><B>shared-initialize</B></A> with the following arguments: the instance (<I>current</I>), a list of <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>names</I></A> of the newly added <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A>, and the 
+<I>initargs</I> it received. Newly added <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A> are those <A REL=DEFINITION HREF="26_glo_l.htm#local_slot"><I>local slots</I></A> for which no <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slot</I></A> of the same name exists in the <I>previous</I> class. <P>
+<A REL=DEFINITION HREF="26_glo_m.htm#method"><I>Methods</I></A> for <A REL=DEFINITION HREF="#update-instance-for-different-class"><B>update-instance-for-different-class</B></A> can be defined to specify actions to be taken when an <A REL=DEFINITION HREF="26_glo_i.htm#instance"><I>instance</I></A> is updated. If only <A REL=DEFINITION HREF="26_glo_a.htm#after_method"><I>after methods</I></A> for <A REL=DEFINITION HREF="#update-instance-for-different-class"><B>update-instance-for-different-class</B></A> are defined, they will be run after the system-supplied primary <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> for initialization and therefore will not interfere with the default behavior of <A REL=DEFINITION HREF="#update-instance-for-different-class"><B>update-instance-for-different-class</B></A>. <P>
+<A REL=DEFINITION HREF="26_glo_m.htm#method"><I>Methods</I></A> on <A REL=DEFINITION HREF="#update-instance-for-different-class"><B>update-instance-for-different-class</B></A> can be defined to initialize <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A> differently from <A REL=DEFINITION HREF="f_chg_cl.htm#change-class"><B>change-class</B></A>. The default behavior of <A REL=DEFINITION HREF="f_chg_cl.htm#change-class"><B>change-class</B></A> is described in <A REL HREF="07_b.htm">Section 7.2 (Changing the Class of an Instance)</A>. <P>
+The arguments to <A REL=DEFINITION HREF="#update-instance-for-different-class"><B>update-instance-for-different-class</B></A> are computed by <A REL=DEFINITION HREF="f_chg_cl.htm#change-class"><B>change-class</B></A>. When <A REL=DEFINITION HREF="f_chg_cl.htm#change-class"><B>change-class</B></A> is invoked on an <A REL=DEFINITION HREF="26_glo_i.htm#instance"><I>instance</I></A>, a copy of that <A REL=DEFINITION HREF="26_glo_i.htm#instance"><I>instance</I></A> is made; <A REL=DEFINITION HREF="f_chg_cl.htm#change-class"><B>change-class</B></A> then destructively alters the original <A REL=DEFINITION HREF="26_glo_i.htm#instance"><I>instance</I></A>. The first argument to <A REL=DEFINITION HREF="#update-instance-for-different-class"><B>update-instance-for-different-class</B></A>, <I>previous</I>, is that copy; it holds the old <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slot</I></A> values temporarily. This argument has dynamic extent within <A REL=DEFINITION HREF="f_chg_cl.htm#change-class"><B>change-class</B></A>; 
+if it is referenced in any way once <A REL=DEFINITION HREF="#update-instance-for-different-class"><B>update-instance-for-different-class</B></A> returns, the results are undefined. The second argument to <A REL=DEFINITION HREF="#update-instance-for-different-class"><B>update-instance-for-different-class</B></A>, <I>current</I>, is the altered original <A REL=DEFINITION HREF="26_glo_i.htm#instance"><I>instance</I></A>. The intended use of <I>previous</I> is to extract old <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slot</I></A> values by using <A REL=DEFINITION HREF="f_slt_va.htm#slot-value"><B>slot-value</B></A> or <A REL=DEFINITION HREF="m_w_slts.htm#with-slots"><B>with-slots</B></A> or by invoking a reader generic function, or to run other <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>methods</I></A> that were applicable to <A REL=DEFINITION HREF="26_glo_i.htm#instance"><I>instances</I></A> of the original <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A>. <P>
+ <p><b>●例子:</b><P>
+ <P>
+See the example for the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="f_chg_cl.htm#change-class"><B>change-class</B></A>. <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ The system-supplied primary <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> on <A REL=DEFINITION HREF="#update-instance-for-different-class"><B>update-instance-for-different-class</B></A> signals an error if an initialization argument is supplied that is not declared as valid. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_chg_cl.htm#change-class"><B>change-class</B></A>, <A REL=DEFINITION HREF="f_shared.htm#shared-initialize"><B>shared-initialize</B></A>, <A REL=CHILD HREF="07_b.htm">Section 7.2 (Changing the Class of an Instance)</A>, <A REL=CHILD HREF="07_ad.htm">Section 7.1.4 (Rules for Initialization Arguments)</A>, <A REL=CHILD HREF="07_ab.htm">Section 7.1.2 (Declaring the Validity of Initialization Arguments)</A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<I>Initargs</I> are declared as valid by using the <b>:initarg</b> option to <A REL=DEFINITION HREF="m_defcla.htm#defclass"><B>defclass</B></A>, or by defining <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>methods</I></A> for <A REL=DEFINITION HREF="#update-instance-for-different-class"><B>update-instance-for-different-class</B></A> or <A REL=DEFINITION HREF="f_shared.htm#shared-initialize"><B>shared-initialize</B></A>. The keyword name of each keyword parameter specifier in the <A REL=DEFINITION HREF="26_glo_l.htm#lambda_list"><I>lambda list</I></A> of any <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> defined on <A REL=DEFINITION HREF="#update-instance-for-different-class"><B>update-instance-for-different-class</B></A> or <A REL=DEFINITION HREF="f_shared.htm#shared-initialize"><B>shared-initialize</B></A> is declared as a valid <I>initarg</I> name for all <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>classes</I></A> for which that <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</
+I></A> is applicable. <P>
+The value returned by <A REL=DEFINITION HREF="#update-instance-for-different-class"><B>update-instance-for-different-class</B></A> is ignored by <A REL=DEFINITION HREF="f_chg_cl.htm#change-class"><B>change-class</B></A>. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss197.htm">INITIALIZATION-FUNCTION-KEYWORD-CHECKING</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

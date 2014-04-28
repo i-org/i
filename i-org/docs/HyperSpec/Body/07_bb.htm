@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 7.2.2</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="07_ba.htm">
+<LINK REL=UP HREF="07_b.htm">
+<LINK REL=NEXT HREF="07_bc.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="07_ba.htm">◀</A><A REL=UP HREF="07_b.htm">▲</A><A REL=NEXT HREF="07_bc.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+7.2.2 Initializing Newly Added Local Slots</H2>  <P>
+The second step of the update initializes the newly added <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A> and performs any other user-defined actions. This step is implemented by the generic function <A REL=DEFINITION HREF="f_update.htm#update-instance-for-different-class"><B>update-instance-for-different-class</B></A>. The generic function <A REL=DEFINITION HREF="f_update.htm#update-instance-for-different-class"><B>update-instance-for-different-class</B></A> is invoked by <A REL=DEFINITION HREF="f_chg_cl.htm#change-class"><B>change-class</B></A> after the first step of the update has been completed. <P>
+ The generic function <A REL=DEFINITION HREF="f_update.htm#update-instance-for-different-class"><B>update-instance-for-different-class</B></A> is invoked on arguments computed by <A REL=DEFINITION HREF="f_chg_cl.htm#change-class"><B>change-class</B></A>. The first argument passed is a copy of the <A REL=DEFINITION HREF="26_glo_i.htm#instance"><I>instance</I></A> being updated and is an <A REL=DEFINITION HREF="26_glo_i.htm#instance"><I>instance</I></A> of the class Cfrom; this copy has <A REL=DEFINITION HREF="26_glo_d.htm#dynamic_extent"><I>dynamic extent</I></A> within the generic function <A REL=DEFINITION HREF="f_chg_cl.htm#change-class"><B>change-class</B></A>. The second argument is the <A REL=DEFINITION HREF="26_glo_i.htm#instance"><I>instance</I></A> as updated so far by <A REL=DEFINITION HREF="f_chg_cl.htm#change-class"><B>change-class</B></A> and is an <A REL=DEFINITION HREF="26_glo_i.htm#instance"><I>instance</I></A> of the class Cto. The remaining arguments are an <A REL=DEFINITION HREF="26_glo_i.htm#initialization_argument_list"><I>initialization argument list</I></A>. <P>
+ <P>
+There is a system-supplied primary <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> for <A REL=DEFINITION HREF="f_update.htm#update-instance-for-different-class"><B>update-instance-for-different-class</B></A> that has two parameter specializers, each of which is the <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> <A REL=DEFINITION HREF="t_std_ob.htm#standard-object"><B>standard-object</B></A>. First this <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> checks the validity of initialization arguments and signals an error if an initialization argument is supplied that is not declared as valid. (For more information, see <A REL=CHILD HREF="07_ab.htm">Section 7.1.2 (Declaring the Validity of Initialization Arguments)</A>.) Then it calls the generic function <A REL=DEFINITION HREF="f_shared.htm#shared-initialize"><B>shared-initialize</B></A> with the following arguments: the new <A REL=DEFINITION HREF="26_glo_i.htm#instance"><I>instance</I></A>, a list of <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>names</I></A> of the newly added <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A>, and the initialization arguments it received. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss023.htm">CHANGE-CLASS-INITARGS:PERMIT</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

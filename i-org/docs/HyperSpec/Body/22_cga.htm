@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 22.3.7.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="22_cg.htm">
+<LINK REL=UP HREF="22_cg.htm">
+<LINK REL=NEXT HREF="22_cgb.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="22_cg.htm">◀</A><A REL=UP HREF="22_cg.htm">▲</A><A REL=NEXT HREF="22_cgb.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+22.3.7.1 Tilde Asterisk: Go-To</H2>  <P>
+ The next <I>arg</I> is ignored. <b>~</b><I>n</I><b>*</b> ignores the next <I>n</I> arguments. <P>
+<b>~:*</b> backs up in the list of arguments so that the argument last processed will be processed again. <b>~</b><I>n</I><b>:*</b> backs up <I>n</I> arguments. <P>
+When within a <b>~{</b> construct (see below), the ignoring (in either direction) is relative to the list of arguments being processed by the iteration. <P>
+<b>~</b><I>n</I><b>@*</b> goes to the <I>n</I>th <I>arg</I>, where 0 means the first one; <I>n</I> defaults to 0, so <b>~@*</b> goes back to the first <I>arg</I>. Directives after a <b>~</b><I>n</I><b>@*</b> will take arguments in sequence beginning with the one gone to. When within a <b>~{</b> construct, the ``goto'' is relative to the list of arguments being processed by the iteration. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function GET-UNIVERSAL-TIME, GET-DECODED-TIME</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_encode.htm">
+<LINK REL=UP HREF="c_enviro.htm">
+<LINK REL=NEXT HREF="f_sleep.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_encode.htm">◀</A><A REL=UP HREF="c_enviro.htm">▲</A><A REL=NEXT HREF="f_sleep.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="get-universal-time"><A NAME="get-decoded-time"><I>Function</I> <B>GET-UNIVERSAL-TIME, GET-DECODED-TIME</B></A></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>get-universal-time</B> <I><I>&lt;no arguments&gt;</I></I> =&gt; <I>universal-time</I><P>
+ <P>
+
+<B>get-decoded-time</B> <I><I>&lt;no arguments&gt;</I></I><P> =&gt; <I>second, minute, hour, date, month, year, day, daylight-p, zone</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>universal-time</I>---a <A REL=DEFINITION HREF="26_glo_u.htm#universal_time"><I>universal time</I></A>. <P>
+<I>second</I>, <I>minute</I>, <I>hour</I>, <I>date</I>, <I>month</I>, <I>year</I>, <I>day</I>, <I>daylight-p</I>, <I>zone</I>---a <A REL=DEFINITION HREF="26_glo_d.htm#decoded_time"><I>decoded time</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#get-universal-time"><B>get-universal-time</B></A> returns the current time, represented as a <A REL=DEFINITION HREF="26_glo_u.htm#universal_time"><I>universal time</I></A>. <P>
+<A REL=DEFINITION HREF="#get-decoded-time"><B>get-decoded-time</B></A> returns the current time, represented as a <A REL=DEFINITION HREF="26_glo_d.htm#decoded_time"><I>decoded time</I></A>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+;; At noon on July 4, 1976 in Eastern Daylight Time.
+ (get-decoded-time) =&gt;  0, 0, 12, 4, 7, 1976, 6, <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>, 5
+;; At exactly the same instant.
+ (get-universal-time) =&gt;  2414332800
+;; Exactly five minutes later.
+ (get-universal-time) =&gt;  2414333100
+;; The difference is 300 seconds (five minutes)
+ (- * **) =&gt;  300
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于:</b><P>
+ <P>
+The time of day (i.e., the passage of time), the system clock's ability to keep accurate time, and the accuracy of the system clock's initial setting. <P>
+<p><b>●例外情况：</b><P>
+ <P>
+An error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_error.htm#error"><B>error</B></A> might be signaled if the current time cannot be determined. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_dec_un.htm#decode-universal-time"><B>decode-universal-time</B></A>, <A REL=DEFINITION HREF="f_encode.htm#encode-universal-time"><B>encode-universal-time</B></A>, <A REL=CHILD HREF="25_ad.htm">Section 25.1.4 (Time)</A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<PRE>
+ (get-decoded-time) ==  (decode-universal-time (get-universal-time))
+</PRE>
+</b> <P>
+No <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> is required to have a way to verify that the time returned is correct. However, if an <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> provides a validity check (e.g., the failure to have properly initialized the system clock can be reliably detected) and that validity check fails, the <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> is strongly encouraged (but not required) to signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_error.htm#error"><B>error</B></A> (rather than, for example, returning a known-to-be-wrong value) that is <A REL=DEFINITION HREF="26_glo_c.htm#correctable"><I>correctable</I></A> by allowing the user to interactively set the correct time. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

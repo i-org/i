@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function ERROR</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="m_assert.htm">
+<LINK REL=UP HREF="c_condit.htm">
+<LINK REL=NEXT HREF="f_cerror.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="m_assert.htm">◀</A><A REL=UP HREF="c_condit.htm">▲</A><A REL=NEXT HREF="f_cerror.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="error"><I>Function</I> <B>ERROR</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>error</B> <I>datum <b>&amp;rest</b> arguments</I> =&gt;| <P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>datum</I>, <I>arguments</I>---<A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designators</I></A> for a <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> of default type <A REL=DEFINITION HREF="e_smp_er.htm#simple-error"><B>simple-error</B></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#error"><B>error</B></A> effectively invokes <A REL=DEFINITION HREF="f_signal.htm#signal"><B>signal</B></A> on the denoted <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A>. <P>
+If the <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> is not handled, <b>(invoke-debugger </b><I>condition</I><b>)</b> is done. As a consequence of calling <A REL=DEFINITION HREF="f_invoke.htm#invoke-debugger"><B>invoke-debugger</B></A>, <A REL=DEFINITION HREF="#error"><B>error</B></A> cannot directly return; the only exit from <A REL=DEFINITION HREF="#error"><B>error</B></A> can come by non-local transfer of control in a handler or by use of an interactive debugging command. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (defun factorial (x)
+   (cond ((or (not (typep x 'integer)) (minusp x))
+          (error &quot;~S is not a valid argument to FACTORIAL.&quot; x))
+         ((zerop x) 1)
+         (t (* x (factorial (- x 1))))))
+=&gt;  FACTORIAL
+(factorial 20)
+=&gt;  2432902008176640000
+(factorial -1)
+&gt;&gt;  Error: -1 is not a valid argument to FACTORIAL.
+&gt;&gt;  To continue, type :CONTINUE followed by an option number:
+&gt;&gt;   1: Return to Lisp Toplevel.
+&gt;&gt;  Debug&gt; 
+</PRE>
+</b> <P>
+<PRE>
+ (setq a 'fred)
+=&gt;  FRED
+ (if (numberp a) (1+ a) (error &quot;~S is not a number.&quot; A))
+&gt;&gt;  Error: FRED is not a number.
+&gt;&gt;  To continue, type :CONTINUE followed by an option number:
+&gt;&gt;   1: Return to Lisp Toplevel.
+&gt;&gt;  Debug&gt; :Continue 1
+&gt;&gt;  Return to Lisp Toplevel.
+ 
+ (define-condition not-a-number (error) 
+                   ((argument :reader not-a-number-argument :initarg :argument))
+   (:report (lambda (condition stream)
+              (format stream &quot;~S is not a number.&quot;
+                      (not-a-number-argument condition)))))
+=&gt;  NOT-A-NUMBER
+ 
+ (if (numberp a) (1+ a) (error 'not-a-number :argument a))
+&gt;&gt;  Error: FRED is not a number.
+&gt;&gt;  To continue, type :CONTINUE followed by an option number:
+&gt;&gt;   1: Return to Lisp Toplevel.
+&gt;&gt;  Debug&gt; :Continue 1
+&gt;&gt;  Return to Lisp Toplevel.
+</PRE>
+</b> <P>
+<p><b>●副作用:</b><P>
+ <P>
+<A REL=DEFINITION HREF="26_glo_h.htm#handler"><I>Handlers</I></A> for the specified condition, if any, are invoked and might have side effects. Program execution might stop, and the debugger might be entered. <P>
+<p><b>●受制于:</b><P>
+ <P>
+Existing handler bindings. <P>
+<A REL=DEFINITION HREF="v_break_.htm#STbreak-on-signalsST"><B>*break-on-signals*</B></A> <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+Signals an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if <I>datum</I> and <I>arguments</I> are not <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designators</I></A> for a <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_cerror.htm#cerror"><B>cerror</B></A>, <A REL=DEFINITION HREF="f_signal.htm#signal"><B>signal</B></A>, <A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A>, <A REL=DEFINITION HREF="m_ignore.htm#ignore-errors"><B>ignore-errors</B></A>, <A REL=DEFINITION HREF="v_break_.htm#STbreak-on-signalsST"><B>*break-on-signals*</B></A>, <A REL=DEFINITION HREF="m_handle.htm#handler-bind"><B>handler-bind</B></A>, <A REL=CHILD HREF="09_a.htm">Section 9.1 (Condition System Concepts)</A> <P>
+<p><b>●说明:</b><P>
+ <P>
+Some implementations may provide debugger commands for interactively returning from individual stack frames. However, it should be possible for the programmer to feel confident about writing code like: <P>
+<PRE>
+ (defun wargames:no-win-scenario ()
+   (if (error &quot;pushing the button would be stupid.&quot;))
+   (push-the-button))
+</PRE>
+</b> In this scenario, there should be no chance that <A REL=DEFINITION HREF="#error"><B>error</B></A> will return and the button will get pushed. <P>
+While the meaning of this program is clear and it might be proven `safe' by a formal theorem prover, such a proof is no guarantee that the program is safe to execute. Compilers have been known to have bugs, computers to have signal glitches, and human beings to manually intervene in ways that are not always possible to predict. Those kinds of errors, while beyond the scope of the condition system to formally model, are not beyond the scope of things that should seriously be considered when writing code that could have the kinds of sweeping effects hinted at by this example. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

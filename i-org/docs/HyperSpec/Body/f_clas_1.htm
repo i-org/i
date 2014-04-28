@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function CLASS-OF</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_opsetf.htm">
+<LINK REL=UP HREF="c_object.htm">
+<LINK REL=NEXT HREF="e_unboun.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_opsetf.htm">◀</A><A REL=UP HREF="c_object.htm">▲</A><A REL=NEXT HREF="e_unboun.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="class-of"><I>Function</I> <B>CLASS-OF</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>class-of</B> <I>object</I> =&gt; <I>class</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>object</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<I>class</I>---a <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Returns the <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> of which the <I>object</I> is a <A REL=DEFINITION HREF="26_glo_d.htm#direct_instance"><I>direct instance</I></A>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (class-of 'fred) =&gt;  #&lt;BUILT-IN-CLASS SYMBOL 610327300&gt;
+ (class-of 2/3) =&gt;  #&lt;BUILT-IN-CLASS RATIO 610326642&gt;
+ 
+ (defclass book () ()) =&gt;  #&lt;STANDARD-CLASS BOOK 33424745&gt;
+ (class-of (make-instance 'book)) =&gt;  #&lt;STANDARD-CLASS BOOK 33424745&gt;
+ 
+ (defclass novel (book) ()) =&gt;  #&lt;STANDARD-CLASS NOVEL 33424764&gt;
+ (class-of (make-instance 'novel)) =&gt;  #&lt;STANDARD-CLASS NOVEL 33424764&gt;
+
+ (defstruct kons kar kdr) =&gt;  KONS
+ (class-of (make-kons :kar 3 :kdr 4)) =&gt;  #&lt;STRUCTURE-CLASS KONS 250020317&gt;
+</PRE>
+</b> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_mk_ins.htm#make-instance"><B>make-instance</B></A>, <A REL=DEFINITION HREF="f_tp_of.htm#type-of"><B>type-of</B></A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

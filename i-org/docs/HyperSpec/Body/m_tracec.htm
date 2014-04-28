@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Macro TRACE, UNTRACE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_desc_1.htm">
+<LINK REL=UP HREF="c_enviro.htm">
+<LINK REL=NEXT HREF="m_step.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_desc_1.htm">◀</A><A REL=UP HREF="c_enviro.htm">▲</A><A REL=NEXT HREF="m_step.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="trace"><A NAME="untrace"><I>Macro</I> <B>TRACE, UNTRACE</B></A></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>trace</B> <I><I>function-name</I><B>*</B></I> =&gt; <I>trace-result</I><P>
+ 
+<B>untrace</B> <I><I>function-name</I><B>*</B></I> =&gt; <I>untrace-result</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+ <I>function-name</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#function_name"><I>function name</I></A>.  <P>
+<I>trace-result</I>---<A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A>, unless no <I>function-names</I> are supplied, in which case <I>trace-result</I> is a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> of <A REL=DEFINITION HREF="26_glo_f.htm#function_name"><I>function names</I></A>. <P>
+<I>untrace-result</I>---<A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#trace"><B>trace</B></A> and <A REL=DEFINITION HREF="#untrace"><B>untrace</B></A> control the invocation of the trace facility. <P>
+Invoking <A REL=DEFINITION HREF="#trace"><B>trace</B></A> with one or more <I>function-names</I> causes the denoted <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>functions</I></A> to be ``traced.'' Whenever a traced <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> is invoked, information about the call, about the arguments passed, and about any eventually returned values is printed to <A REL=DEFINITION HREF="26_glo_t.htm#trace_output"><I>trace output</I></A>. If <A REL=DEFINITION HREF="#trace"><B>trace</B></A> is used with no <I>function-names</I>, no tracing action is performed; instead, a list of the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>functions</I></A> currently being traced is returned. <P>
+Invoking <A REL=DEFINITION HREF="#untrace"><B>untrace</B></A> with one or more function names causes those functions to be ``untraced'' (i.e., no longer traced). If <A REL=DEFINITION HREF="#untrace"><B>untrace</B></A> is used with no <I>function-names</I>, all <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>functions</I></A> currently being traced are untraced. <P>
+If a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> to be traced has been open-coded (e.g., because it was declared <A REL=DEFINITION HREF="d_inline.htm#inline"><B>inline</B></A>), a call to that <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> might not produce trace output. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (defun fact (n) (if (zerop n) 1 (* n (fact (- n 1)))))
+=&gt;  FACT
+ (trace fact)
+=&gt;  (FACT)
+;; Of course, the format of traced output is implementation-dependent.
+ (fact 3)
+&gt;&gt;  1 Enter FACT 3
+&gt;&gt;  | 2 Enter FACT 2
+&gt;&gt;  |   3 Enter FACT 1
+&gt;&gt;  |   | 4 Enter FACT 0
+&gt;&gt;  |   | 4 Exit FACT 1
+&gt;&gt;  |   3 Exit FACT 1
+&gt;&gt;  | 2 Exit FACT 2
+&gt;&gt;  1 Exit FACT 6
+=&gt;  6
+</PRE>
+</b> <P>
+<p><b>●副作用:</b><P>
+ <P>
+Might change the definitions of the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>functions</I></A> named by <I>function-names</I>. <P>
+<p><b>●受制于:</b><P>
+ <P>
+Whether the functions named are defined or already being traced. <P>
+<p><b>●例外情况：</b><P>
+ <P>
+ Tracing an already traced function, or untracing a function not currently being traced, should produce no harmful effects, but might signal a warning. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="v_debug_.htm#STtrace-outputST"><B>*trace-output*</B></A>, <A REL=DEFINITION HREF="m_step.htm#step"><B>step</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#trace"><B>trace</B></A> and <A REL=DEFINITION HREF="#untrace"><B>untrace</B></A> may also accept additional <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> argument formats. The format of the trace output is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A>. <P>
+Although <A REL=DEFINITION HREF="#trace"><B>trace</B></A> can be extended to permit non-standard options, <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementations</I></A> are nevertheless encouraged (but not required) to warn about the use of syntax or options that are neither specified by this standard nor added as an extension by the <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A>, since they could be symptomatic of typographical errors or of reliance on features supported in <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementations</I></A> other than the current <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A>. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss174.htm">FUNCTION-NAME:LARGE</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

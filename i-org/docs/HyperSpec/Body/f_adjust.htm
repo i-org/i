@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function ADJUST-ARRAY</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_mk_ar.htm">
+<LINK REL=UP HREF="c_arrays.htm">
+<LINK REL=NEXT HREF="f_adju_1.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_mk_ar.htm">◀</A><A REL=UP HREF="c_arrays.htm">▲</A><A REL=NEXT HREF="f_adju_1.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="adjust-array"><I>Function</I> <B>ADJUST-ARRAY</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>adjust-array</B> <I>array new-dimensions <b>&amp;key</b> element-type initial-element initial-contents fill-pointer displaced-to displaced-index-offset</I><P> =&gt; <I>adjusted-array</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>array</I>---an <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A>. <P>
+<I>new-dimensions</I>---a <A REL=DEFINITION HREF="26_glo_v.htm#valid_array_dimension"><I>valid array dimension</I></A> or a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> of <A REL=DEFINITION HREF="26_glo_v.htm#valid_array_dimension"><I>valid array dimensions</I></A>. <P>
+<I>element-type</I>---a <A REL=DEFINITION HREF="26_glo_t.htm#type_specifier"><I>type specifier</I></A>. <P>
+<I>initial-element</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <I>Initial-element</I> must not be supplied if either <I>initial-contents</I> or <I>displaced-to</I> is supplied. <P>
+<I>initial-contents</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. If <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> has rank greater than zero, then <I>initial-contents</I> is composed of nested <A REL=DEFINITION HREF="26_glo_s.htm#sequence"><I>sequences</I></A>, the depth of which must equal the rank of <I>array</I>. Otherwise, <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> is zero-dimensional and <I>initial-contents</I> supplies the single element. <I>initial-contents</I> must not be supplied if either <I>initial-element</I> or <I>displaced-to</I> is given. <P>
+<I>fill-pointer</I>---a <A REL=DEFINITION HREF="26_glo_v.htm#valid_fill_pointer"><I>valid fill pointer</I></A> for the <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> to be created, or <A REL=DEFINITION HREF="a_t.htm#t"><B>t</B></A>, or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. The default is <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<I>displaced-to</I>---an <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <I>initial-elements</I> and <I>initial-contents</I> must not be supplied if <I>displaced-to</I> is supplied. <P>
+ <I>displaced-index-offset</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <b>(fixnum 0 </b><I>n</I><b>)</b> where <I>n</I> is <b>(array-total-size </b><I>displaced-to</I><b>)</b>. <I>displaced-index-offset</I> may be supplied only if <I>displaced-to</I> is supplied.  <P>
+<I>adjusted-array</I>---an <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#adjust-array"><B>adjust-array</B></A> changes the dimensions or elements of <I>array</I>. The result is an <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> of the same <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> and rank as <I>array</I>, that is either the modified <I>array</I>, or a newly created <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> to which <I>array</I> can be displaced, and that has the given <I>new-dimensions</I>. <P>
+<I>New-dimensions</I> specify the size of each <A REL=DEFINITION HREF="26_glo_d.htm#dimension"><I>dimension</I></A> of <I>array</I>. <P>
+<I>Element-type</I> specifies the <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> of the <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>elements</I></A> of the resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A>. If <I>element-type</I> is supplied, the consequences are unspecified if the <A REL=DEFINITION HREF="26_glo_u.htm#upgraded_array_element_type"><I>upgraded array element type</I></A> of <I>element-type</I> is not the same as the <A REL=DEFINITION HREF="26_glo_a.htm#actual_array_element_type"><I>actual array element type</I></A> of <I>array</I>. <P>
+If <I>initial-contents</I> is supplied, it is treated as for <A REL=DEFINITION HREF="f_mk_ar.htm#make-array"><B>make-array</B></A>. In this case none of the original contents of <I>array</I> appears in the resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A>. <P>
+ If <I>fill-pointer</I> is an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>, it becomes the <A REL=DEFINITION HREF="26_glo_f.htm#fill_pointer"><I>fill pointer</I></A> for the resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A>. If <I>fill-pointer</I> is the symbol <A REL=DEFINITION HREF="a_t.htm#t"><B>t</B></A>, it indicates that the size of the resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> should be used as the <A REL=DEFINITION HREF="26_glo_f.htm#fill_pointer"><I>fill pointer</I></A>. If <I>fill-pointer</I> is <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>, it indicates that the <A REL=DEFINITION HREF="26_glo_f.htm#fill_pointer"><I>fill pointer</I></A> should be left as it is.  <P>
+If <I>displaced-to</I> <A REL=DEFINITION HREF="26_glo_n.htm#non-nil"><I>non-nil</I></A>, a <A REL=DEFINITION HREF="26_glo_d.htm#displaced_array"><I>displaced array</I></A> is created. The resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> shares its contents with the <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> given by <I>displaced-to</I>. The resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> cannot contain more elements than the <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> it is displaced to. If <I>displaced-to</I> is not supplied or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>, the resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> is not a <A REL=DEFINITION HREF="26_glo_d.htm#displaced_array"><I>displaced array</I></A>. If array A is created displaced to array B and subsequently array B is given to <A REL=DEFINITION HREF="#adjust-array"><B>adjust-array</B></A>, array A will still be displaced to array B. Although <I>array</I> might be a <A REL=DEFINITION HREF="26_glo_d.htm#displaced_array"><I>displaced array</I></A>, the resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> is not a <A REL=DEFINITION HREF="26_glo_d.htm#displaced_array"><I>displaced array</I></A> unless <I>displaced-to</I> is supplied and not <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>.  The interaction between <A REL=DEFINITION HREF="#adjust-array"><B>adjust-array</B></A> and displaced <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>arrays</I></A> is as follows given three <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>arrays</I></A>, <b>A</b>, <b>B</b>, and <b>C</b>: <P>
+<P><ul><li><b>A</b> is not displaced before or after the call  <P></li>
+<PRE>
+ (adjust-array A ...)
+</PRE>
+</b> <P>
+The dimensions of <b>A</b> are altered, and the contents rearranged as appropriate. Additional elements of <b>A</b> are taken from <I>initial-element</I>. The use of <I>initial-contents</I> causes all old contents to be discarded. <P>
+<li><b>A</b> is not displaced before, but is displaced to <b>C</b> after the call  <P></li>
+<PRE>
+ (adjust-array A ... :displaced-to C)
+</PRE>
+</b> <P>
+None of the original contents of <b>A</b> appears in <b>A</b> afterwards; <b>A</b> now contains the contents of <b>C</b>, without any rearrangement of <b>C</b>. <P>
+<li><b>A</b> is displaced to <b>B</b> before the call, and is displaced to <b>C</b> after the call  <P></li>
+<PRE>
+ (adjust-array A ... :displaced-to B)
+ (adjust-array A ... :displaced-to C)
+</PRE>
+</b> <P>
+<b>B</b> and <b>C</b> might be the same. The contents of <b>B</b> do not appear in <b>A</b> afterward unless such contents also happen to be in <b>C</b> If <I>displaced-index-offset</I> is not supplied in the <A REL=DEFINITION HREF="#adjust-array"><B>adjust-array</B></A> call, it defaults to zero; the old offset into <b>B</b> is not retained. <P>
+<li><b>A</b> is displaced to <b>B</b> before the call, but not displaced afterward.  <P></li>
+<PRE>
+ (adjust-array A ... :displaced-to B)
+ (adjust-array A ... :displaced-to nil)
+</PRE>
+</b> <b>A</b> gets a new ``data region,'' and contents of <b>B</b> are copied into it as appropriate to maintain the existing old contents; additional elements of <b>A</b> are taken from <I>initial-element</I> if supplied. However, the use of <I>initial-contents</I> causes all old contents to be discarded. <P></ul> <P>
+If <I>displaced-index-offset</I> is supplied, it specifies the offset of the resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> from the beginning of the <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> that it is displaced to. If <I>displaced-index-offset</I> is not supplied, the offset is 0. The size of the resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> plus the offset value cannot exceed the size of the <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> that it is displaced to. <P>
+If only <I>new-dimensions</I> and an <I>initial-element</I> argument are supplied, those elements of <I>array</I> that are still in bounds appear in the resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A>. The elements of the resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> that are not in the bounds of <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> are initialized to <I>initial-element</I>; if <I>initial-element</I> is not provided,  the consequences of later reading any such new <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>element</I></A> of <I>new-array</I> before it has been initialized are undefined.  <P>
+If <I>initial-contents</I> or <I>displaced-to</I> is supplied, then none of the original contents of <I>array</I> appears in the new <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A>. <P>
+ <P>
+ The consequences are unspecified if <I>array</I> is adjusted to a size smaller than its <A REL=DEFINITION HREF="26_glo_f.htm#fill_pointer"><I>fill pointer</I></A> without supplying the <I>fill-pointer</I> argument so that its <A REL=DEFINITION HREF="f_fill_p.htm#fill-pointer"><I>fill-pointer</I></A> is properly adjusted in the process. <P>
+If <b>A</b> is displaced to <b>B</b>, the consequences are unspecified if <b>B</b> is adjusted in such a way that it no longer has enough elements to satisfy <b>A</b>. <P>
+ <P>
+If <A REL=DEFINITION HREF="#adjust-array"><B>adjust-array</B></A> is applied to an <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> that is <A REL=DEFINITION HREF="26_glo_a.htm#actually_adjustable"><I>actually adjustable</I></A>, the <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> returned is <A REL=DEFINITION HREF="26_glo_i.htm#identical"><I>identical</I></A> to <I>array</I>. If the <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> returned by <A REL=DEFINITION HREF="#adjust-array"><B>adjust-array</B></A> is <A REL=DEFINITION HREF="26_glo_d.htm#distinct"><I>distinct</I></A> from <I>array</I>, then the argument <I>array</I> is unchanged.  <P>
+Note that if an <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> A is displaced to another <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> B, and B is displaced to another <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> C, and B is altered by <A REL=DEFINITION HREF="#adjust-array"><B>adjust-array</B></A>, A must now refer to the adjust contents of B. This means that an implementation cannot collapse the chain to make A refer to C directly and forget that the chain of reference passes through B. However, caching techniques are permitted as long as they preserve the semantics specified here. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (adjustable-array-p
+  (setq ada (adjust-array
+              (make-array '(2 3)
+                          :adjustable t
+                          :initial-contents '((a b c) (1 2 3)))
+              '(4 6)))) =&gt;  T 
+ (array-dimensions ada) =&gt;  (4 6) 
+ (aref ada 1 1) =&gt;  2 
+ (setq beta (make-array '(2 3) :adjustable t))
+=&gt;  #2A((NIL NIL NIL) (NIL NIL NIL)) 
+ (adjust-array beta '(4 6) :displaced-to ada)
+=&gt;  #2A((A B C NIL NIL NIL)
+       (1 2 3 NIL NIL NIL)
+       (NIL NIL NIL NIL NIL NIL) 
+       (NIL NIL NIL NIL NIL NIL))
+ (array-dimensions beta) =&gt;  (4 6)
+ (aref beta 1 1) =&gt;  2 
+</PRE>
+</b> <P>
+Suppose that the 4-by-4 array in <b>m</b> looks like this: <P>
+<PRE>
+#2A(( alpha     beta      gamma     delta )
+    ( epsilon   zeta      eta       theta )
+    ( iota      kappa     lambda    mu    )
+    ( nu        xi        omicron   pi    ))
+</PRE>
+</b> Then the result of <P>
+<PRE>
+ (adjust-array m '(3 5) :initial-element 'baz)
+</PRE>
+</b> is a 3-by-5 array with contents <P>
+<PRE>
+#2A(( alpha     beta      gamma     delta     baz )
+    ( epsilon   zeta      eta       theta     baz )
+    ( iota      kappa     lambda    mu        baz ))
+</PRE>
+</b> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+An error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_error.htm#error"><B>error</B></A> is signaled if <I>fill-pointer</I> is supplied and <A REL=DEFINITION HREF="26_glo_n.htm#non-nil"><I>non-nil</I></A> but <I>array</I> has no <A REL=DEFINITION HREF="26_glo_f.htm#fill_pointer"><I>fill pointer</I></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_adju_1.htm#adjustable-array-p"><B>adjustable-array-p</B></A>, <A REL=DEFINITION HREF="f_mk_ar.htm#make-array"><B>make-array</B></A>, <B>array-dimension-limit</B>, <B>array-total-size-limit</B>, <A REL=DEFINITION HREF="t_array.htm#array"><B>array</B></A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss005.htm">ADJUST-ARRAY-NOT-ADJUSTABLE:IMPLICIT-COPY</A><LI> <A REL=CHILD HREF="../Issues/iss355.htm">UNINITIALIZED-ELEMENTS:CONSEQUENCES-UNDEFINED</A><LI> <A REL=CHILD HREF="../Issues/iss003.htm">ADJUST-ARRAY-DISPLACEMENT</A><LI> <A REL=CHILD HREF="../Issues/iss004.htm">ADJUST-ARRAY-FILL-POINTER</A><LI> <A REL=CHILD HREF="../Issues/iss014.htm">ARRAY-DIMENSION-LIMIT-IMPLICATIONS:ALL-FIXNUM</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

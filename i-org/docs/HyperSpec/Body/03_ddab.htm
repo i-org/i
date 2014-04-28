@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 3.4.4.1.2</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="03_ddaaa.htm">
+<LINK REL=UP HREF="03_dda.htm">
+<LINK REL=NEXT HREF="03_de.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="03_ddaaa.htm">◀</A><A REL=UP HREF="03_dda.htm">▲</A><A REL=NEXT HREF="03_de.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+3.4.4.1.2 Lambda-list-directed Destructuring by Lambda Lists</H2> <P>
+An extension of data-directed destructuring of <A REL=DEFINITION HREF="26_glo_t.htm#tree"><I>trees</I></A> is lambda-list-directed destructuring. This derives from the analogy between the three-element destructuring pattern <P>
+<b>(first second third)</b> <P>
+and the three-argument <A REL=DEFINITION HREF="26_glo_l.htm#lambda_list"><I>lambda list</I></A> <P>
+<b>(first second third)</b> <P>
+Lambda-list-directed destructuring is identical to data-directed destructuring if no <A REL=DEFINITION HREF="26_glo_l.htm#lambda_list_keyword"><I>lambda list keywords</I></A> appear in the pattern. Any list in the pattern (whether a sub-list or the whole pattern itself) that contains a <A REL=DEFINITION HREF="26_glo_l.htm#lambda_list_keyword"><I>lambda list keyword</I></A> is interpreted specially. Elements of the list to the left of the first <A REL=DEFINITION HREF="26_glo_l.htm#lambda_list_keyword"><I>lambda list keyword</I></A> are treated as destructuring patterns, as usual, but the remaining elements of the list are treated like a function's <A REL=DEFINITION HREF="26_glo_l.htm#lambda_list"><I>lambda list</I></A> except that where a variable would normally be required, an arbitrary destructuring pattern is allowed. Note that in case of ambiguity, <A REL=DEFINITION HREF="26_glo_l.htm#lambda_list"><I>lambda list</I></A> syntax is preferred over destructuring syntax. Thus, after <b>&amp;optional</b> a list of elements is a list of a destructuring pattern and a default value form. <P>
+The detailed behavior of each <A REL=DEFINITION HREF="26_glo_l.htm#lambda_list_keyword"><I>lambda list keyword</I></A> in a lambda-list-directed destructuring pattern is as follows: <P>
+<P><ul><li><b>&amp;optional</b>  <P></li>
+Each following element is a variable or a list of a destructuring pattern, a default value form, and a supplied-p variable. The default value and the supplied-p variable can be omitted. If the list being destructured ends early, so that it does not have an element to match against this destructuring (sub)-pattern, the default form is evaluated and destructured instead. The supplied-p variable receives the value <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> if the default form is used, <A REL=DEFINITION HREF="a_t.htm#t"><B>t</B></A> otherwise. <P>
+<li><b>&amp;rest</b>, <b>&amp;body</b>  <P></li>
+The next element is a destructuring pattern that matches the rest of the list. <b>&amp;body</b> is identical to <b>&amp;rest</b> but declares that what is being matched is a list of forms that constitutes the body of <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. This next element must be the last unless a <A REL=DEFINITION HREF="26_glo_l.htm#lambda_list_keyword"><I>lambda list keyword</I></A> follows it. <P>
+<li><b>&amp;aux</b>  <P></li>
+The remaining elements are not destructuring patterns at all, but are auxiliary variable bindings. <P>
+<li><b>&amp;whole</b>  <P></li>
+The next element is a destructuring pattern that matches the entire form in a macro, or the entire <A REL=DEFINITION HREF="26_glo_s.htm#subexpression"><I>subexpression</I></A> at inner levels.   <P>
+<li><b>&amp;key</b>  <P></li>
+Each following element is one of <P><ul><P>
+<li>  a <A REL=DEFINITION HREF="26_glo_v.htm#variable"><I>variable</I></A>, <P></li>
+<li>or  a list of a variable, an optional initialization form, and an optional supplied-p variable. <P></li>
+<li>or  a list of a list of a keyword and a destructuring pattern, an optional initialization form, and an optional supplied-p variable. <P></li></ul>The rest of the list being destructured is taken to be alternating keywords and values and is taken apart appropriately. <P>
+<li><b>&amp;allow-other-keys</b>  <P></li>
+Stands by itself. <P></ul><P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss106.htm">DEFMACRO-LAMBDA-LIST:TIGHTEN-DESCRIPTION</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

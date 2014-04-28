@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Macro DEFINE-MODIFY-MACRO</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="s_progn.htm">
+<LINK REL=UP HREF="c_data_a.htm">
+<LINK REL=NEXT HREF="m_defset.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="s_progn.htm">◀</A><A REL=UP HREF="c_data_a.htm">▲</A><A REL=NEXT HREF="m_defset.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="define-modify-macro"><I>Macro</I> <B>DEFINE-MODIFY-MACRO</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>define-modify-macro</B> <I>name lambda-list function [documentation]</I> =&gt; <I>name</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>name</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>. <P>
+<I>lambda-list</I>---a <A REL=DEFINITION HREF="26_glo_d.htm#define-modify-macro_lambda_list"><I>define-modify-macro lambda list</I></A> <P>
+<I>function</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>. <P>
+<I>documentation</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A>; not evaluated. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#define-modify-macro"><B>define-modify-macro</B></A> defines a <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macro</I></A> named <I>name</I> to <A REL=DEFINITION HREF="26_glo_r.htm#read"><I>read</I></A> and <A REL=DEFINITION HREF="26_glo_w.htm#write"><I>write</I></A> a <A REL=DEFINITION HREF="26_glo_p.htm#place"><I>place</I></A>. <P>
+The arguments to the new <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macro</I></A> are a <A REL=DEFINITION HREF="26_glo_p.htm#place"><I>place</I></A>, followed by the arguments that are supplied in <I>lambda-list</I>.  <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>Macros</I></A> defined with <A REL=DEFINITION HREF="#define-modify-macro"><B>define-modify-macro</B></A> correctly pass the <A REL=DEFINITION HREF="26_glo_e.htm#environment_parameter"><I>environment parameter</I></A> to  <A REL=DEFINITION HREF="f_get_se.htm#get-setf-expansion"><B>get-setf-expansion</B></A>.   <P>
+When the <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macro</I></A> is invoked, <I>function</I> is applied to the old contents of the <A REL=DEFINITION HREF="26_glo_p.htm#place"><I>place</I></A> and the <I>lambda-list</I> arguments to obtain the new value, and the <A REL=DEFINITION HREF="26_glo_p.htm#place"><I>place</I></A> is updated to contain the result. <P>
+Except for the issue of avoiding multiple evaluation (see below), the expansion of a <A REL=DEFINITION HREF="#define-modify-macro"><B>define-modify-macro</B></A> is equivalent to the following: <P>
+<PRE>
+ (defmacro name (reference . lambda-list)
+   documentation
+   `(setf ,reference
+          (function ,reference ,arg1 ,arg2 ...)))
+</PRE>
+</b> <P>
+where <I>arg1</I>, <I>arg2</I>, ..., are the parameters appearing in <I>lambda-list</I>; appropriate provision is made for a <A REL=DEFINITION HREF="26_glo_r.htm#rest_parameter"><I>rest parameter</I></A>. <P>
+ The <A REL=DEFINITION HREF="26_glo_s.htm#subform"><I>subforms</I></A> of the macro calls defined by <A REL=DEFINITION HREF="#define-modify-macro"><B>define-modify-macro</B></A> are evaluated as specified in <A REL HREF="05_aaa.htm">Section 5.1.1.1 (Evaluation of Subforms to Places)</A>.  <P>
+ <I>Documentation</I> is attached as a <A REL=DEFINITION HREF="26_glo_d.htm#documentation_string"><I>documentation string</I></A> to <I>name</I> (as kind <A REL=DEFINITION HREF="s_fn.htm#function"><B>function</B></A>) and to the <A REL=DEFINITION HREF="26_glo_m.htm#macro_function"><I>macro function</I></A>.  <P>
+ If a <A REL=DEFINITION HREF="#define-modify-macro"><B>define-modify-macro</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> appears as a <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level form</I></A>, the <A REL=DEFINITION HREF="26_glo_c.htm#compiler"><I>compiler</I></A> must store the <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macro</I></A> definition at compile time, so that occurrences of the macro later on in the file can be expanded correctly.  <P>
+<p><b>●例子:</b><P>
+ 
+<PRE>
+ (define-modify-macro appendf (&amp;rest args) 
+    append &quot;Append onto list&quot;) =&gt;  APPENDF
+ (setq x '(a b c) y x) =&gt;  (A B C)
+ (appendf x '(d e f) '(1 2 3)) =&gt;  (A B C D E F 1 2 3)
+ x =&gt;  (A B C D E F 1 2 3)
+ y =&gt;  (A B C)
+ (define-modify-macro new-incf (&amp;optional (delta 1)) +)
+ (define-modify-macro unionf (other-set &amp;rest keywords) union)
+</PRE>
+</b> <P>
+<p><b>●副作用:</b><P>
+ <P>
+A macro definition is assigned to <I>name</I>. <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_defset.htm#defsetf"><B>defsetf</B></A>,  <A REL=DEFINITION HREF="m_defi_3.htm#define-setf-expander"><B>define-setf-expander</B></A>,  <A REL=DEFINITION HREF="f_docume.htm#documentation"><B>documentation</B></A>, <A REL=CHILD HREF="03_dk.htm">Section 3.4.11 (Syntactic Interaction of Documentation Strings and Declarations)</A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss059.htm">COMPILE-FILE-HANDLING-OF-TOP-LEVEL-FORMS:CLARIFY</A><LI> <A REL=CHILD HREF="../Issues/iss135.htm">DOCUMENTATION-FUNCTION-BUGS:FIX</A><LI> <A REL=CHILD HREF="../Issues/iss279.htm">PUSH-EVALUATION-ORDER:FIRST-ITEM</A><LI> <A REL=CHILD HREF="../Issues/iss308.htm">SETF-METHOD-VS-SETF-METHOD:RENAME-OLD-TERMS</A><LI> <A REL=CHILD HREF="../Issues/iss185.htm">GET-SETF-METHOD-ENVIRONMENT:ADD-ARG</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

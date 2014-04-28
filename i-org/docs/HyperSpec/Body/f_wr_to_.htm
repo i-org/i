@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function WRITE-TO-STRING, PRIN1-TO-STRING...</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_wr_pr.htm">
+<LINK REL=UP HREF="c_printe.htm">
+<LINK REL=NEXT HREF="v_pr_ar.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_wr_pr.htm">◀</A><A REL=UP HREF="c_printe.htm">▲</A><A REL=NEXT HREF="v_pr_ar.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="write-to-string"><A NAME="prin1-to-string"><A NAME="princ-to-string"><I>Function</I> <B>WRITE-TO-STRING, PRIN1-TO-STRING, PRINC-TO-STRING</B></A></A></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>write-to-string</B> <I>object <b>&amp;key</b> array base case circle escape gensym length level lines miser-width pprint-dispatch pretty radix readably right-margin </I><P> =&gt; <I>string</I><P>
+ <P>
+
+<B>prin1-to-string</B> <I>object</I> =&gt; <I>string</I><P>
+ <P>
+
+<B>princ-to-string</B> <I>object</I> =&gt; <I>string</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>object</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<I>array</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<I>base</I>---a <A REL=DEFINITION HREF="26_glo_r.htm#radix"><I>radix</I></A>. <P>
+<I>case</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <b>(member :upcase :downcase :capitalize)</b>. <P>
+<I>circle</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<I>escape</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<I>gensym</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<I>length</I>---a non-negative <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>, or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<I>level</I>---a non-negative <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>, or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<I>lines</I>---a non-negative <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>, or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<I>miser-width</I>---a non-negative <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>, or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<I>pprint-dispatch</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#pprint_dispatch_table"><I>pprint dispatch table</I></A>. <P>
+<I>pretty</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<I>radix</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<I>readably</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<I>right-margin</I>---a non-negative <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>, or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>.  <P>
+<I>string</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#write-to-string"><B>write-to-string</B></A>, <A REL=DEFINITION HREF="#prin1-to-string"><B>prin1-to-string</B></A>, and <A REL=DEFINITION HREF="#princ-to-string"><B>princ-to-string</B></A> are used to create a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> consisting of the printed representation of <I>object</I>. <I>Object</I> is effectively printed as if by <A REL=DEFINITION HREF="f_wr_pr.htm#write"><B>write</B></A>, <A REL=DEFINITION HREF="f_wr_pr.htm#prin1"><B>prin1</B></A>, or <A REL=DEFINITION HREF="f_wr_pr.htm#princ"><B>princ</B></A>, respectively, and the <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>characters</I></A> that would be output are made into a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A>. <P>
+<A REL=DEFINITION HREF="#write-to-string"><B>write-to-string</B></A> is the general output function. It has the ability to specify all the parameters applicable to the printing of <I>object</I>. <P>
+<A REL=DEFINITION HREF="#prin1-to-string"><B>prin1-to-string</B></A> acts like <A REL=DEFINITION HREF="#write-to-string"><B>write-to-string</B></A> with <b>:escape t</b>, that is, escape characters are written where appropriate. <P>
+<A REL=DEFINITION HREF="#princ-to-string"><B>princ-to-string</B></A> acts like <A REL=DEFINITION HREF="#write-to-string"><B>write-to-string</B></A> with  <b>:escape nil :readably nil</b>.  Thus no <A REL=DEFINITION HREF="26_glo_e.htm#escape"><I>escape</I></A> <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>characters</I></A> are written. <P>
+All other keywords that would be specified to <A REL=DEFINITION HREF="#write-to-string"><B>write-to-string</B></A> are default values when <A REL=DEFINITION HREF="#prin1-to-string"><B>prin1-to-string</B></A> or <A REL=DEFINITION HREF="#princ-to-string"><B>princ-to-string</B></A> is invoked. <P>
+The meanings and defaults for the keyword arguments to <A REL=DEFINITION HREF="#write-to-string"><B>write-to-string</B></A> are the same as those for <A REL=DEFINITION HREF="f_wr_pr.htm#write"><B>write</B></A>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (prin1-to-string &quot;abc&quot;) =&gt;  &quot;\&quot;abc\&quot;&quot;
+ (princ-to-string &quot;abc&quot;) =&gt;  &quot;abc&quot;
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于:</b><P>
+ <P>
+<A REL=DEFINITION HREF="v_pr_esc.htm#STprint-escapeST"><B>*print-escape*</B></A>, <A REL=DEFINITION HREF="v_pr_bas.htm#STprint-radixST"><B>*print-radix*</B></A>, <A REL=DEFINITION HREF="v_pr_bas.htm#STprint-baseST"><B>*print-base*</B></A>, <A REL=DEFINITION HREF="v_pr_cir.htm#STprint-circleST"><B>*print-circle*</B></A>, <A REL=DEFINITION HREF="v_pr_pre.htm#STprint-prettyST"><B>*print-pretty*</B></A>, <A REL=DEFINITION HREF="v_pr_lev.htm#STprint-levelST"><B>*print-level*</B></A>, <A REL=DEFINITION HREF="v_pr_lev.htm#STprint-lengthST"><B>*print-length*</B></A>, <A REL=DEFINITION HREF="v_pr_cas.htm#STprint-caseST"><B>*print-case*</B></A>, <A REL=DEFINITION HREF="v_pr_gen.htm#STprint-gensymST"><B>*print-gensym*</B></A>, <A REL=DEFINITION HREF="v_pr_ar.htm#STprint-arrayST"><B>*print-array*</B></A>, <A REL=DEFINITION HREF="v_rd_def.htm#STread-default-float-formatST"><B>*read-default-float-format*</B></A>. <P>
+<p><b>●例外情况：</b> 无。</p>
+ <p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_wr_pr.htm#write"><B>write</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<PRE>
+ (write-to-string object {key argument}*)
+==  (with-output-to-string (#1=#:string-stream) 
+     (write object :stream #1# {key argument}*))
+
+ (princ-to-string object)
+==  (with-output-to-string (string-stream)
+     (princ object string-stream))
+
+ (prin1-to-string object)
+==  (with-output-to-string (string-stream)
+     (prin1 object string-stream))
+</PRE>
+</b> <p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss271.htm">PRINC-READABLY:X3J13-DEC-91</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 17.2.2</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="17_baa.htm">
+<LINK REL=UP HREF="17_b.htm">
+<LINK REL=NEXT HREF="17_bba.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="17_baa.htm">◀</A><A REL=UP HREF="17_b.htm">▲</A><A REL=NEXT HREF="17_bba.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+17.2.2 Satisfying a One-Argument Test</H2>  <P>
+When using one of the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>functions</I></A> in the next figure, the elements E of a <A REL=DEFINITION HREF="26_glo_s.htm#sequence"><I>sequence</I></A> S are filtered not on the basis of the presence or absence of an object O under a two <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A> <A REL=DEFINITION HREF="26_glo_p.htm#predicate"><I>predicate</I></A>, as with the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>functions</I></A> described in <A REL HREF="17_ba.htm">Section 17.2.1 (Satisfying a Two-Argument Test)</A>, but rather on the basis of a one <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A> <A REL=DEFINITION HREF="26_glo_p.htm#predicate"><I>predicate</I></A>. <P>
+<PRE>
+<A REL=DEFINITION HREF="f_assocc.htm#assoc-if">assoc-if</A>       <A REL=DEFINITION HREF="f_mem_m.htm#member-if">member-if</A>           <A REL=DEFINITION HREF="f_rassoc.htm#rassoc-if">rassoc-if</A>          
+<A REL=DEFINITION HREF="f_assocc.htm#assoc-if-not">assoc-if-not</A>   <A REL=DEFINITION HREF="f_mem_m.htm#member-if-not">member-if-not</A>       <A REL=DEFINITION HREF="f_rassoc.htm#rassoc-if-not">rassoc-if-not</A>      
+<A REL=DEFINITION HREF="f_countc.htm#count-if">count-if</A>       <A REL=DEFINITION HREF="f_substc.htm#nsubst-if">nsubst-if</A>           <A REL=DEFINITION HREF="f_rm_rm.htm#remove-if">remove-if</A>          
+<A REL=DEFINITION HREF="f_countc.htm#count-if-not">count-if-not</A>   <A REL=DEFINITION HREF="f_substc.htm#nsubst-if-not">nsubst-if-not</A>       <A REL=DEFINITION HREF="f_rm_rm.htm#remove-if-not">remove-if-not</A>      
+<A REL=DEFINITION HREF="f_rm_rm.htm#delete-if">delete-if</A>      <A REL=DEFINITION HREF="f_sbs_s.htm#nsubstitute-if">nsubstitute-if</A>      <A REL=DEFINITION HREF="f_substc.htm#subst-if">subst-if</A>           
+<A REL=DEFINITION HREF="f_rm_rm.htm#delete-if-not">delete-if-not</A>  <A REL=DEFINITION HREF="f_sbs_s.htm#nsubstitute-if-not">nsubstitute-if-not</A>  <A REL=DEFINITION HREF="f_substc.htm#subst-if-not">subst-if-not</A>       
+<A REL=DEFINITION HREF="f_find_.htm#find-if">find-if</A>        <A REL=DEFINITION HREF="f_pos_p.htm#position-if">position-if</A>         <A REL=DEFINITION HREF="f_sbs_s.htm#substitute-if">substitute-if</A>      
+<A REL=DEFINITION HREF="f_find_.htm#find-if-not">find-if-not</A>    <A REL=DEFINITION HREF="f_pos_p.htm#position-if-not">position-if-not</A>     <A REL=DEFINITION HREF="f_sbs_s.htm#substitute-if-not">substitute-if-not</A>  
+</PRE>
+<p><b>■图表 17-3.  Operators that have One-Argument Tests to be Satisfied</B> <P>
+The element Ei might not be considered directly. If a <b>:key</b> <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A> is provided, it is a <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> of one <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A> to be called with each Ei as an <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A>, and <I>yielding</I> an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> Zi to be used for comparison. (If there is no <b>:key</b> <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A>, Zi is Ei.) <P>
+<A REL=DEFINITION HREF="26_glo_f.htm#function"><I>Functions</I></A> defined in this specification and having a name that ends in ``<b>-if</b>'' accept a first <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A> that is a <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> of one <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A>, Zi. An Ei is said to <A REL=DEFINITION HREF="26_glo_s.htm#satisfy_the_test"><I>satisfy the test</I></A> if this <b>:test</b> <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> returns a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A> representing <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A>. <P>
+<A REL=DEFINITION HREF="26_glo_f.htm#function"><I>Functions</I></A> defined in this specification and having a name that ends in ``<b>-if-not</b>'' accept a first <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A> that is a <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> of one <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A>, Zi. An Ei is said to <A REL=DEFINITION HREF="26_glo_s.htm#satisfy_the_test"><I>satisfy the test</I></A> if this <b>:test</b> <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> returns a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A> representing <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>. <P>
+
+ 
+<h2><A REL=CHILD HREF="17_bba.htm">
+17.2.2.1 Examples of Satisfying a One-Argument Test</a></h2><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

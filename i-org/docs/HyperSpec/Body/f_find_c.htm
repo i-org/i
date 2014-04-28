@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Accessor FIND-CLASS</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="m_defmet.htm">
+<LINK REL=UP HREF="c_object.htm">
+<LINK REL=NEXT HREF="f_next_m.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="m_defmet.htm">◀</A><A REL=UP HREF="c_object.htm">▲</A><A REL=NEXT HREF="f_next_m.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="find-class"><I>Accessor</I> <B>FIND-CLASS</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>find-class</B> <I>symbol <b>&amp;optional</b> errorp environment</I> =&gt; <I>class</I><P>
+ 
+<b>(setf (</b><B>find-class</B> <I>symbol <b>&amp;optional</b> errorp environment</I><b>) </b><I>new-class</I><b>)</b><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>symbol</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>. <P>
+<I>errorp</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. The default is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A>. <P>
+<I>environment</I> -- same as the <b>&amp;environment</b> argument to macro expansion functions and is used to distinguish between compile-time and run-time environments.  The <b>&amp;environment</b> argument has <A REL=DEFINITION HREF="26_glo_d.htm#dynamic_extent"><I>dynamic extent</I></A>; the consequences are undefined if the <b>&amp;environment</b> argument is referred to outside the <A REL=DEFINITION HREF="26_glo_d.htm#dynamic_extent"><I>dynamic extent</I></A> of the macro expansion function.  <P>
+<I>class</I>---a <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>, or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Returns the <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> named by the <I>symbol</I> in the <I>environment</I>. If there is no such <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A>, <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> is returned if <I>errorp</I> is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>; otherwise, if <I>errorp</I> is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A>, an error is signaled. <P>
+The <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> associated with a particular <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> can be changed by using <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A> with <A REL=DEFINITION HREF="#find-class"><B>find-class</B></A>;  or, if the new <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> given to <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A> is <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>, the <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> association is removed (but the <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> itself is not affected).  
+The results are undefined if the user attempts to change  or remove  the <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> associated with a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> that is defined as a <A REL=DEFINITION HREF="26_glo_t.htm#type_specifier"><I>type specifier</I></A> in this standard. See <A REL=CHILD HREF="04_cg.htm">Section 4.3.7 (Integrating Types and Classes)</A>. <P>
+When using <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A> of <A REL=DEFINITION HREF="#find-class"><B>find-class</B></A>, any <I>errorp</I> argument is <I>evaluated</I> for effect, but any <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> it returns are ignored; the <I>errorp</I> <A REL=DEFINITION HREF="26_glo_p.htm#parameter"><I>parameter</I></A> is permitted primarily so that the <I>environment</I> <A REL=DEFINITION HREF="26_glo_p.htm#parameter"><I>parameter</I></A> can be used. <P>
+The <I>environment</I> might be used to distinguish between a compile-time and a run-time environment. <P>
+<p><b>●例子:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+If there is no such <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> and <I>errorp</I> is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A>, <A REL=DEFINITION HREF="#find-class"><B>find-class</B></A> signals an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_error.htm#error"><B>error</B></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_defmac.htm#defmacro"><B>defmacro</B></A>, <A REL=CHILD HREF="04_cg.htm">Section 4.3.7 (Integrating Types and Classes)</A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss304.htm">SETF-FIND-CLASS:ALLOW-NIL</A><LI> <A REL=CHILD HREF="../Issues/iss229.htm">MACRO-ENVIRONMENT-EXTENT:DYNAMIC</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

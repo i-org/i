@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function WILD-PATHNAME-P</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_pars_1.htm">
+<LINK REL=UP HREF="c_filena.htm">
+<LINK REL=NEXT HREF="f_pn_mat.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_pars_1.htm">◀</A><A REL=UP HREF="c_filena.htm">▲</A><A REL=NEXT HREF="f_pn_mat.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="wild-pathname-p"><I>Function</I> <B>WILD-PATHNAME-P</B></A> <P>
+ <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>wild-pathname-p</B> <I>pathname <b>&amp;optional</b> field-key</I> =&gt; <I>generalized-boolean</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+ <I>pathname</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#pathname_designator"><I>pathname designator</I></A>.  <P>
+<I>Field-key</I>---one of <b>:host</b>, <b>:device</b> <b>:directory</b>, <b>:name</b>, <b>:type</b>, <b>:version</b>, or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<I>generalized-boolean</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#wild-pathname-p"><B>wild-pathname-p</B></A> tests <I>pathname</I> for the presence of wildcard components. <P>
+If <I>pathname</I> is a <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathname</I></A> (as returned by <A REL=DEFINITION HREF="f_pn.htm#pathname"><B>pathname</B></A>) it represents the name used to open the file. This may be, but is not required to be, the actual name of the file. <P>
+If <I>field-key</I> is not supplied or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>, <A REL=DEFINITION HREF="#wild-pathname-p"><B>wild-pathname-p</B></A> returns true if <I>pathname</I> has any wildcard components, <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> if <I>pathname</I> has none. If <I>field-key</I> is <A REL=DEFINITION HREF="26_glo_n.htm#non-nil"><I>non-nil</I></A>, <A REL=DEFINITION HREF="#wild-pathname-p"><B>wild-pathname-p</B></A> returns true if the indicated component of <I>pathname</I> is a wildcard, <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> if the component is not a wildcard. <P>
+<p><b>●例子:</b><P>
+ 
+<PRE>
+ ;;;The following examples are not portable.  They are written to run
+ ;;;with particular file systems and particular wildcard conventions.
+ ;;;Other implementations will behave differently.  These examples are
+ ;;;intended to be illustrative, not to be prescriptive.
+ 
+ (wild-pathname-p (make-pathname :name :wild)) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (wild-pathname-p (make-pathname :name :wild) :name) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (wild-pathname-p (make-pathname :name :wild) :type) =&gt;  <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+ (wild-pathname-p (pathname &quot;s:&gt;foo&gt;**&gt;&quot;)) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A> ;Lispm
+ (wild-pathname-p (pathname :name &quot;F*O&quot;)) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A> ;Most places
+</PRE>
+</b> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+If <I>pathname</I> is not a <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathname</I></A>, a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A>, or a <A REL=DEFINITION HREF="26_glo_s.htm#stream_associated_with_a_file"><I>stream associated with a file</I></A> an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> is signaled. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+ <A REL=DEFINITION HREF="t_pn.htm#pathname"><B>pathname</B></A>, <A REL=DEFINITION HREF="t_logica.htm#logical-pathname"><B>logical-pathname</B></A>, <A REL=CHILD HREF="20_a.htm">Section 20.1 (File System Concepts)</A>,   <A REL=CHILD HREF="19_ab.htm">Section 19.1.2 (Pathnames as Filenames)</A>  <P>
+<p><b>●说明:</b><P>
+ <P>
+Not all implementations support wildcards in all fields. See <A REL=CHILD HREF="19_bbbb.htm">Section 19.2.2.2.2 (:WILD as a Component Value)</A> and <A REL=CHILD HREF="19_bbc.htm">Section 19.2.2.3 (Restrictions on Wildcard Pathnames)</A>. <P>
+ <p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss157.htm">FILE-OPEN-ERROR:SIGNAL-FILE-ERROR</A><LI> <A REL=CHILD HREF="../Issues/iss259.htm">PATHNAME-LOGICAL:ADD</A><LI> <A REL=CHILD HREF="../Issues/iss261.htm">PATHNAME-STREAM</A><LI> <A REL=CHILD HREF="../Issues/iss267.htm">PATHNAME-WILD:NEW-FUNCTIONS</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

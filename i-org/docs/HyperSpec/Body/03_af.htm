@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 3.1.6</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="03_ae.htm">
+<LINK REL=UP HREF="03_a.htm">
+<LINK REL=NEXT HREF="03_ag.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="03_ae.htm">◀</A><A REL=UP HREF="03_a.htm">▲</A><A REL=NEXT HREF="03_ag.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+3.1.6 Extent</H2> <b>Contorted-example</b> works only because the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> named by <b>f</b> is invoked during the <A REL=DEFINITION HREF="26_glo_e.htm#extent"><I>extent</I></A> of the <A REL=DEFINITION HREF="26_glo_e.htm#exit_point"><I>exit point</I></A>. Once the flow of execution has left the block, the <A REL=DEFINITION HREF="26_glo_e.htm#exit_point"><I>exit point</I></A> is <I>disestablished</I>. For example: <P>
+<PRE>
+ (defun invalid-example ()
+   (let ((y (block here #'(lambda (z) (return-from here z)))))
+     (if (numberp y) y (funcall y 5))))
+</PRE>
+</b> One might expect the call <b>(invalid-example)</b> to produce <b>5</b> by the following incorrect reasoning: <A REL=DEFINITION HREF="s_let_l.htm#let"><B>let</B></A> binds <b>y</b> to the value of <A REL=DEFINITION HREF="s_block.htm#block"><B>block</B></A>; this value is a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> resulting from the <A REL=DEFINITION HREF="26_glo_l.htm#lambda_expression"><I>lambda expression</I></A>. Because <b>y</b> is not a number, it is invoked on the value <b>5</b>. The <A REL=DEFINITION HREF="s_ret_fr.htm#return-from"><B>return-from</B></A> should then return this value from the <A REL=DEFINITION HREF="26_glo_e.htm#exit_point"><I>exit point</I></A> named <b>here</b>, thereby exiting from the block again and giving <b>y</b> the value <b>5</b> which, being a number, is then returned as the value of the call to <b>invalid-example</b>. <P>
+The argument fails only because <A REL=DEFINITION HREF="26_glo_e.htm#exit_point"><I>exit points</I></A> have <A REL=DEFINITION HREF="26_glo_d.htm#dynamic_extent"><I>dynamic extent</I></A>. The argument is correct up to the execution of <A REL=DEFINITION HREF="s_ret_fr.htm#return-from"><B>return-from</B></A>. The execution of <A REL=DEFINITION HREF="s_ret_fr.htm#return-from"><B>return-from</B></A> should signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_contro.htm#control-error"><B>control-error</B></A>, however, not because it cannot refer to the <A REL=DEFINITION HREF="26_glo_e.htm#exit_point"><I>exit point</I></A>, but because it does correctly refer to an <A REL=DEFINITION HREF="26_glo_e.htm#exit_point"><I>exit point</I></A> and that <A REL=DEFINITION HREF="26_glo_e.htm#exit_point"><I>exit point</I></A> has been <I>disestablished</I>. <P>
+A reference by name to a dynamic <A REL=DEFINITION HREF="26_glo_e.htm#exit_point"><I>exit point</I></A> binding such as a <A REL=DEFINITION HREF="26_glo_c.htm#catch_tag"><I>catch tag</I></A> refers to the most recently <I>established</I> <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>binding</I></A> of that name that has not been <I>disestablished</I>. For example: <P>
+<PRE>
+ (defun fun1 (x)
+   (catch 'trap (+ 3 (fun2 x))))
+ (defun fun2 (y)
+   (catch 'trap (* 5 (fun3 y))))
+ (defun fun3 (z)
+   (throw 'trap z))
+</PRE>
+</b> Consider the call <b>(fun1 7)</b>. The result is <b>10</b>. At the time the <A REL=DEFINITION HREF="s_throw.htm#throw"><B>throw</B></A> is executed, there are two outstanding catchers with the name <b>trap</b>: one established within procedure <b>fun1</b>, and the other within procedure <b>fun2</b>. The latter is the more recent, and so the value <b>7</b> is returned from <A REL=DEFINITION HREF="s_catch.htm#catch"><B>catch</B></A> in <b>fun2</b>. Viewed from within <b>fun3</b>, the <A REL=DEFINITION HREF="s_catch.htm#catch"><B>catch</B></A> in <b>fun2</b> shadows the one in <b>fun1</b>. Had <b>fun2</b> been defined as <P>
+<PRE>
+ (defun fun2 (y)
+   (catch 'snare (* 5 (fun3 y))))
+</PRE>
+</b> then the two <A REL=DEFINITION HREF="26_glo_e.htm#exit_point"><I>exit points</I></A> would have different <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>names</I></A>, and therefore the one in <b>fun1</b> would not be shadowed. The result would then have been <b>7</b>. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

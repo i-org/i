@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 22.3.8.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="22_ch.htm">
+<LINK REL=UP HREF="22_ch.htm">
+<LINK REL=NEXT HREF="22_chb.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="22_ch.htm">◀</A><A REL=UP HREF="22_ch.htm">▲</A><A REL=NEXT HREF="22_chb.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+22.3.8.1 Tilde Left-Paren: Case Conversion</H2>  <P>
+<b>~(</b><I>str</I><b>~)</b> <P>
+The contained control string <I>str</I> is processed, and what it produces is subject to case conversion. <P>
+With no flags, every <A REL=DEFINITION HREF="26_glo_u.htm#uppercase"><I>uppercase</I></A> <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>character</I></A> is converted to the corresponding <A REL=DEFINITION HREF="26_glo_l.htm#lowercase"><I>lowercase</I></A> <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>character</I></A>. <P>
+<b>~:(</b> capitalizes all words, as if by <A REL=DEFINITION HREF="f_stg_up.htm#string-capitalize"><B>string-capitalize</B></A>. <P>
+<b>~@(</b> capitalizes just the first word and forces the rest to lower case. <P>
+<b>~:@(</b> converts every lowercase character to the corresponding uppercase character. <P>
+In this example <b>~@(</b> is used to cause the first word produced by <b>~@R</b> to be capitalized: <P>
+<PRE>
+ (format nil &quot;~@R ~(~@R~)&quot; 14 14) 
+=&gt;  &quot;XIV xiv&quot;
+ (defun f (n) (format nil &quot;~@(~R~) error~:P detected.&quot; n)) =&gt;  F
+ (f 0) =&gt;  &quot;Zero errors detected.&quot;
+ (f 1) =&gt;  &quot;One error detected.&quot;
+ (f 23) =&gt;  &quot;Twenty-three errors detected.&quot;
+</PRE>
+</b> <P>
+When case conversions appear nested, the outer conversion dominates, as illustrated in the following example: <P>
+<PRE>
+ (format nil &quot;~@(how is ~:(BOB SMITH~)?~)&quot;)
+ =&gt;  &quot;How is bob smith?&quot;
+ NOT=&gt;  &quot;How is Bob Smith?&quot;
+</PRE>
+</b> <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

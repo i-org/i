@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Macro DEFINE-SYMBOL-MACRO</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_mexp_.htm">
+<LINK REL=UP HREF="c_evalua.htm">
+<LINK REL=NEXT HREF="s_symbol.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_mexp_.htm">◀</A><A REL=UP HREF="c_evalua.htm">▲</A><A REL=NEXT HREF="s_symbol.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="define-symbol-macro"><I>Macro</I> <B>DEFINE-SYMBOL-MACRO</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>define-symbol-macro</B> <I>symbol expansion</I><P> =&gt; <I>symbol</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>symbol</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>. <P>
+<I>expansion</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Provides a mechanism for globally affecting the <A REL=DEFINITION HREF="26_glo_m.htm#macro_expansion"><I>macro expansion</I></A> of the indicated <I>symbol</I>. <P>
+Globally establishes an expansion function for the <A REL=DEFINITION HREF="26_glo_s.htm#symbol_macro"><I>symbol macro</I></A> named by <I>symbol</I>. The only guaranteed property of an expansion <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> for a <A REL=DEFINITION HREF="26_glo_s.htm#symbol_macro"><I>symbol macro</I></A> is that when it is applied to the <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> and the <A REL=DEFINITION HREF="26_glo_e.htm#environment"><I>environment</I></A> it returns the correct expansion. (In particular, it is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> whether the expansion is conceptually stored in the expansion function, the <A REL=DEFINITION HREF="26_glo_e.htm#environment"><I>environment</I></A>, or both.) <P>
+Each global reference to <I>symbol</I> (i.e., not <I>shadowed</I>[2] by a <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>binding</I></A> for a <A REL=DEFINITION HREF="26_glo_v.htm#variable"><I>variable</I></A> or <A REL=DEFINITION HREF="26_glo_s.htm#symbol_macro"><I>symbol macro</I></A> named by the same <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>) is expanded by the normal macro expansion process; see <A REL=CHILD HREF="03_abaa.htm">Section 3.1.2.1.1 (Symbols as Forms)</A>. The expansion of a <A REL=DEFINITION HREF="26_glo_s.htm#symbol_macro"><I>symbol macro</I></A> is subject to further <A REL=DEFINITION HREF="26_glo_m.htm#macro_expansion"><I>macro expansion</I></A> in the same <A REL=DEFINITION HREF="26_glo_l.htm#lexical_environment"><I>lexical environment</I></A> as the <A REL=DEFINITION HREF="26_glo_s.htm#symbol_macro"><I>symbol macro</I></A> reference, exactly analogous to normal <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macros</I></A>. <P>
+The consequences are unspecified if a <A REL=DEFINITION HREF="d_specia.htm#special"><B>special</B></A> declaration is made for <I>symbol</I> while in the scope of this definition (i.e., when it is not <I>shadowed</I>[2] by a <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>binding</I></A> for a <A REL=DEFINITION HREF="26_glo_v.htm#variable"><I>variable</I></A> or <A REL=DEFINITION HREF="26_glo_s.htm#symbol_macro"><I>symbol macro</I></A> named by the same <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>). <P>
+Any use of <A REL=DEFINITION HREF="s_setq.htm#setq"><B>setq</B></A> to set the value of the <I>symbol</I> while in the scope of this definition is treated as if it were a <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A>. <A REL=DEFINITION HREF="m_psetq.htm#psetq"><B>psetq</B></A> of <I>symbol</I> is treated as if it were a <A REL=DEFINITION HREF="m_setf_.htm#psetf"><B>psetf</B></A>, and <A REL=DEFINITION HREF="m_mult_2.htm#multiple-value-setq"><B>multiple-value-setq</B></A> is treated as if it were a <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A> of <A REL=DEFINITION HREF="f_values.htm#values"><B>values</B></A>. <P>
+A <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>binding</I></A> for a <A REL=DEFINITION HREF="26_glo_s.htm#symbol_macro"><I>symbol macro</I></A> can be <I>shadowed</I>[2] by <A REL=DEFINITION HREF="s_let_l.htm#let"><B>let</B></A> or <A REL=DEFINITION HREF="s_symbol.htm#symbol-macrolet"><B>symbol-macrolet</B></A>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+(defvar *things* (list 'alpha 'beta 'gamma)) =&gt;  *THINGS*
+
+(define-symbol-macro thing1 (first *things*)) =&gt;  THING1
+(define-symbol-macro thing2 (second *things*)) =&gt;  THING2
+(define-symbol-macro thing3 (third *things*)) =&gt;  THING3
+
+thing1 =&gt;  ALPHA
+(setq thing1 'ONE) =&gt;  ONE
+*things* =&gt;  (ONE BETA GAMMA)
+(multiple-value-setq (thing2 thing3) (values 'two 'three)) =&gt;  TWO
+thing3 =&gt;  THREE
+*things* =&gt;  (ONE TWO THREE)
+
+(list thing2 (let ((thing2 2)) thing2)) =&gt;  (TWO 2)
+</PRE>
+</b> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+If <I>symbol</I> is already defined as a <A REL=DEFINITION HREF="26_glo_g.htm#global_variable"><I>global variable</I></A>, an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_progra.htm#program-error"><B>program-error</B></A> is signaled. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="s_symbol.htm#symbol-macrolet"><B>symbol-macrolet</B></A>, <A REL=DEFINITION HREF="f_mexp_.htm#macroexpand"><B>macroexpand</B></A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

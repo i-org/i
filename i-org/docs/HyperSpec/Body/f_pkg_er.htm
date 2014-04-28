@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function PACKAGE-ERROR-PACKAGE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="e_pkg_er.htm">
+<LINK REL=UP HREF="c_packag.htm">
+<LINK REL=NEXT HREF="12_.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="e_pkg_er.htm">◀</A><A REL=UP HREF="c_packag.htm">▲</A><A REL=NEXT HREF="12_.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="package-error-package"><I>Function</I> <B>PACKAGE-ERROR-PACKAGE</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>package-error-package</B> <I>condition</I> =&gt; <I>package</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>condition</I>---a <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_pkg_er.htm#package-error"><B>package-error</B></A>. <P>
+<I>package</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#package_designator"><I>package designator</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Returns a <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for the offending <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> in the <A REL=DEFINITION HREF="26_glo_s.htm#situation"><I>situation</I></A> represented by the <I>condition</I>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (package-error-package 
+   (make-condition 'package-error
+     :package (find-package &quot;COMMON-LISP&quot;)))
+=&gt;  #&lt;Package &quot;COMMON-LISP&quot;&gt;
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="e_pkg_er.htm#package-error"><B>package-error</B></A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Issue CONSTANT-MODIFICATION Writeup</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="../Issues/iss082_w.htm">
+<LINK REL=UP HREF="../Issues/iss083.htm">
+<LINK REL=NEXT HREF="../Issues/iss084_w.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="../Issues/iss082_w.htm">◀</A><A REL=UP HREF="../Issues/iss083.htm">▲</A><A REL=NEXT HREF="../Issues/iss084_w.htm">▶</A></h1>
+
+<HR>
+
+
+
+<H2>Issue CONSTANT-MODIFICATION Writeup</H2>
+
+<PRE><B>Forum:</B>		Compiler<P>
+<B>Issue:</B>		<A HREF="iss083.htm">CONSTANT-MODIFICATION</A><P>
+<B>References:</B>	CLtL p. 78, 87<P>
+		Issue <A HREF="iss080.htm">CONSTANT-COLLAPSING</A><P>
+<B>Category:</B>	CLARIFICATION<P>
+<B>Edit History:</B>   V1, 07 Nov 1988, Sandra Loosemore<P>
+		V2, 12 Dec 1988, Sandra Loosemore<P>
+<P>
+<P>
+<P>
+<B>Problem Description:<P>
+</B><P>
+CLtL states that an implementation is permitted to &quot;collapse&quot;<P>
+constants appearing in code to be compiled if they are <A REL=DEFINITION HREF="../Body/f_equal.htm#equal"><B>EQUAL</B></A>.  This<P>
+implicit sharing of compiled data structures may result in<P>
+unpredictable behavior if destructive operations are performed.<P>
+However, CLtL does not explicitly allow or disallow destructive<P>
+operations on constants.  <P>
+<P>
+<P>
+<B>Proposal CONSTANT-MODIFICATION:DISALLOW:<P>
+</B><P>
+Clarify that it is an error to destructively modify objects which are <P>
+self-evaluating forms or which appear inside of a <A REL=DEFINITION HREF="../Body/s_quote.htm#quote"><B>QUOTE</B></A> special form.<P>
+<P>
+<P>
+<B>Rationale:<P>
+</B><P>
+Disallowing modification of constants consistently in all situations,<P>
+rather than just in compiled code, is proposed because in some<P>
+compiled-only situations it may be difficult to distinguish between<P>
+&quot;compiled&quot; and &quot;interpreted&quot; code.<P>
+<P>
+<P>
+<B>Current Practice:<P>
+</B><P>
+Many implementations &quot;collapse&quot; compiled constants.<P>
+<P>
+Many implementations treat compiled constants as read-only.  In<P>
+PSL/PCLS, for example, quoted data structures in compiled code are<P>
+copied into a part of memory that is not scanned by the garbage<P>
+collector.  The TI Explorer's loader also copies constants into a<P>
+write-protected memory area.<P>
+<P>
+<P>
+<B>Cost to implementors:<P>
+</B><P>
+None.<P>
+<P>
+<P>
+<B>Cost to users:<P>
+</B><P>
+User programs which perform destructive operations on constants are<P>
+already nonportable.<P>
+<P>
+<P>
+<B>Benefits:<P>
+</B><P>
+Many novice programmers do not realize that modifying quoted data<P>
+structures is an error in many implementations.  Including an explicit<P>
+statement in the <A REL=DEFINITION HREF="../Body/07_ffb.htm#standard"><B>standard</B></A> that doing so is a bad idea will reduce<P>
+confusion.<P>
+<P>
+<P>
+<B>Discussion:<P>
+</B><P>
+The issue of whether implementations are permitted to copy constants<P>
+seen by <A REL=DEFINITION HREF="../Body/f_eval.htm#eval"><B>EVAL</B></A> or <A REL=DEFINITION HREF="../Body/f_cmp.htm#compile"><B>COMPILE</B></A> is discussed separately as issue QUOTE-MAY-COPY.<P>
+<P>
+</PRE>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

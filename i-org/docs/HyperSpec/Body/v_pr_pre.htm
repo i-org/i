@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Variable *PRINT-PRETTY*</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="v_pr_ppr.htm">
+<LINK REL=UP HREF="c_printe.htm">
+<LINK REL=NEXT HREF="v_pr_rda.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="v_pr_ppr.htm">◀</A><A REL=UP HREF="c_printe.htm">▲</A><A REL=NEXT HREF="v_pr_rda.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="STprint-prettyST"><I>Variable</I> <B>*PRINT-PRETTY*</B></A> <P>
+<p><b>●值类型:</b><P>
+ <P>
+a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<p><b>●初始值:</b><P>
+ <P>
+<A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Controls whether the <A REL=DEFINITION HREF="26_glo_l.htm#lisp_printer"><I>Lisp printer</I></A> calls the <A REL=DEFINITION HREF="26_glo_p.htm#pretty_printer"><I>pretty printer</I></A>. <P>
+If it is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>, the <A REL=DEFINITION HREF="26_glo_p.htm#pretty_printer"><I>pretty printer</I></A> is not used and  a minimum  of <A REL=DEFINITION HREF="26_glo_w.htm#whitespace"><I>whitespace</I></A>[1] is output when printing an expression. <P>
+If it is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A>, the <A REL=DEFINITION HREF="26_glo_p.htm#pretty_printer"><I>pretty printer</I></A> is used, and the <A REL=DEFINITION HREF="26_glo_l.htm#lisp_printer"><I>Lisp printer</I></A> will endeavor to insert extra <A REL=DEFINITION HREF="26_glo_w.htm#whitespace"><I>whitespace</I></A>[1] where appropriate to make <A REL=DEFINITION HREF="26_glo_e.htm#expression"><I>expressions</I></A> more readable. <P>
+<A REL=DEFINITION HREF="#STprint-prettyST"><B>*print-pretty*</B></A> has an effect even when the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> of <A REL=DEFINITION HREF="v_pr_esc.htm#STprint-escapeST"><B>*print-escape*</B></A> is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>. <P>
+<p><b>●例子:</b><P>
+ <P>
+ 
+<PRE>
+ (setq *print-pretty* 'nil) =&gt;  NIL
+ (progn (write '(let ((a 1) (b 2) (c 3)) (+ a b c))) nil)
+&gt;&gt;  (LET ((A 1) (B 2) (C 3)) (+ A B C))
+=&gt;  NIL
+ (let ((*print-pretty* t))
+   (progn (write '(let ((a 1) (b 2) (c 3)) (+ a b c))) nil))
+&gt;&gt;  (LET ((A 1)
+&gt;&gt;        (B 2)
+&gt;&gt;        (C 3))
+&gt;&gt;    (+ A B C))
+=&gt;  NIL
+;; Note that the first two expressions printed by this next form
+;; differ from the second two only in whether escape characters are printed.
+;; In all four cases, extra whitespace is inserted by the pretty printer.
+ (flet ((test (x)
+          (let ((*print-pretty* t))
+            (print x)
+            (format t &quot;~%~S &quot; x)
+            (terpri) (princ x) (princ &quot; &quot;)
+            (format t &quot;~%~A &quot; x))))
+  (test '#'(lambda () (list &quot;a&quot; #'c #'d))))
+&gt;&gt;  #'(LAMBDA ()
+&gt;&gt;      (LIST &quot;a&quot; #'C #'D))
+&gt;&gt;  #'(LAMBDA ()
+&gt;&gt;      (LIST &quot;a&quot; #'C #'D))
+&gt;&gt;  #'(LAMBDA ()
+&gt;&gt;      (LIST a b 'C #'D)) 
+&gt;&gt;  #'(LAMBDA ()
+&gt;&gt;      (LIST a b 'C #'D))
+=&gt;  NIL
+</PRE>
+</b>  <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_wr_pr.htm#write"><B>write</B></A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss169.htm">FORMAT-PRETTY-PRINT:YES</A><LI> <A REL=CHILD HREF="../Issues/iss277.htm">PRINTER-WHITESPACE:JUST-ONE-SPACE</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

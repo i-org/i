@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 5.2</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="05_ac.htm">
+<LINK REL=UP HREF="05_.htm">
+<LINK REL=NEXT HREF="c_data_a.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="05_ac.htm">◀</A><A REL=UP HREF="05_.htm">▲</A><A REL=NEXT HREF="c_data_a.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+5.2 Transfer of Control to an Exit Point</H2>   <P>
+ When a transfer of control is initiated by <A REL=DEFINITION HREF="s_go.htm#go"><B>go</B></A>, <A REL=DEFINITION HREF="s_ret_fr.htm#return-from"><B>return-from</B></A>, or <A REL=DEFINITION HREF="s_throw.htm#throw"><B>throw</B></A> the following events occur in order to accomplish the transfer of control. Note that for <A REL=DEFINITION HREF="s_go.htm#go"><B>go</B></A>, the <A REL=DEFINITION HREF="26_glo_e.htm#exit_point"><I>exit point</I></A> is the <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> within the <A REL=DEFINITION HREF="s_tagbod.htm#tagbody"><B>tagbody</B></A> that is being executed at the time the <A REL=DEFINITION HREF="s_go.htm#go"><B>go</B></A> is performed; for <A REL=DEFINITION HREF="s_ret_fr.htm#return-from"><B>return-from</B></A>, the <A REL=DEFINITION HREF="26_glo_e.htm#exit_point"><I>exit point</I></A> is the corresponding <A REL=DEFINITION HREF="s_block.htm#block"><B>block</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>; and for <A REL=DEFINITION HREF="s_throw.htm#throw"><B>throw</B></A>, the <A REL=DEFINITION HREF="26_glo_e.htm#exit_point"><I>exit point</I></A> is the corresponding <A REL=DEFINITION HREF="s_catch.htm#catch"><B>catch</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. <P>
+<P><ul><li>1.  Intervening <A REL=DEFINITION HREF="26_glo_e.htm#exit_point"><I>exit points</I></A> are ``abandoned'' (i.e., their <A REL=DEFINITION HREF="26_glo_e.htm#extent"><I>extent</I></A> ends and it is no longer valid to attempt to transfer control through them). <P></li>
+<li>2.  The cleanup clauses of any intervening <A REL=DEFINITION HREF="s_unwind.htm#unwind-protect"><B>unwind-protect</B></A> clauses are evaluated. <P></li>
+<li>3.  Intervening dynamic <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>bindings</I></A> of <A REL=DEFINITION HREF="d_specia.htm#special"><B>special</B></A> variables, <A REL=DEFINITION HREF="26_glo_c.htm#catch_tag"><I>catch tags</I></A>, <A REL=DEFINITION HREF="26_glo_c.htm#condition_handler"><I>condition handlers</I></A>, and <A REL=DEFINITION HREF="26_glo_r.htm#restart"><I>restarts</I></A> are undone. <P></li>
+<li>4.  The <A REL=DEFINITION HREF="26_glo_e.htm#extent"><I>extent</I></A> of the <A REL=DEFINITION HREF="26_glo_e.htm#exit_point"><I>exit point</I></A> being invoked ends, and control is passed to the target. <P></li></ul><P>
+The extent of an exit being ``abandoned'' because it is being passed over ends as soon as the transfer of control is initiated. That is, event 1 occurs at the beginning of the initiation of the transfer of control. The consequences are undefined if an attempt is made to transfer control to an <A REL=DEFINITION HREF="26_glo_e.htm#exit_point"><I>exit point</I></A> whose <A REL=DEFINITION HREF="26_glo_d.htm#dynamic_extent"><I>dynamic extent</I></A> has ended. <P>
+Events 2 and 3 are actually performed interleaved, in the order corresponding to the reverse order in which they were established. The effect of this is that the cleanup clauses of an <A REL=DEFINITION HREF="s_unwind.htm#unwind-protect"><B>unwind-protect</B></A> see the same dynamic <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>bindings</I></A> of variables and <A REL=DEFINITION HREF="26_glo_c.htm#catch_tag"><I>catch tags</I></A> as were visible when the <A REL=DEFINITION HREF="s_unwind.htm#unwind-protect"><B>unwind-protect</B></A> was entered. <P>
+Event 4 occurs at the end of the transfer of control. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss152.htm">EXIT-EXTENT:MINIMAL</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

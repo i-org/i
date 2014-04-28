@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 7.1.6</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="07_ae.htm">
+<LINK REL=UP HREF="07_a.htm">
+<LINK REL=NEXT HREF="07_ag.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="07_ae.htm">◀</A><A REL=UP HREF="07_a.htm">▲</A><A REL=NEXT HREF="07_ag.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+7.1.6 Initialize-Instance</H2> <P>
+The <A REL=DEFINITION HREF="26_glo_g.htm#generic_function"><I>generic function</I></A> <A REL=DEFINITION HREF="f_init_i.htm#initialize-instance"><B>initialize-instance</B></A> is called by <A REL=DEFINITION HREF="f_mk_ins.htm#make-instance"><B>make-instance</B></A> to initialize a newly created <A REL=DEFINITION HREF="26_glo_i.htm#instance"><I>instance</I></A>. It uses <A REL=DEFINITION HREF="26_glo_s.htm#standard_method_combination"><I>standard method combination</I></A>. <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>Methods</I></A> for <A REL=DEFINITION HREF="f_init_i.htm#initialize-instance"><B>initialize-instance</B></A> can be defined in order to perform any initialization that cannot be achieved simply by supplying initial values for <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A>. <P>
+ During initialization, <A REL=DEFINITION HREF="f_init_i.htm#initialize-instance"><B>initialize-instance</B></A> is invoked after the following actions have been taken: <P>
+<P><ul><P>
+<li>*  The <A REL=DEFINITION HREF="26_glo_d.htm#defaulted_initialization_argument_list"><I>defaulted initialization argument list</I></A> has been computed by combining the supplied <A REL=DEFINITION HREF="26_glo_i.htm#initialization_argument_list"><I>initialization argument list</I></A> with any default initialization arguments for the <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A>. <P></li>
+<li>*  The validity of the <A REL=DEFINITION HREF="26_glo_d.htm#defaulted_initialization_argument_list"><I>defaulted initialization argument list</I></A> has been checked. If any of the initialization arguments has not been declared as valid, an error is signaled. <P></li>
+<li>*  A new <A REL=DEFINITION HREF="26_glo_i.htm#instance"><I>instance</I></A> whose <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A> are unbound has been created. <P></li>
+<P></ul><P>
+The generic function <A REL=DEFINITION HREF="f_init_i.htm#initialize-instance"><B>initialize-instance</B></A> is called with the new <A REL=DEFINITION HREF="26_glo_i.htm#instance"><I>instance</I></A> and the defaulted initialization arguments. There is a system-supplied primary <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> for <A REL=DEFINITION HREF="f_init_i.htm#initialize-instance"><B>initialize-instance</B></A> whose <A REL=DEFINITION HREF="26_glo_p.htm#parameter_specializer"><I>parameter specializer</I></A> is the <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> <A REL=DEFINITION HREF="t_std_ob.htm#standard-object"><B>standard-object</B></A>. This <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> calls the generic function <A REL=DEFINITION HREF="f_shared.htm#shared-initialize"><B>shared-initialize</B></A> to fill in the <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A> according to the initialization arguments and the <b>:initform</b> forms for the <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A>; the generic function <A REL=DEFINITION HREF="f_shared.htm#shared-initialize"><B>shared-initialize</B></A> is called with the following arguments: the <A REL=DEFINITION HREF="26_glo_i.htm#instance"><I>instance</I></A>, <A REL=DEFINITION HREF="a_t.htm#t"><B>t</B></A>, and the defaulted initialization arguments. <P>
+Note that <A REL=DEFINITION HREF="f_init_i.htm#initialize-instance"><B>initialize-instance</B></A> provides the <A REL=DEFINITION HREF="26_glo_d.htm#defaulted_initialization_argument_list"><I>defaulted initialization argument list</I></A> in its call to <A REL=DEFINITION HREF="f_shared.htm#shared-initialize"><B>shared-initialize</B></A>, so the first step performed by the system-supplied primary <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> for <A REL=DEFINITION HREF="f_shared.htm#shared-initialize"><B>shared-initialize</B></A> takes into account both the initialization arguments provided in the call to <A REL=DEFINITION HREF="f_mk_ins.htm#make-instance"><B>make-instance</B></A> and the <A REL=DEFINITION HREF="26_glo_d.htm#defaulted_initialization_argument_list"><I>defaulted initialization argument list</I></A>. <P>
+<A REL=DEFINITION HREF="26_glo_m.htm#method"><I>Methods</I></A> for <A REL=DEFINITION HREF="f_init_i.htm#initialize-instance"><B>initialize-instance</B></A> can be defined to specify actions to be taken when an <A REL=DEFINITION HREF="26_glo_i.htm#instance"><I>instance</I></A> is initialized. If only <A REL=DEFINITION HREF="26_glo_a.htm#after_method"><I>after methods</I></A> for <A REL=DEFINITION HREF="f_init_i.htm#initialize-instance"><B>initialize-instance</B></A> are defined, they will be run after the system-supplied primary <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> for initialization and therefore will not interfere with the default behavior of <A REL=DEFINITION HREF="f_init_i.htm#initialize-instance"><B>initialize-instance</B></A>. <P>
+The object system provides two <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>functions</I></A> that are useful in the bodies of <A REL=DEFINITION HREF="f_init_i.htm#initialize-instance"><B>initialize-instance</B></A> methods. The <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="f_slt_bo.htm#slot-boundp"><B>slot-boundp</B></A> returns a <I>generic boolean</I> value that indicates whether a specified <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slot</I></A> has a value; this provides a mechanism for writing <A REL=DEFINITION HREF="26_glo_a.htm#after_method"><I>after methods</I></A> for <A REL=DEFINITION HREF="f_init_i.htm#initialize-instance"><B>initialize-instance</B></A> that initialize <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A> only if they have not already been initialized. The <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="f_slt_ma.htm#slot-makunbound"><B>slot-makunbound</B></A> causes the <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slot</I></A> to have no value. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

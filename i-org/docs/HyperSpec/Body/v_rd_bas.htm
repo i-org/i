@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Variable *READ-BASE*</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="m_w_std_.htm">
+<LINK REL=UP HREF="c_reader.htm">
+<LINK REL=NEXT HREF="v_rd_def.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="m_w_std_.htm">◀</A><A REL=UP HREF="c_reader.htm">▲</A><A REL=NEXT HREF="v_rd_def.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="STread-baseST"><I>Variable</I> <B>*READ-BASE*</B></A> <P>
+<p><b>●值类型:</b><P>
+ <P>
+a <A REL=DEFINITION HREF="26_glo_r.htm#radix"><I>radix</I></A>. <P>
+<p><b>●初始值:</b><P>
+ <P>
+<b>10</b>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Controls the interpretation of tokens by <A REL=DEFINITION HREF="f_rd_rd.htm#read"><B>read</B></A> as being <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integers</I></A> or <A REL=DEFINITION HREF="26_glo_r.htm#ratio"><I>ratios</I></A>. <P>
+The <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> of <A REL=DEFINITION HREF="#STread-baseST"><B>*read-base*</B></A>, called the <A REL=DEFINITION HREF="26_glo_c.htm#current_input_base"><I>current input base</I></A>, is the radix in which <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integers</I></A> and <A REL=DEFINITION HREF="26_glo_r.htm#ratio"><I>ratios</I></A> are to be read by the <A REL=DEFINITION HREF="26_glo_l.htm#lisp_reader"><I>Lisp reader</I></A>. The parsing of other numeric <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>types</I></A> (e.g., <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>floats</I></A>) is not affected by this option. <P>
+The effect of <A REL=DEFINITION HREF="#STread-baseST"><B>*read-base*</B></A> on the reading of any particular <A REL=DEFINITION HREF="26_glo_r.htm#rational"><I>rational</I></A> number can be locally overridden by explicit use of the <b>#O</b>, <b>#X</b>, <b>#B</b>, or <b>#</b><I>n</I><b>R</b> syntax or by a trailing decimal point. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (dotimes (i 6)
+   (let ((*read-base* (+ 10. i)))
+     (let ((object (read-from-string &quot;(\\DAD DAD |BEE| BEE 123. 123)&quot;)))
+       (print (list *read-base* object)))))
+&gt;&gt;  (10 (DAD DAD BEE BEE 123 123))
+&gt;&gt;  (11 (DAD DAD BEE BEE 123 146))
+&gt;&gt;  (12 (DAD DAD BEE BEE 123 171))
+&gt;&gt;  (13 (DAD DAD BEE BEE 123 198))
+&gt;&gt;  (14 (DAD 2701 BEE BEE 123 227))
+&gt;&gt;  (15 (DAD 3088 BEE 2699 123 258))
+=&gt;  NIL
+</PRE>
+</b> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b> None.
+ <P>
+<p><b>●说明:</b><P>
+ <P>
+Altering the input radix can be useful when reading data files in special formats. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

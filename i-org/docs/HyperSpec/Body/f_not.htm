@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function NOT</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="v_nil.htm">
+<LINK REL=UP HREF="c_data_a.htm">
+<LINK REL=NEXT HREF="v_t.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="v_nil.htm">◀</A><A REL=UP HREF="c_data_a.htm">▲</A><A REL=NEXT HREF="v_t.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="not"><I>Function</I> <B>NOT</B></A> <P>
+ <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>not</B> <I>x</I> =&gt; <I>boolean</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>x</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A> (i.e., any <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>). <P>
+<I>boolean</I>---a <A REL=DEFINITION HREF="26_glo_b.htm#boolean"><I>boolean</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Returns <A REL=DEFINITION HREF="a_t.htm#t"><B>t</B></A> if <I>x</I> is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>; otherwise, returns <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (not nil) =&gt;  T
+ (not '()) =&gt;  T
+ (not (integerp 'sss)) =&gt;  T
+ (not (integerp 1)) =&gt;  NIL
+ (not 3.7) =&gt;  NIL
+ (not 'apple) =&gt;  NIL
+</PRE>
+</b> <P>
+ <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_null.htm#null"><B>null</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#not"><B>not</B></A> is intended to be used to invert the `truth value' of a <A REL=DEFINITION HREF="26_glo_b.htm#boolean"><I>boolean</I></A> (or <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>) whereas <A REL=DEFINITION HREF="f_null.htm#null"><B>null</B></A> is intended to be used to test for the <A REL=DEFINITION HREF="26_glo_e.htm#empty_list"><I>empty list</I></A>. Operationally, <A REL=DEFINITION HREF="#not"><B>not</B></A> and <A REL=DEFINITION HREF="f_null.htm#null"><B>null</B></A> compute the same result; which to use is a matter of style. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss249.htm">NOT-AND-NULL-RETURN-VALUE:X3J13-MAR-93</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

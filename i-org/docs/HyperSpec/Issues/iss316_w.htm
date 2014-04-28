@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Issue SHARP-O-FOOBAR Writeup</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="../Issues/iss315_w.htm">
+<LINK REL=UP HREF="../Issues/iss316.htm">
+<LINK REL=NEXT HREF="../Issues/iss317_w.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="../Issues/iss315_w.htm">◀</A><A REL=UP HREF="../Issues/iss316.htm">▲</A><A REL=NEXT HREF="../Issues/iss317_w.htm">▶</A></h1>
+
+<HR>
+
+
+
+<H2>Issue SHARP-O-FOOBAR Writeup</H2>
+
+<PRE><B>Forum:</B>		Public Review<P>
+<B>Issue:</B>		<A HREF="iss316.htm">SHARP-O-FOOBAR</A><P>
+<B>References:</B>	Loosemore's public review comment #5<P>
+		#b, #o, #x, #r reader syntax <P>
+		  (sections 2.4.8.7 to 2.4.8.10, pages 2-30..2-31)<P>
+<B>Category:</B>	CLARIFICATION<P>
+<B>Edit history:</B>	21 Dec 1992, Version 1 by Loosemore<P>
+<B>Status:</B>         Proposal CONSEQUENCES-UNDEFINED passed (8+2)-1 on <P>
+                letter ballot 93-302.<P>
+<P>
+<P>
+<B>Problem description:<P>
+</B><P>
+  Is #ofoobar valid syntax?  In other words, what happens if the<P>
+  object following #b, #o, #x, or #r doesn't have the syntax of<P>
+  a rational in the given radix?<P>
+<P>
+<P>
+<B>Proposal (SHARP-O-FOOBAR:CONSEQUENCES-UNDEFINED):<P>
+</B><P>
+  Clarify that the consequences are undefined if the token following<P>
+  #b, #o, #x, or #r does not have the syntax of a rational in the given<P>
+  radix.<P>
+<P>
+<P>
+<B>Rationale:<P>
+</B><P>
+  At least some implementations signal an error.  Other implementations<P>
+  apparently just rebind <A REL=DEFINITION HREF="../Body/v_rd_bas.htm#STread-baseST"><B>*READ-BASE*</B></A> and call <A REL=DEFINITION HREF="../Body/f_rd_rd.htm#read"><B>READ</B></A> recursively.<P>
+<P>
+<P>
+<B>Current practice:<P>
+</B><P>
+  Lucid, CMU CL, and AKCL all signal an error.  WCL reads #ofoobar<P>
+  as the symbol FOOBAR.<P>
+<P>
+<P>
+<B>Cost to implementors:<P>
+</B><P>
+  None.<P>
+<P>
+<P>
+<B>Cost to users:<P>
+</B><P>
+  None, since the behavior already differs among implementations.<P>
+<P>
+<P>
+<B>Aesthetics:<P>
+</B><P>
+  Being explicitly vague is better than being implicitly vague.<P>
+<P>
+<P>
+<B>Editorial impact:<P>
+</B><P>
+  Adding one sentence to each of the four referenced sections.<P>
+<P>
+<P>
+<B>Discussion:<P>
+</B><P>
+<P>
+<P>
+<P>
+<P>
+  <P>
+<P>
+  <P>
+</PRE>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

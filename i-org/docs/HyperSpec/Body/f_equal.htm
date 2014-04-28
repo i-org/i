@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function EQUAL</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_eql.htm">
+<LINK REL=UP HREF="c_data_a.htm">
+<LINK REL=NEXT HREF="f_equalp.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_eql.htm">◀</A><A REL=UP HREF="c_data_a.htm">▲</A><A REL=NEXT HREF="f_equalp.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="equal"><I>Function</I> <B>EQUAL</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>equal</B> <I>x y</I> =&gt; <I>generalized-boolean</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>x</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<I>y</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<I>generalized-boolean</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Returns <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> if <I>x</I> and <I>y</I> are structurally similar (isomorphic) <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A>. <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>Objects</I></A> are treated as follows by <A REL=DEFINITION HREF="#equal"><B>equal</B></A>. <P>
+<P><ul><li><A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>Symbols</I></A>, <A REL=DEFINITION HREF="26_glo_n.htm#number"><I>Numbers</I></A>, and <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>Characters</I></A>  <P>
+<A REL=DEFINITION HREF="#equal"><B>equal</B></A> is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> of two <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A> if they are <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> that are <A REL=DEFINITION HREF="f_eq.htm#eq"><B>eq</B></A>, if they are <A REL=DEFINITION HREF="26_glo_n.htm#number"><I>numbers</I></A> that are <A REL=DEFINITION HREF="f_eql.htm#eql"><B>eql</B></A>, or if they are <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>characters</I></A> that are <A REL=DEFINITION HREF="f_eql.htm#eql"><B>eql</B></A>. <P></li>
+<li><A REL=DEFINITION HREF="26_glo_c.htm#cons"><I>Conses</I></A>  <P>
+For <A REL=DEFINITION HREF="26_glo_c.htm#cons"><I>conses</I></A>, <A REL=DEFINITION HREF="#equal"><B>equal</B></A> is defined recursively as the two <A REL=DEFINITION HREF="26_glo_c.htm#car"><I>cars</I></A> being <A REL=DEFINITION HREF="#equal"><B>equal</B></A> and the two <A REL=DEFINITION HREF="26_glo_c.htm#cdr"><I>cdrs</I></A> being <A REL=DEFINITION HREF="#equal"><B>equal</B></A>. <P></li>
+<li><A REL=DEFINITION HREF="26_glo_a.htm#array"><I>Arrays</I></A>  <P>
+Two <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>arrays</I></A> are <A REL=DEFINITION HREF="#equal"><B>equal</B></A> only if they are <A REL=DEFINITION HREF="f_eq.htm#eq"><B>eq</B></A>, with one exception: <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>strings</I></A> and <A REL=DEFINITION HREF="26_glo_b.htm#bit_vector"><I>bit vectors</I></A> are compared element-by-element (using <A REL=DEFINITION HREF="f_eql.htm#eql"><B>eql</B></A>). If either <I>x</I> or <I>y</I> has a <A REL=DEFINITION HREF="26_glo_f.htm#fill_pointer"><I>fill pointer</I></A>, the <A REL=DEFINITION HREF="26_glo_f.htm#fill_pointer"><I>fill pointer</I></A> limits the number of elements examined by <A REL=DEFINITION HREF="#equal"><B>equal</B></A>. Uppercase and lowercase letters in <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>strings</I></A> are considered by <A REL=DEFINITION HREF="#equal"><B>equal</B></A> to be different. <P></li>
+<li><A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>Pathnames</I></A>  <P>
+Two <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathnames</I></A> are <A REL=DEFINITION HREF="#equal"><B>equal</B></A> if and only if all the corresponding components (host, device, and so on) are equivalent. Whether or not uppercase and lowercase letters are considered equivalent in <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>strings</I></A> appearing in components is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A>. <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathnames</I></A> that are <A REL=DEFINITION HREF="#equal"><B>equal</B></A> should be functionally equivalent. <P></li>
+ <li><B>Other (Structures, hash-tables, instances, ...)</B>  <P>
+Two other <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A> are <A REL=DEFINITION HREF="#equal"><B>equal</B></A> only if they are <A REL=DEFINITION HREF="f_eq.htm#eq"><B>eq</B></A>. <P>
+ <P></li>
+<P></ul><P>
+ <A REL=DEFINITION HREF="#equal"><B>equal</B></A> does not descend any <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A> other than the ones explicitly specified above. The next figure summarizes the information given in the previous list. In addition, the figure specifies the priority of the behavior of <A REL=DEFINITION HREF="#equal"><B>equal</B></A>, with upper entries taking priority over lower ones. <P>
+<PRE>
+Type          Behavior                     
+<A REL=DEFINITION HREF="26_glo_n.htm#number">number</A>        uses <A REL=DEFINITION HREF="f_eql.htm#eql">eql</A>                     
+<A REL=DEFINITION HREF="26_glo_c.htm#character">character</A>     uses <A REL=DEFINITION HREF="f_eql.htm#eql">eql</A>                     
+<A REL=DEFINITION HREF="26_glo_c.htm#cons">cons</A>          descends                     
+<A REL=DEFINITION HREF="26_glo_b.htm#bit_vector">bit vector</A>    descends                     
+<A REL=DEFINITION HREF="26_glo_s.htm#string">string</A>        descends                     
+<A REL=DEFINITION HREF="26_glo_p.htm#pathname">pathname</A>      ``functionally equivalent''  
+<A REL=DEFINITION HREF="26_glo_s.htm#structure">structure</A>     uses <A REL=DEFINITION HREF="f_eq.htm#eq">eq</A>                      
+Other <A REL=DEFINITION HREF="26_glo_a.htm#array">array</A>   uses <A REL=DEFINITION HREF="f_eq.htm#eq">eq</A>                      
+<A REL=DEFINITION HREF="26_glo_h.htm#hash_table">hash table</A>    uses <A REL=DEFINITION HREF="f_eq.htm#eq">eq</A>                      
+Other <A REL=DEFINITION HREF="26_glo_o.htm#object">object</A>  uses <A REL=DEFINITION HREF="f_eq.htm#eq">eq</A>                      
+</PRE>
+<p><b>■图表 5-12.  Summary and priorities of behavior of <A REL=DEFINITION HREF="#equal"><B>equal</B></A></B>  <P>
+Any two <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A> that are <A REL=DEFINITION HREF="f_eql.htm#eql"><B>eql</B></A> are also <A REL=DEFINITION HREF="#equal"><B>equal</B></A>. <P>
+<A REL=DEFINITION HREF="#equal"><B>equal</B></A> may fail to terminate if <I>x</I> or <I>y</I> is circular. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (equal 'a 'b) =&gt;  <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+ (equal 'a 'a) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (equal 3 3) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (equal 3 3.0) =&gt;  <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+ (equal 3.0 3.0) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (equal #c(3 -4) #c(3 -4)) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (equal #c(3 -4.0) #c(3 -4)) =&gt;  <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+ (equal (cons 'a 'b) (cons 'a 'c)) =&gt;  <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+ (equal (cons 'a 'b) (cons 'a 'b)) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (equal #\A #\A) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (equal #\A #\a) =&gt;  <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+ (equal &quot;Foo&quot; &quot;Foo&quot;) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (equal &quot;Foo&quot; (copy-seq &quot;Foo&quot;)) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (equal &quot;FOO&quot; &quot;foo&quot;) =&gt;  <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+ (equal &quot;This-string&quot; &quot;This-string&quot;) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (equal &quot;This-string&quot; &quot;this-string&quot;) =&gt;  <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_eq.htm#eq"><B>eq</B></A>, <A REL=DEFINITION HREF="f_eql.htm#eql"><B>eql</B></A>, <A REL=DEFINITION HREF="f_equalp.htm#equalp"><B>equalp</B></A>, <A REL=DEFINITION HREF="f_eq_sle.htm#EQ"><B>=</B></A>, <A REL=DEFINITION HREF="f_stgeq_.htm#stringEQ"><B>string=</B></A>, <A REL=DEFINITION HREF="f_stgeq_.htm#string-equal"><B>string-equal</B></A>, <A REL=DEFINITION HREF="f_chareq.htm#charEQ"><B>char=</B></A>, <A REL=DEFINITION HREF="f_chareq.htm#char-equal"><B>char-equal</B></A>, <A REL=DEFINITION HREF="f_tree_e.htm#tree-equal"><B>tree-equal</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+ <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>Object</I></A> equality is not a concept for which there is a uniquely determined correct algorithm. The appropriateness of an equality predicate can be judged only in the context of the needs of some particular program. Although these functions take any type of argument and their names sound very generic, <A REL=DEFINITION HREF="#equal"><B>equal</B></A> and <A REL=DEFINITION HREF="f_equalp.htm#equalp"><B>equalp</B></A> are not appropriate for every application.  <P>
+A rough rule of thumb is that two <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A> are <A REL=DEFINITION HREF="#equal"><B>equal</B></A> if and only if their printed representations are the same. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss143.htm">EQUAL-STRUCTURE:MAYBE-STATUS-QUO</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

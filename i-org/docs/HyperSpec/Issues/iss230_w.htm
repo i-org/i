@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Issue MACRO-FUNCTION-ENVIRONMENT Writeup</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="../Issues/iss229_w.htm">
+<LINK REL=UP HREF="../Issues/iss230_m.htm">
+<LINK REL=NEXT HREF="../Issues/iss232_w.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="../Issues/iss229_w.htm">◀</A><A REL=UP HREF="../Issues/iss230_m.htm">▲</A><A REL=NEXT HREF="../Issues/iss232_w.htm">▶</A></h1>
+
+<HR>
+
+
+
+<H2>Issue MACRO-FUNCTION-ENVIRONMENT Writeup</H2>
+
+<PRE><B>Issue:</B>         <A HREF="iss230_m.htm">MACRO-FUNCTION-ENVIRONMENT</A><P>
+<P>
+<B>References:</B>    <A REL=DEFINITION HREF="../Body/f_macro_.htm#macro-function"><B>MACRO-FUNCTION</B></A>, p. 144<P>
+               <A REL=DEFINITION HREF="../Body/s_flet_.htm#macrolet"><B>MACROLET</B></A>, pp. 113-4<P>
+               <A REL=DEFINITION HREF="../Body/03_dd.htm#AMenvironment"><B>&amp;ENVIRONMENT</B></A>, pp. 145-6<P>
+               <A REL=DEFINITION HREF="../Body/f_mexp_.htm#macroexpand"><B>MACROEXPAND</B></A> and <A REL=DEFINITION HREF="../Body/f_mexp_.htm#macroexpand-1"><B>MACROEXPAND-1</B></A>, pp. 151-2<P>
+<P>
+<B>Category:</B>      ADDITION<P>
+<P>
+<B>Edit history:</B>  Version 1, Pavel, March 21, 1988<P>
+		   Version 2, Masinter,  8-Jun-88, (as per cleanup discussion)<P>
+<P>
+<B>Problem description:<P>
+</B><P>
+The <A REL=DEFINITION HREF="../Body/03_dd.htm#AMenvironment"><B>&amp;ENVIRONMENT</B></A> argument to a macro-expansion function may only be used as<P>
+the<P>
+second argument to the functions <A REL=DEFINITION HREF="../Body/f_mexp_.htm#macroexpand"><B>MACROEXPAND</B></A> and <A REL=DEFINITION HREF="../Body/f_mexp_.htm#macroexpand-1"><B>MACROEXPAND-1</B></A>.  It is<P>
+sometimes<P>
+more convenient, however, to be able to work directly with the more<P>
+primitive<P>
+function <A REL=DEFINITION HREF="../Body/f_macro_.htm#macro-function"><B>MACRO-FUNCTION</B></A>, on which <A REL=DEFINITION HREF="../Body/f_mexp_.htm#macroexpand"><B>MACROEXPAND</B></A> and <A REL=DEFINITION HREF="../Body/f_mexp_.htm#macroexpand-1"><B>MACROEXPAND-1</B></A> are<P>
+presumably<P>
+based.  However, since <A REL=DEFINITION HREF="../Body/f_macro_.htm#macro-function"><B>MACRO-FUNCTION</B></A> does not take an environment<P>
+argument, it<P>
+cannot be used in situations in which that environment must be taken into<P>
+account.<P>
+<P>
+<B>Proposal (MACRO-FUNCTION-ENVIRONMENT:YES):<P>
+</B><P>
+Add an optional second argument to <A REL=DEFINITION HREF="../Body/f_macro_.htm#macro-function"><B>MACRO-FUNCTION</B></A>, that argument being an<P>
+environment that was passed as the <A REL=DEFINITION HREF="../Body/03_dd.htm#AMenvironment"><B>&amp;ENVIRONMENT</B></A> argument to some macro<P>
+expansion<P>
+function.  If the argument is not given, or the argument is <A REL=DEFINITION HREF="../Body/a_nil.htm#nil"><B>NIL</B></A>, the null<P>
+environment is used.  <A REL=DEFINITION HREF="../Body/f_macro_.htm#macro-function"><B>MACRO-FUNCTION</B></A> will now consider macro definitions<P>
+from<P>
+that environment in preference to ones in the global environment.  It is an<P>
+error<P>
+to supply the environment argument in a use of <A REL=DEFINITION HREF="../Body/f_macro_.htm#macro-function"><B>MACRO-FUNCTION</B></A> as a <A REL=DEFINITION HREF="../Body/a_setf.htm#setf"><B>SETF</B></A><P>
+location<P>
+specifier.<P>
+<P>
+<B>Examples:<P>
+</B><P>
+(<A REL=DEFINITION HREF="../Body/s_flet_.htm#macrolet"><B>macrolet</B></A> ((foo (<A REL=DEFINITION HREF="../Body/03_dd.htm#AMenvironment"><B>&amp;environment</B></A> env)<P>
+              (<A REL=DEFINITION HREF="../Body/s_if.htm#if"><B>if</B></A> (<A REL=DEFINITION HREF="../Body/f_macro_.htm#macro-function"><B>macro-function</B></A> 'bar env)<P>
+                 ''yes<P>
+                 ''no)))<P>
+   (<A REL=DEFINITION HREF="../Body/a_list.htm#list"><B>list</B></A> (foo)<P>
+         (<A REL=DEFINITION HREF="../Body/s_flet_.htm#macrolet"><B>macrolet</B></A> ((bar () :beep))<P>
+            (foo))))<P>
+<P>
+=&gt; (no yes)<P>
+<P>
+(<A REL=DEFINITION HREF="../Body/a_setf.htm#setf"><B>setf</B></A> (<A REL=DEFINITION HREF="../Body/f_macro_.htm#macro-function"><B>macro-function</B></A> 'bar env) ...) is an error.<P>
+<P>
+<B>Rationale:<P>
+</B><P>
+Intuitively, the more primitive operation in macro expansion is<P>
+<A REL=DEFINITION HREF="../Body/f_macro_.htm#macro-function"><B>MACRO-FUNCTION</B></A>,<P>
+not <A REL=DEFINITION HREF="../Body/f_mexp_.htm#macroexpand"><B>MACROEXPAND</B></A> or <A REL=DEFINITION HREF="../Body/f_mexp_.htm#macroexpand-1"><B>MACROEXPAND-1</B></A>, yet the environment argument can only be<P>
+supplied to the latter functions and not to the former one.  By changing<P>
+this<P>
+state of affairs, the model of macro expansion becomes somewhat simpler.<P>
+Also,<P>
+more flexible use of the facility is enabled.<P>
+<P>
+<B>Current practice:<P>
+</B><P>
+Xerox Common Lisp already implements this proposal.  Symbolics Common Lisp,<P>
+and Kyoto Common Lisp do not. Lucid Common Lisp did not, but version 3.0<P>
+does.<P>
+<P>
+<B>Cost to Implementors:<P>
+</B><P>
+This is presumably a simple change to make, a small matter of moving the<P>
+environment-searching code from <A REL=DEFINITION HREF="../Body/f_mexp_.htm#macroexpand-1"><B>MACROEXPAND-1</B></A> to <A REL=DEFINITION HREF="../Body/f_macro_.htm#macro-function"><B>MACRO-FUNCTION</B></A>.<P>
+<P>
+<B>Cost to Users:<P>
+</B><P>
+The change is upward-compatible and so poses no cost to users.<P>
+<P>
+<B>Cost of non-adoption:<P>
+</B><P>
+One more (small) semantic wart on the language.<P>
+<P>
+<B>Benefits:<P>
+</B><P>
+The function that users think of as being more primitive really is.<P>
+<P>
+<B>Aesthetics:<P>
+</B><P>
+This slightly cleans up the language.<P>
+<P>
+<B>Discussion:<P>
+</B><P>
+This issue was discussed starting in January 1987, but got tangled in<P>
+a web of other related proposals. In its current form, the only objections<P>
+have been that some other proposal or committee might otherwise change<P>
+macro handling, or that this proposal doesn't fix enough of the problems.<P>
+<P>
+  <P>
+<P>
+</PRE>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

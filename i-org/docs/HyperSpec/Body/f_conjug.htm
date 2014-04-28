@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function CONJUGATE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_comp_3.htm">
+<LINK REL=UP HREF="c_number.htm">
+<LINK REL=NEXT HREF="f_phase.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_comp_3.htm">◀</A><A REL=UP HREF="c_number.htm">▲</A><A REL=NEXT HREF="f_phase.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="conjugate"><I>Function</I> <B>CONJUGATE</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>conjugate</B> <I>number</I> =&gt; <I>conjugate</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>number</I>---a <A REL=DEFINITION HREF="26_glo_n.htm#number"><I>number</I></A>. <P>
+<I>conjugate</I>---a <A REL=DEFINITION HREF="26_glo_n.htm#number"><I>number</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Returns the complex conjugate of <I>number</I>. The conjugate of a  <A REL=DEFINITION HREF="t_real.htm#real"><I>real</I></A>  number is itself. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (conjugate #c(0 -1)) =&gt;  #C(0 1)
+ (conjugate #c(1 1)) =&gt;  #C(1 -1)
+ (conjugate 1.5) =&gt;  1.5
+ (conjugate #C(3/5 4/5)) =&gt;  #C(3/5 -4/5)
+ (conjugate #C(0.0D0 -1.0D0)) =&gt;  #C(0.0D0 1.0D0)
+ (conjugate 3.7) =&gt;  3.7
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b> None.
+ <P>
+<p><b>●说明:</b><P>
+ <P>
+For a <A REL=DEFINITION HREF="26_glo_c.htm#complex"><I>complex</I></A> number <b>z</b>, <P>
+<PRE>
+ (conjugate z) ==  (complex (realpart z) (- (imagpart z)))
+</PRE>
+</b> <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss290.htm">REAL-NUMBER-TYPE:X3J13-MAR-89</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 1.4.1.4.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="01_dad.htm">
+<LINK REL=UP HREF="01_dad.htm">
+<LINK REL=NEXT HREF="01_dadb.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="01_dad.htm">◀</A><A REL=UP HREF="01_dad.htm">▲</A><A REL=NEXT HREF="01_dadb.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+1.4.1.4.1 Case in Symbols</H2>  <P>
+While <A REL=DEFINITION HREF="26_glo_c.htm#case"><I>case</I></A> is significant in the process of <I>interning</I> a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>, the <A REL=DEFINITION HREF="26_glo_l.htm#lisp_reader"><I>Lisp reader</I></A>, by default, attempts to canonicalize the case of a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> prior to interning; see <A REL=CHILD HREF="23_ab.htm">Section 23.1.2 (Effect of Readtable Case on the Lisp Reader)</A>. As such, case in <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> is not, by default, significant. Throughout this document, except as explicitly noted otherwise, the case in which a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> appears is not significant; that is, <b>HELLO</b>, <b>Hello</b>, <b>hElLo</b>, and <b>hello</b> are all equivalent ways to denote a symbol whose name is <b>&quot;HELLO&quot;</b>. <P>
+The characters <A REL=DEFINITION HREF="26_glo_b.htm#backslash"><I>backslash</I></A> and <A REL=DEFINITION HREF="26_glo_v.htm#vertical-bar"><I>vertical-bar</I></A> are used to explicitly quote the <A REL=DEFINITION HREF="26_glo_c.htm#case"><I>case</I></A> and other parsing-related aspects of characters. As such, the notations <b></b>|<b>hello</b>|<b></b> and <b>\h\e\l\l\o</b> are equivalent ways to refer to a symbol whose name is <b>&quot;hello&quot;</b>, and which is <A REL=DEFINITION HREF="26_glo_d.htm#distinct"><I>distinct</I></A> from any symbol whose name is <b>&quot;HELLO&quot;</b>. <P>
+The <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> that correspond to Common Lisp <A REL=DEFINITION HREF="26_glo_d.htm#defined_name"><I>defined names</I></A> have <A REL=DEFINITION HREF="26_glo_u.htm#uppercase"><I>uppercase</I></A> names even though their names generally appear in <A REL=DEFINITION HREF="26_glo_l.htm#lowercase"><I>lowercase</I></A> in this document. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

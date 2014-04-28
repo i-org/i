@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Macro FORMATTER</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_cp_ppr.htm">
+<LINK REL=UP HREF="c_printe.htm">
+<LINK REL=NEXT HREF="f_ppr_di.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_cp_ppr.htm">◀</A><A REL=UP HREF="c_printe.htm">▲</A><A REL=NEXT HREF="f_ppr_di.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="formatter"><I>Macro</I> <B>FORMATTER</B></A> <P>
+ <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>formatter</B> <I>control-string</I> =&gt; <I>function</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>control-string</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#format_string"><I>format string</I></A>; not evaluated. <P>
+<I>function</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Returns a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> which has behavior equivalent to: <P>
+<PRE>
+  #'(lambda (*standard-output* &amp;rest arguments)
+      (apply #'format t control-string arguments)
+      arguments-tail)
+</PRE>
+</b> <P>
+where <I>arguments-tail</I> is either the tail of <I>arguments</I> which has as its <A REL=DEFINITION HREF="26_glo_c.htm#car"><I>car</I></A> the argument that would be processed next if there were more format directives in the <I>control-string</I>, or else <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> if no more <I>arguments</I> follow the most recently processed argument. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+(funcall (formatter &quot;~&amp;~A~A&quot;) *standard-output* 'a 'b 'c)
+&gt;&gt;  AB
+=&gt;  (C)
+
+(format t (formatter &quot;~&amp;~A~A&quot;) 'a 'b 'c)
+&gt;&gt;  AB
+=&gt;  NIL
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+Might signal an error (at macro expansion time or at run time) if the argument is not a valid <A REL=DEFINITION HREF="26_glo_f.htm#format_string"><I>format string</I></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss270.htm">PRETTY-PRINT-INTERFACE</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

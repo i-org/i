@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section The Streams Dictionary</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="21_ad.htm">
+<LINK REL=UP HREF="21_.htm">
+<LINK REL=NEXT HREF="t_stream.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="21_ad.htm">◀</A><A REL=UP HREF="21_.htm">▲</A><A REL=NEXT HREF="t_stream.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+21.2 The Streams Dictionary</H2> 
+ <ul>
+
+<LI><A REL=CHILD HREF="t_stream.htm"><I>System Class</I> <B>STREAM</B></A>
+ 
+<LI><A REL=CHILD HREF="t_broadc.htm"><I>System Class</I> <B>BROADCAST-STREAM</B></A>
+ 
+<LI><A REL=CHILD HREF="t_concat.htm"><I>System Class</I> <B>CONCATENATED-STREAM</B></A>
+ 
+<LI><A REL=CHILD HREF="t_echo_s.htm"><I>System Class</I> <B>ECHO-STREAM</B></A>
+ 
+<LI><A REL=CHILD HREF="t_file_s.htm"><I>System Class</I> <B>FILE-STREAM</B></A>
+ 
+<LI><A REL=CHILD HREF="t_stg_st.htm"><I>System Class</I> <B>STRING-STREAM</B></A>
+ 
+<LI><A REL=CHILD HREF="t_syn_st.htm"><I>System Class</I> <B>SYNONYM-STREAM</B></A>
+ 
+<LI><A REL=CHILD HREF="t_two_wa.htm"><I>System Class</I> <B>TWO-WAY-STREAM</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_in_stm.htm"><I>Function</I> <B>INPUT-STREAM-P, OUTPUT-STREAM-P</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_intera.htm"><I>Function</I> <B>INTERACTIVE-STREAM-P</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_open_s.htm"><I>Function</I> <B>OPEN-STREAM-P</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_stm_el.htm"><I>Function</I> <B>STREAM-ELEMENT-TYPE</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_stmp.htm"><I>Function</I> <B>STREAMP</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_rd_by.htm"><I>Function</I> <B>READ-BYTE</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_wr_by.htm"><I>Function</I> <B>WRITE-BYTE</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_peek_c.htm"><I>Function</I> <B>PEEK-CHAR</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_rd_cha.htm"><I>Function</I> <B>READ-CHAR</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_rd_c_1.htm"><I>Function</I> <B>READ-CHAR-NO-HANG</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_terpri.htm"><I>Function</I> <B>TERPRI, FRESH-LINE</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_unrd_c.htm"><I>Function</I> <B>UNREAD-CHAR</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_wr_cha.htm"><I>Function</I> <B>WRITE-CHAR</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_rd_lin.htm"><I>Function</I> <B>READ-LINE</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_wr_stg.htm"><I>Function</I> <B>WRITE-STRING, WRITE-LINE</B></A>
+ 
+
+ 
+<LI><A REL=CHILD HREF="f_rd_seq.htm"><I>Function</I> <B>READ-SEQUENCE</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_wr_seq.htm"><I>Function</I> <B>WRITE-SEQUENCE</B></A>
+ 
+
+ 
+<LI><A REL=CHILD HREF="f_file_l.htm"><I>Function</I> <B>FILE-LENGTH</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_file_p.htm"><I>Function</I> <B>FILE-POSITION</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_file_s.htm"><I>Function</I> <B>FILE-STRING-LENGTH</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_open.htm"><I>Function</I> <B>OPEN</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_stm_ex.htm"><I>Function</I> <B>STREAM-EXTERNAL-FORMAT</B></A>
+
+ 
+<LI><A REL=CHILD HREF="m_w_open.htm"><I>macro</I> <B>WITH-OPEN-FILE</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_close.htm"><I>Function</I> <B>CLOSE</B></A>
+
+ 
+<LI><A REL=CHILD HREF="m_w_op_1.htm"><I>Macro</I> <B>WITH-OPEN-STREAM</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_listen.htm"><I>Function</I> <B>LISTEN</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_clear_.htm"><I>Function</I> <B>CLEAR-INPUT</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_finish.htm"><I>Function</I> <B>FINISH-OUTPUT, FORCE-OUTPUT, CLEAR-OUTPUT</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_y_or_n.htm"><I>Function</I> <B>Y-OR-N-P, YES-OR-NO-P</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_mk_syn.htm"><I>Function</I> <B>MAKE-SYNONYM-STREAM</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_syn_st.htm"><I>Function</I> <B>SYNONYM-STREAM-SYMBOL</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_broadc.htm"><I>Function</I> <B>BROADCAST-STREAM-STREAMS</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_mk_bro.htm"><I>Function</I> <B>MAKE-BROADCAST-STREAM</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_mk_two.htm"><I>Function</I> <B>MAKE-TWO-WAY-STREAM</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_two_wa.htm"><I>Function</I> <B>TWO-WAY-STREAM-INPUT-STREAM, TWO-WAY-STREAM-OUTPUT-STREAM</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_echo_s.htm"><I>Function</I> <B>ECHO-STREAM-INPUT-STREAM, ECHO-STREAM-OUTPUT-STREAM</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_mk_ech.htm"><I>Function</I> <B>MAKE-ECHO-STREAM</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_conc_1.htm"><I>Function</I> <B>CONCATENATED-STREAM-STREAMS</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_mk_con.htm"><I>Function</I> <B>MAKE-CONCATENATED-STREAM</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_get_ou.htm"><I>Function</I> <B>GET-OUTPUT-STREAM-STRING</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_mk_s_1.htm"><I>Function</I> <B>MAKE-STRING-INPUT-STREAM</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_mk_s_2.htm"><I>Function</I> <B>MAKE-STRING-OUTPUT-STREAM</B></A>
+
+ 
+<LI><A REL=CHILD HREF="m_w_in_f.htm"><I>Macro</I> <B>WITH-INPUT-FROM-STRING</B></A>
+
+ 
+<LI><A REL=CHILD HREF="m_w_out_.htm"><I>Macro</I> <B>WITH-OUTPUT-TO-STRING</B></A>
+
+ 
+<LI><A REL=CHILD HREF="v_debug_.htm"><I>Variable</I> <B>*DEBUG-IO*, *ERROR-OUTPUT*, *QUERY-IO*, *STANDARD-INPUT*, *STANDARD-OUTPUT*, *TRACE-OUTPUT*</B></A>
+
+ 
+<LI><A REL=CHILD HREF="v_termin.htm"><I>Variable</I> <B>*TERMINAL-IO*</B></A>
+
+ 
+<LI><A REL=CHILD HREF="e_stm_er.htm"><I>Condition Type</I> <B>STREAM-ERROR</B></A>
+ 
+<LI><A REL=CHILD HREF="f_stm_er.htm"><I>Function</I> <B>STREAM-ERROR-STREAM</B></A>
+
+ 
+<LI><A REL=CHILD HREF="e_end_of.htm"><I>Condition Type</I> <B>END-OF-FILE</B></A>
+</ul>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI><A REL=CHILD HREF="../Issues/iss285.htm">READ-AND-WRITE-BYTES:NEW-FUNCTIONS</A></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

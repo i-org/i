@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Variable *RANDOM-STATE*</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_rnd_st.htm">
+<LINK REL=UP HREF="c_number.htm">
+<LINK REL=NEXT HREF="f_nump.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_rnd_st.htm">◀</A><A REL=UP HREF="c_number.htm">▲</A><A REL=NEXT HREF="f_nump.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="STrandom-stateST"><I>Variable</I> <B>*RANDOM-STATE*</B></A> <P>
+<p><b>●值类型:</b><P>
+ <P>
+a <A REL=DEFINITION HREF="26_glo_r.htm#random_state"><I>random state</I></A>. <P>
+<p><b>●初始值:</b><P>
+ <P>
+<A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+The <A REL=DEFINITION HREF="26_glo_c.htm#current_random_state"><I>current random state</I></A>, which is used, for example, by the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="f_random.htm#random"><B>random</B></A> when a <A REL=DEFINITION HREF="26_glo_r.htm#random_state"><I>random state</I></A> is not explicitly supplied. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (random-state-p *random-state*) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (setq snap-shot (make-random-state))
+ ;; The series from any given point is random,
+ ;; but if you backtrack to that point, you get the same series.
+ (list (loop for i from 1 to 10 collect (random))
+       (let ((*random-state* snap-shot))
+         (loop for i from 1 to 10 collect (random)))
+       (loop for i from 1 to 10 collect (random))
+       (let ((*random-state* snap-shot))
+         (loop for i from 1 to 10 collect (random))))
+=&gt;  ((19 16 44 19 96 15 76 96 13 61)
+    (19 16 44 19 96 15 76 96 13 61)
+    (16 67 0 43 70 79 58 5 63 50)
+    (16 67 0 43 70 79 58 5 63 50))
+</PRE>
+</b> <P>
+<p><b>●受制于:</b><P>
+ <P>
+The <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A>. <P>
+<A REL=DEFINITION HREF="f_random.htm#random"><B>random</B></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_mk_rnd.htm#make-random-state"><B>make-random-state</B></A>, <A REL=DEFINITION HREF="f_random.htm#random"><B>random</B></A>, <A REL=DEFINITION HREF="t_rnd_st.htm#random-state"><B>random-state</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>Binding</I></A> <A REL=DEFINITION HREF="#STrandom-stateST"><B>*random-state*</B></A> to a different <A REL=DEFINITION HREF="26_glo_r.htm#random_state"><I>random state</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> correctly saves and restores the old <A REL=DEFINITION HREF="26_glo_r.htm#random_state"><I>random state</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

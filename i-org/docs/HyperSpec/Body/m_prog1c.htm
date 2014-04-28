@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Macro PROG1, PROG2</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="m_prog_.htm">
+<LINK REL=UP HREF="c_data_a.htm">
+<LINK REL=NEXT HREF="s_progn.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="m_prog_.htm">◀</A><A REL=UP HREF="c_data_a.htm">▲</A><A REL=NEXT HREF="s_progn.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="prog1"><A NAME="prog2"><I>Macro</I> <B>PROG1, PROG2</B></A></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>prog1</B> <I>first-form <I>form</I><B>*</B></I> =&gt; <I>result-1</I><P>
+ 
+<B>prog2</B> <I>first-form second-form <I>form</I><B>*</B></I> =&gt; <I>result-2</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>first-form</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>; evaluated as described below. <P>
+<I>second-form</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>; evaluated as described below. <P>
+<I>forms</I>---an <A REL=DEFINITION HREF="26_glo_i.htm#implicit_progn"><I>implicit progn</I></A>; evaluated as described below. <P>
+<I>result-1</I>---the <A REL=DEFINITION HREF="26_glo_p.htm#primary_value"><I>primary value</I></A> resulting from the <A REL=DEFINITION HREF="26_glo_e.htm#evaluation"><I>evaluation</I></A> of <I>first-form</I>. <P>
+<I>result-2</I>---the <A REL=DEFINITION HREF="26_glo_p.htm#primary_value"><I>primary value</I></A> resulting from the <A REL=DEFINITION HREF="26_glo_e.htm#evaluation"><I>evaluation</I></A> of <I>second-form</I>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#prog1"><B>prog1</B></A> <A REL=DEFINITION HREF="26_glo_e.htm#evaluate"><I>evaluates</I></A> <I>first-form</I> and then <I>forms</I>, <I>yielding</I> as its only <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> the <A REL=DEFINITION HREF="26_glo_p.htm#primary_value"><I>primary value</I></A> <I>yielded</I> by <I>first-form</I>. <P>
+<A REL=DEFINITION HREF="#prog2"><B>prog2</B></A> <A REL=DEFINITION HREF="26_glo_e.htm#evaluate"><I>evaluates</I></A> <I>first-form</I>, then <I>second-form</I>, and then <I>forms</I>, <I>yielding</I> as its only <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> the <A REL=DEFINITION HREF="26_glo_p.htm#primary_value"><I>primary value</I></A> <I>yielded</I> by <I>first-form</I>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (setq temp 1) =&gt;  1
+ (prog1 temp (print temp) (incf temp) (print temp))
+&gt;&gt;  1
+&gt;&gt;  2
+=&gt;  1
+ (prog1 temp (setq temp nil)) =&gt;  2
+ temp =&gt;  NIL
+ (prog1 (values 1 2 3) 4) =&gt;  1 
+ (setq temp (list 'a 'b 'c))
+ (prog1 (car temp) (setf (car temp) 'alpha)) =&gt;  A
+ temp =&gt;  (ALPHA B C)
+ (flet ((swap-symbol-values (x y)
+          (setf (symbol-value x) 
+                (prog1 (symbol-value y)
+                       (setf (symbol-value y) (symbol-value x))))))
+   (let ((*foo* 1) (*bar* 2))
+     (declare (special *foo* *bar*))
+     (swap-symbol-values '*foo* '*bar*)
+     (values *foo* *bar*)))
+=&gt;  2, 1
+ (setq temp 1) =&gt;  1
+ (prog2 (incf temp) (incf temp) (incf temp)) =&gt;  3
+ temp =&gt;  4
+ (prog2 1 (values 2 3 4) 5) =&gt;  2
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="s_mult_1.htm#multiple-value-prog1"><B>multiple-value-prog1</B></A>, <A REL=DEFINITION HREF="s_progn.htm#progn"><B>progn</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#prog1"><B>prog1</B></A> and <A REL=DEFINITION HREF="#prog2"><B>prog2</B></A> are typically used to <A REL=DEFINITION HREF="26_glo_e.htm#evaluate"><I>evaluate</I></A> one or more <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A> with side effects and return a <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> that must be computed before some or all of the side effects happen. <P>
+<PRE>
+ (prog1 form*) ==  (values (multiple-value-prog1 form*))
+ (prog2 form1 form*) ==  (let () form1 (prog1 form*))
+</PRE>
+</b> <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

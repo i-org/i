@@ -1,0 +1,44 @@
+---
+layout: default
+---
+<h1>{{ page.title }}</h1>
+
+{% if page.description %}<p class="abstract"><b>摘要：</b><br/>{{page.description}}</p>{% endif %}
+
+<p class="meta">创建时间：{{ page.date | date: '%Y-%m-%d' }}</p>
+
+<div class="post">
+  {{ content }}
+  
+  <!-- 有言评论 -->
+  <!-- UY BEGIN -->
+  <div id="uyan_frame"></div>
+  <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1921243"></script>
+  <!-- UY END -->
+  
+</div>
+
+<!--上一篇 话题 下一篇-->
+<div class="header-tip">
+
+  {% if page.previous %}
+  <div class="header-pre">
+    <a class="pull-right" href="{{ page.previous.url }}" rel="bookmark">上一篇：{{ page.previous.title | truncatewords:5 }}</a>
+  </div>
+  {% endif %}
+  
+  <div class="header-tag">
+    {% for tag in page.tags %}
+    <a href="/category/tags.html#{{tag}}-ref">{{tag}}</a>
+    <sup>{{ tag.size }}</sup>
+    &nbsp;
+    {% endfor %}
+  </div>
+
+  {% if page.next %}
+  <div class="header-next">
+    <a href="{{ page.next.url }}" rel="bookmark">下一篇：{{ page.next.title | truncatewords:5 }}</a>
+  </div>
+  {% endif %}
+</div>
+<!--上一篇 话题 下一篇 END-->

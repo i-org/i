@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 3.2.3.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="03_bc.htm">
+<LINK REL=UP HREF="03_bc.htm">
+<LINK REL=NEXT HREF="03_bcaa.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="03_bc.htm">◀</A><A REL=UP HREF="03_bc.htm">▲</A><A REL=NEXT HREF="03_bcaa.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+3.2.3.1 Processing of Top Level Forms</H2>  <P>
+Processing of <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level forms</I></A> in the file compiler is defined as follows: <P>
+<P><OL> <LI>  If the <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> is a <A REL=DEFINITION HREF="26_glo_c.htm#compiler_macro_form"><I>compiler macro form</I></A> (not disabled by a <A REL=DEFINITION HREF="d_inline.htm#notinline"><B>notinline</B></A> <A REL=DEFINITION HREF="26_glo_d.htm#declaration"><I>declaration</I></A>), the <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> might or might not choose to compute the <A REL=DEFINITION HREF="26_glo_c.htm#compiler_macro_expansion"><I>compiler macro expansion</I></A> of the <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> and, having performed the expansion, might or might not choose to process the result as a <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level form</I></A> in the same processing mode (compile-time-too or not-compile-time). If it declines to obtain or use the expansion, it must process the original <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>.  <P>
+ <LI>  If the form is a <A REL=DEFINITION HREF="26_glo_m.htm#macro_form"><I>macro form</I></A>, its <A REL=DEFINITION HREF="26_glo_m.htm#macro_expansion"><I>macro expansion</I></A> is computed and processed as a <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level form</I></A> in the same processing mode (compile-time-too or not-compile-time). <P>
+ <LI>  If the form is a <A REL=DEFINITION HREF="s_progn.htm#progn"><B>progn</B></A> form, each of its body <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A> is sequentially processed as a <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level form</I></A> in the same processing mode. <P>
+ <LI>  If the form is a <A REL=DEFINITION HREF="s_locall.htm#locally"><B>locally</B></A>, <A REL=DEFINITION HREF="s_flet_.htm#macrolet"><B>macrolet</B></A>, or <A REL=DEFINITION HREF="s_symbol.htm#symbol-macrolet"><B>symbol-macrolet</B></A>, <A REL=DEFINITION HREF="f_cmp_fi.htm#compile-file"><B>compile-file</B></A> establishes the appropriate bindings and processes the body forms as <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level forms</I></A> with those bindings in effect in the same processing mode. (Note that this implies that the lexical <A REL=DEFINITION HREF="26_glo_e.htm#environment"><I>environment</I></A> in which <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level forms</I></A> are processed is not necessarily the <A REL=DEFINITION HREF="26_glo_n.htm#null_lexical_environment"><I>null lexical environment</I></A>.) <P>
+ <LI>  If the form is an <A REL=DEFINITION HREF="s_eval_w.htm#eval-when"><B>eval-when</B></A> form, it is handled according to the next figure. <P>
+  plus .5 fil <PRE>
+                                                 
+CT   LT   E    Mode  Action    New Mode          
+----------
+                                                 
+Yes  Yes  ---  ---   Process   compile-time-too  
+No   Yes  Yes  CTT   Process   compile-time-too  
+No   Yes  Yes  NCT   Process   not-compile-time  
+No   Yes  No   ---   Process   not-compile-time  
+Yes  No   ---  ---   Evaluate  ---               
+No   No   Yes  CTT   Evaluate  ---               
+No   No   Yes  NCT   Discard   ---               
+No   No   No   ---   Discard   ---               
+                                                 
+          
+</PRE>
+ <p><b>■图表 3-7.  EVAL-WHEN processing</B> <P>
+Column <B>CT</B> indicates whether <b>:compile-toplevel</b> is specified. Column <B>LT</B> indicates whether <b>:load-toplevel</b> is specified. Column <B>E</B> indicates whether <b>:execute</b> is specified. Column <B>Mode</B> indicates the processing mode; a dash (---) indicates that the processing mode is not relevant. <P>
+The <B>Action</B> column specifies one of three actions: <P>
+<P><ul><P>
+ <li> <B>Process:</B> process the body as <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level forms</I></A> in the specified mode. <P></li>
+ <li> <B>Evaluate:</B> evaluate the body in the dynamic execution context of the compiler, using the <A REL=DEFINITION HREF="26_glo_e.htm#evaluation_environment"><I>evaluation environment</I></A> as the global environment and the <A REL=DEFINITION HREF="26_glo_l.htm#lexical_environment"><I>lexical environment</I></A> in which the <A REL=DEFINITION HREF="s_eval_w.htm#eval-when"><B>eval-when</B></A> appears. <P></li>
+<li> <B>Discard:</B> ignore the <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. <P></li></ul><P>
+The <B>New Mode</B> column indicates the new processing mode. A dash (---) indicates the compiler remains in its current mode. <P>
+ <LI>  Otherwise, the form is a <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level form</I></A> that is not one of the special cases. In compile-time-too mode, the compiler first evaluates the form in the evaluation <A REL=DEFINITION HREF="26_glo_e.htm#environment"><I>environment</I></A> and then minimally compiles it. In not-compile-time mode, the <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> is simply minimally compiled. All <A REL=DEFINITION HREF="26_glo_s.htm#subform"><I>subforms</I></A> are treated as <A REL=DEFINITION HREF="26_glo_n.htm#non-top-level_form"><I>non-top-level forms</I></A>. <P>
+Note that <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level forms</I></A> are processed in the order in which they textually appear in the file and that each <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level form</I></A> read by the compiler is processed before the next is read. However, the order of processing (including macro expansion) of <A REL=DEFINITION HREF="26_glo_s.htm#subform"><I>subforms</I></A> that are not <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level forms</I></A> and the order of further compilation is unspecified as long as Common Lisp semantics are preserved. <P>
+<P></OL><P>
+<A REL=DEFINITION HREF="s_eval_w.htm#eval-when"><B>eval-when</B></A> forms cause compile-time evaluation only at top level. Both <b>:compile-toplevel</b> and <b>:load-toplevel</b> situation specifications are ignored for <A REL=DEFINITION HREF="26_glo_n.htm#non-top-level_form"><I>non-top-level forms</I></A>. For <A REL=DEFINITION HREF="26_glo_n.htm#non-top-level_form"><I>non-top-level forms</I></A>, an <A REL=DEFINITION HREF="s_eval_w.htm#eval-when"><B>eval-when</B></A> specifying the <b>:execute</b> situation is treated as an <A REL=DEFINITION HREF="26_glo_i.htm#implicit_progn"><I>implicit progn</I></A> including the <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A> in the body of the <A REL=DEFINITION HREF="s_eval_w.htm#eval-when"><B>eval-when</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>; otherwise, the <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A> in the body are ignored. <P>
+
+ 
+<h2><A REL=CHILD HREF="03_bcaa.htm">
+3.2.3.1.1 Processing of Defining Macros</a></h2>
+ 
+<h2><A REL=CHILD HREF="03_bcab.htm">
+3.2.3.1.2 Constraints on Macros and Compiler Macros</a></h2><p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss101.htm">DEFINE-COMPILER-MACRO:X3J13-NOV89</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

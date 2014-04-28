@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 14.1.2</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="14_aaa.htm">
+<LINK REL=UP HREF="14_a.htm">
+<LINK REL=NEXT HREF="14_aba.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="14_aaa.htm">◀</A><A REL=UP HREF="14_a.htm">▲</A><A REL=NEXT HREF="14_aba.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+14.1.2 Conses as Lists</H2> <P>
+A <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> is a chain of <A REL=DEFINITION HREF="26_glo_c.htm#cons"><I>conses</I></A> in which the <A REL=DEFINITION HREF="26_glo_c.htm#car"><I>car</I></A> of each <A REL=DEFINITION HREF="26_glo_c.htm#cons"><I>cons</I></A> is an <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>element</I></A> of the <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A>, and the <A REL=DEFINITION HREF="26_glo_c.htm#cdr"><I>cdr</I></A> of each <A REL=DEFINITION HREF="26_glo_c.htm#cons"><I>cons</I></A> is either the next link in the chain or a terminating <A REL=DEFINITION HREF="26_glo_a.htm#atom"><I>atom</I></A>. <P>
+A <A REL=DEFINITION HREF="26_glo_p.htm#proper_list"><I>proper list</I></A> is a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> terminated by the <A REL=DEFINITION HREF="26_glo_e.htm#empty_list"><I>empty list</I></A>. The <A REL=DEFINITION HREF="26_glo_e.htm#empty_list"><I>empty list</I></A> is a <A REL=DEFINITION HREF="26_glo_p.htm#proper_list"><I>proper list</I></A>, but is not a <A REL=DEFINITION HREF="26_glo_c.htm#cons"><I>cons</I></A>. <P>
+An <A REL=DEFINITION HREF="26_glo_i.htm#improper_list"><I>improper list</I></A> is a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> that is not a <A REL=DEFINITION HREF="26_glo_p.htm#proper_list"><I>proper list</I></A>; that is, it is a <A REL=DEFINITION HREF="26_glo_c.htm#circular_list"><I>circular list</I></A> or a <A REL=DEFINITION HREF="26_glo_d.htm#dotted_list"><I>dotted list</I></A>. <P>
+A <A REL=DEFINITION HREF="26_glo_d.htm#dotted_list"><I>dotted list</I></A> is a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> that has a terminating <A REL=DEFINITION HREF="26_glo_a.htm#atom"><I>atom</I></A> that is not the <A REL=DEFINITION HREF="26_glo_e.htm#empty_list"><I>empty list</I></A>. A <A REL=DEFINITION HREF="26_glo_n.htm#non-nil"><I>non-nil</I></A> <A REL=DEFINITION HREF="26_glo_a.htm#atom"><I>atom</I></A> by itself is not considered to be a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> of any kind---not even a <A REL=DEFINITION HREF="26_glo_d.htm#dotted_list"><I>dotted list</I></A>. <P>
+A <A REL=DEFINITION HREF="26_glo_c.htm#circular_list"><I>circular list</I></A> is a chain of <A REL=DEFINITION HREF="26_glo_c.htm#cons"><I>conses</I></A> that has no termination because some <A REL=DEFINITION HREF="26_glo_c.htm#cons"><I>cons</I></A> in the chain is the <A REL=DEFINITION HREF="26_glo_c.htm#cdr"><I>cdr</I></A> of a later <A REL=DEFINITION HREF="26_glo_c.htm#cons"><I>cons</I></A>. <P>
+<PRE>
+<A REL=DEFINITION HREF="f_append.htm#append">append</A>      <A REL=DEFINITION HREF="f_last.htm#last">last</A>           <A REL=DEFINITION HREF="f_butlas.htm#nbutlast">nbutlast</A>  <A REL=DEFINITION HREF="f_rest.htm#rest">rest</A>       
+<A REL=DEFINITION HREF="f_butlas.htm#butlast">butlast</A>     <A REL=DEFINITION HREF="f_ldiffc.htm#ldiff">ldiff</A>          <A REL=DEFINITION HREF="f_nconc.htm#nconc">nconc</A>     <A REL=DEFINITION HREF="f_revapp.htm#revappend">revappend</A>  
+<A REL=DEFINITION HREF="f_cp_ali.htm#copy-alist">copy-alist</A>  <A REL=DEFINITION HREF="a_list.htm#list">list</A>           <A REL=DEFINITION HREF="f_firstc.htm#ninth">ninth</A>     <A REL=DEFINITION HREF="f_firstc.htm#second">second</A>     
+<A REL=DEFINITION HREF="f_cp_lis.htm#copy-list">copy-list</A>   <A REL=DEFINITION HREF="f_list_.htm#listST">list*</A>          <A REL=DEFINITION HREF="f_revapp.htm#nreconc">nreconc</A>   <A REL=DEFINITION HREF="f_firstc.htm#seventh">seventh</A>    
+<A REL=DEFINITION HREF="f_firstc.htm#eighth">eighth</A>      <A REL=DEFINITION HREF="f_list_l.htm#list-length">list-length</A>    <A REL=DEFINITION HREF="f_nth.htm#nth">nth</A>       <A REL=DEFINITION HREF="f_firstc.htm#sixth">sixth</A>      
+<A REL=DEFINITION HREF="f_endp.htm#endp">endp</A>        <A REL=DEFINITION HREF="f_mk_lis.htm#make-list">make-list</A>      <A REL=DEFINITION HREF="f_nthcdr.htm#nthcdr">nthcdr</A>    <A REL=DEFINITION HREF="f_ldiffc.htm#tailp">tailp</A>      
+<A REL=DEFINITION HREF="f_firstc.htm#fifth">fifth</A>       <A REL=DEFINITION HREF="a_member.htm#member">member</A>         <A REL=DEFINITION HREF="m_pop.htm#pop">pop</A>       <A REL=DEFINITION HREF="f_firstc.htm#tenth">tenth</A>      
+<A REL=DEFINITION HREF="f_firstc.htm#first">first</A>       <A REL=DEFINITION HREF="f_mem_m.htm#member-if">member-if</A>      <A REL=DEFINITION HREF="m_push.htm#push">push</A>      <A REL=DEFINITION HREF="f_firstc.htm#third">third</A>      
+<A REL=DEFINITION HREF="f_firstc.htm#fourth">fourth</A>      <A REL=DEFINITION HREF="f_mem_m.htm#member-if-not">member-if-not</A>  <A REL=DEFINITION HREF="m_pshnew.htm#pushnew">pushnew</A>              
+</PRE>
+<p><b>■图表 14-3.  Some defined names relating to lists.</B> <P>
+
+ 
+<h2><A REL=CHILD HREF="14_aba.htm">
+14.1.2.1 Lists as Association Lists</a></h2>
+ 
+<h2><A REL=CHILD HREF="14_abb.htm">
+14.1.2.2 Lists as Sets</a></h2>
+ 
+<h2><A REL=CHILD HREF="14_abc.htm">
+14.1.2.3 General Restrictions on Parameters that must be Lists</a></h2><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

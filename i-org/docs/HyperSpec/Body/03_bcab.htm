@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 3.2.3.1.2</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="03_bcaa.htm">
+<LINK REL=UP HREF="03_bca.htm">
+<LINK REL=NEXT HREF="03_bd.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="03_bcaa.htm">◀</A><A REL=UP HREF="03_bca.htm">▲</A><A REL=NEXT HREF="03_bd.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+3.2.3.1.2 Constraints on Macros and Compiler Macros</H2>  <P>
+ <P>
+Except where explicitly stated otherwise, no <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macro</I></A> defined in the Common Lisp standard produces an expansion that could cause any of the <A REL=DEFINITION HREF="26_glo_s.htm#subform"><I>subforms</I></A> of the <A REL=DEFINITION HREF="26_glo_m.htm#macro_form"><I>macro form</I></A> to be treated as <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level forms</I></A>. If an <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> also provides a <A REL=DEFINITION HREF="26_glo_s.htm#special_operator"><I>special operator</I></A> definition of a Common Lisp <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macro</I></A>, the <A REL=DEFINITION HREF="26_glo_s.htm#special_operator"><I>special operator</I></A> definition must be semantically equivalent in this respect. <P>
+<A REL=DEFINITION HREF="26_glo_c.htm#compiler_macro"><I>Compiler macro</I></A> expansions must also have the same top level evaluation semantics as the <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> which they replace. This is of concern both to <A REL=DEFINITION HREF="26_glo_c.htm#conforming_implementation"><I>conforming implementations</I></A> and to <A REL=DEFINITION HREF="26_glo_c.htm#conforming_program"><I>conforming programs</I></A>. <P>
+ <p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss232.htm">MACRO-SUBFORMS-TOP-LEVEL-P:ADD-CONSTRAINTS</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

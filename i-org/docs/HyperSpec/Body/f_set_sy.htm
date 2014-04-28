@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function SET-SYNTAX-FROM-CHAR</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_set_ma.htm">
+<LINK REL=UP HREF="c_reader.htm">
+<LINK REL=NEXT HREF="m_w_std_.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_set_ma.htm">◀</A><A REL=UP HREF="c_reader.htm">▲</A><A REL=NEXT HREF="m_w_std_.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="set-syntax-from-char"><I>Function</I> <B>SET-SYNTAX-FROM-CHAR</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+ 
+<B>set-syntax-from-char</B> <I>to-char from-char <b>&amp;optional</b> to-readtable from-readtable</I> =&gt; <I><A REL=DEFINITION HREF="a_t.htm#t"><B>t</B></A></I><P>
+  <P>
+<p><b>●参数和值:</b><P>
+ <P>
+ <I>to-char</I>---a <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>character</I></A>. <P>
+<I>from-char</I>---a <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>character</I></A>.  <P>
+<I>to-readtable</I>---a <A REL=DEFINITION HREF="26_glo_r.htm#readtable"><I>readtable</I></A>. The default is the <A REL=DEFINITION HREF="26_glo_c.htm#current_readtable"><I>current readtable</I></A>. <P>
+<I>from-readtable</I>---a <A REL=DEFINITION HREF="26_glo_r.htm#readtable_designator"><I>readtable designator</I></A>. The default is the <A REL=DEFINITION HREF="26_glo_s.htm#standard_readtable"><I>standard readtable</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#set-syntax-from-char"><B>set-syntax-from-char</B></A> makes the syntax of <I>to-char</I> in <I>to-readtable</I> be the same as the syntax of <I>from-char</I> in <I>from-readtable</I>. <P>
+<A REL=DEFINITION HREF="#set-syntax-from-char"><B>set-syntax-from-char</B></A> copies the <A REL=DEFINITION HREF="26_glo_s.htm#syntax_type"><I>syntax types</I></A> of <I>from-char</I>. If <I>from-char</I> is a <A REL=DEFINITION HREF="26_glo_m.htm#macro_character"><I>macro character</I></A>, its <A REL=DEFINITION HREF="26_glo_r.htm#reader_macro_function"><I>reader macro function</I></A> is copied also. If the character is a <A REL=DEFINITION HREF="26_glo_d.htm#dispatching_macro_character"><I>dispatching macro character</I></A>, its entire dispatch table of <A REL=DEFINITION HREF="26_glo_r.htm#reader_macro_function"><I>reader macro functions</I></A> is copied. The <A REL=DEFINITION HREF="26_glo_c.htm#constituent_trait"><I>constituent traits</I></A> of <I>from-char</I> are not copied. <P>
+A macro definition from a character such as <b>&quot;</b> can be copied to another character; the standard definition for <b>&quot;</b> looks for another character that is the same as the character that invoked it. The definition of <b>(</b> can not be meaningfully copied to <b>{</b>, on the other hand. The result is that <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>lists</I></A> are of the form <b>{a b c)</b>, not <b>{a b c}</b>, because the definition always looks for a closing parenthesis, not a closing brace. <P>
+<p><b>●例子:</b><P>
+ 
+<PRE>
+ (set-syntax-from-char #\7 #\;) =&gt;  T
+ 123579 =&gt;  1235
+</PRE>
+</b> <P>
+<p><b>●副作用:</b><P>
+ <P>
+The <I>to-readtable</I> is modified. <P>
+<p><b>●受制于:</b><P>
+ <P>
+The existing values in the <I>from-readtable</I>. <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_set_ma.htm#set-macro-character"><B>set-macro-character</B></A>, <A REL=DEFINITION HREF="f_mk_dis.htm#make-dispatch-macro-character"><B>make-dispatch-macro-character</B></A>, <h2><A REL=CHILD HREF="02_ad.htm">Section 2.1.4 (Character Syntax Types)</A> <P>
+<p><b>●说明:</b><P>
+ <P>
+The <A REL=DEFINITION HREF="26_glo_c.htm#constituent_trait"><I>constituent traits</I></A> of a <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>character</I></A> are ``hard wired'' into the parser for extended <A REL=DEFINITION HREF="26_glo_t.htm#token"><I>tokens</I></A>. For example, if the definition of <b>S</b> is copied to <b>*</b>, then <b>*</b> will become a <A REL=DEFINITION HREF="26_glo_c.htm#constituent"><I>constituent</I></A> that is <A REL=DEFINITION HREF="26_glo_a.htm#alphabetic"><I>alphabetic</I></A>[2] but that cannot be used as a <A REL=DEFINITION HREF="26_glo_s.htm#short_float"><I>short float</I></A> <A REL=DEFINITION HREF="26_glo_e.htm#exponent_marker"><I>exponent marker</I></A>. For further information, see <A REL=CHILD HREF="02_adb.htm">Section 2.1.4.2 (Constituent Traits)</A>. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss013.htm">ARGUMENTS-UNDERSPECIFIED:SPECIFY</A><LI> <A REL=CHILD HREF="../Issues/iss299.htm">RETURN-VALUES-UNSPECIFIED:SPECIFY</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

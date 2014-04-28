@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 3.4.4.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="03_dd.htm">
+<LINK REL=UP HREF="03_dd.htm">
+<LINK REL=NEXT HREF="03_ddaa.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="03_dd.htm">◀</A><A REL=UP HREF="03_dd.htm">▲</A><A REL=NEXT HREF="03_ddaa.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+3.4.4.1 Destructuring by Lambda Lists</H2>  <P>
+Anywhere in a <A REL=DEFINITION HREF="26_glo_m.htm#macro_lambda_list"><I>macro lambda list</I></A> where a parameter name can appear, and where <A REL=DEFINITION HREF="26_glo_o.htm#ordinary_lambda_list"><I>ordinary lambda list</I></A> syntax (as described in <A REL HREF="03_da.htm">Section 3.4.1 (Ordinary Lambda Lists)</A>) does not otherwise allow a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A>, a <A REL=DEFINITION HREF="26_glo_d.htm#destructuring_lambda_list"><I>destructuring lambda list</I></A> can appear in place of the parameter name. When this is done, then the argument that would match the parameter is treated as a (possibly dotted) <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A>, to be used as an argument list for satisfying the parameters in the embedded <A REL=DEFINITION HREF="26_glo_l.htm#lambda_list"><I>lambda list</I></A>. This is known as destructuring. <P>
+Destructuring is the process of decomposing a compound <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> into its component parts, using an abbreviated, declarative syntax, rather than writing it out by hand using the primitive component-accessing functions. Each component part is bound to a variable. <P>
+  A destructuring operation requires an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> to be decomposed, a pattern that specifies what components are to be extracted, and the names of the variables whose values are to be the components. <P>
+
+ 
+<h2><A REL=CHILD HREF="03_ddaa.htm">
+3.4.4.1.1 Data-directed Destructuring by Lambda Lists</a></h2>
+ 
+<h2><A REL=CHILD HREF="03_ddab.htm">
+3.4.4.1.2 Lambda-list-directed Destructuring by Lambda Lists</a></h2><P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

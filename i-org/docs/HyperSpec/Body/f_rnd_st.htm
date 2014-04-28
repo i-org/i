@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function RANDOM-STATE-P</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_random.htm">
+<LINK REL=UP HREF="c_number.htm">
+<LINK REL=NEXT HREF="v_rnd_st.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_random.htm">◀</A><A REL=UP HREF="c_number.htm">▲</A><A REL=NEXT HREF="v_rnd_st.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="random-state-p"><I>Function</I> <B>RANDOM-STATE-P</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>random-state-p</B> <I>object</I> =&gt; <I>generalized-boolean</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>object</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<I>generalized-boolean</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Returns <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> if <I>object</I> is of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="t_rnd_st.htm#random-state"><B>random-state</B></A>; otherwise, returns <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (random-state-p *random-state*) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (random-state-p (make-random-state)) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (random-state-p 'test-function) =&gt;  <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_mk_rnd.htm#make-random-state"><B>make-random-state</B></A>, <A REL=DEFINITION HREF="v_rnd_st.htm#STrandom-stateST"><B>*random-state*</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<PRE>
+ (random-state-p object) ==  (typep object 'random-state)
+</PRE>
+</b> <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

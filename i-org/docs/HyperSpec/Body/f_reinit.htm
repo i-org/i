@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Standard Generic Function REINITIALIZE-INSTANCE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_alloca.htm">
+<LINK REL=UP HREF="c_object.htm">
+<LINK REL=NEXT HREF="f_shared.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_alloca.htm">◀</A><A REL=UP HREF="c_object.htm">▲</A><A REL=NEXT HREF="f_shared.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="reinitialize-instance"><I>Standard Generic Function</I> <B>REINITIALIZE-INSTANCE</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+ 
+<B>reinitialize-instance</B> <I>instance <b>&amp;rest</b> initargs <b>&amp;key</b> <b>&amp;allow-other-keys</b></I> =&gt; <I>instance</I><P>
+  <P>
+<P><B>Method Signatures:</B><P>
+ <P>
+
+<B>reinitialize-instance</B> <I>(<I>instance</I><B> <A REL=DEFINITION HREF="t_std_ob.htm#standard-object">standard-object</A></B>) <b>&amp;rest</b> initargs</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>instance</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<I>initargs</I>---an <A REL=DEFINITION HREF="26_glo_i.htm#initialization_argument_list"><I>initialization argument list</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+The <A REL=DEFINITION HREF="26_glo_g.htm#generic_function"><I>generic function</I></A> <A REL=DEFINITION HREF="#reinitialize-instance"><B>reinitialize-instance</B></A> can be used to change the values of <A REL=DEFINITION HREF="26_glo_l.htm#local_slot"><I>local slots</I></A> of an <I>instance</I> according to <I>initargs</I>. This <A REL=DEFINITION HREF="26_glo_g.htm#generic_function"><I>generic function</I></A> can be called by users. <P>
+The system-supplied primary <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> for <A REL=DEFINITION HREF="#reinitialize-instance"><B>reinitialize-instance</B></A> checks the validity of <I>initargs</I> and signals an error if an <I>initarg</I> is supplied that is not declared as valid. The <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> then calls the generic function <A REL=DEFINITION HREF="f_shared.htm#shared-initialize"><B>shared-initialize</B></A> with the following arguments: the <I>instance</I>, <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> (which means no <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A> should be initialized according to their initforms), and the <I>initargs</I> it received. <P>
+<p><b>●例子:</b> None.
+ <P>
+<p><b>●副作用:</b><P>
+ <P>
+The <A REL=DEFINITION HREF="26_glo_g.htm#generic_function"><I>generic function</I></A> <A REL=DEFINITION HREF="#reinitialize-instance"><B>reinitialize-instance</B></A> changes the values of <A REL=DEFINITION HREF="26_glo_l.htm#local_slot"><I>local slots</I></A>. <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+The system-supplied primary <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> for <A REL=DEFINITION HREF="#reinitialize-instance"><B>reinitialize-instance</B></A> signals an error if an <I>initarg</I> is supplied that is not declared as valid. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_init_i.htm#initialize-instance"><B>initialize-instance</B></A>, <A REL=DEFINITION HREF="f_shared.htm#shared-initialize"><B>shared-initialize</B></A>, <A REL=DEFINITION HREF="f_upda_1.htm#update-instance-for-redefined-class"><B>update-instance-for-redefined-class</B></A>, <A REL=DEFINITION HREF="f_update.htm#update-instance-for-different-class"><B>update-instance-for-different-class</B></A>, <A REL=DEFINITION HREF="f_slt_bo.htm#slot-boundp"><B>slot-boundp</B></A>, <A REL=DEFINITION HREF="f_slt_ma.htm#slot-makunbound"><B>slot-makunbound</B></A>, <A REL=CHILD HREF="07_c.htm">Section 7.3 (Reinitializing an Instance)</A>, <A REL=CHILD HREF="07_ad.htm">Section 7.1.4 (Rules for Initialization Arguments)</A>, <A REL=CHILD HREF="07_ab.htm">Section 7.1.2 (Declaring the Validity of Initialization Arguments)</A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<I>Initargs</I> are declared as valid by using the <b>:initarg</b> option to <A REL=DEFINITION HREF="m_defcla.htm#defclass"><B>defclass</B></A>, or by defining <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>methods</I></A> for <A REL=DEFINITION HREF="#reinitialize-instance"><B>reinitialize-instance</B></A> or <A REL=DEFINITION HREF="f_shared.htm#shared-initialize"><B>shared-initialize</B></A>. The keyword name of each keyword parameter specifier in the <A REL=DEFINITION HREF="26_glo_l.htm#lambda_list"><I>lambda list</I></A> of any <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> defined on <A REL=DEFINITION HREF="#reinitialize-instance"><B>reinitialize-instance</B></A> or <A REL=DEFINITION HREF="f_shared.htm#shared-initialize"><B>shared-initialize</B></A> is declared as a valid initialization argument name for all <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>classes</I></A> for which that <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> is applicable. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss197.htm">INITIALIZATION-FUNCTION-KEYWORD-CHECKING</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

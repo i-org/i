@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function MAP-INTO</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_map.htm">
+<LINK REL=UP HREF="c_sequen.htm">
+<LINK REL=NEXT HREF="f_reduce.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_map.htm">◀</A><A REL=UP HREF="c_sequen.htm">▲</A><A REL=NEXT HREF="f_reduce.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="map-into"><I>Function</I> <B>MAP-INTO</B></A> <P>
+ <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>map-into</B> <I>result-sequence function <b>&amp;rest</b> sequences</I> =&gt; <I>result-sequence</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>result-sequence</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#proper_sequence"><I>proper sequence</I></A>. <P>
+<I>function</I>---a <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> of as many <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>arguments</I></A> as there are <I>sequences</I>. <P>
+<I>sequence</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#proper_sequence"><I>proper sequence</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Destructively modifies <I>result-sequence</I> to contain the results of applying <I>function</I> to each element in the argument <I>sequences</I> in turn. <P>
+<I>result-sequence</I> and each element of <I>sequences</I> can each be either a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> or a <A REL=DEFINITION HREF="26_glo_v.htm#vector"><I>vector</I></A>. If <I>result-sequence</I> and each element of <I>sequences</I> are not all the same length, the iteration terminates when the shortest <A REL=DEFINITION HREF="26_glo_s.htm#sequence"><I>sequence</I></A> (of any of the <I>sequences</I> or the <I>result-sequence</I>) is exhausted. If <I>result-sequence</I> is a <A REL=DEFINITION HREF="26_glo_v.htm#vector"><I>vector</I></A> with a <A REL=DEFINITION HREF="26_glo_f.htm#fill_pointer"><I>fill pointer</I></A>, the <A REL=DEFINITION HREF="26_glo_f.htm#fill_pointer"><I>fill pointer</I></A> is ignored when deciding how many iterations to perform, and afterwards the <A REL=DEFINITION HREF="26_glo_f.htm#fill_pointer"><I>fill pointer</I></A> is set to the number of times <I>function</I> was applied. If <I>result-sequence</I> is longer than the shortest element of <I>sequences</I>, extra elements at the end of <I>result-sequence</I> are left unchanged. If <I>result-sequence</I> is <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>, <A REL=DEFINITION HREF="#map-into"><B>map-into</B></A> immediately returns <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>, since <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> is a <A REL=DEFINITION HREF="26_glo_s.htm#sequence"><I>sequence</I></A> of length zero. <P>
+If <I>function</I> has side effects, it can count on being called first on all of the elements with index 0, then on all of those numbered 1, and so on. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (setq a (list 1 2 3 4) b (list 10 10 10 10)) =&gt;  (10 10 10 10)
+ (map-into a #'+ a b) =&gt;  (11 12 13 14)
+ a =&gt;  (11 12 13 14)
+ b =&gt;  (10 10 10 10)
+ (setq k '(one two three)) =&gt;  (ONE TWO THREE)
+ (map-into a #'cons k a) =&gt;  ((ONE . 11) (TWO . 12) (THREE . 13) 14)
+ (map-into a #'gensym) =&gt;  (#:G9090 #:G9091 #:G9092 #:G9093)
+ a =&gt;  (#:G9090 #:G9091 #:G9092 #:G9093)
+</PRE>
+</b> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+Should be prepared to signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if <I>result-sequence</I> is not a <A REL=DEFINITION HREF="26_glo_p.htm#proper_sequence"><I>proper sequence</I></A>. Should be prepared to signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if <I>sequence</I> is not a <A REL=DEFINITION HREF="26_glo_p.htm#proper_sequence"><I>proper sequence</I></A>. <P>
+<p><b>●更多信息:</b> None.
+ <P>
+<p><b>●说明:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#map-into"><B>map-into</B></A> differs from <A REL=DEFINITION HREF="f_map.htm#map"><B>map</B></A> in that it modifies an existing <A REL=DEFINITION HREF="26_glo_s.htm#sequence"><I>sequence</I></A> rather than creating a new one. In addition, <A REL=DEFINITION HREF="#map-into"><B>map-into</B></A> can be called with only two arguments, while <A REL=DEFINITION HREF="f_map.htm#map"><B>map</B></A> requires at least three arguments. <P>
+<A REL=DEFINITION HREF="#map-into"><B>map-into</B></A> could be defined by: <P>
+<PRE>
+ (defun map-into (result-sequence function &amp;rest sequences)
+   (loop for index below (apply #'min 
+                                (length result-sequence)
+                                (mapcar #'length sequences))
+         do (setf (elt result-sequence index)
+                  (apply function
+                         (mapcar #'(lambda (seq) (elt seq index))
+                                 sequences))))
+   result-sequence)
+</PRE>
+</b> <P>
+ <p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss239.htm">MAP-INTO:ADD-FUNCTION</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

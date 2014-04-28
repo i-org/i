@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function SET-PPRINT-DISPATCH</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="m_pr_unr.htm">
+<LINK REL=UP HREF="c_printe.htm">
+<LINK REL=NEXT HREF="f_wr_pr.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="m_pr_unr.htm">◀</A><A REL=UP HREF="c_printe.htm">▲</A><A REL=NEXT HREF="f_wr_pr.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="set-pprint-dispatch"><I>Function</I> <B>SET-PPRINT-DISPATCH</B></A> <P>
+ <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>set-pprint-dispatch</B> <I>type-specifier function <b>&amp;optional</b> priority table</I> =&gt; <I><A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A></I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>type-specifier</I>---a <A REL=DEFINITION HREF="26_glo_t.htm#type_specifier"><I>type specifier</I></A>. <P>
+<I>function</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A>, a <A REL=DEFINITION HREF="26_glo_f.htm#function_name"><I>function name</I></A>, or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<I>priority</I>---a <A REL=DEFINITION HREF="t_real.htm#real"><I>real</I></A>. The default is <b>0</b>. <P>
+<I>table</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#pprint_dispatch_table"><I>pprint dispatch table</I></A>. The default is the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> of <A REL=DEFINITION HREF="v_pr_ppr.htm#STprint-pprint-dispatchST"><B>*print-pprint-dispatch*</B></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Installs an entry into the <A REL=DEFINITION HREF="26_glo_p.htm#pprint_dispatch_table"><I>pprint dispatch table</I></A> which is <I>table</I>. <P>
+<I>Type-specifier</I> is the <A REL=DEFINITION HREF="26_glo_k.htm#key"><I>key</I></A> of the entry. The first action of <A REL=DEFINITION HREF="#set-pprint-dispatch"><B>set-pprint-dispatch</B></A> is to remove any pre-existing entry associated with <I>type-specifier</I>. This guarantees that there will never be two entries associated with the same <A REL=DEFINITION HREF="26_glo_t.htm#type_specifier"><I>type specifier</I></A> in a given <A REL=DEFINITION HREF="26_glo_p.htm#pprint_dispatch_table"><I>pprint dispatch table</I></A>. Equality of <A REL=DEFINITION HREF="26_glo_t.htm#type_specifier"><I>type specifiers</I></A> is tested by <A REL=DEFINITION HREF="f_equal.htm#equal"><B>equal</B></A>. <P>
+Two values are associated with each <A REL=DEFINITION HREF="26_glo_t.htm#type_specifier"><I>type specifier</I></A> in a <A REL=DEFINITION HREF="26_glo_p.htm#pprint_dispatch_table"><I>pprint dispatch table</I></A>: a <I>function</I> and a <I>priority</I>. The <I>function</I> must accept two arguments: the <A REL=DEFINITION HREF="26_glo_s.htm#stream"><I>stream</I></A> to which output is sent and the <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> to be printed. The <I>function</I> should <A REL=DEFINITION HREF="26_glo_p.htm#pretty_print"><I>pretty print</I></A> the <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> to the <I>stream</I>. The <I>function</I> can assume that object satisfies the <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> given by <I>type-specifier</I>. The <I>function</I> must obey <A REL=DEFINITION HREF="v_pr_rda.htm#STprint-readablyST"><B>*print-readably*</B></A>. Any values returned by the <I>function</I> are ignored. <P>
+<I>Priority</I> is a priority to resolve conflicts when an object matches more than one entry. <P>
+It is permissible for <I>function</I> to be <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. In this situation, there will be no <I>type-specifier</I> entry in <I>table</I> after <A REL=DEFINITION HREF="#set-pprint-dispatch"><B>set-pprint-dispatch</B></A> returns. <P>
+<p><b>●例子:</b> None.
+ <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+An error is signaled if <I>priority</I> is not a <A REL=DEFINITION HREF="t_real.htm#real"><I>real</I></A>. <P>
+<p><b>●更多信息:</b> None.
+ <P>
+<p><b>●说明:</b><P>
+ <P>
+Since <A REL=DEFINITION HREF="26_glo_p.htm#pprint_dispatch_table"><I>pprint dispatch tables</I></A> are often used to control the pretty printing of Lisp code, it is common for the <I>type-specifier</I> to be an <A REL=DEFINITION HREF="26_glo_e.htm#expression"><I>expression</I></A> of the form <P>
+<PRE>
+ (cons car-type cdr-type)
+</PRE>
+</b> <P>
+This signifies that the corresponding object must be a cons cell whose <A REL=DEFINITION HREF="26_glo_c.htm#car"><I>car</I></A> matches the <A REL=DEFINITION HREF="26_glo_t.htm#type_specifier"><I>type specifier</I></A> <I>car-type</I> and whose <A REL=DEFINITION HREF="26_glo_c.htm#cdr"><I>cdr</I></A> matches the <A REL=DEFINITION HREF="26_glo_t.htm#type_specifier"><I>type specifier</I></A> <I>cdr-type</I>. The <I>cdr-type</I> can be omitted in which case it defaults to <A REL=DEFINITION HREF="a_t.htm#t"><B>t</B></A>. <P>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss270.htm">PRETTY-PRINT-INTERFACE</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

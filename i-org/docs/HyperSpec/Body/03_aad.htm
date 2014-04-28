@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 3.1.1.4</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="03_aaca.htm">
+<LINK REL=UP HREF="03_aa.htm">
+<LINK REL=NEXT HREF="03_ab.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="03_aaca.htm">◀</A><A REL=UP HREF="03_aa.htm">▲</A><A REL=NEXT HREF="03_ab.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+3.1.1.4 Environment Objects</H2>  <P>
+Some <A REL=DEFINITION HREF="26_glo_o.htm#operator"><I>operators</I></A> make use of an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>, called an <A REL=DEFINITION HREF="26_glo_e.htm#environment_object"><I>environment object</I></A>, that represents the set of <A REL=DEFINITION HREF="26_glo_l.htm#lexical_binding"><I>lexical bindings</I></A> needed to perform semantic analysis on a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> in a given <A REL=DEFINITION HREF="26_glo_l.htm#lexical_environment"><I>lexical environment</I></A>. The set of <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>bindings</I></A> in an <A REL=DEFINITION HREF="26_glo_e.htm#environment_object"><I>environment object</I></A> may be a subset of the <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>bindings</I></A> that would be needed to actually perform an <A REL=DEFINITION HREF="26_glo_e.htm#evaluation"><I>evaluation</I></A>; for example, <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> associated with <A REL=DEFINITION HREF="26_glo_v.htm#variable"><I>variable</I></A> <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>names</I></A> and <A REL=DEFINITION HREF="26_glo_f.htm#function_name"><I>function names</I></A> in the corresponding <A REL=DEFINITION HREF="26_glo_l.htm#lexical_environment"><I>lexical environment</I></A> might not be available in an <A REL=DEFINITION HREF="26_glo_e.htm#environment_object"><I>environment object</I></A>. <P>
+The <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> and nature of an <A REL=DEFINITION HREF="26_glo_e.htm#environment_object"><I>environment object</I></A> is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A>. The <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> of <A REL=DEFINITION HREF="26_glo_e.htm#environment_parameter"><I>environment parameters</I></A> to <A REL=DEFINITION HREF="26_glo_m.htm#macro_function"><I>macro functions</I></A> are examples of <A REL=DEFINITION HREF="26_glo_e.htm#environment_object"><I>environment objects</I></A>. <P>
+The <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> when used as an <A REL=DEFINITION HREF="26_glo_e.htm#environment_object"><I>environment object</I></A> denotes the <A REL=DEFINITION HREF="26_glo_n.htm#null_lexical_environment"><I>null lexical environment</I></A>; see <A REL=CHILD HREF="03_aaca.htm">Section 3.1.1.3.1 (The Null Lexical Environment)</A>. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

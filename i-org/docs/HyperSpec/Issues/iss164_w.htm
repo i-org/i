@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Issue FORMAT-ATSIGN-COLON Writeup</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="../Issues/iss163_w.htm">
+<LINK REL=UP HREF="../Issues/iss164.htm">
+<LINK REL=NEXT HREF="../Issues/iss165_w.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="../Issues/iss163_w.htm">◀</A><A REL=UP HREF="../Issues/iss164.htm">▲</A><A REL=NEXT HREF="../Issues/iss165_w.htm">▶</A></h1>
+
+<HR>
+
+
+
+<H2>Issue FORMAT-ATSIGN-COLON Writeup</H2>
+
+<PRE><B>Issue:</B>        <A HREF="iss164.htm">FORMAT-ATSIGN-COLON</A><P>
+<B>References:</B>   <A REL=DEFINITION HREF="../Body/f_format.htm#format"><B>FORMAT</B></A> description (p386)<P>
+<B>Category:</B>     CLARIFICATION<P>
+<B>Edit history:</B> Version 1 by Pitman 02/27/87<P>
+              Version 2 by cleanup committee 15-Mar-87<P>
+              Version 3 by Masinter 15-Mar-87<P>
+	      Version 4 by Masinter  5-Jun-87<P>
+<P>
+<B>Problem Description:<P>
+</B><P>
+CLtL describes the format op syntax as:<P>
+<P>
+&quot;a format directive consists of a tilde (~), optional prefix parameters<P>
+separated by commas, optional colon (:) and atsign (@) modifiers, and a<P>
+single character indicating what kind of directive this is.&quot;<P>
+<P>
+CLtL uses :@ fairly consistently throughout without saying whether @: is<P>
+legal. Is @: allowed?<P>
+<P>
+<B>Proposal (FORMAT-ATSIGN-COLON:OK):<P>
+</B><P>
+There is no required ordering between the @ and : modifier.<P>
+<P>
+<B>Rationale:<P>
+</B><P>
+This is currently underspecified, and this way of specifying it will<P>
+cause the least disruption to user code.<P>
+<P>
+<B>Current practice:<P>
+</B><P>
+Most implementations accept these in either order. Some implementations<P>
+have been known to expect only :@.<P>
+<P>
+<B>Adoption Cost:<P>
+</B><P>
+The change to accept either syntax is probably quite trivial.<P>
+<P>
+<B>Benefits:<P>
+</B><P>
+Having @: and :@ mean different things would be awkward. <P>
+<P>
+<B>Conversion Cost:<P>
+</B><P>
+Existing user code would be unaffected.<P>
+<P>
+<B>Aesthetics:<P>
+</B><P>
+Leaving these unordered is slightly simpler conceptually.<P>
+<P>
+<B>Discussion:<P>
+</B><P>
+The cleanup committee supports this clarification.<P>
+<P>
+</PRE>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 22.3.3.3</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="22_ccb.htm">
+<LINK REL=UP HREF="22_cc.htm">
+<LINK REL=NEXT HREF="22_ccd.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="22_ccb.htm">◀</A><A REL=UP HREF="22_cc.htm">▲</A><A REL=NEXT HREF="22_ccd.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+22.3.3.3 Tilde G: General Floating-Point</H2>  <P>
+The next <I>arg</I> is printed as a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A> in either fixed-format or exponential notation as appropriate. <P>
+The full form is <b>~</b><I>w</I><b>,</b><I>d</I><b>,</b><I>e</I><b>,</b><I>k</I><b>,</b><I>overflowchar</I><b>,</b><I>padchar</I><b>,</b><I>exponentchar</I><b>G</b>. The format in which to print <I>arg</I> depends on the magnitude (absolute value) of the <I>arg</I>. Let <I>n</I> be an integer such that 10^<I>n</I>-1 &lt;= |<I>arg</I>| &lt; 10^<I>n</I>. Let <I>ee</I> equal <I>e</I>+2, or 4 if <I>e</I> is omitted. Let <I>ww</I> equal <I>w</I>-<I>ee</I>, or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> if <I>w</I> is omitted. If <I>d</I> is omitted, first let <I>q</I> be the number of digits needed to print <I>arg</I> with no loss of information and without leading or trailing zeros; then let <I>d</I> equal <b>(max </b><I>q</I><b> (min </b><I>n</I><b> 7))</b>. Let <I>dd</I> equal <I>d</I>-<I>n</I>. <P>
+If 0 &lt;= <I>dd</I> &lt;= <I>d</I>, then <I>arg</I> is printed as if by the format directives <P>
+<b>~</b><I>ww</I><b>,</b><I>dd</I><b>,,</b><I>overflowchar</I><b>,</b><I>padchar</I><b>F~</b><I>ee</I><b>@T</b> <P>
+Note that the scale factor <I>k</I> is not passed to the <b>~F</b> directive. For all other values of <I>dd</I>, <I>arg</I> is printed as if by the format directive <P>
+<b>~</b><I>w</I><b>,</b><I>d</I><b>,</b><I>e</I><b>,</b><I>k</I><b>,</b><I>overflowchar</I><b>,</b><I>padchar</I><b>,</b><I>exponentchar</I><b>E</b> <P>
+In either case, an <b>@</b> modifier is supplied to the <b>~F</b> or <b>~E</b> directive if and only if one was supplied to the <b>~G</b> directive. <P>
+ <b>~G</b> binds <A REL=DEFINITION HREF="v_pr_esc.htm#STprint-escapeST"><B>*print-escape*</B></A> to <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>  and <A REL=DEFINITION HREF="v_pr_rda.htm#STprint-readablyST"><B>*print-readably*</B></A> to <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>.   <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss271.htm">PRINC-READABLY:X3J13-DEC-91</A><LI> <A REL=CHILD HREF="../Issues/iss169.htm">FORMAT-PRETTY-PRINT:YES</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

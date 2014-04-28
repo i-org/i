@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function RANDOM</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_mk_rnd.htm">
+<LINK REL=UP HREF="c_number.htm">
+<LINK REL=NEXT HREF="f_rnd_st.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_mk_rnd.htm">◀</A><A REL=UP HREF="c_number.htm">▲</A><A REL=NEXT HREF="f_rnd_st.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="random"><I>Function</I> <B>RANDOM</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>random</B> <I>limit <b>&amp;optional</b> random-state</I> =&gt; <I>random-number</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>limit</I>---a positive <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>, or a positive <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A>. <P>
+<I>random-state</I>---a <A REL=DEFINITION HREF="26_glo_r.htm#random_state"><I>random state</I></A>. The default is the <A REL=DEFINITION HREF="26_glo_c.htm#current_random_state"><I>current random state</I></A>. <P>
+<I>random-number</I>---a non-negative <A REL=DEFINITION HREF="26_glo_n.htm#number"><I>number</I></A> less than <I>limit</I> and of the same <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> as <I>limit</I>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Returns a pseudo-random number that is a non-negative <A REL=DEFINITION HREF="26_glo_n.htm#number"><I>number</I></A> less than <I>limit</I> and of the same <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> as <I>limit</I>. <P>
+The <I>random-state</I>, which is modified by this function, encodes the internal state maintained by the random number generator. <P>
+An approximately uniform choice distribution is used. If <I>limit</I> is an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>, each of the possible results occurs with (approximate) probability 1/<I>limit</I>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (&lt;= 0 (random 1000) 1000) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (let ((state1 (make-random-state))
+       (state2 (make-random-state)))
+   (= (random 1000 state1) (random 1000 state2))) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+</PRE>
+</b> <P>
+<p><b>●副作用:</b><P>
+ <P>
+The <I>random-state</I> is modified. <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+Should signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if <I>limit</I> is not a positive <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> or a positive <A REL=DEFINITION HREF="t_real.htm#real"><I>real</I></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_mk_rnd.htm#make-random-state"><B>make-random-state</B></A>, <A REL=DEFINITION HREF="v_rnd_st.htm#STrandom-stateST"><B>*random-state*</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+See <I>Common Lisp: The Language</I> for information about generating random numbers. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

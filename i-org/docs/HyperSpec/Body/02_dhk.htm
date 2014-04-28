@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 2.4.8.11</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="02_dhj.htm">
+<LINK REL=UP HREF="02_dh.htm">
+<LINK REL=NEXT HREF="02_dhl.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="02_dhj.htm">◀</A><A REL=UP HREF="02_dh.htm">▲</A><A REL=NEXT HREF="02_dhl.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+2.4.8.11 Sharpsign C</H2>   <P>
+ <b>#C</b> reads a following <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>, which must be a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> of length two whose <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>elements</I></A> are both <I>reals</I>. These <I>reals</I> denote, respectively, the real and imaginary parts of a <A REL=DEFINITION HREF="26_glo_c.htm#complex"><I>complex</I></A> number.  If the two parts as notated are not of the same data type, then they are converted according to the rules of floating-point <A REL=DEFINITION HREF="26_glo_c.htm#contagion"><I>contagion</I></A> described in <A REL HREF="12_aab.htm">Section 12.1.1.2 (Contagion in Numeric Operations)</A>. <P>
+<b>#C(</b><I>real</I><b> </b><I>imag</I><b>)</b> is equivalent to <b>#.(complex (quote </b><I>real</I><b>) (quote </b><I>imag</I><b>))</b>, except that <b>#C</b> is not affected by <A REL=DEFINITION HREF="v_rd_eva.htm#STread-evalST"><B>*read-eval*</B></A>. See the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="f_comp_2.htm#complex"><B>complex</B></A>. <P>
+The next figure contains examples of the use of <b>#C</b>. <P>
+<PRE>
+#C(3.0s1 2.0s-1)  ;A <A REL=DEFINITION HREF="26_glo_c.htm#complex">complex</A> with small float parts.                
+#C(5 -3)          ;A ``Gaussian integer''                           
+#C(5/3 7.0)       ;Will be converted internally to #C(1.66666 7.0)  
+#C(0 1)           ;The imaginary unit; that is, i.                  
+</PRE>
+<p><b>■图表 2-21.  Complex Number Example</B> <P>
+For further information, see <A REL=CHILD HREF="22_acad.htm">Section 22.1.3.1.4 (Printing Complexes)</A> and <A REL=CHILD HREF="02_cbc.htm">Section 2.3.2.3 (Syntax of a Complex)</A>. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss288.htm">READ-SUPPRESS-CONFUSING:GENERALIZE</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

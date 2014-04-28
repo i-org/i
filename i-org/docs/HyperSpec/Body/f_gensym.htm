@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function GENSYM</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_cp_sym.htm">
+<LINK REL=UP HREF="c_symbol.htm">
+<LINK REL=NEXT HREF="v_gensym.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_cp_sym.htm">◀</A><A REL=UP HREF="c_symbol.htm">▲</A><A REL=NEXT HREF="v_gensym.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="gensym"><I>Function</I> <B>GENSYM</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>gensym</B> <I><b>&amp;optional</b> x</I> =&gt; <I>new-symbol</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>x</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> or a non-negative <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>. Complicated defaulting behavior; see below. <P>
+<I>new-symbol</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#fresh"><I>fresh</I></A>, <A REL=DEFINITION HREF="26_glo_u.htm#uninterned"><I>uninterned</I></A> <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Creates and returns a <A REL=DEFINITION HREF="26_glo_f.htm#fresh"><I>fresh</I></A>, <A REL=DEFINITION HREF="26_glo_u.htm#uninterned"><I>uninterned</I></A> <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>, as if by calling <A REL=DEFINITION HREF="f_mk_sym.htm#make-symbol"><B>make-symbol</B></A>. (The only difference between <A REL=DEFINITION HREF="#gensym"><B>gensym</B></A> and <A REL=DEFINITION HREF="f_mk_sym.htm#make-symbol"><B>make-symbol</B></A> is in how the <I>new-symbol</I>'s <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>name</I></A> is determined.) <P>
+The <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>name</I></A> of the <I>new-symbol</I> is the concatenation of a prefix, which defaults to <b>&quot;G&quot;</b>, and  a suffix, which is the decimal representation of a number that defaults to the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> of <A REL=DEFINITION HREF="v_gensym.htm#STgensym-counterST"><B>*gensym-counter*</B></A>. <P>
+If <I>x</I> is supplied, and is a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A>, then that <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> is used as a prefix instead of <b>&quot;G&quot;</b> for this call to <A REL=DEFINITION HREF="#gensym"><B>gensym</B></A> only. <P>
+If <I>x</I> is supplied, and is an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>, then that <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>, instead of the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> of <A REL=DEFINITION HREF="v_gensym.htm#STgensym-counterST"><B>*gensym-counter*</B></A>, is used as the suffix for this call to <A REL=DEFINITION HREF="#gensym"><B>gensym</B></A> only. <P>
+If and only if no explicit suffix is supplied, <A REL=DEFINITION HREF="v_gensym.htm#STgensym-counterST"><B>*gensym-counter*</B></A> is incremented after it is used.  <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (setq sym1 (gensym)) =&gt;  #:G3142
+ (symbol-package sym1) =&gt;  NIL
+ (setq sym2 (gensym 100)) =&gt;  #:G100
+ (setq sym3 (gensym 100)) =&gt;  #:G100
+ (eq sym2 sym3) =&gt;  <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+ (find-symbol &quot;G100&quot;) =&gt;  NIL, NIL
+ (gensym &quot;T&quot;) =&gt;  #:T3143
+ (gensym) =&gt;  #:G3144
+</PRE>
+</b> <P>
+<p><b>●副作用:</b><P>
+ <P>
+Might increment <A REL=DEFINITION HREF="v_gensym.htm#STgensym-counterST"><B>*gensym-counter*</B></A>. <P>
+<p><b>●受制于:</b><P>
+ <P>
+<A REL=DEFINITION HREF="v_gensym.htm#STgensym-counterST"><B>*gensym-counter*</B></A> <P>
+<p><b>●例外情况：</b><P>
+ <P>
+Should signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if <I>x</I> is not a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> or a non-negative <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_gentem.htm#gentemp"><B>gentemp</B></A>, <A REL=DEFINITION HREF="v_gensym.htm#STgensym-counterST"><B>*gensym-counter*</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+The ability to pass a numeric argument to <A REL=DEFINITION HREF="#gensym"><B>gensym</B></A> has been deprecated; explicitly <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>binding</I></A> <A REL=DEFINITION HREF="v_gensym.htm#STgensym-counterST"><B>*gensym-counter*</B></A> is now stylistically preferred. (The somewhat baroque conventions for the optional argument are historical in nature, and supported primarily for compatibility with older dialects of Lisp. In modern code, it is recommended that the only kind of argument used be a string prefix. In general, though, to obtain more flexible control of the <I>new-symbol</I>'s <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>name</I></A>, consider using <A REL=DEFINITION HREF="f_mk_sym.htm#make-symbol"><B>make-symbol</B></A> instead.) <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss182.htm">GENSYM-NAME-STICKINESS:LIKE-TEFLON</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

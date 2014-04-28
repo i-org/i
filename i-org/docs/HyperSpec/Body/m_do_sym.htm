@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Macro DO-SYMBOLS, DO-EXTERNAL-SYMBOLS...</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="m_defpkg.htm">
+<LINK REL=UP HREF="c_packag.htm">
+<LINK REL=NEXT HREF="f_intern.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="m_defpkg.htm">◀</A><A REL=UP HREF="c_packag.htm">▲</A><A REL=NEXT HREF="f_intern.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="do-symbols"><A NAME="do-external-symbols"><A NAME="do-all-symbols"><I>Macro</I> <B>DO-SYMBOLS, DO-EXTERNAL-SYMBOLS, DO-ALL-SYMBOLS</B></A></A></A> <P>
+ <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>do-symbols</B> <I>(var [package [result-form]]) <I>declaration</I><B>*</B> {tag | statement}*</I><P> =&gt; <I><I>result</I><B>*</B></I><P>
+ <P>
+
+<B>do-external-symbols</B> <I>(var [package [result-form]]) <I>declaration</I><B>*</B> {tag | statement}*</I><P> =&gt; <I><I>result</I><B>*</B></I><P>
+ <P>
+
+<B>do-all-symbols</B> <I>(var [result-form]) <I>declaration</I><B>*</B> {tag | statement}*</I><P> =&gt; <I><I>result</I><B>*</B></I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>var</I>---a <A REL=DEFINITION HREF="26_glo_v.htm#variable"><I>variable</I></A> <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>name</I></A>; not evaluated. <P>
+ <I>package</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#package_designator"><I>package designator</I></A>; evaluated.  The default in <A REL=DEFINITION HREF="#do-symbols"><B>do-symbols</B></A> and <A REL=DEFINITION HREF="#do-external-symbols"><B>do-external-symbols</B></A> is the <A REL=DEFINITION HREF="26_glo_c.htm#current_package"><I>current package</I></A>. <P>
+<I>result-form</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>; evaluated as described below. The default is <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<I>declaration</I>---a <A REL=DEFINITION HREF="s_declar.htm#declare"><B>declare</B></A> <A REL=DEFINITION HREF="26_glo_e.htm#expression"><I>expression</I></A>; not evaluated. <P>
+<I>tag</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#go_tag"><I>go tag</I></A>; not evaluated. <P>
+<I>statement</I>---a <A REL=DEFINITION HREF="26_glo_c.htm#compound_form"><I>compound form</I></A>; evaluated as described below. <P>
+<I>results</I>---the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> returned by the <I>result-form</I> if a <A REL=DEFINITION HREF="26_glo_n.htm#normal_return"><I>normal return</I></A> occurs, or else, if an <A REL=DEFINITION HREF="26_glo_e.htm#explicit_return"><I>explicit return</I></A> occurs, the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> that were transferred. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#do-symbols"><B>do-symbols</B></A>, <A REL=DEFINITION HREF="#do-external-symbols"><B>do-external-symbols</B></A>, and <A REL=DEFINITION HREF="#do-all-symbols"><B>do-all-symbols</B></A> iterate over the <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> of <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>packages</I></A>. For each <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> in the set of <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>packages</I></A> chosen, the <I>var</I> is bound to the <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>, and the <I>statements</I> in the body are executed. When all the <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> have been processed, <I>result-form</I> is evaluated and returned as the value of the macro. <P>
+<A REL=DEFINITION HREF="#do-symbols"><B>do-symbols</B></A> iterates over the <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> <A REL=DEFINITION HREF="26_glo_a.htm#accessible"><I>accessible</I></A> in <I>package</I>.  <I>Statements</I> may execute more than once for <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> that are inherited from multiple <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>packages</I></A>.  <P>
+<A REL=DEFINITION HREF="#do-all-symbols"><B>do-all-symbols</B></A> iterates on every <A REL=DEFINITION HREF="26_glo_r.htm#registered_package"><I>registered package</I></A>. <A REL=DEFINITION HREF="#do-all-symbols"><B>do-all-symbols</B></A> will not process every <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> whatsoever, because a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> not <A REL=DEFINITION HREF="26_glo_a.htm#accessible"><I>accessible</I></A> in any <A REL=DEFINITION HREF="26_glo_r.htm#registered_package"><I>registered package</I></A> will not be processed. <A REL=DEFINITION HREF="#do-all-symbols"><B>do-all-symbols</B></A> may cause a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> that is <A REL=DEFINITION HREF="26_glo_p.htm#present"><I>present</I></A> in several <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>packages</I></A> to be processed more than once. <P>
+<A REL=DEFINITION HREF="#do-external-symbols"><B>do-external-symbols</B></A> iterates on the external symbols of <I>package</I>. <P>
+When <I>result-form</I> is evaluated, <I>var</I> is bound and has the value <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+ An <A REL=DEFINITION HREF="26_glo_i.htm#implicit_block"><I>implicit block</I></A> named <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> surrounds the entire <A REL=DEFINITION HREF="#do-symbols"><B>do-symbols</B></A>, <A REL=DEFINITION HREF="#do-external-symbols"><B>do-external-symbols</B></A>, or <A REL=DEFINITION HREF="#do-all-symbols"><B>do-all-symbols</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>.  <A REL=DEFINITION HREF="m_return.htm#return"><B>return</B></A> or <A REL=DEFINITION HREF="s_ret_fr.htm#return-from"><B>return-from</B></A> may be used to terminate the iteration prematurely. <P>
+If execution of the body affects which <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> are contained in the set of <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>packages</I></A> over which iteration is occurring, other than to remove the <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> currently the value of <I>var</I> by using <A REL=DEFINITION HREF="f_uninte.htm#unintern"><B>unintern</B></A>, the consequences are undefined. <P>
+For each of these macros, the <A REL=DEFINITION HREF="26_glo_s.htm#scope"><I>scope</I></A> of the name binding does not include any initial value form, but the optional result forms are included. <P>
+Any <I>tag</I> in the body is treated as with <A REL=DEFINITION HREF="s_tagbod.htm#tagbody"><B>tagbody</B></A>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (make-package 'temp :use nil) =&gt;  #&lt;PACKAGE &quot;TEMP&quot;&gt;
+ (intern &quot;SHY&quot; 'temp) =&gt;  TEMP::SHY, NIL ;SHY will be an internal symbol
+                                         ;in the package TEMP
+ (export (intern &quot;BOLD&quot; 'temp) 'temp)  =&gt;  T  ;BOLD will be external  
+ (let ((lst ()))
+   (do-symbols (s (find-package 'temp)) (push s lst))
+   lst)
+=&gt;  (TEMP::SHY TEMP:BOLD)
+OR=&gt;  (TEMP:BOLD TEMP::SHY)
+ (let ((lst ()))
+   (do-external-symbols (s (find-package 'temp) lst) (push s lst))
+   lst) 
+=&gt;  (TEMP:BOLD)
+ (let ((lst ()))                                                     
+   (do-all-symbols (s lst)
+     (when (eq (find-package 'temp) (symbol-package s)) (push s lst)))
+   lst)
+=&gt;  (TEMP::SHY TEMP:BOLD)
+OR=&gt;  (TEMP:BOLD TEMP::SHY)
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_intern.htm#intern"><B>intern</B></A>, <A REL=DEFINITION HREF="f_export.htm#export"><B>export</B></A>,  <h2><A REL=CHILD HREF="03_f.htm">Section 3.6 (Traversal Rules and Side Effects)</A>  <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss240.htm">MAPPING-DESTRUCTIVE-INTERACTION:EXPLICITLY-VAGUE</A><LI> <A REL=CHILD HREF="../Issues/iss133.htm">DO-SYMBOLS-BLOCK-SCOPE:ENTIRE-FORM</A><LI> <A REL=CHILD HREF="../Issues/iss134.htm">DO-SYMBOLS-DUPLICATES</A><LI> <A REL=CHILD HREF="../Issues/iss254.htm">PACKAGE-FUNCTION-CONSISTENCY:MORE-PERMISSIVE</A><LI> <A REL=CHILD HREF="../Issues/iss097.htm">DECLS-AND-DOC</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

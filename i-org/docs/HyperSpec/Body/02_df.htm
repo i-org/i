@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 2.4.6</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="02_de.htm">
+<LINK REL=UP HREF="02_d.htm">
+<LINK REL=NEXT HREF="02_dfa.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="02_de.htm">◀</A><A REL=UP HREF="02_d.htm">▲</A><A REL=NEXT HREF="02_dfa.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+2.4.6 Backquote</H2>    <P>
+The <A REL=DEFINITION HREF="26_glo_b.htm#backquote"><I>backquote</I></A> introduces a template of a data structure to be built. For example, writing <P>
+<PRE>
+ `(cond ((numberp ,x) ,@y) (t (print ,x) ,@y))
+</PRE>
+</b> is roughly equivalent to writing <P>
+<PRE>
+ (list 'cond 
+       (cons (list 'numberp x) y) 
+       (list* 't (list 'print x) y))
+</PRE>
+</b> Where a comma occurs in the template, the <A REL=DEFINITION HREF="26_glo_e.htm#expression"><I>expression</I></A> following the comma is to be evaluated to produce an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> to be inserted at that point. Assume <b>b</b> has the value 3, for example, then evaluating the <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> denoted by <b>`(a b ,b ,(+ b 1) b)</b> produces the result <b>(a b 3 4 b)</b>. <P>
+If a comma is immediately followed by an <A REL=DEFINITION HREF="26_glo_a.htm#at-sign"><I>at-sign</I></A>, then the <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> following the <A REL=DEFINITION HREF="26_glo_a.htm#at-sign"><I>at-sign</I></A> is evaluated to produce a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> of <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A>. These <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A> are then ``spliced'' into place in the template. For example, if <b>x</b> has the value <b>(a b c)</b>, then <P>
+<PRE>
+ `(x ,x ,@x foo ,(cadr x) bar ,(cdr x) baz ,@(cdr x))
+=&gt;  (x (a b c) a b c foo b bar (b c) baz b c)
+</PRE>
+</b> The backquote syntax can be summarized formally as follows. <P>
+<P><ul><li>*  <b>`</b><I>basic</I><b></b> is the same as <b>'</b><I>basic</I><b></b>, that is, <b>(quote </b><I>basic</I><b>)</b>, for any <A REL=DEFINITION HREF="26_glo_e.htm#expression"><I>expression</I></A> <I>basic</I> that is not a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> or a general <A REL=DEFINITION HREF="26_glo_v.htm#vector"><I>vector</I></A>. <P></li>
+<li>*  <b>`,</b><I>form</I><b></b> is the same as <I>form</I>, for any <I>form</I>, provided that the representation of <I>form</I> does not begin with <A REL=DEFINITION HREF="26_glo_a.htm#at-sign"><I>at-sign</I></A> or <A REL=DEFINITION HREF="26_glo_d.htm#dot"><I>dot</I></A>. (A similar caveat holds for all occurrences of a form after a <A REL=DEFINITION HREF="26_glo_c.htm#comma"><I>comma</I></A>.) <P></li>
+<li>*  <b>`,@</b><I>form</I><b></b> has undefined consequences. <P></li>
+<li>*  <b>`(x1 x2 x3 ... xn . atom)</b> may be interpreted to mean <P></li>
+<PRE>
+ (append [ x1] [ x2] [ x3] ... [ xn] (quote atom))
+</PRE>
+</b> where the brackets are used to indicate a transformation of an <I>xj</I> as follows: <P>
+<P><ul><li>--  <b>[</b><I>form</I><b>]</b> is interpreted as <b>(list `</b><I>form</I><b>)</b>, which contains a backquoted form that must then be further interpreted. <P></li>
+<li>--  <b>[,</b><I>form</I><b>]</b> is interpreted as <b>(list </b><I>form</I><b>)</b>. <P></li>
+<li>--  <b>[,@</b><I>form</I><b>]</b> is interpreted as <I>form</I>. <P></li></ul><P>
+<li>*  <b>`(x1 x2 x3 ... xn)</b> may be interpreted to mean the same as the backquoted form <b>`(x1 x2 x3 ... xn . <A REL=DEFINITION HREF="a_nil.htm#nil"></b><B>nil</B><b></A>)</b>, thereby reducing it to the previous case. <P></li>
+<li>*  <b>`(x1 x2 x3 ... xn . ,form)</b> may be interpreted to mean <P></li>
+<PRE>
+ (append [ x1] [ x2] [ x3] ... [ xn] form)
+</PRE>
+</b> where the brackets indicate a transformation of an <b>xj</b> as described above. <P>
+<li>*  <b>`(x1 x2 x3 ... xn . ,@form)</b> has undefined consequences. <P></li>
+<li>*  <b>`#(x1 x2 x3 ... xn)</b> may be interpreted to mean <b>(apply #'vector `(x1 x2 x3 ... xn))</b>. <P></li></ul><P>
+Anywhere ``<b>,@</b>'' may be used, the syntax ``<b>,.</b>'' may be used instead to indicate that it is permissible to operate <I>destructively</I> on the <A REL=DEFINITION HREF="26_glo_l.htm#list_structure"><I>list structure</I></A> produced by the form following the ``<b>,.</b>'' (in effect, to use <A REL=DEFINITION HREF="f_nconc.htm#nconc"><B>nconc</B></A> instead of <A REL=DEFINITION HREF="f_append.htm#append"><B>append</B></A>). <P>
+If the backquote syntax is nested, the innermost backquoted form should be expanded first. This means that if several commas occur in a row, the leftmost one belongs to the innermost <A REL=DEFINITION HREF="26_glo_b.htm#backquote"><I>backquote</I></A>. <P>
+An <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> is free to interpret a backquoted <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> F1 as any <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> F2 that, when evaluated, will produce a result that is the <A REL=DEFINITION HREF="26_glo_s.htm#same"><I>same</I></A> under <A REL=DEFINITION HREF="f_equal.htm#equal"><B>equal</B></A> as the result implied by the above definition, provided that the side-effect behavior of the substitute <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> F2 is also consistent with the description given above. The constructed copy of the template might or might not share <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> structure with the template itself. As an example, the above definition implies that <P>
+<PRE>
+ `((,a b) ,c ,@d)
+</PRE>
+</b> will be interpreted as if it were <P>
+<PRE>
+ (append (list (append (list a) (list 'b) '<A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>)) (list c) d '<A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>)
+</PRE>
+</b> but it could also be legitimately interpreted to mean any of the following: <P>
+<PRE>
+ (append (list (append (list a) (list 'b))) (list c) d)
+ (append (list (append (list a) '(b))) (list c) d)
+ (list* (cons a '(b)) c d)
+ (list* (cons a (list 'b)) c d)
+ (append (list (cons a '(b))) (list c) d)
+ (list* (cons a '(b)) c (copy-list d))
+</PRE>
+</b> <P>
+
+ 
+<h2><A REL=CHILD HREF="02_dfa.htm">
+2.4.6.1 Notes about Backquote</a></h2><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

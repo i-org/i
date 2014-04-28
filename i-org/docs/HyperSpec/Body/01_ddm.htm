@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 1.4.4.13</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="01_ddl.htm">
+<LINK REL=UP HREF="01_dd.htm">
+<LINK REL=NEXT HREF="01_ddn.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="01_ddl.htm">◀</A><A REL=UP HREF="01_dd.htm">▲</A><A REL=NEXT HREF="01_ddn.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+1.4.4.13 The ``Method Signature'' Section of a Dictionary Entry</H2> <P>
+The description of a <A REL=DEFINITION HREF="26_glo_g.htm#generic_function"><I>generic function</I></A> includes descriptions of the <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>methods</I></A> that are defined on that <A REL=DEFINITION HREF="26_glo_g.htm#generic_function"><I>generic function</I></A> by the standard. A method signature is used to describe the <A REL=DEFINITION HREF="26_glo_p.htm#parameter"><I>parameters</I></A> and <A REL=DEFINITION HREF="26_glo_p.htm#parameter_specializer"><I>parameter specializers</I></A> for each <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A>. <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>Methods</I></A> defined for the <A REL=DEFINITION HREF="26_glo_g.htm#generic_function"><I>generic function</I></A> must be of the form described by the <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> <A REL=DEFINITION HREF="26_glo_s.htm#signature"><I>signature</I></A>. <P>
+
+<B>F</B> <I>(<I>x</I> <I>class</I>) (<I>y</I> t) <b>&amp;optional</b> <I>z</I> <b>&amp;key</b> <I>k</I></I><P>
+ <P>
+This <A REL=DEFINITION HREF="26_glo_s.htm#signature"><I>signature</I></A> indicates that this method on the <A REL=DEFINITION HREF="26_glo_g.htm#generic_function"><I>generic function</I></A> <B>F</B> has two <A REL=DEFINITION HREF="26_glo_r.htm#required_parameter"><I>required parameters</I></A>: <I>x</I>, which must be a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_instance"><I>generalized instance</I></A> of the <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> <I>class</I>; and <I>y</I>, which can be any <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> (i.e., a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_instance"><I>generalized instance</I></A> of the <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> <A REL=DEFINITION HREF="t_t.htm#t"><B>t</B></A>). In addition, there is an <A REL=DEFINITION HREF="26_glo_o.htm#optional_parameter"><I>optional parameter</I></A> <I>z</I> and a <A REL=DEFINITION HREF="26_glo_k.htm#keyword_parameter"><I>keyword parameter</I></A> <I>k</I>. This <A REL=DEFINITION HREF="26_glo_s.htm#signature"><I>signature</I></A> also indicates that this method on <b>F</b> is a <A REL=DEFINITION HREF="26_glo_p.htm#primary_method"><I>primary method</I></A> and has no <A REL=DEFINITION HREF="26_glo_q.htm#qualifier"><I>qualifiers</I></A>. <P>
+For each <A REL=DEFINITION HREF="26_glo_p.htm#parameter"><I>parameter</I></A>, the <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A> supplied must be in the intersection of the <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> specified in the description of the corresponding <A REL=DEFINITION HREF="26_glo_g.htm#generic_function"><I>generic function</I></A> and the <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> given in the <A REL=DEFINITION HREF="26_glo_s.htm#signature"><I>signature</I></A> of some <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> (including not only those <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>methods</I></A> defined in this specification, but also <A REL=DEFINITION HREF="26_glo_i.htm#implementation-defined"><I>implementation-defined</I></A> or user-defined <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>methods</I></A> in situations where the definition of such <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>methods</I></A> is permitted). <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

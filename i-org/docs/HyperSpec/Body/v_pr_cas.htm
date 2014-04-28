@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Variable *PRINT-CASE*</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="v_pr_bas.htm">
+<LINK REL=UP HREF="c_printe.htm">
+<LINK REL=NEXT HREF="v_pr_cir.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="v_pr_bas.htm">◀</A><A REL=UP HREF="c_printe.htm">▲</A><A REL=NEXT HREF="v_pr_cir.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="STprint-caseST"><I>Variable</I> <B>*PRINT-CASE*</B></A> <P>
+<p><b>●值类型:</b><P>
+ <P>
+One of the <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> <b>:upcase</b>, <b>:downcase</b>, or <b>:capitalize</b>. <P>
+<p><b>●初始值:</b><P>
+ <P>
+The <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> <b>:upcase</b>. <P>
+<p><b>●详情:</b><P>
+ <P>
+The <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> of <A REL=DEFINITION HREF="#STprint-caseST"><B>*print-case*</B></A> controls the case (upper, lower, or mixed) in which to print any uppercase characters in the names of <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> when vertical-bar syntax is not used. <P>
+  <A REL=DEFINITION HREF="#STprint-caseST"><B>*print-case*</B></A> has an effect at all times when the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> of <A REL=DEFINITION HREF="v_pr_esc.htm#STprint-escapeST"><B>*print-escape*</B></A> is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>. <A REL=DEFINITION HREF="#STprint-caseST"><B>*print-case*</B></A> also has an effect when the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> of <A REL=DEFINITION HREF="v_pr_esc.htm#STprint-escapeST"><B>*print-escape*</B></A> is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> unless inside an escape context (i.e., unless between <A REL=DEFINITION HREF="26_glo_v.htm#vertical-bar"><I>vertical-bars</I></A> or after a <A REL=DEFINITION HREF="26_glo_s.htm#slash"><I>slash</I></A>).     <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (defun test-print-case ()
+   (dolist (*print-case* '(:upcase :downcase :capitalize))
+     (format t &quot;~&amp;~S ~S~%&quot; 'this-and-that '|And-something-elSE|)))
+=&gt;  TEST-PC
+;; Although the choice of which characters to escape is specified by
+;; *PRINT-CASE*, the choice of how to escape those characters 
+;; (i.e., whether single escapes or multiple escapes are used)
+;; is implementation-dependent.  The examples here show two of the
+;; many valid ways in which escaping might appear.
+ (test-print-case) ;Implementation A
+&gt;&gt;  THIS-AND-THAT |And-something-elSE|
+&gt;&gt;  this-and-that a\n\d-\s\o\m\e\t\h\i\n\g-\e\lse
+&gt;&gt;  This-And-That A\n\d-\s\o\m\e\t\h\i\n\g-\e\lse
+=&gt;  NIL
+ (test-print-case) ;Implementation B
+&gt;&gt;  THIS-AND-THAT |And-something-elSE|
+&gt;&gt;  this-and-that a|nd-something-el|se
+&gt;&gt;  This-And-That A|nd-something-el|se
+=&gt;  NIL
+</PRE>
+</b> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_wr_pr.htm#write"><B>write</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_rd_rd.htm#read"><B>read</B></A> normally converts lowercase characters appearing in <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> to corresponding uppercase characters, so that internally print names normally contain only uppercase characters. <P>
+If <A REL=DEFINITION HREF="v_pr_esc.htm#STprint-escapeST"><B>*print-escape*</B></A> is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A>, lowercase characters in the <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>name</I></A> of a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> are always printed in lowercase, and are preceded by a single escape character or enclosed by multiple escape characters; uppercase characters in the <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>name</I></A> of a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> are printed in upper case, in lower case, or in mixed case so as to capitalize words, according to the value of <A REL=DEFINITION HREF="#STprint-caseST"><B>*print-case*</B></A>. The convention for what constitutes a ``word'' is the same as for <A REL=DEFINITION HREF="f_stg_up.htm#string-capitalize"><B>string-capitalize</B></A>. <p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss272.htm">PRINT-CASE-BEHAVIOR:CLARIFY</A><LI> <A REL=CHILD HREF="../Issues/iss204.htm">JUN90-TRIVIAL-ISSUES:3</A><LI> <A REL=CHILD HREF="../Issues/iss273.htm">PRINT-CASE-PRINT-ESCAPE-INTERACTION:VERTICAL-BAR-RULE-NO-UPCASE</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

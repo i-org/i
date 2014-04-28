@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Accessor SYMBOL-FUNCTION</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_gentem.htm">
+<LINK REL=UP HREF="c_symbol.htm">
+<LINK REL=NEXT HREF="f_symb_2.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_gentem.htm">◀</A><A REL=UP HREF="c_symbol.htm">▲</A><A REL=NEXT HREF="f_symb_2.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="symbol-function"><I>Accessor</I> <B>SYMBOL-FUNCTION</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>symbol-function</B> <I>symbol</I> =&gt; <I>contents</I><P>
+ 
+<b>(setf (</b><B>symbol-function</B> <I>symbol</I><b>) </b><I>new-contents</I><b>)</b><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+ <I>symbol</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>.  <P>
+<I>contents</I>---  If the <I>symbol</I> is globally defined as a <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macro</I></A> or a <A REL=DEFINITION HREF="26_glo_s.htm#special_operator"><I>special operator</I></A>, an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> of <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> nature and identity is returned. If the <I>symbol</I> is not globally defined as either a <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macro</I></A> or a <A REL=DEFINITION HREF="26_glo_s.htm#special_operator"><I>special operator</I></A>, and if the <I>symbol</I> is <A REL=DEFINITION HREF="26_glo_f.htm#fbound"><I>fbound</I></A>, a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> is returned.  <P>
+ <I>new-contents</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A>.  <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="26_glo_a.htm#access"><I>Accesses</I></A> the <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>'s <A REL=DEFINITION HREF="26_glo_f.htm#function_cell"><I>function cell</I></A>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (symbol-function 'car) =&gt;  #&lt;FUNCTION CAR&gt;
+ (symbol-function 'twice) is an error   ;because TWICE isn't defined.
+ (defun twice (n) (* n 2)) =&gt;  TWICE
+ (symbol-function 'twice) =&gt;  #&lt;FUNCTION TWICE&gt;
+ (list (twice 3)
+       (funcall (function twice) 3)
+       (funcall (symbol-function 'twice) 3))
+=&gt;  (6 6 6)
+ (flet ((twice (x) (list x x)))
+   (list (twice 3)
+         (funcall (function twice) 3)
+         (funcall (symbol-function 'twice) 3)))
+=&gt;  ((3 3) (3 3) 6)   
+ (setf (symbol-function 'twice) #'(lambda (x) (list x x)))
+=&gt;  #&lt;FUNCTION anonymous&gt;
+ (list (twice 3)
+       (funcall (function twice) 3)
+       (funcall (symbol-function 'twice) 3))
+=&gt;  ((3 3) (3 3) (3 3))
+ (fboundp 'defun) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (symbol-function 'defun)
+=&gt;  <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent">implementation-dependent</A>
+ (functionp (symbol-function 'defun))
+=&gt;  <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent">implementation-dependent</A>
+ (defun symbol-function-or-nil (symbol)
+   (if (and (fboundp symbol) 
+            (not (macro-function symbol))
+            (not (special-operator-p symbol)))
+       (symbol-function symbol)
+       nil)) =&gt;  SYMBOL-FUNCTION-OR-NIL
+ (symbol-function-or-nil 'car) =&gt;  #&lt;FUNCTION CAR&gt;
+ (symbol-function-or-nil 'defun) =&gt;  NIL
+</PRE>
+</b>  <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_defun.htm#defun"><B>defun</B></A> <P>
+<p><b>●例外情况：</b><P>
+ <P>
+Should signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if <I>symbol</I> is not a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>. <P>
+Should signal <A REL=DEFINITION HREF="e_undefi.htm#undefined-function"><B>undefined-function</B></A> if <I>symbol</I> is not <A REL=DEFINITION HREF="26_glo_f.htm#fbound"><I>fbound</I></A> and an attempt is made to <A REL=DEFINITION HREF="26_glo_r.htm#read"><I>read</I></A> its definition. (No such error is signaled on an attempt to <A REL=DEFINITION HREF="26_glo_w.htm#write"><I>write</I></A> its definition.) <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_fbound.htm#fboundp"><B>fboundp</B></A>, <A REL=DEFINITION HREF="f_fmakun.htm#fmakunbound"><B>fmakunbound</B></A>, <A REL=DEFINITION HREF="f_macro_.htm#macro-function"><B>macro-function</B></A>,  <A REL=DEFINITION HREF="f_specia.htm#special-operator-p"><B>special-operator-p</B></A>  <P>
+<p><b>●说明:</b><P>
+ <A REL=DEFINITION HREF="#symbol-function"><B>symbol-function</B></A> cannot <A REL=DEFINITION HREF="26_glo_a.htm#access"><I>access</I></A> the value of a lexical function name produced by <A REL=DEFINITION HREF="s_flet_.htm#flet"><B>flet</B></A> or <A REL=DEFINITION HREF="s_flet_.htm#labels"><B>labels</B></A>; it can <A REL=DEFINITION HREF="26_glo_a.htm#access"><I>access</I></A> only the global function value. <P>
+<A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A> may be used with <A REL=DEFINITION HREF="#symbol-function"><B>symbol-function</B></A> to replace a global function definition when the <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>'s function definition does not represent a <A REL=DEFINITION HREF="26_glo_s.htm#special_operator"><I>special operator</I></A>. <P>
+<PRE>
+(symbol-function symbol) ==  (fdefinition symbol)
+</PRE>
+</b> However, <A REL=DEFINITION HREF="f_fdefin.htm#fdefinition"><B>fdefinition</B></A> accepts arguments other than just <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A>. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss321.htm">SPECIAL-FORM-P-MISNOMER:RENAME</A><LI> <A REL=CHILD HREF="../Issues/iss179.htm">FUNCTION-TYPE:X3J13-MARCH-88</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

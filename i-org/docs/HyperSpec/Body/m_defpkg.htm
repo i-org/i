@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Macro DEFPACKAGE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_use_pk.htm">
+<LINK REL=UP HREF="c_packag.htm">
+<LINK REL=NEXT HREF="m_do_sym.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_use_pk.htm">◀</A><A REL=UP HREF="c_packag.htm">▲</A><A REL=NEXT HREF="m_do_sym.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="defpackage"><I>Macro</I> <B>DEFPACKAGE</B></A> <P>
+ <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>defpackage</B> <I>defined-package-name [[<I>option</I>]]</I> =&gt; <I>package</I><P>
+ <P>
+ <PRE>
+option::= (:nicknames nickname*)* |  
+          (:documentation string) |  
+          (:use package-name*)* |  
+          (:shadow {symbol-name}*)* |  
+          (:shadowing-import-from package-name {symbol-name}*)* |  
+          (:import-from package-name {symbol-name}*)* |  
+          (:export {symbol-name}*)* |  
+          (:intern {symbol-name}*)* |  
+          (:size <A REL=DEFINITION HREF="26_glo_i.htm#integer">integer</A>) 
+</PRE>
+  <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>defined-package-name</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#string_designator"><I>string designator</I></A>. <P>
+ <I>package-name</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#package_designator"><I>package designator</I></A>.  <P>
+<I>nickname</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#string_designator"><I>string designator</I></A>. <P>
+<I>symbol-name</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#string_designator"><I>string designator</I></A>. <P>
+<I>package</I>---the <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> named <I>package-name</I>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#defpackage"><B>defpackage</B></A> creates a <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> as specified and returns the <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A>. <P>
+If <I>defined-package-name</I> already refers to an existing <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A>, the name-to-package mapping for that name is not changed. If the new definition is at variance with the current state of that <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A>, the consequences are undefined; an implementation might choose to modify the existing <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> to reflect the new definition. If <I>defined-package-name</I> is a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>, its <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>name</I></A> is used. <P>
+The standard <I>options</I> are described below. <P>
+<P><ul><li><b>:nicknames</b>  <P>
+The arguments to <b>:nicknames</b> set the <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A>'s nicknames to the supplied names. </li>
+ <li><b>:documentation</b>  <P>
+The argument to <b>:documentation</b> specifies a <A REL=DEFINITION HREF="26_glo_d.htm#documentation_string"><I>documentation string</I></A>; it is attached as a <A REL=DEFINITION HREF="26_glo_d.htm#documentation_string"><I>documentation string</I></A> to the <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A>. 
+At most one <b>:documentation</b> option can appear in a single <A REL=DEFINITION HREF="#defpackage"><B>defpackage</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. </li>
+<li><b>:use</b>  <P>
+The arguments to <b>:use</b> set the <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>packages</I></A> that the <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> named by <I>package-name</I> will inherit from. If <b>:use</b> is not supplied,  it defaults to the same <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> value as the <b>:use</b> <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A> to <A REL=DEFINITION HREF="f_mk_pkg.htm#make-package"><B>make-package</B></A>. </li>
+<li><b>:shadow</b>  <P>
+The arguments to <b>:shadow</b>, <I>symbol-names</I>, name <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> that are to be created in the <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> being defined. These <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> are added to the list of shadowing <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> effectively as if by <A REL=DEFINITION HREF="f_shadow.htm#shadow"><B>shadow</B></A>. </li>
+<li><b>:shadowing-import-from</b>  <P>
+The <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> named by the argument <I>symbol-names</I> are found (involving a lookup as if by <A REL=DEFINITION HREF="f_find_s.htm#find-symbol"><B>find-symbol</B></A>) in the specified <I>package-name</I>. The resulting <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> are <I>imported</I> into the <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> being defined, and placed on the shadowing symbols list as if by <A REL=DEFINITION HREF="f_shdw_i.htm#shadowing-import"><B>shadowing-import</B></A>. In no case are <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> created in any <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> other than the one being defined. </li>
+<li><b>:import-from</b>  <P>
+The <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> named by the argument <I>symbol-names</I> are found in the <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> named by <I>package-name</I> and they are <I>imported</I> into the <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> being defined. In no case are <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> created in any <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> other than the one being defined. </li>
+<li><b>:export</b>  <P>
+The <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> named by the argument <I>symbol-names</I> are found or created in the <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> being defined and <A REL=DEFINITION HREF="26_glo_e.htm#exported"><I>exported</I></A>. 
+The <b>:export</b> option interacts with the <b>:use</b> option, since inherited <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> can be used rather than new ones created. 
+The <b>:export</b> option interacts with the <b>:import-from</b> and <b>:shadowing-import-from</b> options, since <I>imported</I> symbols can be used rather than new ones created. If an argument to the <b>:export</b> option is <A REL=DEFINITION HREF="26_glo_a.htm#accessible"><I>accessible</I></A> as an (inherited) <A REL=DEFINITION HREF="26_glo_i.htm#internal_symbol"><I>internal symbol</I></A> via <A REL=DEFINITION HREF="f_use_pk.htm#use-package"><B>use-package</B></A>, that the <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> 
+named by <I>symbol-name</I> is first <I>imported</I> into the <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> being defined, and is then <A REL=DEFINITION HREF="26_glo_e.htm#exported"><I>exported</I></A> from that <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A>. </li>
+<li><b>:intern</b>  <P>
+The <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> named by the argument <I>symbol-names</I> are found or created in the <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> being defined. The <b>:intern</b> option interacts with the <b>:use</b> option, since inherited <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> can be used rather than new ones created. </li>
+<li><b>:size</b>  <P>
+The argument to the <b>:size</b> option declares the approximate number of <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> expected in the <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A>. This is an efficiency hint only and might be ignored by an implementation.</li></ul><P>
+<A REL=DEFINITION HREF="#defpackage"><B>defpackage</B></A>里，选项的出现顺序和执行顺序是无关的，其执行顺序如下：<P>
+<ul><li>1.  <b>:shadow</b> and <b>:shadowing-import-from</b>. </li>
+<li>2.  <b>:use</b>. </li>
+<li>3.  <b>:import-from</b> and <b>:intern</b>. </li>
+<li>4.  <b>:export</b>. <P></li>
+</ul>
+Shadows are established first, since they might be necessary to block spurious name conflicts when the <b>:use</b> option is processed. 
+The <b>:use</b> option is executed next so that <b>:intern</b> and <b>:export</b> options can refer to normally inherited <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A>. The <b>:export</b> option is executed last so that it can refer to <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> created by any of the other options; in particular, <A REL=DEFINITION HREF="26_glo_s.htm#shadowing_symbol"><I>shadowing symbols</I></A> and <I>imported</I> <A REL=DEFINITION HREF="26_glo_s.htm#symbol"
+><I>symbols</I></A> can be made external. <P>
+ If a defpackage <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> appears as a <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level form</I></A>, all of the actions normally performed by this <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macro</I></A> at load time must also be performed at compile time.  <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (defpackage &quot;MY-PACKAGE&quot;
+   (:nicknames &quot;MYPKG&quot; &quot;MY-PKG&quot;)
+   (:use &quot;COMMON-LISP&quot;)
+   (:shadow &quot;CAR&quot; &quot;CDR&quot;)
+   (:shadowing-import-from &quot;VENDOR-COMMON-LISP&quot;  &quot;CONS&quot;)
+   (:import-from &quot;VENDOR-COMMON-LISP&quot;  &quot;GC&quot;)
+   (:export &quot;EQ&quot; &quot;CONS&quot; &quot;FROBOLA&quot;)
+   )
+ 
+ 
+ (defpackage my-package
+   (:nicknames mypkg :MY-PKG)  ; remember Common Lisp conventions for case
+   (:use common-lisp)          ; conversion on symbols
+   (:shadow CAR :cdr #:cons)                              
+   (:export &quot;CONS&quot;)            ; this is the shadowed one.
+   )
+</PRE>
+</b> <P>
+<p><b>●受制于:</b><P>
+ <P>
+Existing <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>packages</I></A>. <P>
+<p><b>●例外情况：</b><P>
+ <P>
+If one of the supplied <b>:nicknames</b> already refers to an existing <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A>, an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_pkg_er.htm#package-error"><B>package-error</B></A> is signaled. <P>
+An error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_progra.htm#program-error"><B>program-error</B></A> should be signaled if <b>:size</b> or <b>:documentation</b> appears more than once. <P>
+Since <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementations</I></A> might allow extended <I>options</I> an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_progra.htm#program-error"><B>program-error</B></A> should be signaled if an <I>option</I> is present that is not actually supported in the host <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A>. <P>
+The collection of <I>symbol-name</I> arguments given to the options <b>:shadow</b>, <b>:intern</b>, <b>:import-from</b>, and <b>:shadowing-import-from</b> must all be disjoint; additionally, the <I>symbol-name</I> arguments given to <b>:export</b> and <b>:intern</b> must be disjoint. Disjoint in this context is defined as no two of the <I>symbol-names</I> being <A REL=DEFINITION HREF="f_stgeq_.htm#stringEQ"><B>string=</B></A> with each other. If either condition is violated, an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_progra.htm#program-error"><B>program-error</B></A> should be signaled. <P>
+For the <b>:shadowing-import-from</b> and <b>:import-from</b> options, a <A REL=DEFINITION HREF="26_glo_c.htm#correctable"><I>correctable</I></A> <A REL=DEFINITION HREF="26_glo_e.htm#error"><I>error</I></A> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_pkg_er.htm#package-error"><B>package-error</B></A> is signaled if no <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> is <A REL=DEFINITION HREF="26_glo_a.htm#accessible"><I>accessible</I></A> in the <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> named by <I>package-name</I> for one of the argument <I>symbol-names</I>. <P>
+Name conflict errors are handled by the underlying calls to <A REL=DEFINITION HREF="f_mk_pkg.htm#make-package"><B>make-package</B></A>, <A REL=DEFINITION HREF="f_use_pk.htm#use-package"><B>use-package</B></A>, <A REL=DEFINITION HREF="f_import.htm#import"><B>import</B></A>, and <A REL=DEFINITION HREF="f_export.htm#export"><B>export</B></A>. See <A REL=CHILD HREF="11_a.htm">Section 11.1 (Package Concepts)</A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_docume.htm#documentation"><B>documentation</B></A>, <A REL=CHILD HREF="11_a.htm">Section 11.1 (Package Concepts)</A>, <A REL=CHILD HREF="03_b.htm">Section 3.2 (Compilation)</A> <P>
+<p><b>●说明:</b><P>
+ <P>
+The <b>:intern</b> option is useful if an <b>:import-from</b> or a <b>:shadowing-import-from</b> option in a subsequent call to <A REL=DEFINITION HREF="#defpackage"><B>defpackage</B></A> (for some other <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A>) expects to find these <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> <A REL=DEFINITION HREF="26_glo_a.htm#accessible"><I>accessible</I></A> but not necessarily external. <P>
+It is recommended that the entire <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> definition is put in a single place, 
+and that all the <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> definitions of a program are in a single file. This file can be <I>loaded</I> before <I>loading</I> or compiling anything else that depends on those <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>packages</I></A>. Such a file can be read in the <b>COMMON-LISP-USER</b> package, avoiding any initial state issues. <P>
+<A REL=DEFINITION HREF="#defpackage"><B>defpackage</B></A> cannot be used to create two ``mutually recursive'' packages, such as: <P>
+<PRE>
+ (defpackage my-package
+   (:use common-lisp your-package)    ;requires your-package to exist first
+   (:export &quot;MY-FUN&quot;))                
+ (defpackage your-package
+   (:use common-lisp)
+   (:import-from my-package &quot;MY-FUN&quot;) ;requires my-package to exist first
+   (:export &quot;MY-FUN&quot;))
+</PRE>
+</b> <P>
+However, nothing prevents the user from using the <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A>-affecting functions such as <A REL=DEFINITION HREF="f_use_pk.htm#use-package"><B>use-package</B></A>, <A REL=DEFINITION HREF="f_import.htm#import"><B>import</B></A>, and <A REL=DEFINITION HREF="f_export.htm#export"><B>export</B></A> to establish such links after a more standard use of <A REL=DEFINITION HREF="#defpackage"><B>defpackage</B></A>. <P>
+The macroexpansion of <A REL=DEFINITION HREF="#defpackage"><B>defpackage</B></A> could usefully canonicalize the names into <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>strings</I></A>, so that even if a source file has random <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> in the <A REL=DEFINITION HREF="#defpackage"><B>defpackage</B></A> form, the compiled file would only contain <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>strings</I></A>. <P>
+Frequently additional <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> options take the form of a <A REL=DEFINITION HREF="26_glo_k.htm#keyword"><I>keyword</I></A> standing by itself as an abbreviation for a list <b>(keyword T)</b>; this syntax should be properly reported as an unrecognized option in implementations that do not support it. <P>
+ <p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss059.htm">COMPILE-FILE-HANDLING-OF-TOP-LEVEL-FORMS:CLARIFY</A><LI> <A REL=CHILD HREF="../Issues/iss238.htm">MAKE-PACKAGE-USE-DEFAULT:IMPLEMENTATION-DEPENDENT</A><LI> <A REL=CHILD HREF="../Issues/iss254.htm">PACKAGE-FUNCTION-CONSISTENCY:MORE-PERMISSIVE</A><LI> <A REL=CHILD HREF="../Issues/iss135.htm">DOCUMENTATION-FUNCTION-BUGS:FIX</A><LI> <A REL=CHILD HREF="../Issues/iss108.htm">DEFPACKAGE:ADDITION</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>
