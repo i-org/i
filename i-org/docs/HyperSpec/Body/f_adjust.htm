@@ -42,31 +42,31 @@
 If <I>initial-contents</I> is supplied, it is treated as for <A REL=DEFINITION HREF="f_mk_ar.htm#make-array"><B>make-array</B></A>. In this case none of the original contents of <I>array</I> appears in the resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A>. <P>
  If <I>fill-pointer</I> is an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>, it becomes the <A REL=DEFINITION HREF="26_glo_f.htm#fill_pointer"><I>fill pointer</I></A> for the resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A>. If <I>fill-pointer</I> is the symbol <A REL=DEFINITION HREF="a_t.htm#t"><B>t</B></A>, it indicates that the size of the resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> should be used as the <A REL=DEFINITION HREF="26_glo_f.htm#fill_pointer"><I>fill pointer</I></A>. If <I>fill-pointer</I> is <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>, it indicates that the <A REL=DEFINITION HREF="26_glo_f.htm#fill_pointer"><I>fill pointer</I></A> should be left as it is.  <P>
 If <I>displaced-to</I> <A REL=DEFINITION HREF="26_glo_n.htm#non-nil"><I>non-nil</I></A>, a <A REL=DEFINITION HREF="26_glo_d.htm#displaced_array"><I>displaced array</I></A> is created. The resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> shares its contents with the <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> given by <I>displaced-to</I>. The resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> cannot contain more elements than the <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> it is displaced to. If <I>displaced-to</I> is not supplied or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>, the resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> is not a <A REL=DEFINITION HREF="26_glo_d.htm#displaced_array"><I>displaced array</I></A>. If array A is created displaced to array B and subsequently array B is given to <A REL=DEFINITION HREF="#adjust-array"><B>adjust-array</B></A>, array A will still be displaced to array B. Although <I>array</I> might be a <A REL=DEFINITION HREF="26_glo_d.htm#displaced_array"><I>displaced array</I></A>, the resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> is not a <A REL=DEFINITION HREF="26_glo_d.htm#displaced_array"><I>displaced array</I></A> unless <I>displaced-to</I> is supplied and not <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>.  The interaction between <A REL=DEFINITION HREF="#adjust-array"><B>adjust-array</B></A> and displaced <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>arrays</I></A> is as follows given three <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>arrays</I></A>, <b>A</b>, <b>B</b>, and <b>C</b>: <P>
-<P><ul><li><b>A</b> is not displaced before or after the call  <P></li>
+<P><ul><li><b>A</b> is not displaced before or after the call  <P>
 <PRE>
  (adjust-array A ...)
 </PRE>
 </b> <P>
-The dimensions of <b>A</b> are altered, and the contents rearranged as appropriate. Additional elements of <b>A</b> are taken from <I>initial-element</I>. The use of <I>initial-contents</I> causes all old contents to be discarded. <P>
-<li><b>A</b> is not displaced before, but is displaced to <b>C</b> after the call  <P></li>
+The dimensions of <b>A</b> are altered, and the contents rearranged as appropriate. Additional elements of <b>A</b> are taken from <I>initial-element</I>. The use of <I>initial-contents</I> causes all old contents to be discarded. </li><P>
+<li><b>A</b> is not displaced before, but is displaced to <b>C</b> after the call  <P>
 <PRE>
  (adjust-array A ... :displaced-to C)
 </PRE>
 </b> <P>
-None of the original contents of <b>A</b> appears in <b>A</b> afterwards; <b>A</b> now contains the contents of <b>C</b>, without any rearrangement of <b>C</b>. <P>
-<li><b>A</b> is displaced to <b>B</b> before the call, and is displaced to <b>C</b> after the call  <P></li>
+None of the original contents of <b>A</b> appears in <b>A</b> afterwards; <b>A</b> now contains the contents of <b>C</b>, without any rearrangement of <b>C</b>. </li><P>
+<li><b>A</b> is displaced to <b>B</b> before the call, and is displaced to <b>C</b> after the call  <P>
 <PRE>
  (adjust-array A ... :displaced-to B)
  (adjust-array A ... :displaced-to C)
 </PRE>
 </b> <P>
-<b>B</b> and <b>C</b> might be the same. The contents of <b>B</b> do not appear in <b>A</b> afterward unless such contents also happen to be in <b>C</b> If <I>displaced-index-offset</I> is not supplied in the <A REL=DEFINITION HREF="#adjust-array"><B>adjust-array</B></A> call, it defaults to zero; the old offset into <b>B</b> is not retained. <P>
-<li><b>A</b> is displaced to <b>B</b> before the call, but not displaced afterward.  <P></li>
+<b>B</b> and <b>C</b> might be the same. The contents of <b>B</b> do not appear in <b>A</b> afterward unless such contents also happen to be in <b>C</b> If <I>displaced-index-offset</I> is not supplied in the <A REL=DEFINITION HREF="#adjust-array"><B>adjust-array</B></A> call, it defaults to zero; the old offset into <b>B</b> is not retained. </li><P>
+<li><b>A</b> is displaced to <b>B</b> before the call, but not displaced afterward.  <P>
 <PRE>
  (adjust-array A ... :displaced-to B)
  (adjust-array A ... :displaced-to nil)
 </PRE>
-</b> <b>A</b> gets a new ``data region,'' and contents of <b>B</b> are copied into it as appropriate to maintain the existing old contents; additional elements of <b>A</b> are taken from <I>initial-element</I> if supplied. However, the use of <I>initial-contents</I> causes all old contents to be discarded. <P></ul> <P>
+</b> <b>A</b> gets a new ``data region,'' and contents of <b>B</b> are copied into it as appropriate to maintain the existing old contents; additional elements of <b>A</b> are taken from <I>initial-element</I> if supplied. However, the use of <I>initial-contents</I> causes all old contents to be discarded. <P></li></ul> <P>
 If <I>displaced-index-offset</I> is supplied, it specifies the offset of the resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> from the beginning of the <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> that it is displaced to. If <I>displaced-index-offset</I> is not supplied, the offset is 0. The size of the resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> plus the offset value cannot exceed the size of the <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> that it is displaced to. <P>
 If only <I>new-dimensions</I> and an <I>initial-element</I> argument are supplied, those elements of <I>array</I> that are still in bounds appear in the resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A>. The elements of the resulting <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> that are not in the bounds of <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> are initialized to <I>initial-element</I>; if <I>initial-element</I> is not provided,  the consequences of later reading any such new <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>element</I></A> of <I>new-array</I> before it has been initialized are undefined.  <P>
 If <I>initial-contents</I> or <I>displaced-to</I> is supplied, then none of the original contents of <I>array</I> appears in the new <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A>. <P>
