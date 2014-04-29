@@ -1,44 +1,52 @@
 ---
 layout: default
 ---
-<h1>{{ page.title }}</h1>
+<header>
+  <h1>{{ page.title }}</h1>
 
-{% if page.description %}<p class="abstract"><b>摘要：</b><br/>{{page.description}}</p>{% endif %}
+  {% if page.description %}<p class="abstract"><b>摘要：</b><br/>{{page.description}}</p>{% endif %}
 
-<p class="meta">创建时间：{{ page.date | date: '%Y-%m-%d' }}</p>
+  <p class="meta">创建时间：{{ page.date | date: '%Y-%m-%d' }}</p>
+</header>
 
 <div class="post">
-  {{ content }}
-  
+  <article>
+    {{ content }}
+  </article>
   <!-- 有言评论 -->
   <!-- UY BEGIN -->
   <div id="uyan_frame"></div>
   <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1921243"></script>
   <!-- UY END -->
-  
+
 </div>
 
 <!--上一篇 话题 下一篇-->
-<div class="header-tip">
+<div class="post-relative">
 
   {% if page.previous %}
-  <div class="header-pre">
+  <div class="post-pre">
     <a class="pull-right" href="{{ page.previous.url }}" rel="bookmark">上一篇：{{ page.previous.title | truncatewords:5 }}</a>
   </div>
   {% endif %}
   
-  <div class="header-tag">
+  <div class="post-tag">
     {% for tag in page.tags %}
-    <a href="/category/tags.html#{{tag}}-ref">{{tag}}</a>
+    【<a href="/category/tags.html#{{tag}}-ref">{{tag}}</a>】
     <sup>{{ tag.size }}</sup>
     &nbsp;
     {% endfor %}
   </div>
 
   {% if page.next %}
-  <div class="header-next">
+  <div class="post-next">
     <a href="{{ page.next.url }}" rel="bookmark">下一篇：{{ page.next.title | truncatewords:5 }}</a>
   </div>
   {% endif %}
 </div>
 <!--上一篇 话题 下一篇 END-->
+
+
+
+
+

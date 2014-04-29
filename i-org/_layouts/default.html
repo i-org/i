@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
-    <head>
-      {% include head.html %}
-    </head>
-    <body>
+  <head>
+    {% include head.html %}
+  </head>
+  <body>
 
-        <div class="site">
+    <div class="site">
 
-          {% include header.html %}
+      {% include header.html %}
+      
+      {{ content }}
 
-          {{ content }}
+      {% include footer.html %}
 
-          {% include footer.html %}
-
-        </div>
-<script data-main="scripts/main" src="/static/scripts/require.js" defer async="true"></script>
-    </body>
+    </div>
+    <script data-main="/static/javascript/main" src="/static/javascript/require.js"  defer async="true"></script>
+  </body>
 </html>

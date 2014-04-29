@@ -1,3 +1,2 @@
-# 手动设置忽略的文件和文件夹
-_site
 /.directory
+_site
