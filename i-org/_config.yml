@@ -6,3 +6,6 @@ pygments: true
 
 include:
 - .nojekyll
+
+# 样式选择
+themes: /themes/atlas

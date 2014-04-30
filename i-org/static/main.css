@@ -1,0 +1,127 @@
+/*****************************************************************************/
+/*
+/* 首页设定
+/*
+/*****************************************************************************/
+.home {
+
+}
+.index-show {
+    text-align: center;
+}
+.site-name,
+.slogan {
+    text-shadow: #ee3333 -20px 0px 8px, #33ee33 20px 0px 5px;
+}
+
+.site-name {
+    font-size: 350%;
+    font-weight: bold;
+    margin: -250px 0 10px 0;
+}
+.slogan {
+    font-size: 200%;
+    font-style: italic;
+}
+@media all and (max-width: 36em) {
+    .site-name {
+        font-size: 250%;
+    }
+    .slogan {
+        font-size: 150%;
+    }
+}
+
+
+
+.rounded1 {
+    width: 250px;
+    height: 250px;
+    -moz-border-radius: 130px;
+    -webkit-border-radius: 130px;
+    border-radius: 130px;
+    background-color: rgba(187,187,255, 0.75);
+    margin-top: 20px;
+    margin-left: 720px;
+}
+
+.rounded2 {
+    width: 60px;
+    height: 60px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    background-color: rgba(255,187,187, 0.75);
+    margin-top: -35px;
+    margin-left: 690px;
+}
+
+.rounded3 {
+    width: 180px;
+    height: 180px;
+    -moz-border-radius: 90px;
+    -webkit-border-radius: 90px;
+    border-radius: 90px;
+    background-color: rgba(255,187,187, 0.75);
+    margin-top: -180px;
+    margin-left: 470px;
+}
+
+.rounded4 {
+    width: 120px;
+    height: 120px;
+    -moz-border-radius: 60px;
+    -webkit-border-radius: 60px;
+    border-radius: 60px;
+    background-color: rgba(187,187,255, 0.75);
+    margin-top: -180px;
+    margin-left: 220px;
+}
+
+.rounded5 {
+    width: 60px;
+    height: 60px;
+
+    background: rgba(255, 187, 187, 0.75);
+    
+    border-radius: 30px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    
+    margin-top: -210px;
+    margin-left: 150px;
+    
+    box-shadow: 0px 0 50px gold;
+    -moz-box-shadow: 0px 0 50px gold;
+    -webkit-box-shadow: 0px 0 50px gold;
+
+    -webkit-transition: all 3s ease-in-out;
+    -moz-transition: all 3s ease-in-out;
+    -o-transition: all 3s ease-in-out;
+    transition: all 3s ease-in-out;
+}
+.rounded5:hover {
+    background-color: rgba(255,255,0, 0.75) ;
+}
+
+.rounded6 {
+    width: 180px;
+    height: 180px;
+    -moz-border-radius: 90px;
+    -webkit-border-radius: 90px;
+    border-radius: 90px;
+    background-color: rgba(255,187,187, 0.75);
+    margin-left: 60px;
+    margin-top: 110px;
+}       
+
+
+/*****************************************************************************/
+/*
+/* 评论设定
+/*
+/*****************************************************************************/
+#uyan_frame {
+    margin-top: 20px;
+}
+

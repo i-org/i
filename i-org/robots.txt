@@ -2,5 +2,7 @@
 layout: none
 ---
 User-agent: *
-Disallow: /static/css/
-Disallow: /static/javascript/
+Disallow: /static/
+Disallow: /themes/
+
+Sitemap: {{ site.url }}/sitemap.xml
