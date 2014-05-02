@@ -1,5 +1,28 @@
 /*****************************************************************************/
 /*
+/* 文内样式
+/*
+/*****************************************************************************/
+
+/* :::: 文章多屏显示 :::: */
+@media all and (min-width: 50em) {
+    .post {
+        column-count: 2;
+	-moz-column-count: 2;
+	-webkit-column-count: 2;
+
+        column-rule: 1px solid white;
+	-moz-column-rule: 1px solid white;
+	-webkit-column-rule: 1px solid white;
+        
+        column-gap: 35px;
+	-moz-column-gap: 35px;
+	-webkit-column-gap: 35px;
+    }
+}
+
+/*****************************************************************************/
+/*
 /* 首页设定
 /*
 /*****************************************************************************/
@@ -32,6 +55,19 @@
     }
 }
 
+.index-maxim {
+      background: #BBBBFF;
+    font-size: 90%;
+
+    padding: 5px 5px 5px 5px;
+    display: block;
+    margin: 1em 0;
+  
+}
+
+.index-maxim:hover {
+    background: #DEDFFF;
+}
 
 
 .rounded1 {

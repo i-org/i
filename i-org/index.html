@@ -14,19 +14,19 @@ title: 爱编——第一种国际化编程语言
         <p class="site-name"> 爱编 </p>
         <p class="slogan">——第一种国际化编程语言</p>
         <img src="static/i-org.png">
-        <blockquote>
+        <div class="index-maxim">
           惠,爱也。——《尔雅》
-        </blockquote>
+        </div>
   </div>
   <div class="post">
     <h2>最新进展</h2>
-    <ul class="nav-post">
+    <ul class="post-list">
     {% for post in site.posts %}
       <li><span>{{ post.date | date: '%Y-%m-%d' }}</span><a href="{{ post.url }}">{{ post.title }}</a></li>
     {% endfor %}
     </ul>
     <h2>常用文档</h2>
-    <ul class="nav-resource">
+    <ul class="resource-list">
       <li><a href="/docs/HyperSpec/Front/index.htm">通链参考手册HyperSpec for Common Lisp</a></li>
       <li><a href="https://github.com/i-org/cl-zh">通链参考手册文档下载地址在此</a></li>
       <li><a href="https://github.com/i-org/egg-zh">易码肆之“鹅哥哥”(egg)成果管理插件中文版</a></li>

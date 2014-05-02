@@ -105,7 +105,7 @@ summary {
     }
      
     /*
-    * Improves readability when focused and also mouse hovered in all browsers.
+    * 鼠标击中，悬浮其上，去掉外框。
     */
      
     a:active,
@@ -183,7 +183,7 @@ summary {
     }
      
     /*
-    * Addresses styling not present in IE 6/7/8/9.
+    * 强调色，6/7/8/9未设定，此处补充设定。
     */
      
     mark {
@@ -246,7 +246,7 @@ summary {
     }
      
     /*
-    * Prevents `sub` and `sup` affecting `line-height` in all browsers.
+    * 上下标Prevents `sub` and `sup` affecting `line-height` in all browsers.
     */
      
     sub,
@@ -327,7 +327,7 @@ summary {
     }
      
     /* ==========================================================================
-    Figures
+    Figures浮层
     ========================================================================== */
      
     /*
@@ -518,27 +518,10 @@ body {
 /*
 /*****************************************************************************/
 
-/* :::: 文章双屏显示 :::: */
-@media all and (min-width: 50em) {
-    .post {
-        column-count: 2;
-	-moz-column-count: 2;
-	-webkit-column-count: 2;
-
-        column-rule: 1px solid white;
-	-moz-column-rule: 1px solid white;
-	-webkit-column-rule: 1px solid white;
-        
-        column-gap: 35px;
-	-moz-column-gap: 35px;
-	-webkit-column-gap: 35px;
-    }
-}
-
 /* :::: 反馈设置 :::: */
 
 h1,h2,h3,h4,h5,h6,p,li,
-p code,li code,pre,th,td,blockquote,footer
+p code,li code,pre,th,td,blockquote,aside,footer
 {
     -webkit-transition: all 1s ease-in-out;
     -moz-transition: all 1s ease-in-out;
@@ -862,10 +845,11 @@ sup:hover {
 }
 
 blockquote {
-    background: #BBBBFF;
+    background: #FDF7F7;
     font-size: 90%;
 
     padding: 5px 5px 5px 5px;
+    border-left: 5px solid #BBBBFF;
 }
 
 blockquote:hover {
@@ -875,6 +859,16 @@ blockquote:hover {
 hr {
 }
 
+figure {
+
+}
+figcaption {
+
+}
+
+img {
+    max-width: 600px;
+}
 
 /*****************************************************************************/
 /*
@@ -1024,11 +1018,10 @@ hr {
 /*
 /*****************************************************************************/
 nav {
-    display: block;
     position: fixed;
-    bottom: 8%;
-    left: -50px;
+
     font-size: 85%;
+    text-align: left;
     
     max-height: 80%;
     min-height: 40%;
@@ -1040,9 +1033,20 @@ nav {
     z-index: 800;
 }
 
+.site-nav {
+    bottom: 8%;
+    left: -5px;
+}
+
+.outline {
+    bottom: 8%;
+    right: 5px;
+}
+
+
 nav li,
-.nav-resource li,
-.nav-post li {
+.resource-list li,
+.post-list li {
     padding: 0;
     border-bottom: 1px solid #cdcdcd;
 }
@@ -1054,32 +1058,34 @@ nav li a {
 }
 
 nav li a:hover,
-.nav-resource li a:hover,
-.nav-post li a:hover {
+.resource-list li a:hover,
+.post-list li a:hover {
     color: white;
     background-color: #6C71C4;
 }
 
-.nav-post span {
+.post-list span {
     display: block;
     position: absolute;
     background: #E0E0FF;
     padding: 5px 10px;
 }
 
-.nav-resource li a,
-.nav-post li a {
+.resource-list li a,
+.post-list li a {
     background: #eee;
     display: block;
     padding: 5px 0 5px 10px;
 }
 
-.nav-post li a {
+.post-list li a {
     margin: 0 0 0 6.6em;
 }
 
-.nav-resource,
-.nav-post,
+.site-nav,
+.resource-list,
+.post-list,
+.outline,
 .nav-page,
 .system-info,
 .site-map,
@@ -1138,6 +1144,9 @@ nav li a:hover,
 /* 其他交互设定
 /*
 /*****************************************************************************/
+dialog {
+    
+}
 /* 注册登录 */
 .layer {
     top: 0;
@@ -1166,7 +1175,23 @@ nav li a:hover,
     -webkit-box-shadow: 0 0 20px black;
 }
 
+/*****************************************************************************/
+/*
+/* 批注
+/*
+/*****************************************************************************/
 
+aside {
+    background: #C0FFC0;
+    font-size: 90%;
+
+    padding: 5px 5px 5px 5px;
+    border-left: 5px solid black;
+}
+
+aside:hover {
+    background: #FDF7F7;
+}
 
 /*****************************************************************************/
 /*
