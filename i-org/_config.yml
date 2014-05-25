@@ -1,8 +1,19 @@
-name: 爱编——第一种国际化编程语言
-markdown: redcarpet
-redcarpet:
-    extensions: [tables, underline, strikethrough]
-pygments: true
+# Site settings
+title: 爱编——第一种国际化编程语言
+email: gmail for jobinson99
+description: "爱编——第一种国际化编程语言"
+baseurl: ""
+url: "http://i-org.tk"
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+relative_permalinks: true
+
+future: true
+
+# 语法高亮
+highlighter: pygments
 
 include:
 - .nojekyll

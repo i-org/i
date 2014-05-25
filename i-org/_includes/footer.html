@@ -1,4 +1,4 @@
-<footer>
+<footer class="site-footer">
   <div class="contact">
     <img src="/static/i-org-standard.png">
   </div>
@@ -10,18 +10,19 @@
     </p>
   </div>
   <div class="contact">
-    <p>
-      <a href="https://github.com/i-org">项目所在仓库</a><br />
-      
-    </p>
+    <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+    <p class="rss-subscribe"><a href="{{ "/feed.xml" | prepend: site.baseurl }}">戳此处关注我</a></p>
+    
   </div>
 
   <div class="contact">
-    <p>致谢：<a href="http://www.github.com">github</a>，
+    <p>致谢：
+      <a href="http://www.github.com">github</a>，
       <a href="http://jekyllrb.com/">jekyll</a>，
       <a href="http://johnmacfarlane.net/pandoc/index.html">pandoc</a>，以及一切对本项目有帮助的人！
     </p>
-
+    <p><a href="https://github.com/i-org">项目所在仓库</a></p>
+      
     <!--百度统计-->
     <script type="text/javascript">
 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");

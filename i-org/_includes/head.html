@@ -1,14 +1,19 @@
+<head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>{{ page.title }}</title>
+<title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+<meta name="description" content="{{ site.description }}">
+
+<link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 
 <!-- 皮肤样式 -->
-<link rel="stylesheet" href="{{ site.url }}{{ site.themes }}/css/style.css">
+<link rel="stylesheet" href="{{ site.themes | prepend: site.baseurl }}/css/style.css">
 
 <!-- 首页和404各站特异的样式 -->
-<link rel="stylesheet" href="{{ site.url }}/static/main.css">
+<link rel="stylesheet" href="{{ "/static/main.css" | prepend: site.baseurl }}">
 
-<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="{{ "/favicon.ico" | prepend: site.baseurl }}">
 
+</head>

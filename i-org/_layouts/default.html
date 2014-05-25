@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    {% include head.html %}
-  </head>
-  <body>
 
-    <div class="site">
+    {% include head.html %}
+    
+  <body>
 
       {% include header.html %}
       
@@ -13,10 +11,11 @@
 
       {% include footer.html %}
 
-    </div>
-    <script data-main="{{ site.url }}{{ site.themes }}/static/javascript/main" src="{{ site.url }}{{ site.themes }}/javascript/require.js"  defer async="true"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="{{ site.url }}{{ site.themes }}/javascript/modules/jquery.js"></script>
-    <script type="text/javascript" src="{{ site.url }}{{ site.themes }}/javascript/outliner.js"></script>
+    <script data-main="{{ site.themes | prepend: site.baseurl }}/static/javascript/main" src="{{ site.themes  | prepend: site.baseurl}}/static/javascript/require.js" defer async="true"></script>
+    
+    <script type="text/javascript" src="{{ site.themes | prepend: site.baseurl }}/javascript/modules/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="{{ site.themes | prepend: site.baseurl }}/javascript/modules/jquery.js"></script>
+    <script type="text/javascript" src="{{ site.themes | prepend: site.baseurl }}/javascript/outliner.js"></script>
+    <script type="text/javascript" src="{{ site.themes | prepend: site.baseurl }}/javascript/toc.js"></script>
   </body>
 </html>
