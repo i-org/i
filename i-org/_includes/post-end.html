@@ -1,0 +1,39 @@
+<!-- 文章页面尾部设定 -->
+<div class="post-end">
+
+  <!-- 有言评论 -->
+  <div id="uyan_frame"></div>
+  <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1921243"></script>
+  
+  <!-- 结束有言评论 -->
+
+<div class="post-shift">
+  <!--回到头部-->
+  <div class="back-top"><a href="#{{ page.title }}">△从头再看▲</a></div>
+
+  <!--上一篇 话题 下一篇-->
+  <div class="post-relative">
+
+  {% if page.previous %}
+  <div class="post-pre">
+    <a class="pull-right" href="{{ page.previous.url }}">◀上一篇◁{{ page.previous.title | truncatewords:5 }}</a>
+  </div>
+  {% endif %}
+  
+  {% if page.next %}
+  <div class="post-next">
+    <a href="{{ page.next.url }}">▷下一篇▶{{ page.next.title | truncatewords:5 }}</a>
+  </div>
+  {% endif %}
+</div>
+
+</div>
+
+<!--页面底部自动浮现-->
+<div class="post-reletive">
+  <!--相关文章-->
+
+</div>
+
+
+</div>

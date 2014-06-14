@@ -522,7 +522,7 @@ body {
 
 h1,h2,h3,h4,h5,h6,p,li,
 p code,li code,pre,th,td,blockquote,aside,footer,
-.post-pre,.post-tag a,.post-next,.categories a:hover,
+.post-pre,.post-tag a,.post-next,.post-categories a:hover,
 {
     -webkit-transition: all 1s ease-in-out;
     -moz-transition: all 1s ease-in-out;
@@ -566,14 +566,11 @@ h6 {
     padding: 15px 5px 10px 40px;;
 }
 
-
-.meta {
-    color: #aaa;
-    font-size: 80%;
-    text-align: right;
+.post-header .post-categories {
+    background-color: gold;
 }
 
-.abstract {
+.post-abstract {
     padding: 20px;
     margin-top: 0;
     background-color: #C0FFC0;
@@ -581,12 +578,23 @@ h6 {
     border-top: 1px solid #DCDCDC;
 }
 
-/* 上篇 话题 下篇 */
-
-.post-relative {
-    margin: 30px 0;
+.post-abstract .post-tag a {
+    background-color: gray;
 }
 
+
+.meta {
+    color: #aaa;
+    font-size: 80%;
+    text-align: right;
+}
+
+.meta a:hover {
+    color: white;
+    background-color: #6c71c4;
+}
+
+/* 上篇 话题 下篇 */
 .post-pre {
     display: block;
     float: left;
@@ -597,18 +605,6 @@ h6 {
     padding-left: 10px;
     background-color: green;
     color: white;
-}
-
-.post-tag {
-    display: block;
-    float: left;
-    margin-left: 25px;
-    margin-bottom: 10px;
-
-}
-.post-tag a:hover {
-    color: white;
-    background-color: #6c71c4;
 }
 
 .post-next {
@@ -623,11 +619,12 @@ h6 {
     background-color: #6c71c4;
     color: white;
 }
-.categories a:hover {
-    color: white;
-    background-color: #6c71c4; 
-}
 
+/* 相关推荐 */
+
+.post-relative {
+    margin: 30px 0;
+}
 
 /* :::: 内容设定 :::: */
 
@@ -1107,12 +1104,6 @@ nav li a:hover,
 .post-list li a {
     margin: 0 0 0 6.6em;
 }
-.post-description {
-    display:block;
-    padding-left: 30px;
-    font-size: 90%;
-    color: gray;
-}
 
 .site-nav,
 .resource-list,
@@ -1244,29 +1235,33 @@ footer {
     -webkit-box-shadow: 0px 0 55px #000000;
 }
 
-footer:hover {
-    color: white;
-    background-color: #3c3c3c;
+footer ul {
+    list-style: none;
+    list-style-image: none;
+    margin: 0;
+    padding: 0;
 }
-
-footer .contact {
-    float: left;
+footer li {
+    display: block;
     width: 300px;
-    padding: 3px 2px;
+    float: left;
+    border: 0;
+}
+footer li:hover {
+    background-color: black;
 }
 
-footer .contact a {
-    color: gray;
+footer li span {
+    display: block;
+    float: left;
+    width: 100%;
 }
-footer .contact a:hover {
+
+footer .rss-img {
 
 }
-footer .rss {
 
-}
-footer .rss img {
 
-}
 
 /*****************************************************************************/
 /*

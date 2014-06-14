@@ -1,32 +1,35 @@
 <footer class="site-footer">
-  <div class="contact">
-    <img src="/static/i-org-standard.png">
-  </div>
-  <div class="contact">
-    <p>
-      爱编<br />
+  <ul>
+    <li>
+      <span><img src="/static/i-org-standard.png"></span>
+    </li>
+    <li>
+      <span>{{ site.title }}<br />
       尔雅国际化编程语言促进会<br />
-      International Programming Language Stardard Promotion Org
-    </p>
-  </div>
-  <div class="contact">
-    <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
-    <p class="rss-subscribe"><a href="{{ "/feed.xml" | prepend: site.baseurl }}">戳此处关注我</a></p>
-    
-  </div>
-
-  <div class="contact">
-    <p>致谢：
+      International Programming Language Stardard Promotion Org</span>
+    </li>    
+    <li>
+      <span><a href="mailto:{{ site.email }}">{{ site.email }}</a></span>
+      <span><a href="{{ "/feed.xml" | prepend: site.baseurl }}">戳此处关注我</a></span>
+      <span><a href="https://github.com/i-org">项目所在仓库</a></span>
+    </li>    
+    <li>
+      <span>致谢： <br>
       <a href="http://www.github.com">github</a>，
       <a href="http://jekyllrb.com/">jekyll</a>，
-      <a href="http://johnmacfarlane.net/pandoc/index.html">pandoc</a>，以及一切对本项目有帮助的人！
-    </p>
-    <p><a href="https://github.com/i-org">项目所在仓库</a></p>
-      
-    <!--百度统计-->
+      <a href="http://johnmacfarlane.net/pandoc/index.html">pandoc</a>，以及一切对本项目有帮助的人！</span>
+      <span><!--百度统计-->
     <script type="text/javascript">
 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fcaa690fb1efc6ff0f90703bd5c90b3c7' type='text/javascript'%3E%3C/script%3E"));
 </script>
-  </div>
+      </span>
+    </li>    
+  </ul> 
 </footer>
+
+    <script type="text/javascript" src="{{ site.themes | prepend: site.baseurl }}/javascript/modules/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="{{ site.themes | prepend: site.baseurl }}/javascript/modules/jquery.js"></script>
+    <script type="text/javascript" src="{{ site.themes | prepend: site.baseurl }}/javascript/outliner.js"></script>
+    <script type="text/javascript" src="{{ site.themes | prepend: site.baseurl }}/javascript/toc.js"></script>
+    

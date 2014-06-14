@@ -161,3 +161,81 @@
     margin-top: 20px;
 }
 
+
+/*****************************************************************************/
+/*
+/* 404的设定
+/*
+/*****************************************************************************/
+
+.layer {
+  background: transparent url(/static/404.png) no-repeat;
+}
+
+/*****************************************************************************/
+/*
+/* 营销相关的设定
+/*
+/*****************************************************************************/
+
+.hao123 {
+    margin-top: -20px;
+    width: 100%;
+    height: 100%;
+    display: block;
+    
+    position: fixed;
+    z-index: 100;
+}
+
+.to-left,
+.to-right {
+    display: block;
+    width: 110px;
+    height: 65px;
+    top: 30%;
+    position: fixed;
+    z-index: 101;
+
+    padding: 0;
+}
+
+.to-left {
+    float: left;
+    left: 0px;
+}
+
+.to-left a {
+    display: block;
+    height: 65px;
+    background: url(/static/operation.png) -100px -420px;
+
+    transition: all 0s ease-out;
+    -moz-transition: all 0s ease-out;
+    -webkit-transition: all 0s ease-out;
+    -o-transition: all 0s ease-out;
+}
+.to-left a:hover {
+    background: url(/static/operation.png) -100px -489px;
+
+    
+}
+.to-right {
+    float: right;
+    right: 0px;
+}
+.to-right a {
+    display: block;
+    height: 65px;
+    background: url(/static/operation.png) 3px -420px;
+
+    transition: all 0s ease-out;
+    -moz-transition: all 0s ease-out;
+    -webkit-transition: all 0s ease-out;
+    -o-transition: all 0s ease-out;
+}
+
+.to-right a:hover {
+    background: url(/static/operation.png) 3px -489px;
+}
+

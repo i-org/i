@@ -3,67 +3,50 @@ layout: default
 ---
 
 <div class="post">
-
-<header class="post-header">
-<h1 id="{{ page.title }}">{{ page.title }}</h1>
-
-  {% if page.description %}
-  <p class="abstract"><b>摘要：</b><br/>{{page.description}}</p>
-  {% endif %}
-
-  <p class="meta">
-  {% if page.categories.size != 0 %}
-<span class="categories">归类：
-  {% for cat in page.categories %}
-  <a href="/categories/#{{ cat }}-ref">【{{ cat }}】</a>
-  {% endfor %}
-</span>
-{% endif %}
-
-  创建时间：{{ page.date | date: '%Y-%m-%d' }}
   
-        {% if page.author %} • {{ page.author }}{% endif %}
-      {% if page.meta %} • {{ page.meta }}{% endif %}
-  </p>
-</header>
+  <header class="post-header">
+    <h1 id="{{ page.title }}">
+      {% if page.categories.size != 0 %}
+      <span class="post-categories">
+        {% for cat in page.categories %}
+        <a href="/分类列表/#{{ cat }}-ref">{{ cat }}</a>
+        {% endfor %}
+      </span>
+      {% endif %}
+      
+      {{ page.title }}</h1>
 
+    <div class="post-abstract">
+      {% if page.description %}
+      <p class="post-description"><b>摘要：</b><br/>{{page.description}}</p>
+      {% endif %}
+
+      {% if page.tag.size != 0 %}
+      <p class="post-tag"><b>话题：</b>
+        {% for tag in page.tags %}
+        <a href="/话题列表/#{{tag}}-ref">{{tag}}</a>
+        <sup>{{ site.tags[tag].size }}</sup>
+        &nbsp;
+        {% endfor %}
+      </p>
+      {% endif %}
+      
+    </div>
+
+    <p class="meta">
+      创建时间：{{ page.date | date: '%Y-%m-%d' }}
+      {% if page.author %} • {{ page.author }}{% endif %}
+      {% if page.meta %} • {{ page.meta }}{% endif %}
+    </p>
+    
+  </header>
 
   <article class="post-content">
     {{ content }}
   </article>
-  <!-- 有言评论 -->
-  <!-- UY BEGIN -->
-  <div id="uyan_frame"></div>
-  <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1921243"></script>
-  <!-- UY END -->
 
-<p><a href="#{{ page.title }}">从头看</a></p>
-
-<!--上一篇 话题 下一篇-->
-<div class="post-relative">
-
-  {% if page.previous %}
-  <div class="post-pre">
-    <a class="pull-right" href="{{ page.previous.url }}" rel="bookmark">上一篇：{{ page.previous.title | truncatewords:5 }}</a>
-  </div>
-  {% endif %}
-  
-  <div class="post-tag">
-    {% for tag in page.tags %}
-    <a href="/tags/#{{tag}}-ref">【{{tag}}】</a>
-    <sup>{{ tag.size }}</sup>
-    &nbsp;
-    {% endfor %}
-  </div>
-
-  {% if page.next %}
-  <div class="post-next">
-    <a href="{{ page.next.url }}" rel="bookmark">下一篇：{{ page.next.title | truncatewords:5 }}</a>
-  </div>
-  {% endif %}
-</div>
-<!--上一篇 话题 下一篇 END-->  
-  
+  {% include post-end.html %}
+ 
 </div>
 
 
