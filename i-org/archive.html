@@ -7,15 +7,16 @@ permalink: /时间列表/
 --- 
 
 <section class="subject-archive">
-<div class="post">
     <ul class="post-list">
       {% for post in site.posts %}
-      <li><span class="post-date">{{ post.date | date: '%Y-%m-%d' }}</span>
-      <a href="{{ post.url }}">{{ post.title }}</a>
-      
-      {% if post.description %}<span class="post-description">{{ post.description }}</span>{% endif %}
+      <li>
+        <a href="{{ post.url }}">{{ post.title }}
+          <span class="post-date">{{ post.date | date: '%Y-%m-%d' }}</span>
+          <br>
+          {% if post.description %}<span class="post-description">{{ post.description }}</span>{% endif %}
+          
+        </a>
       </li>
       {% endfor %}
     </ul>
-</div>
-</section> 
+</section>

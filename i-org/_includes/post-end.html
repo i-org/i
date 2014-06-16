@@ -7,33 +7,32 @@
   
   <!-- 结束有言评论 -->
 
-<div class="post-shift">
-  <!--回到头部-->
-  <div class="back-top"><a href="#{{ page.title }}">△从头再看▲</a></div>
+  <div class="post-shift">
 
-  <!--上一篇 话题 下一篇-->
-  <div class="post-relative">
 
-  {% if page.previous %}
-  <div class="post-pre">
-    <a class="pull-right" href="{{ page.previous.url }}">◀上一篇◁{{ page.previous.title | truncatewords:5 }}</a>
+    <!--上一篇 话题 下一篇-->
+    {% if page.previous %}
+    <div class="post-pre">
+      <a class="pull-right" href="{{ page.previous.url }}">◀前篇◁{{ page.previous.title | truncatewords:5 }}</a>
+    </div>
+    {% endif %}
+    
+     <!--回到头部-->
+    <div class="back-top"><a href="#{{ page.title }}">△从头再看▲</a></div> 
+    
+    {% if page.next %}
+    <div class="post-next">
+    <a href="{{ page.next.url }}">▷后篇▶{{ page.next.title | truncatewords:5 }}</a>
+    </div>
+    {% endif %}
+    
   </div>
-  {% endif %}
-  
-  {% if page.next %}
-  <div class="post-next">
-    <a href="{{ page.next.url }}">▷下一篇▶{{ page.next.title | truncatewords:5 }}</a>
-  </div>
-  {% endif %}
-</div>
-
-</div>
 
 <!--页面底部自动浮现-->
-<div class="post-reletive">
+  <div class="post-reletive">
   <!--相关文章-->
 
-</div>
+  </div>
 
 
 </div>
