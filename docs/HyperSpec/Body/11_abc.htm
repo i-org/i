@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 11.1.2.3</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="11_abb.htm">
+<LINK REL=UP HREF="11_ab.htm">
+<LINK REL=NEXT HREF="11_abca.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="11_abb.htm">◀</A><A REL=UP HREF="11_ab.htm">▲</A><A REL=NEXT HREF="11_abca.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+11.1.2.3 The KEYWORD Package</H2>  <P>
+The <b>KEYWORD</b> package contains <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A>, called <A REL=DEFINITION HREF="26_glo_k.htm#keyword"><I>keywords</I></A>[1], that are typically used as special markers in <A REL=DEFINITION HREF="26_glo_p.htm#program"><I>programs</I></A> and their associated data <A REL=DEFINITION HREF="26_glo_e.htm#expression"><I>expressions</I></A>[1]. <P>
+<A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>Symbol</I></A> <A REL=DEFINITION HREF="26_glo_t.htm#token"><I>tokens</I></A> that start with a <A REL=DEFINITION HREF="26_glo_p.htm#package_marker"><I>package marker</I></A> are parsed by the <A REL=DEFINITION HREF="26_glo_l.htm#lisp_reader"><I>Lisp reader</I></A> as <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> in the <b>KEYWORD</b> package; see <A REL=CHILD HREF="02_cd.htm">Section 2.3.4 (Symbols as Tokens)</A>. This makes it notationally convenient to use <A REL=DEFINITION HREF="26_glo_k.htm#keyword"><I>keywords</I></A> when communicating between programs in different <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>packages</I></A>. For example, the mechanism for passing <A REL=DEFINITION HREF="26_glo_k.htm#keyword_parameter"><I>keyword parameters</I></A> in a <A REL=DEFINITION HREF="26_glo_c.htm#call"><I>call</I></A> uses <A REL=DEFINITION HREF="26_glo_k.htm#keyword"><I>keywords</I></A>[1] to name the corresponding <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>arguments</I></A>; see <A REL=CHILD HREF="03_da.htm">Section 3.4.1 (Ordinary Lambda Lists)</A>. <P>
+<A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>Symbols</I></A> in the <b>KEYWORD</b> package are, by definition, of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="t_kwd.htm#keyword"><B>keyword</B></A>. <P>
+
+ 
+<h2><A REL=CHILD HREF="11_abca.htm">
+11.1.2.3.1 Interning a Symbol in the KEYWORD Package</a></h2>
+ 
+<h2><A REL=CHILD HREF="11_abcb.htm">
+11.1.2.3.2 Notes about The KEYWORD Package</a></h2><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

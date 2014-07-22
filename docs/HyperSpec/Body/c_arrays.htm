@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section The Arrays Dictionary</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="15_abb.htm">
+<LINK REL=UP HREF="15_.htm">
+<LINK REL=NEXT HREF="t_array.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="15_abb.htm">◀</A><A REL=UP HREF="15_.htm">▲</A><A REL=NEXT HREF="t_array.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+15.2 The Arrays Dictionary</H2> 
+
+ <ul>
+<LI><A REL=CHILD HREF="t_array.htm"><I>System Class</I> <B>ARRAY</B></A>
+ 
+<LI><A REL=CHILD HREF="t_smp_ar.htm"><I>Type</I> <B>SIMPLE-ARRAY</B></A>
+ 
+<LI><A REL=CHILD HREF="t_vector.htm"><I>System Class</I> <B>VECTOR</B></A>
+ 
+<LI><A REL=CHILD HREF="t_smp_ve.htm"><I>Type</I> <B>SIMPLE-VECTOR</B></A>
+ 
+<LI><A REL=CHILD HREF="t_bt_vec.htm"><I>System Class</I> <B>BIT-VECTOR</B></A>
+ 
+<LI><A REL=CHILD HREF="t_smp_bt.htm"><I>Type</I> <B>SIMPLE-BIT-VECTOR</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_mk_ar.htm"><I>Function</I> <B>MAKE-ARRAY</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_adjust.htm"><I>Function</I> <B>ADJUST-ARRAY</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_adju_1.htm"><I>Function</I> <B>ADJUSTABLE-ARRAY-P</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_aref.htm"><I>Accessor</I> <B>AREF</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_ar_dim.htm"><I>Function</I> <B>ARRAY-DIMENSION</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_ar_d_1.htm"><I>Function</I> <B>ARRAY-DIMENSIONS</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_ar_ele.htm"><I>Function</I> <B>ARRAY-ELEMENT-TYPE</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_ar_has.htm"><I>Function</I> <B>ARRAY-HAS-FILL-POINTER-P</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_ar_dis.htm"><I>Function</I> <B>ARRAY-DISPLACEMENT</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_ar_in_.htm"><I>Function</I> <B>ARRAY-IN-BOUNDS-P</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_ar_ran.htm"><I>Function</I> <B>ARRAY-RANK</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_ar_row.htm"><I>Function</I> <B>ARRAY-ROW-MAJOR-INDEX</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_ar_tot.htm"><I>Function</I> <B>ARRAY-TOTAL-SIZE</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_arrayp.htm"><I>Function</I> <B>ARRAYP</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_fill_p.htm"><I>Accessor</I> <B>FILL-POINTER</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_row_ma.htm"><I>Accessor</I> <B>ROW-MAJOR-AREF</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_upgr_1.htm"><I>Function</I> <B>UPGRADED-ARRAY-ELEMENT-TYPE</B></A>
+
+ 
+<LI><A REL=CHILD HREF="v_ar_dim.htm"><I>Constant Variable</I> <B>ARRAY-DIMENSION-LIMIT</B></A>
+
+ 
+<LI><A REL=CHILD HREF="v_ar_ran.htm"><I>Constant Variable</I> <B>ARRAY-RANK-LIMIT</B></A>
+
+ 
+<LI><A REL=CHILD HREF="v_ar_tot.htm"><I>Constant Variable</I> <B>ARRAY-TOTAL-SIZE-LIMIT</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_smp_ve.htm"><I>Function</I> <B>SIMPLE-VECTOR-P</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_svref.htm"><I>Accessor</I> <B>SVREF</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_vector.htm"><I>Function</I> <B>VECTOR</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_vec_po.htm"><I>Function</I> <B>VECTOR-POP</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_vec_ps.htm"><I>Function</I> <B>VECTOR-PUSH, VECTOR-PUSH-EXTEND</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_vecp.htm"><I>Function</I> <B>VECTORP</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_bt_sb.htm"><I>Accessor</I> <B>BIT, SBIT</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_bt_and.htm"><I>Function</I> <B>BIT-AND, BIT-ANDC1, BIT-ANDC2, BIT-EQV, BIT-IOR, BIT-NAND, BIT-NOR, BIT-NOT, BIT-ORC1, BIT-ORC2, BIT-XOR</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_bt_vec.htm"><I>Function</I> <B>BIT-VECTOR-P</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_smp_bt.htm"><I>Function</I> <B>SIMPLE-BIT-VECTOR-P</B></A>
+</ul><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

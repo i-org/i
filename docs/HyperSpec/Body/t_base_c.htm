@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Type BASE-CHAR</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="t_ch.htm">
+<LINK REL=UP HREF="c_charac.htm">
+<LINK REL=NEXT HREF="t_std_ch.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="t_ch.htm">◀</A><A REL=UP HREF="c_charac.htm">▲</A><A REL=NEXT HREF="t_std_ch.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="base-char"><I>Type</I> <B>BASE-CHAR</B></A> <P>
+ <P>
+<p><b>●Supertypes:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#base-char"><B>base-char</B></A>, <A REL=DEFINITION HREF="t_ch.htm#character"><B>character</B></A>, <A REL=DEFINITION HREF="t_t.htm#t"><B>t</B></A> <P>
+<p><b>●详情:</b><P>
+ <P>
+The <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="#base-char"><B>base-char</B></A> is defined as the <A REL=DEFINITION HREF="26_glo_u.htm#upgraded_array_element_type"><I>upgraded array element type</I></A> of <A REL=DEFINITION HREF="t_std_ch.htm#standard-char"><B>standard-char</B></A>. An <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> can support additional <A REL=DEFINITION HREF="26_glo_s.htm#subtype"><I>subtypes</I></A> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="t_ch.htm#character"><B>character</B></A> (besides the ones listed in this standard) that might or might not be <A REL=DEFINITION HREF="26_glo_s.htm#supertype"><I>supertypes</I></A> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="#base-char"><B>base-char</B></A>. In addition, an <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> can define <A REL=DEFINITION HREF="#base-char"><B>base-char</B></A> to be the <A REL=DEFINITION HREF="26_glo_s.htm#same"><I>same</I></A> <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> as <A REL=DEFINITION HREF="t_ch.htm#character"><B>character</B></A>. <P>
+<A REL=DEFINITION HREF="26_glo_b.htm#base_character"><I>Base characters</I></A> are distinguished in the following respects: <P><ul><li>1.  The <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="t_std_ch.htm#standard-char"><B>standard-char</B></A> is a <A REL=DEFINITION HREF="26_glo_s.htm#subrepertoire"><I>subrepertoire</I></A> of the <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="#base-char"><B>base-char</B></A>. </li><li>2.  The selection of <A REL=DEFINITION HREF="26_glo_b.htm#base_character"><I>base characters</I></A> that are not <A REL=DEFINITION HREF="26_glo_s.htm#standard_character"><I>standard characters</I></A> is implementation defined. </li><li>3.  Only <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A> of the <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="#base-char"><B>base-char</B></A> can be <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>elements</I></A> of a <A REL=DEFINITION HREF="26_glo_b.htm#base_string"><I>base string</I></A>. </li><li>4.  No upper bound is specified for the number of characters in the <A REL=DEFINITION HREF="#base-char"><B>base-char</B></A> <A REL=DEFINITION HREF="26_glo_r.htm#repertoire"><I>repertoire</I></A>; the size of that <A REL=DEFINITION HREF="26_glo_r.htm#repertoire"><I>repertoire</I></A> is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-defined"><I>implementation-defined</I></A>. The lower bound is 96, the number of <A REL=DEFINITION HREF="26_glo_s.htm#standard_character"><I>standard characters</I></A>. <P></li></ul><P>
+ Whether a character is a <A REL=DEFINITION HREF="26_glo_b.htm#base_character"><I>base character</I></A> depends on the way that an <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> represents <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>strings</I></A>, and not any other properties of the <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> or the host operating system. For example, one implementation might encode all <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>strings</I></A> as characters having 16-bit encodings, and another might have two kinds of <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>strings</I></A>: those with characters having 8-bit encodings and those with characters having 16-bit encodings. In the first <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A>, the <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="#base-char"><B>base-char</B></A> is equivalent to the <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="t_ch.htm#character"><B>character</B></A>: there is only one kind of <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A>. In the second <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A>, the <A REL=DEFINITION HREF="26_glo_b.htm#base_character"><I>base characters</I></A> might be those <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>characters</I></A> that could be stored in a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> of <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>characters</I></A> having 8-bit encodings. In such an implementation, the <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="#base-char"><B>base-char</B></A> is a <A REL=DEFINITION HREF="26_glo_p.htm#proper_subtype"><I>proper subtype</I></A> of the <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="t_ch.htm#character"><B>character</B></A>. <P>
+The <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="t_std_ch.htm#standard-char"><B>standard-char</B></A> is a  <A REL=DEFINITION HREF="26_glo_s.htm#subtype"><I>subtype</I></A> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="#base-char"><B>base-char</B></A>.  <P>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss030.htm">CHARACTER-PROPOSAL:2-3-1</A><LI> <A REL=CHILD HREF="../Issues/iss046.htm">CHARACTER-VS-CHAR:LESS-INCONSISTENT-SHORT</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function IDENTITY</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_equalp.htm">
+<LINK REL=UP HREF="c_data_a.htm">
+<LINK REL=NEXT HREF="f_comple.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_equalp.htm">◀</A><A REL=UP HREF="c_data_a.htm">▲</A><A REL=NEXT HREF="f_comple.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="identity"><I>Function</I> <B>IDENTITY</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>identity</B> <I>object</I> =&gt; <I>object</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>object</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Returns its argument <I>object</I>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (identity 101) =&gt;  101
+ (mapcan #'identity (list (list 1 2 3) '(4 5 6))) =&gt;  (1 2 3 4 5 6)
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b> None.
+ <P>
+<p><b>●说明:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#identity"><B>identity</B></A> is intended for use with functions that require a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> as an argument. <P>
+<b>(eql x (identity x))</b> returns <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> for all possible values of <I>x</I>, but <b>(eq x (identity x))</b> might return <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A> when <I>x</I> is a <A REL=DEFINITION HREF="26_glo_n.htm#number"><I>number</I></A> or <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>character</I></A>. <P>
+<A REL=DEFINITION HREF="#identity"><B>identity</B></A> could be defined by <P>
+<PRE>
+(defun identity (x) x)
+</PRE>
+</b> <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function APROPOS, APROPOS-LIST</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_sleep.htm">
+<LINK REL=UP HREF="c_enviro.htm">
+<LINK REL=NEXT HREF="f_descri.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_sleep.htm">◀</A><A REL=UP HREF="c_enviro.htm">▲</A><A REL=NEXT HREF="f_descri.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="apropos"><A NAME="apropos-list"><I>Function</I> <B>APROPOS, APROPOS-LIST</B></A></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>apropos</B> <I>string <b>&amp;optional</b> package</I> =&gt; <I><I>&lt;no values&gt;</I></I><P>
+ <P>
+
+<B>apropos-list</B> <I>string <b>&amp;optional</b> package</I> =&gt; <I>symbols</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>string</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#string_designator"><I>string designator</I></A>. <P>
+<I>package</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#package_designator"><I>package designator</I></A> or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. The default is <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<I>symbols</I>---a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> of <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+These functions search for <A REL=DEFINITION HREF="26_glo_i.htm#interned"><I>interned</I></A> <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> whose <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>names</I></A> contain the substring <I>string</I>. <P>
+For <A REL=DEFINITION HREF="#apropos"><B>apropos</B></A>, as each such <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> is found, its name is printed on <A REL=DEFINITION HREF="26_glo_s.htm#standard_output"><I>standard output</I></A>. In addition, if such a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> is defined as a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> or <A REL=DEFINITION HREF="26_glo_d.htm#dynamic_variable"><I>dynamic variable</I></A>, information about those definitions might also be printed. <P>
+For <A REL=DEFINITION HREF="#apropos-list"><B>apropos-list</B></A>, no output occurs as the search proceeds; instead a list of the matching <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> is returned when the search is complete. <P>
+If <I>package</I> is <A REL=DEFINITION HREF="26_glo_n.htm#non-nil"><I>non-nil</I></A>, only the <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> <A REL=DEFINITION HREF="26_glo_a.htm#accessible"><I>accessible</I></A> in that <I>package</I> are searched; otherwise all <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> <A REL=DEFINITION HREF="26_glo_a.htm#accessible"><I>accessible</I></A> in any <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> are searched. <P>
+Because a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> might be available by way of more than one inheritance path, <A REL=DEFINITION HREF="#apropos"><B>apropos</B></A> might print information about the <A REL=DEFINITION HREF="26_glo_s.htm#same"><I>same</I></A> <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> more than once, or <A REL=DEFINITION HREF="#apropos-list"><B>apropos-list</B></A> might return a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> containing duplicate <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A>. <P>
+Whether or not the search is case-sensitive is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-defined"><I>implementation-defined</I></A>. <P>
+<p><b>●例子:</b> None.
+ <P>
+<p><b>●受制于:</b><P>
+ <P>
+The set of <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> which are currently <A REL=DEFINITION HREF="26_glo_i.htm#interned"><I>interned</I></A> in any <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>packages</I></A> being searched. <P>
+<A REL=DEFINITION HREF="#apropos"><B>apropos</B></A> is also affected by <A REL=DEFINITION HREF="v_debug_.htm#STstandard-outputST"><B>*standard-output*</B></A>. <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b> None.
+ <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

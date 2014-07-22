@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 3.4.6</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="03_de.htm">
+<LINK REL=UP HREF="03_d.htm">
+<LINK REL=NEXT HREF="03_dg.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="03_de.htm">◀</A><A REL=UP HREF="03_d.htm">▲</A><A REL=NEXT HREF="03_dg.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+3.4.6 Boa Lambda Lists</H2>  <P>
+A <A REL=DEFINITION HREF="26_glo_b.htm#boa_lambda_list"><I>boa lambda list</I></A> is a <A REL=DEFINITION HREF="26_glo_l.htm#lambda_list"><I>lambda list</I></A> that is syntactically like an <A REL=DEFINITION HREF="26_glo_o.htm#ordinary_lambda_list"><I>ordinary lambda list</I></A>, but that is processed in ``<B>b</B>y <B>o</B>rder of <B>a</B>rgument'' style. <P>
+A <A REL=DEFINITION HREF="26_glo_b.htm#boa_lambda_list"><I>boa lambda list</I></A> is used only in a <A REL=DEFINITION HREF="m_defstr.htm#defstruct"><B>defstruct</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>, when explicitly specifying the <A REL=DEFINITION HREF="26_glo_l.htm#lambda_list"><I>lambda list</I></A> of a constructor <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> (sometimes called a ``boa constructor''). <P>
+The <b>&amp;optional</b>, <b>&amp;rest</b>, <b>&amp;aux</b>,  <b>&amp;key</b>, and <b>&amp;allow-other-keys</b>  <A REL=DEFINITION HREF="26_glo_l.htm#lambda_list_keyword"><I>lambda list keywords</I></A> are recognized in a <A REL=DEFINITION HREF="26_glo_b.htm#boa_lambda_list"><I>boa lambda list</I></A>. The way these <A REL=DEFINITION HREF="26_glo_l.htm#lambda_list_keyword"><I>lambda list keywords</I></A> differ from their use in an <A REL=DEFINITION HREF="26_glo_o.htm#ordinary_lambda_list"><I>ordinary lambda list</I></A> follows. <P>
+Consider this example, which describes how <B>destruct</B> processes its <b>:constructor</b> option. <P>
+<PRE>
+ (:constructor create-foo
+         (a &amp;optional b (c 'sea) &amp;rest d &amp;aux e (f 'eff)))
+</PRE>
+</b> <P>
+This defines <b>create-foo</b> to be a constructor of one or more arguments. The first argument is used to initialize the <b>a</b> slot. The second argument is used to initialize the <b>b</b> slot. If there isn't any second argument, then the default value given in the body of the <A REL=DEFINITION HREF="m_defstr.htm#defstruct"><B>defstruct</B></A> (if given) is used instead. The third argument is used to initialize the <b>c</b> slot. If there isn't any third argument, then the symbol <b>sea</b> is used instead. Any arguments following the third argument are collected into a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> and used to initialize the <b>d</b> slot. If there are three or fewer arguments, then <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> is placed in the <b>d</b> slot. The <b>e</b> slot is not initialized; its initial value is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-defined"><I>implementation-defined</I></A>. Finally, the <b>f</b> slot is initialized to contain the symbol <b>eff</b>.  <b>&amp;key</b> and <b>&amp;allow-other-keys</b> arguments default in a manner similar to that of <b>&amp;optional</b> arguments: if no default is supplied in the <A REL=DEFINITION HREF="26_glo_l.htm#lambda_list"><I>lambda list</I></A> then the default value given in the body of the <A REL=DEFINITION HREF="m_defstr.htm#defstruct"><B>defstruct</B></A> (if given) is used instead. For example: <P>
+<PRE>
+ (defstruct (foo (:constructor CREATE-FOO (a &amp;optional b (c 'sea)
+                                             &amp;key (d 2)
+                                             &amp;aux e (f 'eff))))
+   (a 1) (b 2) (c 3) (d 4) (e 5) (f 6))
+ 
+ (create-foo 10) =&gt;  #S(FOO A 10 B 2 C SEA D 2 E implemention-dependent F EFF)
+ (create-foo 10 'bee 'see :d 'dee) 
+=&gt;  #S(FOO A 10 B BEE C SEE D DEE E implemention-dependent F EFF)
+</PRE>
+</b> <P>
+If keyword arguments of the form <b>((</b><I>key</I><b> </b><I>var</I><b>) </b>[<b></b><I>default</I><b> </b>[<b></b><I>svar</I><b></b>]<b></b>]<b>)</b> are specified, the <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slot</I></A> <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>name</I></A> is matched with <I>var</I> (not <I>key</I>). <P>
+The actions taken in the <b>b</b> and <b>e</b> cases were carefully chosen to allow the user to specify all possible behaviors. The <b>&amp;aux</b> variables can be used to completely override the default initializations given in the body. <P>
+ If no default value is supplied for an <A REL=DEFINITION HREF="26_glo_a.htm#aux_variable"><I>aux variable</I></A> variable, the consequences are undefined if an attempt is later made to read the corresponding <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slot</I></A>'s value before a value is explicitly assigned. If such a <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slot</I></A> has a <b>:type</b> option specified, this suppressed initialization does not imply a type mismatch situation; the declared type is only required to apply when the <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slot</I></A> is finally assigned.  <P>
+With this definition, the following can be written: <P>
+<PRE>
+ (create-foo 1 2)
+</PRE>
+</b> instead of <P>
+<PRE>
+ (make-foo :a 1 :b 2)
+</PRE>
+</b> and <b>create-foo</b> provides defaulting different from that of <b>make-foo</b>. <P>
+Additional arguments that do not correspond to slot names but are merely present to supply values used in subsequent initialization computations are allowed. For example, in the definition <P>
+<PRE>
+ (defstruct (frob (:constructor create-frob
+                  (a &amp;key (b 3 have-b) (c-token 'c) 
+                          (c (list c-token (if have-b 7 2))))))
+         a b c)
+</PRE>
+</b> <P>
+the <b>c-token</b> argument is used merely to supply a value used in the initialization of the <b>c</b> slot. The <A REL=DEFINITION HREF="26_glo_s.htm#supplied-p_parameter"><I>supplied-p parameters</I></A> associated with <A REL=DEFINITION HREF="26_glo_o.htm#optional_parameter"><I>optional parameters</I></A> and <A REL=DEFINITION HREF="26_glo_k.htm#keyword_parameter"><I>keyword parameters</I></A> might also be used this way. <P>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss019.htm">BOA-AUX-INITIALIZATION:ERROR-ON-READ</A><LI> <A REL=CHILD HREF="../Issues/iss109.htm">DEFSTRUCT-CONSTRUCTOR-KEY-MIXTURE:ALLOW-KEY</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

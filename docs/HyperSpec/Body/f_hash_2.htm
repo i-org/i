@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function HASH-TABLE-REHASH-SIZE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_hash_1.htm">
+<LINK REL=UP HREF="c_hash_t.htm">
+<LINK REL=NEXT HREF="f_hash_3.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_hash_1.htm">◀</A><A REL=UP HREF="c_hash_t.htm">▲</A><A REL=NEXT HREF="f_hash_3.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="hash-table-rehash-size"><I>Function</I> <B>HASH-TABLE-REHASH-SIZE</B></A> <P>
+ <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>hash-table-rehash-size</B> <I>hash-table</I> =&gt; <I>rehash-size</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>hash-table</I>---a <A REL=DEFINITION HREF="26_glo_h.htm#hash_table"><I>hash table</I></A>. <P>
+<I>rehash-size</I>---a <A REL=DEFINITION HREF="t_real.htm#real"><I>real</I></A> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <b>(or (integer 1 *) (float (1.0) *))</b>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Returns the current rehash size of <I>hash-table</I>, suitable for use in a call to <A REL=DEFINITION HREF="f_mk_has.htm#make-hash-table"><B>make-hash-table</B></A> in order to produce a <A REL=DEFINITION HREF="26_glo_h.htm#hash_table"><I>hash table</I></A> with state corresponding to the current state of the <I>hash-table</I>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (setq table (make-hash-table :size 100 :rehash-size 1.4))
+=&gt;  #&lt;HASH-TABLE EQL 0/100 2556371&gt;
+ (hash-table-rehash-size table) =&gt;  1.4
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+Should signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if <I>hash-table</I> is not a <A REL=DEFINITION HREF="26_glo_h.htm#hash_table"><I>hash table</I></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_mk_has.htm#make-hash-table"><B>make-hash-table</B></A>, <A REL=DEFINITION HREF="f_hash_3.htm#hash-table-rehash-threshold"><B>hash-table-rehash-threshold</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+ If the hash table was created with an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> rehash size, the result is an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>, indicating that the rate of growth of the <I>hash-table</I> when rehashed is intended to be additive; otherwise, the result is a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A>, indicating that the rate of growth of the <I>hash-table</I> when rehashed is intended to be multiplicative. However, this value is only advice to the <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A>; the actual amount by which the <I>hash-table</I> will grow upon rehash is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A>.  <P>
+ <p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss189.htm">HASH-TABLE-REHASH-SIZE-INTEGER</A><LI> <A REL=CHILD HREF="../Issues/iss186.htm">HASH-TABLE-ACCESS:X3J13-MAR-89</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function NCONC</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_null.htm">
+<LINK REL=UP HREF="c_conses.htm">
+<LINK REL=NEXT HREF="f_append.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_null.htm">◀</A><A REL=UP HREF="c_conses.htm">▲</A><A REL=NEXT HREF="f_append.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="nconc"><I>Function</I> <B>NCONC</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>nconc</B> <I><b>&amp;rest</b> lists</I> =&gt; <I>concatenated-list</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+ <I>list</I>---each but the last must be a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> (which might be a <I>dotted list</I> but must not be a <A REL=DEFINITION HREF="26_glo_c.htm#circular_list"><I>circular list</I></A>); the last <I>list</I> may be any <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>.  <P>
+<I>concatenated-list</I>---a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Returns a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> that is the concatenation of <I>lists</I>. If no <I>lists</I> are supplied, <b>(nconc)</b> returns <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>.  <A REL=DEFINITION HREF="#nconc"><B>nconc</B></A> is defined using the following recursive relationship: <P>
+<PRE>
+ (nconc) =&gt;  ()
+ (nconc nil . lists) ==  (nconc . lists)
+ (nconc list) =&gt;  list
+ (nconc list-1 list-2) ==  (progn (rplacd (last list-1) list-2) list-1)
+ (nconc list-1 list-2 . lists) ==  (nconc (nconc list-1 list-2) . lists)
+</PRE>
+</b>  <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (nconc) =&gt;  NIL
+ (setq x '(a b c)) =&gt;  (A B C)
+ (setq y '(d e f)) =&gt;  (D E F)
+ (nconc x y) =&gt;  (A B C D E F)
+ x =&gt;  (A B C D E F)
+</PRE>
+</b> Note, in the example, that the value of <b>x</b> is now different, since its last <A REL=DEFINITION HREF="26_glo_c.htm#cons"><I>cons</I></A> has been <A REL=DEFINITION HREF="f_rplaca.htm#rplacd"><B>rplacd</B></A>'d to the value of <b>y</b>. If <b>(nconc x y)</b> were evaluated again, it would yield a piece of a <A REL=DEFINITION HREF="26_glo_c.htm#circular_list"><I>circular list</I></A>, whose printed representation would be <b>(A B C D E F D E F D E F ...)</b>, repeating forever; if the <A REL=DEFINITION HREF="v_pr_cir.htm#STprint-circleST"><B>*print-circle*</B></A> switch were <A REL=DEFINITION HREF="26_glo_n.htm#non-nil"><I>non-nil</I></A>, it would be printed as <b>(A B C . #1=(D E F . #1#))</b>. <P>
+ 
+<PRE>
+ (setq foo (list 'a 'b 'c 'd 'e)
+       bar (list 'f 'g 'h 'i 'j)
+       baz (list 'k 'l 'm)) =&gt;  (K L M)
+ (setq foo (nconc foo bar baz)) =&gt;  (A B C D E F G H I J K L M)
+ foo =&gt;  (A B C D E F G H I J K L M)
+ bar =&gt;  (F G H I J K L M)
+ baz =&gt;  (K L M)
+
+ (setq foo (list 'a 'b 'c 'd 'e)
+       bar (list 'f 'g 'h 'i 'j)
+       baz (list 'k 'l 'm)) =&gt;  (K L M)
+ (setq foo (nconc nil foo bar nil baz)) =&gt;  (A B C D E F G H I J K L M) 
+ foo =&gt;  (A B C D E F G H I J K L M)
+ bar =&gt;  (F G H I J K L M)
+ baz =&gt;  (K L M)
+</PRE>
+</b> <P>
+ <P>
+<p><b>●副作用:</b><P>
+ <P>
+The <I>lists</I> are modified rather than copied. <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_append.htm#append"><B>append</B></A>, <A REL=DEFINITION HREF="f_concat.htm#concatenate"><B>concatenate</B></A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss293.htm">REMF-DESTRUCTION-UNSPECIFIED:X3J13-MAR-89</A><LI> <A REL=CHILD HREF="../Issues/iss138.htm">DOTTED-LIST-ARGUMENTS:CLARIFY</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

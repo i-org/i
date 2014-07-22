@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Issue BUTLAST-NEGATIVE Writeup</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="../Issues/iss021_w.htm">
+<LINK REL=UP HREF="../Issues/iss022.htm">
+<LINK REL=NEXT HREF="../Issues/iss023_w.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="../Issues/iss021_w.htm">◀</A><A REL=UP HREF="../Issues/iss022.htm">▲</A><A REL=NEXT HREF="../Issues/iss023_w.htm">▶</A></h1>
+
+<HR>
+
+
+
+<H2>Issue BUTLAST-NEGATIVE Writeup</H2>
+
+<PRE><B>Issue:</B>        <A HREF="iss022.htm">BUTLAST-NEGATIVE</A><P>
+<B>Forum:</B>	      Editorial<P>
+<B>References:</B>   <A REL=DEFINITION HREF="../Body/f_butlas.htm#butlast"><B>BUTLAST</B></A> (p271), <A REL=DEFINITION HREF="../Body/f_butlas.htm#nbutlast"><B>NBUTLAST</B></A> (p271)<P>
+<B>Category:</B>     CLARIFICATION/CHANGE<P>
+<B>Edit history:</B> 01-Mar-91, Version 1 by Pitman<P>
+<B>Status:</B>	      For X3J13 consideration<P>
+<P>
+<B>Problem Description:<P>
+</B><P>
+  What happens if the second argument to <A REL=DEFINITION HREF="../Body/f_butlas.htm#butlast"><B>BUTLAST</B></A> and <A REL=DEFINITION HREF="../Body/f_butlas.htm#nbutlast"><B>NBUTLAST</B></A> is negative?<P>
+<P>
+<B>Proposal (BUTLAST:SHOULD-SIGNAL):<P>
+</B><P>
+  Specify that if the second argument, N, to <A REL=DEFINITION HREF="../Body/f_butlas.htm#butlast"><B>BUTLAST</B></A> or <A REL=DEFINITION HREF="../Body/f_butlas.htm#nbutlast"><B>NBUTLAST</B></A> is negative, <P>
+  then an error `should be signalled'.<P>
+<P>
+<B>Test Cases:<P>
+</B><P>
+  1. (<A REL=DEFINITION HREF="../Body/f_butlas.htm#butlast"><B>BUTLAST</B></A> '(A B C) -2)<P>
+<P>
+  2. (<A REL=DEFINITION HREF="../Body/s_let_l.htm#let"><B>LET</B></A> ((X (<A REL=DEFINITION HREF="../Body/a_list.htm#list"><B>LIST</B></A> 'A 'B 'C)))<P>
+       (<A REL=DEFINITION HREF="../Body/f_butlas.htm#nbutlast"><B>NBUTLAST</B></A> X -2))<P>
+<P>
+<B>Rationale:<P>
+</B><P>
+  Mostly this precludes implementations from adopting other, <P>
+  variant interpretations.<P>
+<P>
+<B>Current Practice:<P>
+</B><P>
+  1. Symbolics Genera returns (A B C <A REL=DEFINITION HREF="../Body/a_nil.htm#nil"><B>NIL</B></A> <A REL=DEFINITION HREF="../Body/a_nil.htm#nil"><B>NIL</B></A>).<P>
+<P>
+  2. Symbolics Genera signals an error.<P>
+<P>
+<B>Cost to Implementors:<P>
+</B><P>
+  Small.<P>
+<P>
+<B>Cost to Users:<P>
+</B><P>
+  None.  Portable programs cannot currently rely on any particular <P>
+  behavior.<P>
+<P>
+<B>Cost of Non-Adoption:<P>
+</B><P>
+  Users would be confused about what to expect because implementations might<P>
+  adopt creative interpretations (such as Genera's) which are not supported<P>
+  in other implementations and so become a barrier to portability.<P>
+<P>
+<B>Benefits:<P>
+</B><P>
+  Tighter spec.<P>
+<P>
+<B>Aesthetics:<P>
+</B><P>
+  Genera's alternate interpretation of <A REL=DEFINITION HREF="../Body/f_butlas.htm#butlast"><B>BUTLAST</B></A> is arguably aesthetic, but<P>
+  does not extend well to <A REL=DEFINITION HREF="../Body/f_butlas.htm#nbutlast"><B>NBUTLAST</B></A>.  The interpretation proposed here makes<P>
+  <A REL=DEFINITION HREF="../Body/f_butlas.htm#butlast"><B>BUTLAST</B></A> and <A REL=DEFINITION HREF="../Body/f_butlas.htm#nbutlast"><B>NBUTLAST</B></A> more consistent.<P>
+<P>
+<B>Discussion:<P>
+</B><P>
+  Pitman supports this proposal.<P>
+</PRE>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function DECODE-FLOAT, SCALE-FLOAT...</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="v_most_p.htm">
+<LINK REL=UP HREF="c_number.htm">
+<LINK REL=NEXT HREF="f_float.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="v_most_p.htm">◀</A><A REL=UP HREF="c_number.htm">▲</A><A REL=NEXT HREF="f_float.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="decode-float"><A NAME="scale-float"><A NAME="float-radix"><A NAME="float-sign"><A NAME="float-digits"><A NAME="float-precision"><A NAME="integer-decode-float"><I>Function</I> <B>DECODE-FLOAT, SCALE-FLOAT, FLOAT-RADIX, FLOAT-SIGN, FLOAT-DIGITS, FLOAT-PRECISION, INTEGER-DECODE-FLOAT</B></A></A></A></A></A></A></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>decode-float</B> <I>float</I> =&gt; <I>significand, exponent, sign</I><P>
+ <P>
+
+<B>scale-float</B> <I>float integer</I> =&gt; <I>scaled-float</I><P>
+ <P>
+
+<B>float-radix</B> <I>float</I> =&gt; <I>float-radix</I><P>
+ <P>
+
+<B>float-sign</B> <I>float-1 <b>&amp;optional</b> float-2</I> =&gt; <I>signed-float</I><P>
+ <P>
+
+<B>float-digits</B> <I>float</I> =&gt; <I>digits1</I><P>
+ <P>
+
+<B>float-precision</B> <I>float</I> =&gt; <I>digits2</I><P>
+ <P>
+
+<B>integer-decode-float</B> <I>float</I> =&gt; <I>significand, exponent, integer-sign</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>digits1</I>---a non-negative <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>. <P>
+<I>digits2</I>---a non-negative <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>. <P>
+<I>exponent</I>---an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>. <P>
+<I>float</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A>. <P>
+<I>float-1</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A>. <P>
+<I>float-2</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A>. <P>
+<I>float-radix</I>---an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>. <P>
+<I>integer</I>---a non-negative <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>. <P>
+<I>integer-sign</I>---the <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> <b>-1</b>, or the <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> <b>1</b>. <P>
+<I>scaled-float</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A>. <P>
+<I>sign</I>---A <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A> of the same <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> as <I>float</I> but numerically equal to <b>1.0</b> or <b>-1.0</b>. <P>
+<I>signed-float</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A>. <P>
+<I>significand</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#decode-float"><B>decode-float</B></A> computes three values that characterize <I>float</I>. The first value is of the same <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> as <I>float</I> and represents the significand. The second value represents the exponent to which the radix (notated in this description by <I>b</I>) must be raised to obtain the value that, when multiplied with the first result, produces the absolute value of <I>float</I>. If <I>float</I> is zero, any <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> value may be returned, provided that the identity shown for <A REL=DEFINITION HREF="#scale-float"><B>scale-float</B></A> holds. The third value is of the same <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> as <I>float</I> and is 1.0 if <I>float</I> is greater than or equal to zero or -1.0 otherwise. <P>
+<A REL=DEFINITION HREF="#decode-float"><B>decode-float</B></A> divides <I>float</I> by an integral power of <I>b</I> so as to bring its value between 1/<I>b</I> (inclusive) and 1 (exclusive), and returns the quotient as the first value. If <I>float</I> is zero, however, the result equals the absolute value of <I>float</I> (that is, if there is a negative zero, its significand is considered to be a positive zero). <P>
+<A REL=DEFINITION HREF="#scale-float"><B>scale-float</B></A> returns <b>(* </b><I>float</I><b> (expt (float </b><I>b</I><b> </b><I>float</I><b>) </b><I>integer</I><b>))</b>, where <I>b</I> is the radix of the floating-point representation. <I>float</I> is not necessarily between 1/<I>b</I> and 1. <P>
+<A REL=DEFINITION HREF="#float-radix"><B>float-radix</B></A> returns the radix of <I>float</I>. <P>
+<A REL=DEFINITION HREF="#float-sign"><B>float-sign</B></A> returns a number <b>z</b> such that <b>z</b> and <I>float-1</I> have the same sign and also such that <b>z</b> and <I>float-2</I> have the same absolute value. If <I>float-2</I> is not supplied, its value is <b>(float 1 </b><I>float-1</I><b>)</b>. If an implementation has distinct representations for negative zero and positive zero, then <b>(float-sign -0.0)</b> =&gt;  <b>-1.0</b>. <P>
+<A REL=DEFINITION HREF="#float-digits"><B>float-digits</B></A> returns the number of radix <I>b</I> digits used in the representation of <I>float</I> (including any implicit digits, such as a ``hidden bit''). <P>
+<A REL=DEFINITION HREF="#float-precision"><B>float-precision</B></A> returns the number of significant radix <I>b</I> digits present in <I>float</I>; if <I>float</I> is a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A> zero, then the result is an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> zero. <P>
+For <A REL=DEFINITION HREF="26_glo_n.htm#normalized"><I>normalized</I></A> <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>floats</I></A>, the results of <A REL=DEFINITION HREF="#float-digits"><B>float-digits</B></A> and <A REL=DEFINITION HREF="#float-precision"><B>float-precision</B></A> are the same, but the precision is less than the number of representation digits for a <A REL=DEFINITION HREF="26_glo_d.htm#denormalized"><I>denormalized</I></A> or zero number. <P>
+<A REL=DEFINITION HREF="#integer-decode-float"><B>integer-decode-float</B></A> computes three values that characterize <I>float</I> - the significand scaled so as to be an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>, and the same last two values that are returned by <A REL=DEFINITION HREF="#decode-float"><B>decode-float</B></A>. If <I>float</I> is zero, <A REL=DEFINITION HREF="#integer-decode-float"><B>integer-decode-float</B></A> returns zero as the first value. The second value bears the same relationship to the first value as for <A REL=DEFINITION HREF="#decode-float"><B>decode-float</B></A>: <P>
+<PRE>
+ (multiple-value-bind (signif expon sign)
+                      (integer-decode-float f)
+   (scale-float (float signif f) expon)) ==  (abs f)
+</PRE>
+</b> <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ ;; Note that since the purpose of this functionality is to expose
+ ;; details of the implementation, all of these examples are necessarily
+ ;; very implementation-dependent.  Results may vary widely.
+ ;; Values shown here are chosen consistently from one particular implementation.
+ (decode-float .5) =&gt;  0.5, 0, 1.0
+ (decode-float 1.0) =&gt;  0.5, 1, 1.0
+ (scale-float 1.0 1) =&gt;  2.0
+ (scale-float 10.01 -2) =&gt;  2.5025
+ (scale-float 23.0 0) =&gt;  23.0
+ (float-radix 1.0) =&gt;  2
+ (float-sign 5.0) =&gt;  1.0
+ (float-sign -5.0) =&gt;  -1.0
+ (float-sign 0.0) =&gt;  1.0
+ (float-sign 1.0 0.0) =&gt;  0.0
+ (float-sign 1.0 -10.0) =&gt;  10.0
+ (float-sign -1.0 10.0) =&gt;  -10.0
+ (float-digits 1.0) =&gt;  24
+ (float-precision 1.0) =&gt;  24
+ (float-precision least-positive-single-float) =&gt;  1
+ (integer-decode-float 1.0) =&gt;  8388608, -23, 1
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于:</b><P>
+ <P>
+The implementation's representation for <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>floats</I></A>. <P>
+<p><b>●例外情况：</b><P>
+ <P>
+The functions <A REL=DEFINITION HREF="#decode-float"><B>decode-float</B></A>, <A REL=DEFINITION HREF="#float-radix"><B>float-radix</B></A>, <A REL=DEFINITION HREF="#float-digits"><B>float-digits</B></A>, <A REL=DEFINITION HREF="#float-precision"><B>float-precision</B></A>, and <A REL=DEFINITION HREF="#integer-decode-float"><B>integer-decode-float</B></A> should signal an error if their only argument is not a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A>. <P>
+The <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="#scale-float"><B>scale-float</B></A> should signal an error if its first argument is not a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A> or if its second argument is not an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>. <P>
+The <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="#float-sign"><B>float-sign</B></A> should signal an error if its first argument is not a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A> or if its second argument is supplied but is not a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A>. <P>
+<p><b>●更多信息:</b> None.
+ <P>
+<p><b>●说明:</b><P>
+ <P>
+The product of the first result of <A REL=DEFINITION HREF="#decode-float"><B>decode-float</B></A> or <A REL=DEFINITION HREF="#integer-decode-float"><B>integer-decode-float</B></A>, of the radix raised to the power of the second result, and of the third result is exactly equal to the value of <I>float</I>. <P>
+<PRE>
+ (multiple-value-bind (signif expon sign)
+                      (decode-float f)
+   (scale-float signif expon))
+==  (abs f)
+</PRE>
+</b> and <P>
+<PRE>
+ (multiple-value-bind (signif expon sign)
+                      (decode-float f)
+   (* (scale-float signif expon) sign))
+==  f
+</PRE>
+</b> <HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

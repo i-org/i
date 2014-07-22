@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 2.3.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="02_c.htm">
+<LINK REL=UP HREF="02_c.htm">
+<LINK REL=NEXT HREF="02_caa.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="02_c.htm">◀</A><A REL=UP HREF="02_c.htm">▲</A><A REL=NEXT HREF="02_caa.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+2.3.1 Numbers as Tokens</H2> <P>
+When a <A REL=DEFINITION HREF="26_glo_t.htm#token"><I>token</I></A> is read, it is interpreted as a <A REL=DEFINITION HREF="26_glo_n.htm#number"><I>number</I></A> or <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>. The <A REL=DEFINITION HREF="26_glo_t.htm#token"><I>token</I></A> is interpreted as a <A REL=DEFINITION HREF="26_glo_n.htm#number"><I>number</I></A> if it satisfies the syntax for numbers specified in the next figure. <P>
+  <PRE>
+numeric-token  ::=  integer |
+				   ratio   |
+				   float       
+integer        ::=  [sign]
+				   decimal-digit+
+				   decimal-point |
+				   [sign]
+				   digit+      
+ratio          ::=  [sign]
+				   {digit}+
+				   slash
+				   {digit}+    
+float          ::=  [sign]
+				   {decimal-digit}*
+				   decimal-point
+				   {decimal-digit}+
+				   [exponent]  
+                    | 
+				   [sign]
+				   {decimal-digit}+
+				   [decimal-point
+					   {decimal-digit}*]
+				   exponent    
+exponent       ::=  exponent-marker
+				   [sign]
+				   {digit}+    
+                                       
+sign---a <A REL=DEFINITION HREF="26_glo_s.htm#sign">sign</A>.                         
+slash---a <A REL=DEFINITION HREF="26_glo_s.htm#slash">slash</A>                        
+decimal-point---a <A REL=DEFINITION HREF="26_glo_d.htm#dot">dot</A>.                        
+exponent-marker---an <A REL=DEFINITION HREF="26_glo_e.htm#exponent_marker">exponent marker</A>.                        
+decimal-digit---a <A REL=DEFINITION HREF="26_glo_d.htm#digit">digit</A> in <A REL=DEFINITION HREF="26_glo_r.htm#radix">radix</A> 10.                        
+digit---a <A REL=DEFINITION HREF="26_glo_d.htm#digit">digit</A> in the current input radix.                        
+</PRE>
+ <P><B><A NAME="syntaxfornumerictokens">Figure 2-9.  Syntax for Numeric Tokens</B></A> <P>
+
+ 
+<h2><A REL=CHILD HREF="02_caa.htm">
+2.3.1.1 Potential Numbers as Tokens</a></h2><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

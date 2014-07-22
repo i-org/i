@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 3.2.3</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="03_bbc.htm">
+<LINK REL=UP HREF="03_b.htm">
+<LINK REL=NEXT HREF="03_bca.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="03_bbc.htm">◀</A><A REL=UP HREF="03_b.htm">▲</A><A REL=NEXT HREF="03_bca.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+3.2.3 File Compilation</H2>  <P>
+The <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="f_cmp_fi.htm#compile-file"><B>compile-file</B></A> performs compilation of <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A> in a file following the rules specified in <A REL HREF="03_bb.htm">Section 3.2.2 (Compilation Semantics)</A>, and produces an output file that can be loaded by using <A REL=DEFINITION HREF="f_load.htm#load"><B>load</B></A>. <P>
+Normally, the <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level forms</I></A> appearing in a file compiled with <A REL=DEFINITION HREF="f_cmp_fi.htm#compile-file"><B>compile-file</B></A> are evaluated only when the resulting compiled file is loaded, and not when the file is compiled. However, it is typically the case that some forms in the file need to be evaluated at compile time so the remainder of the file can be read and compiled correctly. <P>
+The <A REL=DEFINITION HREF="s_eval_w.htm#eval-when"><B>eval-when</B></A> <A REL=DEFINITION HREF="26_glo_s.htm#special_form"><I>special form</I></A> can be used to control whether a <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level form</I></A> is evaluated at compile time, load time, or both. It is possible to specify any of three situations with <A REL=DEFINITION HREF="s_eval_w.htm#eval-when"><B>eval-when</B></A>, denoted by the symbols <b>:compile-toplevel</b>, <b>:load-toplevel</b>, and <b>:execute</b>. For top level <A REL=DEFINITION HREF="s_eval_w.htm#eval-when"><B>eval-when</B></A> forms, <b>:compile-toplevel</b> specifies that the compiler must evaluate the body at compile time, and <b>:load-toplevel</b> specifies that the compiler must arrange to evaluate the body at load time. For non-top level <A REL=DEFINITION HREF="s_eval_w.htm#eval-when"><B>eval-when</B></A> forms, <b>:execute</b> specifies that the body must be executed in the run-time <A REL=DEFINITION HREF="26_glo_e.htm#environment"><I>environment</I></A>. <P>
+The behavior of this <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> can be more precisely understood in terms of a model of how <A REL=DEFINITION HREF="f_cmp_fi.htm#compile-file"><B>compile-file</B></A> processes forms in a file to be compiled. There are two processing modes, called ``not-compile-time'' and ``compile-time-too''. <P>
+Successive forms are read from the file by <A REL=DEFINITION HREF="f_cmp_fi.htm#compile-file"><B>compile-file</B></A> and processed in not-compile-time mode; in this mode, <A REL=DEFINITION HREF="f_cmp_fi.htm#compile-file"><B>compile-file</B></A> arranges for forms to be evaluated only at load time and not at compile time. When <A REL=DEFINITION HREF="f_cmp_fi.htm#compile-file"><B>compile-file</B></A> is in compile-time-too mode, forms are evaluated both at compile time and load time. <P>
+
+ 
+<h2><A REL=CHILD HREF="03_bca.htm">
+3.2.3.1 Processing of Top Level Forms</a></h2><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

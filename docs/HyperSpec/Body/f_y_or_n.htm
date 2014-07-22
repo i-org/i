@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function Y-OR-N-P, YES-OR-NO-P</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_finish.htm">
+<LINK REL=UP HREF="c_stream.htm">
+<LINK REL=NEXT HREF="f_mk_syn.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_finish.htm">◀</A><A REL=UP HREF="c_stream.htm">▲</A><A REL=NEXT HREF="f_mk_syn.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="y-or-n-p"><A NAME="yes-or-no-p"><I>Function</I> <B>Y-OR-N-P, YES-OR-NO-P</B></A></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>y-or-n-p</B> <I><b>&amp;optional</b> control <b>&amp;rest</b> arguments</I> =&gt; <I>generalized-boolean</I><P>
+ 
+<B>yes-or-no-p</B> <I><b>&amp;optional</b> control <b>&amp;rest</b> arguments</I> =&gt; <I>generalized-boolean</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+ <I>control</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#format_control"><I>format control</I></A>.  <P>
+<I>arguments</I>---<A REL=DEFINITION HREF="26_glo_f.htm#format_argument"><I>format arguments</I></A> for <I>control</I>. <P>
+<I>generalized-boolean</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+These functions ask a question and parse a response from the user. They return <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> if the answer is affirmative, or <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A> if the answer is negative. <P>
+<A REL=DEFINITION HREF="#y-or-n-p"><B>y-or-n-p</B></A> is for asking the user a question whose answer is either ``yes'' or ``no.'' It is intended that the reply require the user to answer a yes-or-no question with a single character. <A REL=DEFINITION HREF="#yes-or-no-p"><B>yes-or-no-p</B></A> is also for asking the user a question whose answer is either ``Yes'' or ``No.'' It is intended that the reply require the user to take more action than just a single keystroke, such as typing the full word <b>yes</b> or <b>no</b> followed by a newline. <P>
+<A REL=DEFINITION HREF="#y-or-n-p"><B>y-or-n-p</B></A> types out a message (if supplied), reads an answer in some <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> manner (intended to be short and simple, such as reading a single character such as <b>Y</b> or <b>N</b>). <A REL=DEFINITION HREF="#yes-or-no-p"><B>yes-or-no-p</B></A> types out a message (if supplied), attracts the user's attention (for example, by ringing the terminal's bell), and reads an answer in some <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> manner (intended to be multiple characters, such as <b>YES</b> or <b>NO</b>). <P>
+If <I>format-control</I> is supplied and not <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>, then a <A REL=DEFINITION HREF="f_terpri.htm#fresh-line"><B>fresh-line</B></A> operation is performed; then a message is printed as if <I>format-control</I> and <I>arguments</I> were given to <A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A>. In any case, <A REL=DEFINITION HREF="#yes-or-no-p"><B>yes-or-no-p</B></A> and <A REL=DEFINITION HREF="#y-or-n-p"><B>y-or-n-p</B></A> will provide a prompt such as ``<b>(Y or N)</b>'' or ``<b>(Yes or No)</b>'' if appropriate. <P>
+All input and output are performed using <A REL=DEFINITION HREF="26_glo_q.htm#query_iSLo"><I>query I/O</I></A>. <P>
+<p><b>●例子:</b><P>
+ 
+<PRE>
+ (y-or-n-p &quot;(t or nil) given by&quot;)
+&gt;&gt;  (t or nil) given by (Y or N) Y
+=&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (yes-or-no-p &quot;a ~S message&quot; 'frightening) 
+&gt;&gt;  a FRIGHTENING message (Yes or No) no
+=&gt;  <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+ (y-or-n-p &quot;Produce listing file?&quot;) 
+&gt;&gt;  Produce listing file?
+&gt;&gt;  Please respond with Y or N. n
+=&gt;  <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+</PRE>
+</b> <P>
+<p><b>●副作用:</b><P>
+ <P>
+Output to and input from <A REL=DEFINITION HREF="26_glo_q.htm#query_iSLo"><I>query I/O</I></A> will occur. <P>
+<p><b>●受制于:</b><P>
+ <P>
+<A REL=DEFINITION HREF="v_debug_.htm#STquery-ioST"><B>*query-io*</B></A>. <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#yes-or-no-p"><B>yes-or-no-p</B></A> and <A REL=DEFINITION HREF="#yes-or-no-p"><B>yes-or-no-p</B></A> do not add question marks to the end of the prompt string, so any desired question mark or other punctuation should be explicitly included in the text query. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss170.htm">FORMAT-STRING-ARGUMENTS:SPECIFY</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

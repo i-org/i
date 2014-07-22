@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function MOD, REM</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_log.htm">
+<LINK REL=UP HREF="c_number.htm">
+<LINK REL=NEXT HREF="f_signum.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_log.htm">◀</A><A REL=UP HREF="c_number.htm">▲</A><A REL=NEXT HREF="f_signum.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="mod"><A NAME="rem"><I>Function</I> <B>MOD, REM</B></A></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>mod</B> <I>number divisor</I> =&gt; <I>modulus</I><P>
+ 
+<B>rem</B> <I>number divisor</I> =&gt; <I>remainder</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>number</I>---a <A REL=DEFINITION HREF="t_real.htm#real"><I>real</I></A>. <P>
+<I>divisor</I>---a <A REL=DEFINITION HREF="t_real.htm#real"><I>real</I></A>. <P>
+<I>modulus</I>, <I>remainder</I>---a <A REL=DEFINITION HREF="t_real.htm#real"><I>real</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#mod"><B>mod</B></A> and <A REL=DEFINITION HREF="#rem"><B>rem</B></A> are generalizations of the modulus and remainder functions respectively. <P>
+<A REL=DEFINITION HREF="#mod"><B>mod</B></A> performs the operation <A REL=DEFINITION HREF="f_floorc.htm#floor"><B>floor</B></A> on <I>number</I> and <I>divisor</I> and returns the remainder of the <A REL=DEFINITION HREF="f_floorc.htm#floor"><B>floor</B></A> operation. <P>
+<A REL=DEFINITION HREF="#rem"><B>rem</B></A> performs the operation <A REL=DEFINITION HREF="f_floorc.htm#truncate"><B>truncate</B></A> on <I>number</I> and <I>divisor</I> and returns the remainder of the <A REL=DEFINITION HREF="f_floorc.htm#truncate"><B>truncate</B></A> operation. <P>
+<A REL=DEFINITION HREF="#mod"><B>mod</B></A> and <A REL=DEFINITION HREF="#rem"><B>rem</B></A> are the modulus and remainder functions when <I>number</I> and <I>divisor</I> are <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integers</I></A>. <P>
+<p><b>●例子:</b><P>
+ 
+<PRE>
+ (mod -1 5) =&gt;  4    ;;取余数-1=-1*5+4
+ (rem -1 5) =&gt;  -1
+ (mod 13 4) =&gt;  1   ;;13=3*4+1
+ (rem 13 4) =&gt;  1
+ (mod -13 4) =&gt;  3
+ (rem -13 4) =&gt;  -1
+ (mod 13 -4) =&gt;  -3
+ (rem 13 -4) =&gt;  1
+ (mod -13 -4) =&gt;  -1
+ (rem -13 -4) =&gt;  -1
+ (mod 13.4 1) =&gt;  0.4
+ (rem 13.4 1) =&gt;  0.4
+ (mod -13.4 1) =&gt;  0.6
+ (rem -13.4 1) =&gt;  -0.4
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_floorc.htm#floor"><B>floor</B></A>, <A REL=DEFINITION HREF="f_floorc.htm#truncate"><B>truncate</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+The result of <A REL=DEFINITION HREF="#mod"><B>mod</B></A> is either zero or a  <A REL=DEFINITION HREF="t_real.htm#real"><I>real</I></A>  with the same sign as <I>divisor</I>. <p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss290.htm">REAL-NUMBER-TYPE:X3J13-MAR-89</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

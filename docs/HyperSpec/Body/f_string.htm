@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function STRING</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_char_.htm">
+<LINK REL=UP HREF="c_string.htm">
+<LINK REL=NEXT HREF="f_stg_up.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_char_.htm">◀</A><A REL=UP HREF="c_string.htm">▲</A><A REL=NEXT HREF="f_stg_up.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="string"><I>Function</I> <B>STRING</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>string</B> <I>x</I> =&gt; <I>string</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+ <I>x</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A>, a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>, or a <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>character</I></A>.  <P>
+<I>string</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Returns a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> described by <I>x</I>; specifically: <P>
+<P><UL><LI>  If <I>x</I> is a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A>, it is returned. <LI>  If <I>x</I> is a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>, its <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>name</I></A> is returned. <LI>  If <I>x</I> is a <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>character</I></A>,  then a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> containing that one <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>character</I></A> is returned. <LI>  <A REL=DEFINITION HREF="#string"><B>string</B></A> might perform additional, <A REL=DEFINITION HREF="26_glo_i.htm#implementation-defined"><I>implementation-defined</I></A> conversions.  <P></UL><P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (string &quot;already a string&quot;) =&gt;  &quot;already a string&quot;
+ (string 'elm) =&gt;  &quot;ELM&quot;
+ (string #\c) =&gt;  &quot;c&quot;
+</PRE>
+</b> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+ In the case where a conversion is defined neither by this specification nor by the <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A>, an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> is signaled.  <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_coerce.htm#coerce"><B>coerce</B></A>, <A REL=DEFINITION HREF="t_string.htm#string"><B>string</B></A> (<A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A>). <P>
+<p><b>●说明:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_coerce.htm#coerce"><B>coerce</B></A> can be used to convert a <A REL=DEFINITION HREF="26_glo_s.htm#sequence"><I>sequence</I></A> of <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>characters</I></A> to a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A>. <P>
+<A REL=DEFINITION HREF="f_wr_to_.htm#prin1-to-string"><B>prin1-to-string</B></A>, <A REL=DEFINITION HREF="f_wr_to_.htm#princ-to-string"><B>princ-to-string</B></A>, <A REL=DEFINITION HREF="f_wr_to_.htm#write-to-string"><B>write-to-string</B></A>, or <A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A> (with a first argument of <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>) can be used to get a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> representation of a <A REL=DEFINITION HREF="26_glo_n.htm#number"><I>number</I></A> or any other <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss329.htm">STRING-COERCION:MAKE-CONSISTENT</A><LI> <A REL=CHILD HREF="../Issues/iss027.htm">CHARACTER-PROPOSAL:2-1-1</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

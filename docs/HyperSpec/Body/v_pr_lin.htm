@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Variable *PRINT-LINES*</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="v_pr_lev.htm">
+<LINK REL=UP HREF="c_printe.htm">
+<LINK REL=NEXT HREF="v_pr_mis.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="v_pr_lev.htm">◀</A><A REL=UP HREF="c_printe.htm">▲</A><A REL=NEXT HREF="v_pr_mis.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="STprint-linesST"><I>Variable</I> <B>*PRINT-LINES*</B></A> <P>
+<p><b>●值类型:</b><P>
+ <P>
+a non-negative <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>, or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<p><b>●初始值:</b><P>
+ <P>
+<A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+When the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> of <A REL=DEFINITION HREF="#STprint-linesST"><B>*print-lines*</B></A> is other than <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>, it is a limit on the number of output lines produced when something is pretty printed. If an attempt is made to go beyond that many lines, ``<b>..</b>'' is printed at the end of the last line followed by all of the suffixes (closing delimiters) that are pending to be printed. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (let ((*print-right-margin* 25) (*print-lines* 3))
+   (pprint '(progn (setq a 1 b 2 c 3 d 4))))
+&gt;&gt;  (PROGN (SETQ A 1
+&gt;&gt;               B 2
+&gt;&gt;               C 3 ..))
+=&gt;  &lt;no values&gt;
+</PRE>
+</b> <P>
+<p><b>●更多信息:</b> None.
+ <P>
+<p><b>●说明:</b><P>
+ <P>
+The ``<b>..</b>'' notation is intentionally different than the ``<b>...</b>'' notation used for level abbreviation, so that the two different situations can be visually distinguished. <P>
+This notation is used to increase the likelihood that the <A REL=DEFINITION HREF="26_glo_l.htm#lisp_reader"><I>Lisp reader</I></A> will signal an error if an attempt is later made to read the abbreviated output. Note however that if the truncation occurs in a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A>, as in <b>&quot;This string has been trunc..&quot;</b>, the problem situation cannot be detected later and no such error will be signaled. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

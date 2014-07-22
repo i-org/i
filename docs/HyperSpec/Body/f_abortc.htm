@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function ABORT, CONTINUE, MUFFLE-WARNING...</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="r_use_va.htm">
+<LINK REL=UP HREF="c_condit.htm">
+<LINK REL=NEXT HREF="10_.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="r_use_va.htm">◀</A><A REL=UP HREF="c_condit.htm">▲</A><A REL=NEXT HREF="10_.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="abort"><A NAME="continue"><A NAME="muffle-warning"><A NAME="store-value"><A NAME="use-value"><I>Function</I> <B>ABORT, CONTINUE, MUFFLE-WARNING, STORE-VALUE, USE-VALUE</B></A></A></A></A></A>  <P>
+<p><b>●语法设定:</b><p>
+ <P>
+ 
+<B>abort</B> <I><b>&amp;optional</b> condition</I> =&gt;| <P>
+ 
+<B>continue</B> <I><b>&amp;optional</b> condition</I> =&gt; <I><A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A></I><P>
+ 
+<B>muffle-warning</B> <I><b>&amp;optional</b> condition</I> =&gt;| <P>
+ 
+<B>store-value</B> <I>value <b>&amp;optional</b> condition</I> =&gt; <I><A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A></I><P>
+ 
+<B>use-value</B> <I>value <b>&amp;optional</b> condition</I> =&gt; <I><A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A></I><P>
+  <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>value</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+  <I>condition</I>---a <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>, or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>.   <P>
+<p><b>●详情:</b><P>
+ <P>
+Transfers control to the most recently established <A REL=DEFINITION HREF="26_glo_a.htm#applicable_restart"><I>applicable restart</I></A> having the same name as the function. That is, the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="#abort"><B>abort</B></A> searches for an <A REL=DEFINITION HREF="26_glo_a.htm#applicable"><I>applicable</I></A> <A REL=DEFINITION HREF="a_abort.htm#abort"><B>abort</B></A> <A REL=DEFINITION HREF="26_glo_r.htm#restart"><I>restart</I></A>, the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="#continue"><B>continue</B></A> searches for an <A REL=DEFINITION HREF="26_glo_a.htm#applicable"><I>applicable</I></A> <A REL=DEFINITION HREF="a_contin.htm#continue"><B>continue</B></A> <A REL=DEFINITION HREF="26_glo_r.htm#restart"><I>restart</I></A>, and so on. <P>
+If no such <A REL=DEFINITION HREF="26_glo_r.htm#restart"><I>restart</I></A> exists, the functions <A REL=DEFINITION HREF="#continue"><B>continue</B></A>, <A REL=DEFINITION HREF="#store-value"><B>store-value</B></A>, and <A REL=DEFINITION HREF="#use-value"><B>use-value</B></A> return <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>, and the functions <A REL=DEFINITION HREF="#abort"><B>abort</B></A> and <A REL=DEFINITION HREF="#muffle-warning"><B>muffle-warning</B></A> signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_contro.htm#control-error"><B>control-error</B></A>. <P>
+ When <I>condition</I> is <A REL=DEFINITION HREF="26_glo_n.htm#non-nil"><I>non-nil</I></A>, only those <A REL=DEFINITION HREF="26_glo_r.htm#restart"><I>restarts</I></A> are considered that are either explicitly associated with that <I>condition</I>, or not associated with any <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A>; that is, the excluded <A REL=DEFINITION HREF="26_glo_r.htm#restart"><I>restarts</I></A> are those that are associated with a non-empty set of <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>conditions</I></A> of which the given <I>condition</I> is not an <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>element</I></A>. If <I>condition</I> is <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>, all <A REL=DEFINITION HREF="26_glo_r.htm#restart"><I>restarts</I></A> are considered.  <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+;;; Example of the ABORT retart
+
+ (defmacro abort-on-error (&amp;body forms)
+   `(handler-bind ((error #'abort))
+      ,@forms)) =&gt;  ABORT-ON-ERROR
+ (abort-on-error (+ 3 5)) =&gt;  8
+ (abort-on-error (error &quot;You lose.&quot;))
+&gt;&gt;  Returned to Lisp Top Level.
+
+;;; Example of the CONTINUE restart
+
+ (defun real-sqrt (n)
+   (when (minusp n)
+     (setq n (- n))
+     (cerror &quot;Return sqrt(~D) instead.&quot; &quot;Tried to take sqrt(-~D).&quot; n))
+   (sqrt n))
+
+ (real-sqrt 4) =&gt;  2
+ (real-sqrt -9)
+&gt;&gt;  Error: Tried to take sqrt(-9).
+&gt;&gt;  To continue, type :CONTINUE followed by an option number:
+&gt;&gt;   1: Return sqrt(9) instead.
+&gt;&gt;   2: Return to Lisp Toplevel.
+&gt;&gt;  Debug&gt; (continue)
+&gt;&gt;  Return sqrt(9) instead.
+=&gt;  3
+ 
+ (handler-bind ((error #'(lambda (c) (continue))))
+   (real-sqrt -9)) =&gt;  3
+
+;;; Example of the MUFFLE-WARNING restart
+
+ (defun count-down (x)
+   (do ((counter x (1- counter)))
+       ((= counter 0) 'done)
+     (when (= counter 1)
+       (warn &quot;Almost done&quot;))
+     (format t &quot;~&amp;~D~%&quot; counter)))
+=&gt;  COUNT-DOWN
+ (count-down 3)
+&gt;&gt;  3
+&gt;&gt;  2
+&gt;&gt;  Warning: Almost done
+&gt;&gt;  1
+=&gt;  DONE
+ (defun ignore-warnings-while-counting (x)
+   (handler-bind ((warning #'ignore-warning))
+     (count-down x)))
+=&gt;  IGNORE-WARNINGS-WHILE-COUNTING
+ (defun ignore-warning (condition)
+   (declare (ignore condition))
+   (muffle-warning))
+=&gt;  IGNORE-WARNING
+ (ignore-warnings-while-counting 3)
+&gt;&gt;  3
+&gt;&gt;  2
+&gt;&gt;  1
+=&gt;  DONE
+
+;;; Example of the STORE-VALUE and USE-VALUE restarts
+
+ (defun careful-symbol-value (symbol)
+   (check-type symbol symbol)
+   (restart-case (if (boundp symbol)
+                     (return-from careful-symbol-value 
+                                  (symbol-value symbol))
+                     (error 'unbound-variable
+                            :name symbol))
+     (use-value (value)
+       :report &quot;Specify a value to use this time.&quot;
+       value)
+     (store-value (value)
+       :report &quot;Specify a value to store and use in the future.&quot;
+       (setf (symbol-value symbol) value))))
+ (setq a 1234) =&gt;  1234
+ (careful-symbol-value 'a) =&gt;  1234
+ (makunbound 'a) =&gt;  A
+ (careful-symbol-value 'a)
+&gt;&gt;  Error: A is not bound.
+&gt;&gt;  To continue, type :CONTINUE followed by an option number.
+&gt;&gt;   1: Specify a value to use this time.
+&gt;&gt;   2: Specify a value to store and use in the future.
+&gt;&gt;   3: Return to Lisp Toplevel.
+&gt;&gt;  Debug&gt; (use-value 12)
+=&gt;  12
+ (careful-symbol-value 'a)
+&gt;&gt;  Error: A is not bound.
+&gt;&gt;  To continue, type :CONTINUE followed by an option number.
+&gt;&gt;    1: Specify a value to use this time.
+&gt;&gt;    2: Specify a value to store and use in the future.
+&gt;&gt;    3: Return to Lisp Toplevel.
+&gt;&gt;  Debug&gt; (store-value 24)
+=&gt;  24
+ (careful-symbol-value 'a)
+=&gt;  24
+
+;;; Example of the USE-VALUE restart
+
+ (defun add-symbols-with-default (default &amp;rest symbols)
+   (handler-bind ((sys:unbound-symbol
+                    #'(lambda (c)
+                        (declare (ignore c)) 
+                        (use-value default))))
+     (apply #'+ (mapcar #'careful-symbol-value symbols))))
+=&gt;  ADD-SYMBOLS-WITH-DEFAULT
+ (setq x 1 y 2) =&gt;  2
+ (add-symbols-with-default 3 'x 'y 'z) =&gt;  6
+
+
+</PRE>
+</b> <P>
+<p><b>●副作用:</b><P>
+ <P>
+A transfer of control may occur if an appropriate <A REL=DEFINITION HREF="26_glo_r.htm#restart"><I>restart</I></A> is available, or (in the case of the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="#abort"><B>abort</B></A> or the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="#muffle-warning"><B>muffle-warning</B></A>) execution may be stopped. <P>
+<p><b>●受制于:</b><P>
+ <P>
+Each of these functions can be affected by the presence of a <A REL=DEFINITION HREF="26_glo_r.htm#restart"><I>restart</I></A> having the same name. <P>
+<p><b>●例外情况：</b><P>
+ <P>
+If an appropriate <A REL=DEFINITION HREF="a_abort.htm#abort"><B>abort</B></A> <A REL=DEFINITION HREF="26_glo_r.htm#restart"><I>restart</I></A> is not available for the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="#abort"><B>abort</B></A>, or an appropriate <A REL=DEFINITION HREF="a_muffle.htm#muffle-warning"><B>muffle-warning</B></A> <A REL=DEFINITION HREF="26_glo_r.htm#restart"><I>restart</I></A> is not available for the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="#muffle-warning"><B>muffle-warning</B></A>, an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_contro.htm#control-error"><B>control-error</B></A> is signaled. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_invo_1.htm#invoke-restart"><B>invoke-restart</B></A>, <A REL=CHILD HREF="09_adb.htm">Section 9.1.4.2 (Restarts)</A>, <A REL=CHILD HREF="09_adbb.htm">Section 9.1.4.2.2 (Interfaces to Restarts)</A>, <A REL=DEFINITION HREF="m_assert.htm#assert"><B>assert</B></A>, <A REL=DEFINITION HREF="m_case_.htm#ccase"><B>ccase</B></A>, <A REL=DEFINITION HREF="f_cerror.htm#cerror"><B>cerror</B></A>, <A REL=DEFINITION HREF="m_check_.htm#check-type"><B>check-type</B></A>, <A REL=DEFINITION HREF="m_tpcase.htm#ctypecase"><B>ctypecase</B></A>, <A REL=DEFINITION HREF="#use-value"><B>use-value</B></A>, <A REL=DEFINITION HREF="f_warn.htm#warn"><B>warn</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<PRE>
+ (abort condition) ==  (invoke-restart 'abort)
+ (muffle-warning)  ==  (invoke-restart 'muffle-warning)
+ (continue)        ==  (let ((r (find-restart 'continue))) (if r (invoke-restart r)))
+ (use-value x) ==  (let ((r (find-restart 'use-value))) (if r (invoke-restart r x)))
+ (store-value x) ==  (let ((r (find-restart 'store-value))) (if r (invoke-restart r x)))
+</PRE>
+</b> <P>
+No functions defined in this specification are required to provide a <A REL=DEFINITION HREF="a_use_va.htm#use-value"><B>use-value</B></A> <A REL=DEFINITION HREF="26_glo_r.htm#restart"><I>restart</I></A>. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss244.htm">MUFFLE-WARNING-CONDITION-ARGUMENT</A><LI> <A REL=CHILD HREF="../Issues/iss076.htm">CONDITION-RESTARTS:PERMIT-ASSOCIATION</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

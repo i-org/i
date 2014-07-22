@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 17.2.1.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="17_ba.htm">
+<LINK REL=UP HREF="17_ba.htm">
+<LINK REL=NEXT HREF="17_bb.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="17_ba.htm">◀</A><A REL=UP HREF="17_ba.htm">▲</A><A REL=NEXT HREF="17_bb.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+17.2.1.1 Examples of Satisfying a Two-Argument Test</H2> <P>
+<PRE>
+ (remove &quot;FOO&quot; '(foo bar &quot;FOO&quot; &quot;BAR&quot; &quot;foo&quot; &quot;bar&quot;) :test #'equal)
+=&gt;  (foo bar &quot;BAR&quot; &quot;foo&quot; &quot;bar&quot;)
+ (remove &quot;FOO&quot; '(foo bar &quot;FOO&quot; &quot;BAR&quot; &quot;foo&quot; &quot;bar&quot;) :test #'equalp)
+=&gt;  (foo bar &quot;BAR&quot; &quot;bar&quot;)
+ (remove &quot;FOO&quot; '(foo bar &quot;FOO&quot; &quot;BAR&quot; &quot;foo&quot; &quot;bar&quot;) :test #'string-equal)
+=&gt;  (bar &quot;BAR&quot; &quot;bar&quot;)
+ (remove &quot;FOO&quot; '(foo bar &quot;FOO&quot; &quot;BAR&quot; &quot;foo&quot; &quot;bar&quot;) :test #'string=)
+=&gt;  (BAR &quot;BAR&quot; &quot;foo&quot; &quot;bar&quot;)
+
+ (remove 1 '(1 1.0 #C(1.0 0.0) 2 2.0 #C(2.0 0.0)) :test-not #'eql)
+=&gt;  (1)
+ (remove 1 '(1 1.0 #C(1.0 0.0) 2 2.0 #C(2.0 0.0)) :test-not #'=)
+=&gt;  (1 1.0 #C(1.0 0.0))
+ (remove 1 '(1 1.0 #C(1.0 0.0) 2 2.0 #C(2.0 0.0)) :test (complement #'=))
+=&gt;  (1 1.0 #C(1.0 0.0))
+
+ (count 1 '((one 1) (uno 1) (two 2) (dos 2)) :key #'cadr) =&gt;  2
+
+ (count 2.0 '(1 2 3) :test #'eql :key #'float) =&gt;  1
+
+ (count &quot;FOO&quot; (list (make-pathname :name &quot;FOO&quot; :type &quot;X&quot;)  
+                    (make-pathname :name &quot;FOO&quot; :type &quot;Y&quot;))
+        :key #'pathname-name
+        :test #'equal)
+=&gt;  2
+</PRE>
+</b> <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Macro WITH-COMPILATION-UNIT</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_load.htm">
+<LINK REL=UP HREF="c_system.htm">
+<LINK REL=NEXT HREF="v_featur.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_load.htm">◀</A><A REL=UP HREF="c_system.htm">▲</A><A REL=NEXT HREF="v_featur.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="with-compilation-unit"><I>Macro</I> <B>WITH-COMPILATION-UNIT</B></A> <P>
+ <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>with-compilation-unit</B> <I>([[<I>option</I>]]) <I>form</I><B>*</B></I> =&gt; <I><I>result</I><B>*</B></I><P>
+ <P>
+<PRE>
+option::= :override override 
+</PRE>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>override</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>; evaluated. The default is <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<I>forms</I>---an <A REL=DEFINITION HREF="26_glo_i.htm#implicit_progn"><I>implicit progn</I></A>. <P>
+<I>results</I>---the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> returned by the <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Executes <I>forms</I> from left to right. Within the <A REL=DEFINITION HREF="26_glo_d.htm#dynamic_environment"><I>dynamic environment</I></A> of <A REL=DEFINITION HREF="#with-compilation-unit"><B>with-compilation-unit</B></A>, actions deferred by the compiler until the end of compilation will be deferred until the end of the outermost call to <A REL=DEFINITION HREF="#with-compilation-unit"><B>with-compilation-unit</B></A>. <P>
+The set of <I>options</I> permitted may be extended by the implementation, but the only <A REL=DEFINITION HREF="26_glo_s.htm#standardized"><I>standardized</I></A> keyword is <b>:override</b>. <P>
+If nested dynamically only the outer call to <A REL=DEFINITION HREF="#with-compilation-unit"><B>with-compilation-unit</B></A> has any effect unless the value associated with <b>:override</b> is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A>, in which case warnings are deferred only to the end of the innermost call for which <I>override</I> is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A>. <P>
+The function <A REL=DEFINITION HREF="f_cmp_fi.htm#compile-file"><B>compile-file</B></A> provides the effect of <P>
+<PRE>
+ (with-compilation-unit (:override nil) ...)
+</PRE>
+</b> around its <A REL=DEFINITION HREF="26_glo_c.htm#code"><I>code</I></A>. <P>
+Any <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> extensions can only be provided as the result of an explicit programmer request by use of an <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> keyword. <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>Implementations</I></A> are forbidden from attaching additional meaning to a use of this macro which involves either no keywords or just the keyword <b>:override</b>. <P>
+<p><b>●例子:</b><P>
+ <P>
+If an <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> would normally defer certain kinds of warnings, such as warnings about undefined functions, to the end of a compilation unit (such as a <A REL=DEFINITION HREF="26_glo_f.htm#file"><I>file</I></A>), the following example shows how to cause those warnings to be deferred to the end of the compilation of several files. <P>
+<PRE>
+ (defun compile-files (&amp;rest files)
+   (with-compilation-unit ()
+     (mapcar #'(lambda (file) (compile-file file)) files)))
+
+ (compile-files &quot;A&quot; &quot;B&quot; &quot;C&quot;)
+</PRE>
+</b> <P>
+Note however that if the implementation does not normally defer any warnings, use of <A REL=DEFINITION HREF="#with-compilation-unit"><I>with-compilation-unit</I></A> might not have any effect. <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_cmp.htm#compile"><B>compile</B></A>, <A REL=DEFINITION HREF="f_cmp_fi.htm#compile-file"><B>compile-file</B></A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss360.htm">WITH-COMPILATION-UNIT:NEW-MACRO</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

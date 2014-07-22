@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Standard Generic Function ADD-METHOD</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_find_m.htm">
+<LINK REL=UP HREF="c_object.htm">
+<LINK REL=NEXT HREF="f_init_i.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_find_m.htm">◀</A><A REL=UP HREF="c_object.htm">▲</A><A REL=NEXT HREF="f_init_i.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="add-method"><I>Standard Generic Function</I> <B>ADD-METHOD</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>add-method</B> <I>generic-function method</I> =&gt; <I>generic-function</I><P>
+ <P>
+<P><B>Method Signatures:</B><P>
+ <P>
+
+<B>add-method</B> <I>(<I>generic-function</I><B> <A REL=DEFINITION HREF="t_std_ge.htm#standard-generic-function">standard-generic-function</A></B>) (<I>method</I><B> <A REL=DEFINITION HREF="t_method.htm#method">method</A></B>)</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>generic-function</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generic_function"><I>generic function</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<I>method</I>---a <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+The generic function <A REL=DEFINITION HREF="#add-method"><B>add-method</B></A> adds a <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> to a <A REL=DEFINITION HREF="26_glo_g.htm#generic_function"><I>generic function</I></A>. <P>
+If <I>method</I> agrees with an existing <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> of <I>generic-function</I> on <A REL=DEFINITION HREF="26_glo_p.htm#parameter_specializer"><I>parameter specializers</I></A> and <A REL=DEFINITION HREF="26_glo_q.htm#qualifier"><I>qualifiers</I></A>, the existing <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> is replaced. <P>
+<p><b>●例子:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+The <A REL=DEFINITION HREF="26_glo_l.htm#lambda_list"><I>lambda list</I></A> of the method function of <I>method</I> must be congruent with the <A REL=DEFINITION HREF="26_glo_l.htm#lambda_list"><I>lambda list</I></A> of <I>generic-function</I>, or an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_error.htm#error"><B>error</B></A> is signaled. <P>
+If <I>method</I> is a <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> of another <A REL=DEFINITION HREF="26_glo_g.htm#generic_function"><I>generic function</I></A>, an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_error.htm#error"><B>error</B></A> is signaled. <P>
+ <p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_defmet.htm#defmethod"><B>defmethod</B></A>, <A REL=DEFINITION HREF="m_defgen.htm#defgeneric"><B>defgeneric</B></A>, <A REL=DEFINITION HREF="f_find_m.htm#find-method"><B>find-method</B></A>, <A REL=DEFINITION HREF="f_rm_met.htm#remove-method"><B>remove-method</B></A>, <A REL=CHILD HREF="07_fc.htm">Section 7.6.3 (Agreement on Parameter Specializers and Qualifiers)</A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function GET-PROPERTIES</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_rassoc.htm">
+<LINK REL=UP HREF="c_conses.htm">
+<LINK REL=NEXT HREF="f_getf.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_rassoc.htm">◀</A><A REL=UP HREF="c_conses.htm">▲</A><A REL=NEXT HREF="f_getf.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="get-properties"><I>Function</I> <B>GET-PROPERTIES</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>get-properties</B> <I>plist indicator-list</I> =&gt; <I>indicator, value, tail</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+ <I>plist</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#property_list"><I>property list</I></A>.  <P>
+<I>indicator-list</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#proper_list"><I>proper list</I></A> (of <A REL=DEFINITION HREF="26_glo_i.htm#indicator"><I>indicators</I></A>). <P>
+<I>indicator</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> that is an <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>element</I></A> of <I>indicator-list</I>. <P>
+<I>value</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<I>tail</I>---a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#get-properties"><B>get-properties</B></A> is used to look up any of several <A REL=DEFINITION HREF="26_glo_p.htm#property_list"><I>property list</I></A> entries all at once. <P>
+It searches the <I>plist</I> for the first entry whose <A REL=DEFINITION HREF="26_glo_i.htm#indicator"><I>indicator</I></A> is <A REL=DEFINITION HREF="26_glo_i.htm#identical"><I>identical</I></A> to one of the <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A> in <I>indicator-list</I>. If such an entry is found, the <I>indicator</I> and <I>value</I> returned are the <A REL=DEFINITION HREF="26_glo_p.htm#property_indicator"><I>property indicator</I></A> and its associated <A REL=DEFINITION HREF="26_glo_p.htm#property_value"><I>property value</I></A>, and the <I>tail</I> returned is the <A REL=DEFINITION HREF="26_glo_t.htm#tail"><I>tail</I></A> of the <I>plist</I> that begins with the found entry (i.e., whose <A REL=DEFINITION HREF="26_glo_c.htm#car"><I>car</I></A> is the <I>indicator</I>). If no such entry is found, the <I>indicator</I>, <I>value</I>, and <I>tail</I> are all <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (setq x '()) =&gt;  NIL
+ (setq *indicator-list* '(prop1 prop2)) =&gt;  (PROP1 PROP2)
+ (getf x 'prop1) =&gt;  NIL
+ (setf (getf x 'prop1) 'val1) =&gt;  VAL1
+ (eq (getf x 'prop1) 'val1) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (get-properties x *indicator-list*) =&gt;  PROP1, VAL1, (PROP1 VAL1)
+ x =&gt;  (PROP1 VAL1)
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_get.htm#get"><B>get</B></A>, <A REL=DEFINITION HREF="f_getf.htm#getf"><B>getf</B></A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss269.htm">PLIST-DUPLICATES:ALLOW</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

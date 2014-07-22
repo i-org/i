@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function PATHNAME-HOST, PATHNAME-DEVICE...</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_pnp.htm">
+<LINK REL=UP HREF="c_filena.htm">
+<LINK REL=NEXT HREF="f_ld_log.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_pnp.htm">◀</A><A REL=UP HREF="c_filena.htm">▲</A><A REL=NEXT HREF="f_ld_log.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="pathname-host"><A NAME="pathname-device"><A NAME="pathname-directory"><A NAME="pathname-name"><A NAME="pathname-type"><A NAME="pathname-version"><I>Function</I> <B>PATHNAME-HOST, PATHNAME-DEVICE, PATHNAME-DIRECTORY, PATHNAME-NAME, PATHNAME-TYPE, PATHNAME-VERSION</B></A></A></A></A></A></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+ <P>
+ 
+<B>pathname-host</B> <I>pathname <b>&amp;key</b> case</I> =&gt; <I>host</I><P>
+ <P>
+
+<B>pathname-device</B> <I>pathname <b>&amp;key</b> case</I> =&gt; <I>device</I><P>
+ <P>
+
+<B>pathname-directory</B> <I>pathname <b>&amp;key</b> case</I> =&gt; <I>directory</I><P>
+ <P>
+
+<B>pathname-name</B> <I>pathname <b>&amp;key</b> case</I> =&gt; <I>name</I><P>
+ <P>
+
+<B>pathname-type</B> <I>pathname <b>&amp;key</b> case</I> =&gt; <I>type</I><P>
+ <P>
+ <P>
+
+<B>pathname-version</B> <I>pathname</I> =&gt; <I>version</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+ <I>pathname</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#pathname_designator"><I>pathname designator</I></A>.  <P>
+ <I>case</I>---one of <b>:local</b> or <b>:common</b>. The default is <b>:local</b>.  <P>
+ <I>host</I>---a <A REL=DEFINITION HREF="26_glo_v.htm#valid_pathname_host"><I>valid pathname host</I></A>. <P>
+<I>device</I>---a <A REL=DEFINITION HREF="26_glo_v.htm#valid_pathname_device"><I>valid pathname device</I></A>. <P>
+ <I>directory</I>---a <A REL=DEFINITION HREF="26_glo_v.htm#valid_pathname_directory"><I>valid pathname directory</I></A>.  <P>
+<I>name</I>---a <A REL=DEFINITION HREF="26_glo_v.htm#valid_pathname_name"><I>valid pathname name</I></A>. <P>
+<I>type</I>---a <A REL=DEFINITION HREF="26_glo_v.htm#valid_pathname_type"><I>valid pathname type</I></A>. <P>
+<I>version</I>---a <A REL=DEFINITION HREF="26_glo_v.htm#valid_pathname_version"><I>valid pathname version</I></A>. <P>
+ <P>
+<p><b>●详情:</b><P>
+ <P>
+These functions return the components of <I>pathname</I>. <P>
+If the <I>pathname</I> <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> is a <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathname</I></A>, it represents the name used to open the file. This may be, but is not required to be, the actual name of the file. <P>
+ If <I>case</I> is supplied, it is treated as described in <A REL HREF="19_bbab.htm">Section 19.2.2.1.2 (Case in Pathname Components)</A>.  <P>
+<p><b>●例子:</b><P>
+ <P>
+  
+<PRE>
+ (setq q (make-pathname :host &quot;KATHY&quot;
+                        :directory &quot;CHAPMAN&quot; 
+                        :name &quot;LOGIN&quot; :type &quot;COM&quot;))
+=&gt;  #P&quot;KATHY::[CHAPMAN]LOGIN.COM&quot;
+ (pathname-host q) =&gt;  &quot;KATHY&quot;
+ (pathname-name q) =&gt;  &quot;LOGIN&quot;
+ (pathname-type q) =&gt;  &quot;COM&quot;
+
+ ;; Because namestrings are used, the results shown in the remaining
+ ;; examples are not necessarily the only possible results.  Mappings
+ ;; from namestring representation to pathname representation are 
+ ;; dependent both on the file system involved and on the implementation
+ ;; (since there may be several implementations which can manipulate the
+ ;; the same file system, and those implementations are not constrained
+ ;; to agree on all details). Consult the documentation for each
+ ;; implementation for specific information on how namestrings are treated
+ ;; that implementation.
+
+ ;; VMS
+ (pathname-directory (parse-namestring &quot;[FOO.*.BAR]BAZ.LSP&quot;))
+=&gt;  (:ABSOLUTE &quot;FOO&quot; &quot;BAR&quot;)
+ (pathname-directory (parse-namestring &quot;[FOO.*.BAR]BAZ.LSP&quot;) :case :common)
+=&gt;  (:ABSOLUTE &quot;FOO&quot; &quot;BAR&quot;)
+
+ ;; Unix
+ (pathname-directory &quot;foo.l&quot;) =&gt;  NIL
+ (pathname-device &quot;foo.l&quot;) =&gt;  :UNSPECIFIC
+ (pathname-name &quot;foo.l&quot;) =&gt;  &quot;foo&quot;
+ (pathname-name &quot;foo.l&quot; :case :local) =&gt;  &quot;foo&quot;
+ (pathname-name &quot;foo.l&quot; :case :common) =&gt;  &quot;FOO&quot;
+ (pathname-type &quot;foo.l&quot;) =&gt;  &quot;l&quot;
+ (pathname-type &quot;foo.l&quot; :case :local) =&gt;  &quot;l&quot;
+ (pathname-type &quot;foo.l&quot; :case :common) =&gt;  &quot;L&quot;
+ (pathname-type &quot;foo&quot;) =&gt;  :UNSPECIFIC
+ (pathname-type &quot;foo&quot; :case :common) =&gt;  :UNSPECIFIC
+ (pathname-type &quot;foo.&quot;) =&gt;  &quot;&quot;
+ (pathname-type &quot;foo.&quot; :case :common) =&gt;  &quot;&quot;
+ (pathname-directory (parse-namestring &quot;/foo/bar/baz.lisp&quot;) :case :local)
+=&gt;  (:ABSOLUTE &quot;foo&quot; &quot;bar&quot;)
+ (pathname-directory (parse-namestring &quot;/foo/bar/baz.lisp&quot;) :case :local)
+=&gt;  (:ABSOLUTE &quot;FOO&quot; &quot;BAR&quot;)
+ (pathname-directory (parse-namestring &quot;../baz.lisp&quot;))
+=&gt;  (:RELATIVE :UP)
+ (PATHNAME-DIRECTORY (PARSE-NAMESTRING &quot;/foo/BAR/../Mum/baz&quot;))
+=&gt;  (:ABSOLUTE &quot;foo&quot; &quot;BAR&quot; :UP &quot;Mum&quot;)
+ (PATHNAME-DIRECTORY (PARSE-NAMESTRING &quot;/foo/BAR/../Mum/baz&quot;) :case :common)
+=&gt;  (:ABSOLUTE &quot;FOO&quot; &quot;bar&quot; :UP &quot;Mum&quot;)
+ (PATHNAME-DIRECTORY (PARSE-NAMESTRING &quot;/foo/*/bar/baz.l&quot;))
+=&gt;  (:ABSOLUTE &quot;foo&quot; :WILD &quot;bar&quot;)
+ (PATHNAME-DIRECTORY (PARSE-NAMESTRING &quot;/foo/*/bar/baz.l&quot;) :case :common)
+=&gt;  (:ABSOLUTE &quot;FOO&quot; :WILD &quot;BAR&quot;)
+
+ ;; Symbolics LMFS
+ (pathname-directory (parse-namestring &quot;&gt;foo&gt;**&gt;bar&gt;baz.lisp&quot;))
+=&gt;  (:ABSOLUTE &quot;foo&quot; :WILD-INFERIORS &quot;bar&quot;)
+ (pathname-directory (parse-namestring &quot;&gt;foo&gt;*&gt;bar&gt;baz.lisp&quot;))
+=&gt;  (:ABSOLUTE &quot;foo&quot; :WILD &quot;bar&quot;)
+ (pathname-directory (parse-namestring &quot;&gt;foo&gt;*&gt;bar&gt;baz.lisp&quot;) :case :common)
+=&gt;  (:ABSOLUTE &quot;FOO&quot; :WILD &quot;BAR&quot;)
+ (pathname-device (parse-namestring &quot;&gt;foo&gt;baz.lisp&quot;)) =&gt;  :UNSPECIFIC
+</PRE>
+</b>   <P>
+<p><b>●受制于:</b><P>
+ <P>
+The <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> and the host <A REL=DEFINITION HREF="26_glo_f.htm#file_system"><I>file system</I></A>. <P>
+<p><b>●例外情况：</b><P>
+ <P>
+Should signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if its first argument is not a <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathname</I></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+ <A REL=DEFINITION HREF="t_pn.htm#pathname"><B>pathname</B></A>, <A REL=DEFINITION HREF="t_logica.htm#logical-pathname"><B>logical-pathname</B></A>, <A REL=CHILD HREF="20_a.htm">Section 20.1 (File System Concepts)</A>, <A REL=CHILD HREF="19_ab.htm">Section 19.1.2 (Pathnames as Filenames)</A>  <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss157.htm">FILE-OPEN-ERROR:SIGNAL-FILE-ERROR</A><LI> <A REL=CHILD HREF="../Issues/iss259.htm">PATHNAME-LOGICAL:ADD</A><LI> <A REL=CHILD HREF="../Issues/iss267.htm">PATHNAME-WILD:NEW-FUNCTIONS</A><LI> <A REL=CHILD HREF="../Issues/iss263.htm">PATHNAME-SUBDIRECTORY-LIST:NEW-REPRESENTATION</A><LI> <A REL=CHILD HREF="../Issues/iss266.htm">PATHNAME-UNSPECIFIC-COMPONENT:NEW-TOKEN</A><LI> <A REL=CHILD HREF="../Issues/iss261.htm">PATHNAME-STREAM</A><LI> <A REL=CHILD HREF="../Issues/iss256.htm">PATHNAME-COMPONENT-CASE:KEYWORD-ARGUMENT</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

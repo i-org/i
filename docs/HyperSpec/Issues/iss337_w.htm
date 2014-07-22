@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Issue SYMBOL-MACROLET-DECLARE Writeup</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="../Issues/iss336_w.htm">
+<LINK REL=UP HREF="../Issues/iss337.htm">
+<LINK REL=NEXT HREF="../Issues/iss338_w.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="../Issues/iss336_w.htm">◀</A><A REL=UP HREF="../Issues/iss337.htm">▲</A><A REL=NEXT HREF="../Issues/iss338_w.htm">▶</A></h1>
+
+<HR>
+
+
+
+<H2>Issue SYMBOL-MACROLET-DECLARE Writeup</H2>
+
+<PRE><B>Issue:</B>         <A HREF="iss337.htm">SYMBOL-MACROLET-DECLARE</A><P>
+<P>
+<B>References:</B>    <A REL=DEFINITION HREF="../Body/s_symbol.htm#symbol-macrolet"><B>SYMBOL-MACROLET</B></A> (88-002R page 2-81)<P>
+               <A REL=DEFINITION HREF="../Body/m_w_acce.htm#with-accessors"><B>WITH-ACCESSORS</B></A> (88-002R page 2-88)<P>
+               <A REL=DEFINITION HREF="../Body/m_w_slts.htm#with-slots"><B>WITH-SLOTS</B></A> (88-002R page 2-92)<P>
+<P>
+Related Issues: <A HREF="iss338.htm">SYMBOL-MACROLET-SEMANTICS</A><P>
+               <A HREF="iss159_m.htm">FLET-DECLARATIONS</A> (passed)<P>
+<P>
+<B>Category:</B>      ADDITION<P>
+<P>
+<B>Edit history:</B>  Version 1, 12-Sep-88, Moon<P>
+               Version 2,  9-Dec-88, Masinter<P>
+                 (add cross reference, discussion)<P>
+<P>
+<B>Problem description:<P>
+</B><P>
+It would be both natural and nice to be able to write<P>
+<P>
+  (<A REL=DEFINITION HREF="../Body/m_w_slts.htm#with-slots"><B>with-slots</B></A> (rho theta) point<P>
+    (<A REL=DEFINITION HREF="../Body/s_declar.htm#declare"><B>declare</B></A> (<A REL=DEFINITION HREF="../Body/t_short_.htm#single-float"><B>single-float</B></A> rho theta))<P>
+    ...computation...)<P>
+<P>
+<B>Proposal (SYMBOL-MACROLET-DECLARE:ALLOW):<P>
+</B>	  <P>
+Allow declarations at the head of the body of <A REL=DEFINITION HREF="../Body/s_symbol.htm#symbol-macrolet"><B>SYMBOL-MACROLET</B></A>, and hence<P>
+in <A REL=DEFINITION HREF="../Body/m_w_acce.htm#with-accessors"><B>WITH-ACCESSORS</B></A> and <A REL=DEFINITION HREF="../Body/m_w_slts.htm#with-slots"><B>WITH-SLOTS</B></A>.  Exactly the same declarations are<P>
+allowed as for <A REL=DEFINITION HREF="../Body/s_let_l.htm#let"><B>LET</B></A>, with one exception: <A REL=DEFINITION HREF="../Body/s_symbol.htm#symbol-macrolet"><B>SYMBOL-MACROLET</B></A> signals an error<P>
+if a <A REL=DEFINITION HREF="../Body/d_specia.htm#special"><B>SPECIAL</B></A> declaration names one of the symbols being defined as a<P>
+<A REL=DEFINITION HREF="../Body/s_symbol.htm#symbol-macrolet"><B>symbol-macrolet</B></A>.  A type declaration of one of these symbols is equivalent<P>
+to wrapping a <A REL=DEFINITION HREF="../Body/s_the.htm#the"><B>THE</B></A> expression around the expansion of that symbol.<P>
+<P>
+<B>Example:<P>
+</B><P>
+See problem description.<P>
+<P>
+<B>Rationale:<P>
+</B><P>
+If <A REL=DEFINITION HREF="../Body/s_symbol.htm#symbol-macrolet"><B>SYMBOL-MACROLET</B></A> is intended to resemble <A REL=DEFINITION HREF="../Body/s_let_l.htm#let"><B>LET</B></A> in syntax, it ought to<P>
+allow declarations.  When writing a <A REL=DEFINITION HREF="../Body/s_symbol.htm#symbol-macrolet"><B>SYMBOL-MACROLET</B></A> directly, the user<P>
+could just as easily write a <A REL=DEFINITION HREF="../Body/s_the.htm#the"><B>THE</B></A> expression instead of a type<P>
+declaration.  However, when invoking a macro such as <A REL=DEFINITION HREF="../Body/m_w_slts.htm#with-slots"><B>WITH-SLOTS</B></A> that<P>
+expands into <A REL=DEFINITION HREF="../Body/s_symbol.htm#symbol-macrolet"><B>SYMBOL-MACROLET</B></A>, the user does not have this option since<P>
+the expansion is not supplied explicitly by the user.<P>
+<P>
+<B>Current practice:<P>
+</B><P>
+<A REL=DEFINITION HREF="../Body/s_symbol.htm#symbol-macrolet"><B>SYMBOL-MACROLET</B></A> was only tentatively added to Common Lisp 3 months ago.<P>
+<P>
+<B>Cost to Implementors:<P>
+</B><P>
+Less than one man-hour.<P>
+<P>
+<B>Cost to Users:<P>
+</B><P>
+None.<P>
+<P>
+<B>Cost of non-adoption:<P>
+</B><P>
+Minor wart in the language.<P>
+<P>
+<B>Benefits:<P>
+</B><P>
+More consistent language definition.<P>
+<P>
+<B>Esthetics:<P>
+</B><P>
+More consistent language definition.<P>
+<P>
+<B>Discussion:<P>
+</B><P>
+This issue is related to <A HREF="iss338.htm">SYMBOL-MACROLET-SEMANTICS</A>.<P>
+<P>
+&quot;A macro-definition for <A REL=DEFINITION HREF="../Body/s_symbol.htm#symbol-macrolet"><B>SYMBOL-MACROLET</B></A> would leave the issue of<P>
+<A REL=DEFINITION HREF="../Body/s_declar.htm#declare"><B>DECLARE</B></A> open.  But the special-form version of <A REL=DEFINITION HREF="../Body/s_symbol.htm#symbol-macrolet"><B>SYMBOL-MACROLET</B></A><P>
+really should address it.&quot;<P>
+<P>
+</PRE>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

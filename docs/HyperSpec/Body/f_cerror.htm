@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function CERROR</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_error.htm">
+<LINK REL=UP HREF="c_condit.htm">
+<LINK REL=NEXT HREF="m_check_.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_error.htm">◀</A><A REL=UP HREF="c_condit.htm">▲</A><A REL=NEXT HREF="m_check_.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="cerror"><I>Function</I> <B>CERROR</B></A> 按条件更正<P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>cerror</B> <I>continue-format-control datum <b>&amp;rest</b> arguments</I> =&gt; <I><A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A></I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+ <I>Continue-format-control</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#format_control"><I>format control</I></A>.  <P>
+ <P>
+<I>datum</I>, <I>arguments</I>---<A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designators</I></A> for a <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> of default type <A REL=DEFINITION HREF="e_smp_er.htm#simple-error"><B>simple-error</B></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#cerror"><B>cerror</B></A> effectively invokes <A REL=DEFINITION HREF="f_error.htm#error"><B>error</B></A> on the <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> named by <I>datum</I>. As with any function that implicitly calls <A REL=DEFINITION HREF="f_error.htm#error"><B>error</B></A>, if the <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> is not handled, <b>(invoke-debugger </b><I>condition</I><b>)</b> is executed. While signaling is going on, and while in the debugger if it is reached, it is possible to continue code execution (i.e., to return from <A REL=DEFINITION HREF="#cerror"><B>cerror</B></A>) using the <A REL=DEFINITION HREF="a_contin.htm#continue"><B>continue</B></A> <A REL=DEFINITION HREF="26_glo_r.htm#restart"><I>restart</I></A>. <P>
+If <I>datum</I> is a <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A>, <I>arguments</I> can be supplied, but are used only in conjunction with the <I>continue-format-control</I>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (defun real-sqrt (n)
+   (when (minusp n)
+     (setq n (- n))
+     (cerror &quot;Return sqrt(~D) instead.&quot; &quot;Tried to take sqrt(-~D).&quot; n))
+   (sqrt n))
+
+ (real-sqrt 4)
+=&gt;  2.0
+
+ (real-sqrt -9)
+&gt;&gt;  Correctable error in REAL-SQRT: Tried to take sqrt(-9).
+&gt;&gt;  Restart options:
+&gt;&gt;   1: Return sqrt(9) instead.
+&gt;&gt;   2: Top level.
+&gt;&gt;  Debug&gt; :continue 1
+=&gt;  3.0
+ 
+ (define-condition not-a-number (error)
+   ((argument :reader not-a-number-argument :initarg :argument))
+   (:report (lambda (condition stream)
+              (format stream &quot;~S is not a number.&quot; 
+                      (not-a-number-argument condition)))))
+ 
+ (defun assure-number (n)
+   (loop (when (numberp n) (return n))
+         (cerror &quot;Enter a number.&quot;
+                 'not-a-number :argument n)
+         (format t &quot;~&amp;Type a number: &quot;)
+         (setq n (read))
+         (fresh-line)))
+
+ (assure-number 'a)
+&gt;&gt;  Correctable error in ASSURE-NUMBER: A is not a number.
+&gt;&gt;  Restart options:
+&gt;&gt;   1: Enter a number.
+&gt;&gt;   2: Top level.
+&gt;&gt;  Debug&gt; :continue 1
+&gt;&gt;  Type a number: 1/2
+=&gt;  1/2
+
+ (defun assure-large-number (n)
+   (loop (when (and (numberp n) (&gt; n 73)) (return n))
+         (cerror &quot;Enter a number~:[~; a bit larger than ~D~].&quot;
+                 &quot;~*~A is not a large number.&quot; 
+                 (numberp n) n)
+         (format t &quot;~&amp;Type a large number: &quot;)
+         (setq n (read))
+         (fresh-line)))
+ 
+ (assure-large-number 10000)
+=&gt;  10000
+
+ (assure-large-number 'a)
+&gt;&gt;  Correctable error in ASSURE-LARGE-NUMBER: A is not a large number.
+&gt;&gt;  Restart options:
+&gt;&gt;   1: Enter a number.
+&gt;&gt;   2: Top level.
+&gt;&gt;  Debug&gt; :continue 1
+&gt;&gt;  Type a large number: 88
+=&gt;  88
+
+ (assure-large-number 37)
+&gt;&gt;  Correctable error in ASSURE-LARGE-NUMBER: 37 is not a large number.
+&gt;&gt;  Restart options:
+&gt;&gt;   1: Enter a number a bit larger than 37.
+&gt;&gt;   2: Top level.
+&gt;&gt;  Debug&gt; :continue 1
+&gt;&gt;  Type a large number: 259
+=&gt;  259
+ 
+ (define-condition not-a-large-number (error)
+   ((argument :reader not-a-large-number-argument :initarg :argument))
+   (:report (lambda (condition stream)
+              (format stream &quot;~S is not a large number.&quot; 
+                      (not-a-large-number-argument condition)))))
+ 
+ (defun assure-large-number (n)
+   (loop (when (and (numberp n) (&gt; n 73)) (return n))
+         (cerror &quot;Enter a number~3*~:[~; a bit larger than ~*~D~].&quot;
+                 'not-a-large-number
+                 :argument n 
+                 :ignore (numberp n)
+                 :ignore n
+                 :allow-other-keys t)
+         (format t &quot;~&amp;Type a large number: &quot;)
+         (setq n (read))
+         (fresh-line)))
+ 
+
+ (assure-large-number 'a)
+&gt;&gt;  Correctable error in ASSURE-LARGE-NUMBER: A is not a large number.
+&gt;&gt;  Restart options:
+&gt;&gt;   1: Enter a number.
+&gt;&gt;   2: Top level.
+&gt;&gt;  Debug&gt; :continue 1
+&gt;&gt;  Type a large number: 88
+=&gt;  88
+ 
+ (assure-large-number 37)
+&gt;&gt;  Correctable error in ASSURE-LARGE-NUMBER: A is not a large number.
+&gt;&gt;  Restart options:
+&gt;&gt;   1: Enter a number a bit larger than 37.
+&gt;&gt;   2: Top level.
+&gt;&gt;  Debug&gt; :continue 1
+&gt;&gt;  Type a large number: 259
+=&gt;  259
+</PRE>
+</b> <P>
+<p><b>●受制于:</b><P>
+ <P>
+<A REL=DEFINITION HREF="v_break_.htm#STbreak-on-signalsST"><B>*break-on-signals*</B></A>. <P>
+Existing handler bindings. <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_error.htm#error"><B>error</B></A>, <A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A>, <A REL=DEFINITION HREF="m_handle.htm#handler-bind"><B>handler-bind</B></A>, <A REL=DEFINITION HREF="v_break_.htm#STbreak-on-signalsST"><B>*break-on-signals*</B></A>, <A REL=DEFINITION HREF="e_smp_tp.htm#simple-type-error"><B>simple-type-error</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+If <I>datum</I> is a <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> rather than a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A>, the <A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A> directive <b>~*</b> may be especially useful in the <I>continue-format-control</I> in order to ignore the <A REL=DEFINITION HREF="26_glo_k.htm#keyword"><I>keywords</I></A> in the <A REL=DEFINITION HREF="26_glo_i.htm#initialization_argument_list"><I>initialization argument list</I></A>. For example: <P>
+<PRE>
+(cerror &quot;enter a new value to replace ~*~s&quot; 
+        'not-a-number
+        :argument a)
+</PRE>
+</b> <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss170.htm">FORMAT-STRING-ARGUMENTS:SPECIFY</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

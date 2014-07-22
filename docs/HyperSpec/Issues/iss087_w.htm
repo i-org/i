@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Issue COPY-SYMBOL-COPY-PLIST Writeup</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="../Issues/iss086_w.htm">
+<LINK REL=UP HREF="../Issues/iss087.htm">
+<LINK REL=NEXT HREF="../Issues/iss088_w.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="../Issues/iss086_w.htm">◀</A><A REL=UP HREF="../Issues/iss087.htm">▲</A><A REL=NEXT HREF="../Issues/iss088_w.htm">▶</A></h1>
+
+<HR>
+
+
+
+<H2>Issue COPY-SYMBOL-COPY-PLIST Writeup</H2>
+
+<PRE><B>Issue:</B>		<A HREF="iss087.htm">COPY-SYMBOL-COPY-PLIST</A><P>
+<B>References:</B>	<A REL=DEFINITION HREF="../Body/f_cp_sym.htm#copy-symbol"><B>COPY-SYMBOL</B></A> (p 169), <A REL=DEFINITION HREF="../Body/f_cp_lis.htm#copy-list"><B>COPY-LIST</B></A> (p 268), <A REL=DEFINITION HREF="../Body/f_cp_tre.htm#copy-tree"><B>COPY-TREE</B></A> (p<P>
+		269).<P>
+<B>Category:</B>	CLARIFICATION<P>
+<B>Edit history:</B>	10-Jan-89, Version 1 by Margolin<P>
+<P>
+<B>Problem Description:<P>
+</B><P>
+The description of <A REL=DEFINITION HREF="../Body/f_cp_sym.htm#copy-symbol"><B>COPY-SYMBOL</B></A>, where the COPY-PROPS optional argument<P>
+is non-NIL, says that a copy of the property list is used as the new<P>
+symbol's property list.  However, there are several ways in which a list<P>
+may be copied, most notably <A REL=DEFINITION HREF="../Body/f_cp_lis.htm#copy-list"><B>COPY-LIST</B></A> and <A REL=DEFINITION HREF="../Body/f_cp_tre.htm#copy-tree"><B>COPY-TREE</B></A>, and the description<P>
+doesn't say which mechanism should be used.<P>
+<P>
+Proposal (<A HREF="iss087.htm">COPY-SYMBOL-COPY-PLIST:COPY-LIST</A>)<P>
+<P>
+Clarify that when <A REL=DEFINITION HREF="../Body/f_cp_sym.htm#copy-symbol"><B>COPY-SYMBOL</B></A> copies the property list of the symbol, it<P>
+is as if (<A REL=DEFINITION HREF="../Body/f_cp_lis.htm#copy-list"><B>COPY-LIST</B></A> (<A REL=DEFINITION HREF="../Body/f_symb_4.htm#symbol-plist"><B>SYMBOL-PLIST</B></A> sym)) were used as the new symbol's<P>
+property list.<P>
+<P>
+<B>Rationale:<P>
+</B><P>
+<A REL=DEFINITION HREF="../Body/f_cp_lis.htm#copy-list"><B>COPY-LIST</B></A> is the simplest list-copying primitive.  The result of this<P>
+copy is that <A REL=DEFINITION HREF="../Body/f_get.htm#get"><B>GET</B></A> returns <A REL=DEFINITION HREF="../Body/a_eql.htm#eql"><B>EQL</B></A> results for the two symbols until one of<P>
+the property lists is altered, but altering either of the property lists<P>
+doesn't affect the other.  This is current practice in the<P>
+implementations I tested, and probably what most users assume.<P>
+<P>
+<B>Current Practice:<P>
+</B><P>
+Symbolics Genera and Sun Common Lisp currently implement this.  I<P>
+suspect most others do, too.<P>
+<P>
+<B>Cost to Implementors:<P>
+</B><P>
+Little or none.<P>
+<P>
+<B>Cost to Users:<P>
+</B><P>
+None unless they've been assuming some other type of copy.<P>
+<P>
+<B>Benefits:<P>
+</B><P>
+Less ambiguity.<P>
+<P>
+<B>Aesthetics:<P>
+</B><P>
+Well, I like it.<P>
+<P>
+</PRE>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

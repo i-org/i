@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function FLOOR, FFLOOR, CEILING, FCEILING...</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_zerop.htm">
+<LINK REL=UP HREF="c_number.htm">
+<LINK REL=NEXT HREF="f_sin_c.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_zerop.htm">◀</A><A REL=UP HREF="c_number.htm">▲</A><A REL=NEXT HREF="f_sin_c.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="floor"><A NAME="ffloor"><A NAME="ceiling"><A NAME="fceiling"><A NAME="truncate"><A NAME="ftruncate"><A NAME="round"><A NAME="fround"><I>Function</I> <B>FLOOR, FFLOOR, CEILING, FCEILING, TRUNCATE, FTRUNCATE, ROUND, FROUND</B></A></A></A></A></A></A></A></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>floor</B> <I>number </I><b>&amp;optional</b><I> divisor</I> =&gt; <I>quotient, remainder</I><P>
+ 
+<B>ffloor</B> <I>number </I><b>&amp;optional</b><I> divisor</I> =&gt; <I>quotient, remainder</I><P>
+ 
+<B>ceiling</B> <I>number </I><b>&amp;optional</b><I> divisor</I> =&gt; <I>quotient, remainder</I><P>
+ 
+<B>fceiling</B> <I>number </I><b>&amp;optional</b><I> divisor</I> =&gt; <I>quotient, remainder</I><P>
+ 
+<B>truncate</B> <I>number </I><b>&amp;optional</b><I> divisor</I> =&gt; <I>quotient, remainder</I><P>
+ 
+<B>ftruncate</B> <I>number </I><b>&amp;optional</b><I> divisor</I> =&gt; <I>quotient, remainder</I><P>
+ 
+<B>round</B> <I>number </I><b>&amp;optional</b><I> divisor</I> =&gt; <I>quotient, remainder</I><P>
+ 
+<B>fround</B> <I>number </I><b>&amp;optional</b><I> divisor</I> =&gt; <I>quotient, remainder</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>number</I>---a <A REL=DEFINITION HREF="t_real.htm#real"><I>real</I></A>. <P>
+<I>divisor</I>---a non-zero <A REL=DEFINITION HREF="t_real.htm#real"><I>real</I></A>. The default is the <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> <b>1</b>. <P>
+<I>quotient</I>---for <A REL=DEFINITION HREF="#floor"><B>floor</B></A>, <A REL=DEFINITION HREF="#ceiling"><B>ceiling</B></A>, <A REL=DEFINITION HREF="#truncate"><B>truncate</B></A>, and <A REL=DEFINITION HREF="#round"><B>round</B></A>: an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>; for <A REL=DEFINITION HREF="#ffloor"><B>ffloor</B></A>, <A REL=DEFINITION HREF="#fceiling"><B>fceiling</B></A>, <A REL=DEFINITION HREF="#ftruncate"><B>ftruncate</B></A>, and <A REL=DEFINITION HREF="#fround"><B>fround</B></A>: a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A>. <P>
+<I>remainder</I>---a <A REL=DEFINITION HREF="t_real.htm#real"><I>real</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+These functions divide <I>number</I> by <I>divisor</I>, returning a <I>quotient</I> and <I>remainder</I>, such that <P>
+  <blockquote><I>被除数</I>=<I>商</I>×<I>除数</I>+<I>余数</I></blockquote>
+<P>The <I>quotient</I> always represents a mathematical integer. When more than one mathematical integer might be possible (i.e., when the remainder is not zero), the kind of rounding or truncation depends on the <A REL=DEFINITION HREF="26_glo_o.htm#operator"><I>operator</I></A>: <P>
+<P><ul>
+<li><A REL=DEFINITION HREF="#floor"><B>floor</B></A> and <A REL=DEFINITION HREF="#ffloor"><B>ffloor</B></A> produce a <I>quotient</I> that has been truncated toward negative infinity; that is, the <I>quotient</I> represents the largest mathematical integer that is not larger than the mathematical quotient. </li>
+<li><A REL=DEFINITION HREF="#ceiling"><B>ceiling</B></A> and <A REL=DEFINITION HREF="#fceiling"><B>fceiling</B></A> produce a <I>quotient</I> that has been truncated toward positive infinity; that is, the <I>quotient</I> represents the smallest mathematical integer that is not smaller than the mathematical result. </li>
+<li><A REL=DEFINITION HREF="#truncate"><B>truncate</B></A> and <A REL=DEFINITION HREF="#ftruncate"><B>ftruncate</B></A> produce a <I>quotient</I> that has been truncated towards zero; that is, the <I>quotient</I> represents the mathematical integer of the same sign as the mathematical quotient, and that has the greatest integral magnitude not greater than that of the mathematical quotient. </li>
+<li><A REL=DEFINITION HREF="#round"><B>round</B></A> and <A REL=DEFINITION HREF="#fround"><B>fround</B></A> produce a <I>quotient</I> that has been rounded to the nearest mathematical integer; if the mathematical quotient is exactly halfway between two integers, (that is, it has the form <I>integer</I>+1/2), then the <I>quotient</I> has been rounded to the even (divisible by two) integer. </li>
+</ul>
+<P>All of these functions perform type conversion operations on <I>numbers</I>. <P>
+The <I>remainder</I> is an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> if both <b>x</b> and <b>y</b> are <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integers</I></A>, is a <A REL=DEFINITION HREF="26_glo_r.htm#rational"><I>rational</I></A> if both <b>x</b> and <b>y</b> are <A REL=DEFINITION HREF="26_glo_r.htm#rational"><I>rationals</I></A>, and is a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A> if either <b>x</b> or <b>y</b> is a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A>. <P>
+<A REL=DEFINITION HREF="#ffloor"><B>ffloor</B></A>, <A REL=DEFINITION HREF="#fceiling"><B>fceiling</B></A>, <A REL=DEFINITION HREF="#ftruncate"><B>ftruncate</B></A>, and <A REL=DEFINITION HREF="#fround"><B>fround</B></A> handle arguments of different <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>types</I></A> in the following way: If <I>number</I> is a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A>, and <I>divisor</I> is not a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A> of longer format, then the first result is a <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A> of the same <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> as <I>number</I>. Otherwise, the first result is of the <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> determined by <A REL=DEFINITION HREF="26_glo_c.htm#contagion"><I>contagion</I></A> rules; see <A REL=CHILD HREF="12_aab.htm">Section 12.1.1.2 (Contagion in Numeric Operations)</A>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (floor 3/2) =&gt;  1, 1/2   
+ (ceiling 3 2) =&gt;  2, -1  
+ (ffloor 3 2) =&gt;  1.0, 1
+ (ffloor -4.7) =&gt;  -5.0, 0.3
+ (ffloor 3.5d0) =&gt;  3.0d0, 0.5d0
+ (fceiling 3/2) =&gt;  2.0, -1/2
+ (truncate 1) =&gt;  1, 0    
+ (truncate .5) =&gt;  0, 0.5
+ (round .5) =&gt;  0, 0.5    
+ (ftruncate -7 2) =&gt;  -3.0, -1
+ (fround -7 2) =&gt;  -4.0, 1
+ (dolist (n '(2.6 2.5 2.4 0.7 0.3 -0.3 -0.7 -2.4 -2.5 -2.6))
+   (format t &quot;~&amp;~4,1@F ~2,' D ~2,' D ~2,' D ~2,' D&quot;
+           n (floor n) (ceiling n) (truncate n) (round n)))
+&gt;&gt;  +2.6  2  3  2  3
+&gt;&gt;  +2.5  2  3  2  2
+&gt;&gt;  +2.4  2  3  2  2
+&gt;&gt;  +0.7  0  1  0  1
+&gt;&gt;  +0.3  0  1  0  0
+&gt;&gt;  -0.3 -1  0  0  0
+&gt;&gt;  -0.7 -1  0  0 -1
+&gt;&gt;  -2.4 -3 -2 -2 -2
+&gt;&gt;  -2.5 -3 -2 -2 -2
+&gt;&gt;  -2.6 -3 -2 -2 -3
+=&gt;  NIL
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b> None.
+ <P>
+<p><b>●说明:</b><P>
+ <P>
+When only <I>number</I> is given, the two results are exact; the mathematical sum of the two results is always equal to the mathematical value of <I>number</I>. <P>
+<b>(</b><I>function</I><b> </b><I>number</I><b> </b><I>divisor</I><b>)</b> and <b>(</b><I>function</I><b> (/ </b><I>number</I><b> </b><I>divisor</I><b>))</b> (where <I>function</I> is any of one of <A REL=DEFINITION HREF="#floor"><B>floor</B></A>, <A REL=DEFINITION HREF="#ceiling"><B>ceiling</B></A>, <A REL=DEFINITION HREF="#ffloor"><B>ffloor</B></A>, <A REL=DEFINITION HREF="#fceiling"><B>fceiling</B></A>, <A REL=DEFINITION HREF="#truncate"><B>truncate</B></A>, <A REL=DEFINITION HREF="#round"><B>round</B></A>, <A REL=DEFINITION HREF="#ftruncate"><B>ftruncate</B></A>, and <A REL=DEFINITION HREF="#fround"><B>fround</B></A>) return the same first value, but they return different remainders as the second value. For example: <P>
+<PRE>
+ (floor 5 2) =&gt;  2, 1     ;;相当于(floor 5/2)
+ (floor (/ 5 2)) =&gt;  2, 1/2    ;;相当于(floor 2.5/1)
+</PRE>
+</b> <P>
+If an effect is desired that is similar to <A REL=DEFINITION HREF="#round"><B>round</B></A>, but that always rounds up or down (rather than toward the nearest even integer) if the mathematical quotient is exactly halfway between two integers, the programmer should consider a construction such as <b>(floor (+ x 1/2))</b> or <b>(ceiling (- x 1/2))</b>. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

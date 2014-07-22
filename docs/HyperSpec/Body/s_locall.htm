@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Special Operator LOCALLY</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="d_specia.htm">
+<LINK REL=UP HREF="c_evalua.htm">
+<LINK REL=NEXT HREF="s_the.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="d_specia.htm">◀</A><A REL=UP HREF="c_evalua.htm">▲</A><A REL=NEXT HREF="s_the.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="locally"><I>Special Operator</I> <B>LOCALLY</B></A> <P>
+ <P>
+<p><b>●语法设定:</b><p>
+ <P>
+ 
+<B>locally</B> <I><I>declaration</I><B>*</B> <I>form</I><B>*</B></I> =&gt; <I><I>result</I><B>*</B></I><P>
+  <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>Declaration</I>---a <A REL=DEFINITION HREF="s_declar.htm#declare"><B>declare</B></A> <A REL=DEFINITION HREF="26_glo_e.htm#expression"><I>expression</I></A>; not evaluated. <P>
+<I>forms</I>---an <A REL=DEFINITION HREF="26_glo_i.htm#implicit_progn"><I>implicit progn</I></A>. <P>
+ <I>results</I>---the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> of the <I>forms</I>.  <P>
+<p><b>●详情:</b><P>
+ <P>
+Sequentially evaluates a body of <I>forms</I> in a <A REL=DEFINITION HREF="26_glo_l.htm#lexical_environment"><I>lexical environment</I></A> where the given <I>declarations</I> have effect. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (defun sample-function (y)  ;this y is regarded as special
+   (declare (special y))                                
+   (let ((y t))              ;this y is regarded as lexical
+     (list y
+           (locally (declare (special y))
+             ;; this next y is regarded as special
+             y))))
+=&gt;  SAMPLE-FUNCTION
+ (sample-function nil) =&gt;  (T NIL) 
+ (setq x '(1 2 3) y '(4 . 5)) =&gt;  (4 . 5)
+
+;;; The following declarations are not notably useful in specific.
+;;; They just offer a sample of valid declaration syntax using LOCALLY.
+ (locally (declare (inline floor) (notinline car cdr))
+          (declare (optimize space))
+    (floor (car x) (cdr y))) =&gt;  0, 1
+</PRE>
+</b> <P>
+ 
+<PRE>
+;;; This example shows a definition of a function that has a particular set
+;;; of OPTIMIZE settings made locally to that definition.
+ (locally (declare (optimize (safety 3) (space 3) (speed 0)))
+   (defun frob (w x y &amp;optional (z (foo x y)))
+     (mumble x y z w)))
+=&gt;  FROB
+
+;;; This is like the previous example, except that the optimize settings
+;;; remain in effect for subsequent definitions in the same compilation unit.
+ (declaim (optimize (safety 3) (space 3) (speed 0)))
+ (defun frob (w x y &amp;optional (z (foo x y)))
+   (mumble x y z w))
+=&gt;  FROB
+</PRE>
+</b>  <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="s_declar.htm#declare"><B>declare</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+The <A REL=DEFINITION HREF="d_specia.htm#special"><B>special</B></A> declaration may be used with <A REL=DEFINITION HREF="#locally"><B>locally</B></A> to affect references to, rather than <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>bindings</I></A> of, <A REL=DEFINITION HREF="26_glo_v.htm#variable"><I>variables</I></A>. <P>
+ If a <A REL=DEFINITION HREF="#locally"><B>locally</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> is a <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level form</I></A>, the body <I>forms</I> are also processed as <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level forms</I></A>. See <A REL=CHILD HREF="03_bc.htm">Section 3.2.3 (File Compilation)</A>.  <P>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss299.htm">RETURN-VALUES-UNSPECIFIED:SPECIFY</A><LI> <A REL=CHILD HREF="../Issues/iss219.htm">LOCALLY-TOP-LEVEL:SPECIAL-FORM</A><LI> <A REL=CHILD HREF="../Issues/iss097.htm">DECLS-AND-DOC</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

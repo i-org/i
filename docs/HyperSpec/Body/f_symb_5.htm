@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Accessor SYMBOL-VALUE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_symb_4.htm">
+<LINK REL=UP HREF="c_symbol.htm">
+<LINK REL=NEXT HREF="f_get.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_symb_4.htm">◀</A><A REL=UP HREF="c_symbol.htm">▲</A><A REL=NEXT HREF="f_get.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="symbol-value"><I>Accessor</I> <B>SYMBOL-VALUE</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>symbol-value</B> <I>symbol</I> =&gt; <I>value</I><P>
+ 
+<b>(setf (</b><B>symbol-value</B> <I>symbol</I><b>) </b><I>new-value</I><b>)</b><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>symbol</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> that must have a <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A>. <P>
+<I>value</I>, <I>new-value</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="26_glo_a.htm#access"><I>Accesses</I></A> the <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>'s <A REL=DEFINITION HREF="26_glo_v.htm#value_cell"><I>value cell</I></A>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (setf (symbol-value 'a) 1) =&gt;  1
+ (symbol-value 'a) =&gt;  1
+ ;; SYMBOL-VALUE cannot see lexical variables.
+ (let ((a 2)) (symbol-value 'a)) =&gt;  1
+ (let ((a 2)) (setq a 3) (symbol-value 'a)) =&gt;  1
+ ;; SYMBOL-VALUE can see dynamic variables.
+ (let ((a 2)) 
+   (declare (special a)) 
+   (symbol-value 'a)) =&gt;  2
+ (let ((a 2)) 
+   (declare (special a)) 
+   (setq a 3)
+   (symbol-value 'a)) =&gt;  3
+ (let ((a 2))
+   (setf (symbol-value 'a) 3)
+   a) =&gt;  2
+ a =&gt;  3
+ (symbol-value 'a) =&gt;  3
+ (let ((a 4))
+   (declare (special a))
+   (let ((b (symbol-value 'a)))
+     (setf (symbol-value 'a) 5)
+     (values a b))) =&gt;  5, 4
+ a =&gt;  3
+ (symbol-value :any-keyword) =&gt;  :ANY-KEYWORD
+ (symbol-value 'nil) =&gt;  NIL
+ (symbol-value '()) =&gt;  NIL
+ ;; The precision of this next one is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent">implementation-dependent</A>.
+ (symbol-value 'pi) =&gt;  3.141592653589793d0  
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_makunb.htm#makunbound"><B>makunbound</B></A>, <A REL=DEFINITION HREF="f_set.htm#set"><B>set</B></A>, <A REL=DEFINITION HREF="s_setq.htm#setq"><B>setq</B></A> <P>
+<p><b>●例外情况：</b><P>
+ <P>
+Should signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if <I>symbol</I> is not a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>. <P>
+Should signal <A REL=DEFINITION HREF="e_unbo_1.htm#unbound-variable"><B>unbound-variable</B></A> if <I>symbol</I> is <A REL=DEFINITION HREF="26_glo_u.htm#unbound"><I>unbound</I></A> and an attempt is made to <A REL=DEFINITION HREF="26_glo_r.htm#read"><I>read</I></A> its <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A>. (No such error is signaled on an attempt to <A REL=DEFINITION HREF="26_glo_w.htm#write"><I>write</I></A> its <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A>.) <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_boundp.htm#boundp"><B>boundp</B></A>, <A REL=DEFINITION HREF="f_makunb.htm#makunbound"><B>makunbound</B></A>, <A REL=DEFINITION HREF="f_set.htm#set"><B>set</B></A>, <A REL=DEFINITION HREF="s_setq.htm#setq"><B>setq</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#symbol-value"><B>symbol-value</B></A> can be used to get the value of a <A REL=DEFINITION HREF="26_glo_c.htm#constant_variable"><I>constant variable</I></A>. <A REL=DEFINITION HREF="#symbol-value"><B>symbol-value</B></A> cannot <A REL=DEFINITION HREF="26_glo_a.htm#access"><I>access</I></A> the value of a <A REL=DEFINITION HREF="26_glo_l.htm#lexical_variable"><I>lexical variable</I></A>. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

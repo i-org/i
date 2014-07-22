@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function MEMBER, MEMBER-IF, MEMBER-IF-NOT</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_rest.htm">
+<LINK REL=UP HREF="c_conses.htm">
+<LINK REL=NEXT HREF="f_mapc_.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_rest.htm">◀</A><A REL=UP HREF="c_conses.htm">▲</A><A REL=NEXT HREF="f_mapc_.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="member"><A NAME="member-if"><A NAME="member-if-not"><I>Function</I> <B>MEMBER, MEMBER-IF, MEMBER-IF-NOT</B></A></A></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>member</B> <I>item list <b>&amp;key</b> key test test-not</I> =&gt; <I>tail</I><P>
+ 
+<B>member-if</B> <I>predicate list <b>&amp;key</b> key</I> =&gt; <I>tail</I><P>
+ 
+<B>member-if-not</B> <I>predicate list <b>&amp;key</b> key</I> =&gt; <I>tail</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>item</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<I>list</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#proper_list"><I>proper list</I></A>. <P>
+<I>predicate</I>---a <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> of one <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A> that returns a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<I>test</I>---a <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> of two <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>arguments</I></A> that returns a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<I>test-not</I>---a <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> of two <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>arguments</I></A> that returns a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<I>key</I>---a <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> of one argument, or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<I>tail</I>---a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#member"><B>member</B></A>, <A REL=DEFINITION HREF="#member-if"><B>member-if</B></A>, and <A REL=DEFINITION HREF="#member-if-not"><B>member-if-not</B></A> each search <I>list</I> for <I>item</I> or for a top-level element that <I>satisfies the test</I>. The argument to the <I>predicate</I> function is an element of <I>list</I>. <P>
+If some element <I>satisfies the test</I>, the tail of <I>list</I> beginning with this element is returned; otherwise <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> is returned. <P>
+<I>list</I> is searched on the top level only. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (member 2 '(1 2 3)) =&gt;  (2 3)                                 
+ (member 2 '((1 . 2) (3 . 4)) :test-not #'= :key #'cdr) =&gt;  ((3 . 4))
+ (member 'e '(a b c d)) =&gt;  NIL
+</PRE>
+</b> <P>
+<PRE>
+ (member-if #'listp '(a b nil c d)) =&gt;  (NIL C D)
+ (member-if #'numberp '(a #\Space 5/3 foo)) =&gt;  (5/3 FOO)
+ (member-if-not #'zerop 
+                 '(3 6 9 11 . 12)
+                 :key #'(lambda (x) (mod x 3))) =&gt;  (11 . 12)
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+Should be prepared to signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if <I>list</I> is not a <A REL=DEFINITION HREF="26_glo_p.htm#proper_list"><I>proper list</I></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_find_.htm#find"><B>find</B></A>, <A REL=DEFINITION HREF="f_pos_p.htm#position"><B>position</B></A>,  <A REL=CHILD HREF="03_f.htm">Section 3.6 (Traversal Rules and Side Effects)</A>  <P>
+<p><b>●说明:</b><P>
+ <P>
+ The <b>:test-not</b> parameter is deprecated.  <P>
+ The <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="#member-if-not"><B>member-if-not</B></A> is deprecated.  <P>
+In the following <P>
+<PRE>
+ (member 'a '(g (a y) c a d e a f)) =&gt;  (A D E A F)
+</PRE>
+</b> <P>
+the value returned by <A REL=DEFINITION HREF="#member"><B>member</B></A> is <A REL=DEFINITION HREF="26_glo_i.htm#identical"><I>identical</I></A> to the portion of the <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> beginning with <b>a</b>. Thus <A REL=DEFINITION HREF="f_rplaca.htm#rplaca"><B>rplaca</B></A> on the result of <A REL=DEFINITION HREF="#member"><B>member</B></A> can be used to alter the part of the <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> where <b>a</b> was found (assuming a check has been made that <A REL=DEFINITION HREF="#member"><B>member</B></A> did not return <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>). <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss345.htm">TEST-NOT-IF-NOT:FLUSH-ALL</A><LI> <A REL=CHILD HREF="../Issues/iss240.htm">MAPPING-DESTRUCTIVE-INTERACTION:EXPLICITLY-VAGUE</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

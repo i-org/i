@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Macro HANDLER-BIND</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="v_break_.htm">
+<LINK REL=UP HREF="c_condit.htm">
+<LINK REL=NEXT HREF="m_hand_1.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="v_break_.htm">◀</A><A REL=UP HREF="c_condit.htm">▲</A><A REL=NEXT HREF="m_hand_1.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="handler-bind"><I>Macro</I> <B>HANDLER-BIND</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>handler-bind</B> <I>({<I>binding</I>}<B>*</B>) <I>form</I><B>*</B></I> =&gt; <I><I>result</I><B>*</B></I><P>
+ <P>
+<PRE>
+binding::= (type handler) 
+</PRE>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>type</I>---a <A REL=DEFINITION HREF="26_glo_t.htm#type_specifier"><I>type specifier</I></A>. <P>
+<I>handler</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>; evaluated to produce a <I>handler-function</I>. <P>
+<I>handler-function</I>---a <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> of one <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A>. <P>
+<I>forms</I>---an <A REL=DEFINITION HREF="26_glo_i.htm#implicit_progn"><I>implicit progn</I></A>. <P>
+<I>results</I>---the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> returned by the <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Executes <I>forms</I> in a <A REL=DEFINITION HREF="26_glo_d.htm#dynamic_environment"><I>dynamic environment</I></A> where the indicated <I>handler</I> <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>bindings</I></A> are in effect. <P>
+Each <I>handler</I> should evaluate to a <I>handler-function</I>, which is used to handle <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>conditions</I></A> of the given <I>type</I> during execution of the <I>forms</I>. This <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> should take a single argument, the <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> being signaled. <P>
+If more than one <I>handler</I> <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>binding</I></A> is supplied, the <I>handler</I> <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>bindings</I></A> are searched sequentially from top to bottom in search of a match (by visual analogy with <A REL=DEFINITION HREF="m_tpcase.htm#typecase"><B>typecase</B></A>). If an appropriate <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> is found, the associated handler is run in a <A REL=DEFINITION HREF="26_glo_d.htm#dynamic_environment"><I>dynamic environment</I></A> where none of these <I>handler</I> bindings are visible (to avoid recursive errors). If the <A REL=DEFINITION HREF="26_glo_h.htm#handler"><I>handler</I></A> <A REL=DEFINITION HREF="26_glo_d.htm#decline"><I>declines</I></A>, the search continues for another <A REL=DEFINITION HREF="26_glo_h.htm#handler"><I>handler</I></A>. <P>
+If no appropriate <A REL=DEFINITION HREF="26_glo_h.htm#handler"><I>handler</I></A> is found, other <A REL=DEFINITION HREF="26_glo_h.htm#handler"><I>handlers</I></A> are sought from dynamically enclosing contours. If no <A REL=DEFINITION HREF="26_glo_h.htm#handler"><I>handler</I></A> is found outside, then <A REL=DEFINITION HREF="f_signal.htm#signal"><B>signal</B></A> returns or <A REL=DEFINITION HREF="f_error.htm#error"><B>error</B></A> enters the debugger. <P>
+<p><b>●例子:</b><P>
+ <P>
+In the following code, if an unbound variable error is signaled in the body (and not handled by an intervening handler), the first function is called. <P>
+<PRE>
+ (handler-bind ((unbound-variable #'(lambda ...))
+                (error #'(lambda ...)))
+   ...)
+</PRE>
+</b> <P>
+If any other kind of error is signaled, the second function is called. In either case, neither handler is active while executing the code in the associated function. <P>
+<PRE>
+ (defun trap-error-handler (condition)
+   (format *error-output* &quot;~&amp;~A~&amp;&quot; condition)
+   (throw 'trap-errors nil))
+
+ (defmacro trap-errors (&amp;rest forms)
+   `(catch 'trap-errors
+      (handler-bind ((error #'trap-error-handler))
+        ,@forms)))
+ 
+ (list (trap-errors (signal &quot;Foo.&quot;) 1)
+       (trap-errors (error  &quot;Bar.&quot;) 2)
+       (+ 1 2))
+&gt;&gt;  Bar.
+=&gt;  (1 NIL 3)
+</PRE>
+</b> <P>
+Note that ``Foo.'' is not printed because the condition made by <A REL=DEFINITION HREF="f_signal.htm#signal"><B>signal</B></A> is a <A REL=DEFINITION HREF="26_glo_s.htm#simple_condition"><I>simple condition</I></A>, which is not of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_error.htm#error"><B>error</B></A>, so it doesn't trigger the handler for <A REL=DEFINITION HREF="e_error.htm#error"><B>error</B></A> set up by <b>trap-errors</b>. <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_hand_1.htm#handler-case"><B>handler-case</B></A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

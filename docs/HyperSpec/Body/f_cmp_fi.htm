@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function COMPILE-FILE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="c_system.htm">
+<LINK REL=UP HREF="c_system.htm">
+<LINK REL=NEXT HREF="f_cmp__1.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="c_system.htm">◀</A><A REL=UP HREF="c_system.htm">▲</A><A REL=NEXT HREF="f_cmp__1.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="compile-file"><I>Function</I> <B>COMPILE-FILE</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+ 
+<B>compile-file</B> <I>input-file <b>&amp;key</b> output-file verbose print external-format</I><P> =&gt; <I>output-truename, warnings-p, failure-p</I><P>
+  <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>input-file</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#pathname_designator"><I>pathname designator</I></A>. (Default fillers for unspecified components are taken from <A REL=DEFINITION HREF="v_defaul.htm#STdefault-pathname-defaultsST"><B>*default-pathname-defaults*</B></A>.) <P>
+<I>output-file</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#pathname_designator"><I>pathname designator</I></A>. The default is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-defined"><I>implementation-defined</I></A>. <P>
+ <I>verbose</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. The default is the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> of <A REL=DEFINITION HREF="v_cmp_pr.htm#STcompile-verboseST"><B>*compile-verbose*</B></A>. <P>
+<I>print</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. The default is the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> of <A REL=DEFINITION HREF="v_cmp_pr.htm#STcompile-printST"><B>*compile-print*</B></A>.  <P>
+ <P>
+ <I>external-format</I>---an <A REL=DEFINITION HREF="26_glo_e.htm#external_file_format_designator"><I>external file format designator</I></A>. The default is <b>:default</b>.  <P>
+<I>output-truename</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathname</I></A> (the <A REL=DEFINITION HREF="f_tn.htm#truename"><B>truename</B></A> of the output <A REL=DEFINITION HREF="26_glo_f.htm#file"><I>file</I></A>), or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<I>warnings-p</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<I>failure-p</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+ <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#compile-file"><B>compile-file</B></A> transforms the contents of the file specified by <I>input-file</I> into <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> binary data which are placed in the file specified by <I>output-file</I>. <P>
+The <A REL=DEFINITION HREF="26_glo_f.htm#file"><I>file</I></A> to which <I>input-file</I> refers should be a <A REL=DEFINITION HREF="26_glo_s.htm#source_file"><I>source file</I></A>. <I>output-file</I> can be used to specify an output <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathname</I></A>;  the actual <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathname</I></A> of the <A REL=DEFINITION HREF="26_glo_c.htm#compiled_file"><I>compiled file</I></A> to which <A REL=DEFINITION HREF="26_glo_c.htm#compiled_code"><I>compiled code</I></A> will be output is computed as if by calling <A REL=DEFINITION HREF="f_cmp__1.htm#compile-file-pathname"><B>compile-file-pathname</B></A>.  <P>
+ If <I>input-file</I> or <I>output-file</I> is a <A REL=DEFINITION HREF="26_glo_l.htm#logical_pathname"><I>logical pathname</I></A>, it is translated into a <A REL=DEFINITION HREF="26_glo_p.htm#physical_pathname"><I>physical pathname</I></A> as if by calling <A REL=DEFINITION HREF="f_tr_log.htm#translate-logical-pathname"><B>translate-logical-pathname</B></A>.  <P>
+  If <I>verbose</I> is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A>, <A REL=DEFINITION HREF="#compile-file"><B>compile-file</B></A> prints a message in the form of a comment (i.e., with a leading <A REL=DEFINITION HREF="26_glo_s.htm#semicolon"><I>semicolon</I></A>) to <A REL=DEFINITION HREF="26_glo_s.htm#standard_output"><I>standard output</I></A> indicating what <A REL=DEFINITION HREF="26_glo_f.htm#file"><I>file</I></A> is being <I>compiled</I> and other useful information. If <I>verbose</I> is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>, <A REL=DEFINITION HREF="#compile-file"><B>compile-file</B></A> does not print this information.  <P>
+If <I>print</I> is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A>, information about <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level forms</I></A> in the file being compiled is printed to <A REL=DEFINITION HREF="26_glo_s.htm#standard_output"><I>standard output</I></A>. Exactly what is printed is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A>, but nevertheless some information is printed. If <I>print</I> is <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>, no information is printed.  <P>
+ The <I>external-format</I> specifies the <A REL=DEFINITION HREF="26_glo_e.htm#external_file_format"><I>external file format</I></A> to be used when opening the <A REL=DEFINITION HREF="26_glo_f.htm#file"><I>file</I></A>; see the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="f_open.htm#open"><B>open</B></A>. <A REL=DEFINITION HREF="#compile-file"><B>compile-file</B></A> and <A REL=DEFINITION HREF="f_load.htm#load"><B>load</B></A> must cooperate in such a way that the resulting <A REL=DEFINITION HREF="26_glo_c.htm#compiled_file"><I>compiled file</I></A> can be <I>loaded</I> without specifying an <A REL=DEFINITION HREF="26_glo_e.htm#external_file_format"><I>external file format</I></A> anew; see the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="f_load.htm#load"><B>load</B></A>.  <P>
+  <A REL=DEFINITION HREF="#compile-file"><B>compile-file</B></A> binds <A REL=DEFINITION HREF="v_rdtabl.htm#STreadtableST"><B>*readtable*</B></A> and <A REL=DEFINITION HREF="v_pkg.htm#STpackageST"><B>*package*</B></A> to the values they held before processing the file.   <P>
+ <A REL=DEFINITION HREF="v_cmp_fi.htm#STcompile-file-truenameST"><B>*compile-file-truename*</B></A> is bound by <A REL=DEFINITION HREF="#compile-file"><B>compile-file</B></A> to hold the <A REL=DEFINITION HREF="26_glo_t.htm#truename"><I>truename</I></A> of the <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathname</I></A> of the file being compiled.  <P>
+ <A REL=DEFINITION HREF="v_cmp_fi.htm#STcompile-file-pathnameST"><B>*compile-file-pathname*</B></A> is bound by <A REL=DEFINITION HREF="#compile-file"><B>compile-file</B></A> to hold a <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathname</I></A> denoted by the first argument to <A REL=DEFINITION HREF="#compile-file"><B>compile-file</B></A>, merged against the defaults; that is, <b>(pathname (merge-pathnames </b><I>input-file</I><b>))</b>.  <P>
+The compiled <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>functions</I></A> contained in the <A REL=DEFINITION HREF="26_glo_c.htm#compiled_file"><I>compiled file</I></A> become available for use when the <A REL=DEFINITION HREF="26_glo_c.htm#compiled_file"><I>compiled file</I></A> is <I>loaded</I> into Lisp.  Any function definition that is processed by the compiler, including <b>#'(lambda ...)</b> forms and local function definitions made by <A REL=DEFINITION HREF="s_flet_.htm#flet"><B>flet</B></A>, <A REL=DEFINITION HREF="s_flet_.htm#labels"><B>labels</B></A> and <A REL=DEFINITION HREF="m_defun.htm#defun"><B>defun</B></A> forms, result in an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="t_cmpd_f.htm#compiled-function"><B>compiled-function</B></A>.  <P>
+ The <A REL=DEFINITION HREF="26_glo_p.htm#primary_value"><I>primary value</I></A> returned by <A REL=DEFINITION HREF="#compile-file"><B>compile-file</B></A>, <I>output-truename</I>, is the <A REL=DEFINITION HREF="f_tn.htm#truename"><B>truename</B></A> of the output file, or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> if the file could not be created. <P>
+The <A REL=DEFINITION HREF="26_glo_s.htm#secondary_value"><I>secondary value</I></A>, <I>warnings-p</I>, is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A> if no <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>conditions</I></A> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_error.htm#error"><B>error</B></A> or <A REL=DEFINITION HREF="e_warnin.htm#warning"><B>warning</B></A> were detected by the compiler, and <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> otherwise. <P>
+The <A REL=DEFINITION HREF="26_glo_t.htm#tertiary_value"><I>tertiary value</I></A>, <I>failure-p</I>, is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A> if no <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>conditions</I></A> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_error.htm#error"><B>error</B></A> or <A REL=DEFINITION HREF="e_warnin.htm#warning"><B>warning</B></A> (other than <A REL=DEFINITION HREF="e_style_.htm#style-warning"><B>style-warning</B></A>) were detected by the compiler, and <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> otherwise.  <P>
+For general information about how <A REL=DEFINITION HREF="26_glo_f.htm#file"><I>files</I></A> are processed by the <A REL=DEFINITION HREF="26_glo_f.htm#file_compiler"><I>file compiler</I></A>, see <A REL=CHILD HREF="03_bc.htm">Section 3.2.3 (File Compilation)</A>. <P>
+  <A REL=DEFINITION HREF="26_glo_p.htm#program"><I>Programs</I></A> to be compiled by the <A REL=DEFINITION HREF="26_glo_f.htm#file_compiler"><I>file compiler</I></A> must only contain <A REL=DEFINITION HREF="26_glo_e.htm#externalizable_object"><I>externalizable objects</I></A>; for details on such <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A>, see <A REL=CHILD HREF="03_bd.htm">Section 3.2.4 (Literal Objects in Compiled Files)</A>. For information on how to extend the set of <A REL=DEFINITION HREF="26_glo_e.htm#externalizable_object"><I>externalizable objects</I></A>, see the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="f_mk_ld_.htm#make-load-form"><B>make-load-form</B></A> and <A REL=CHILD HREF="03_bdd.htm">Section 3.2.4.4 (Additional Constraints on Externalizable Objects)</A>.  <P>
+<p><b>●例子:</b> None.
+ <P>
+<p><b>●受制于:</b><P>
+  <A REL=DEFINITION HREF="v_debug_.htm#STerror-outputST"><B>*error-output*</B></A>,   <A REL=DEFINITION HREF="v_debug_.htm#STstandard-outputST"><B>*standard-output*</B></A>, <A REL=DEFINITION HREF="v_cmp_pr.htm#STcompile-verboseST"><B>*compile-verbose*</B></A>, <A REL=DEFINITION HREF="v_cmp_pr.htm#STcompile-printST"><B>*compile-print*</B></A>  <P>
+The computer's file system. <p><b>●例外情况：</b><P>
+ <P>
+For information about errors detected during the compilation process, see <A REL=CHILD HREF="03_be.htm">Section 3.2.5 (Exceptional Situations in the Compiler)</A>. <P>
+ An error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_file_e.htm#file-error"><B>file-error</B></A> might be signaled if <b>(wild-pathname-p </b><I>input-file</I><b>)</b> returns true.  <P>
+ If either the attempt to open the <A REL=DEFINITION HREF="26_glo_s.htm#source_file"><I>source file</I></A> for input or the attempt to open the <A REL=DEFINITION HREF="26_glo_c.htm#compiled_file"><I>compiled file</I></A> for output fails, an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_file_e.htm#file-error"><B>file-error</B></A> is signaled.  <P>
+<p><b>●更多信息:</b><P>
+ <P>
+ <A REL=DEFINITION HREF="f_cmp.htm#compile"><B>compile</B></A>, <A REL=DEFINITION HREF="s_declar.htm#declare"><B>declare</B></A>, <A REL=DEFINITION HREF="s_eval_w.htm#eval-when"><B>eval-when</B></A>, <A REL=DEFINITION HREF="t_pn.htm#pathname"><B>pathname</B></A>, <A REL=DEFINITION HREF="t_logica.htm#logical-pathname"><B>logical-pathname</B></A>, <h2><A REL=CHILD HREF="20_a.htm">Section 20.1 (File System Concepts)</A>,   <h2><A REL=CHILD HREF="19_ab.htm">Section 19.1.2 (Pathnames as Filenames)</A>  <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+  <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss258.htm">PATHNAME-HOST-PARSING:RECOGNIZE-LOGICAL-HOST-NAMES</A><LI> <A REL=CHILD HREF="../Issues/iss157.htm">FILE-OPEN-ERROR:SIGNAL-FILE-ERROR</A><LI> <A REL=CHILD HREF="../Issues/iss267.htm">PATHNAME-WILD:NEW-FUNCTIONS</A><LI> <A REL=CHILD HREF="../Issues/iss068.htm">COMPILER-WARNING-STREAM</A><LI> <A REL=CHILD HREF="../Issues/iss215.htm">LOAD-OBJECTS:MAKE-LOAD-FORM</A><LI> <A REL=CHILD HREF="../Issues/iss064.htm">COMPILED-FUNCTION-REQUIREMENTS:TIGHTEN</A><LI> <A REL=CHILD HREF="../Issues/iss218.htm">LOAD-TRUENAME:NEW-PATHNAME-VARIABLES</A><LI> <A REL=CHILD HREF="../Issues/iss196.htm">IN-SYNTAX:MINIMAL</A><LI> <A REL=CHILD HREF="../Issues/iss061.htm">COMPILE-FILE-PACKAGE</A><LI> <A REL=CHILD HREF="../Issues/iss259.htm">PATHNAME-LOGICAL:ADD</A><LI> <A REL=CHILD HREF="../Issues/iss060.htm">COMPILE-FILE-OUTPUT-FILE-DEFAULTS:INPUT-FILE</A><LI> <A REL=CHILD HREF="../Issues/iss065.htm">COMPILER-DIAGNOSTICS:USE-HANDLER</A><LI> <A REL=CHILD HREF="../Issues/iss067.htm">COMPILER-VERBOSITY:LIKE-LOAD</A><LI> <A REL=CHILD HREF="../Issues/iss155.htm">EXTERNAL-FORMAT-FOR-EVERY-FILE-CONNECTION:MINIMUM</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

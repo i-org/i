@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Special Operator TAGBODY</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="m_return.htm">
+<LINK REL=UP HREF="c_data_a.htm">
+<LINK REL=NEXT HREF="s_throw.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="m_return.htm">◀</A><A REL=UP HREF="c_data_a.htm">▲</A><A REL=NEXT HREF="s_throw.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="tagbody"><I>Special Operator</I> <B>TAGBODY</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>tagbody</B> <I>{<I>tag</I> | <I>statement</I>}*</I> =&gt; <I><A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A></I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>tag</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#go_tag"><I>go tag</I></A>; not evaluated. <P>
+<I>statement</I>---a <A REL=DEFINITION HREF="26_glo_c.htm#compound_form"><I>compound form</I></A>; evaluated as described below. <P>
+<p><b>●详情:</b><P>
+ <P>
+Executes zero or more <I>statements</I> in a <A REL=DEFINITION HREF="26_glo_l.htm#lexical_environment"><I>lexical environment</I></A> that provides for control transfers to labels indicated by the <I>tags</I>. <P>
+The <I>statements</I> in a <A REL=DEFINITION HREF="#tagbody"><B>tagbody</B></A> are <I>evaluated</I> in order from left to right, and their <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> are discarded. If at any time there are no remaining <I>statements</I>, <A REL=DEFINITION HREF="#tagbody"><B>tagbody</B></A> returns <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. However, if <b>(go </b><I>tag</I><b>)</b> is <I>evaluated</I>, control jumps to the part of the body labeled with the <I>tag</I>. (Tags are compared with <A REL=DEFINITION HREF="f_eql.htm#eql"><B>eql</B></A>.) <P>
+A <I>tag</I> established by <A REL=DEFINITION HREF="#tagbody"><B>tagbody</B></A> has <A REL=DEFINITION HREF="26_glo_l.htm#lexical_scope"><I>lexical scope</I></A> and has <A REL=DEFINITION HREF="26_glo_d.htm#dynamic_extent"><I>dynamic extent</I></A>. Once <A REL=DEFINITION HREF="#tagbody"><B>tagbody</B></A> has been exited, it is no longer valid to <A REL=DEFINITION HREF="s_go.htm#go"><B>go</B></A> to a <I>tag</I> in its body. It is permissible for <A REL=DEFINITION HREF="s_go.htm#go"><B>go</B></A> to jump to a <A REL=DEFINITION HREF="#tagbody"><B>tagbody</B></A> that is not the innermost <A REL=DEFINITION HREF="#tagbody"><B>tagbody</B></A> containing that <A REL=DEFINITION HREF="s_go.htm#go"><B>go</B></A>; the <I>tags</I> established by a <A REL=DEFINITION HREF="#tagbody"><B>tagbody</B></A> only shadow other <I>tags</I> of like name. <P>
+ The determination of which elements of the body are <I>tags</I> and which are <I>statements</I> is made prior to any <A REL=DEFINITION HREF="26_glo_m.htm#macro_expansion"><I>macro expansion</I></A> of that element. If a <I>statement</I> is a <A REL=DEFINITION HREF="26_glo_m.htm#macro_form"><I>macro form</I></A> and its <A REL=DEFINITION HREF="26_glo_m.htm#macro_expansion"><I>macro expansion</I></A> is an <A REL=DEFINITION HREF="26_glo_a.htm#atom"><I>atom</I></A>, that <A REL=DEFINITION HREF="26_glo_a.htm#atom"><I>atom</I></A> is treated as a <I>statement</I>, not a <I>tag</I>.  <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (let (val)
+    (tagbody
+      (setq val 1)
+      (go point-a)
+      (incf val 16)
+     point-c
+      (incf val 04)
+      (go point-b)
+      (incf val 32)
+     point-a
+      (incf val 02)
+      (go point-c)
+      (incf val 64)
+     point-b
+      (incf val 08))
+    val)
+=&gt;  15
+ (defun f1 (flag)
+   (let ((n 1))
+     (tagbody 
+       (setq n (f2 flag #'(lambda () (go out))))
+      out
+       (prin1 n))))
+=&gt;  F1
+ (defun f2 (flag escape)
+   (if flag (funcall escape) 2))
+=&gt;  F2
+ (f1 nil)
+&gt;&gt;  2
+=&gt;  NIL
+ (f1 t)
+&gt;&gt;  1
+=&gt;  NIL
+</PRE>
+</b> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="s_go.htm#go"><B>go</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+The <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macros</I></A> in the next figure have <A REL=DEFINITION HREF="26_glo_i.htm#implicit_tagbody"><I>implicit tagbodies</I></A>. <P>
+<PRE>
+<A REL=DEFINITION HREF="m_do_do.htm#do">do</A>              <A REL=DEFINITION HREF="m_do_sym.htm#do-external-symbols">do-external-symbols</A>  <A REL=DEFINITION HREF="m_dotime.htm#dotimes">dotimes</A>  
+<A REL=DEFINITION HREF="m_do_do.htm#doST">do*</A>             <A REL=DEFINITION HREF="m_do_sym.htm#do-symbols">do-symbols</A>           <A REL=DEFINITION HREF="m_prog_.htm#prog">prog</A>     
+<A REL=DEFINITION HREF="m_do_sym.htm#do-all-symbols">do-all-symbols</A>  <A REL=DEFINITION HREF="m_dolist.htm#dolist">dolist</A>               <A REL=DEFINITION HREF="m_prog_.htm#progST">prog*</A>    
+</PRE>
+<p><b>■图表 5-10.  Macros that have implicit tagbodies.</B> <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss343.htm">TAGBODY-TAG-EXPANSION:NO</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

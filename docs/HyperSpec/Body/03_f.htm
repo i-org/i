@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 3.6</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="03_eah.htm">
+<LINK REL=UP HREF="03_.htm">
+<LINK REL=NEXT HREF="03_g.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="03_eah.htm">◀</A><A REL=UP HREF="03_.htm">▲</A><A REL=NEXT HREF="03_g.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+3.6 Traversal Rules and Side Effects</H2>   <P>
+ <P>
+The consequences are undefined when <A REL=DEFINITION HREF="26_glo_c.htm#code"><I>code</I></A> executed during an <A REL=DEFINITION HREF="26_glo_o.htm#object-traversing"><I>object-traversing</I></A> operation destructively modifies the <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> in a way that might affect the ongoing traversal operation. In particular, the following rules apply. <P><ul><li><B>List traversal</B>  <P></li>
+ For <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> traversal operations, the <A REL=DEFINITION HREF="26_glo_c.htm#cdr"><I>cdr</I></A> chain of the <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> is not allowed to be destructively modified. <P>
+<li><B>Array traversal</B>  <P></li>
+ For <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> traversal operations, the <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>array</I></A> is not allowed to be adjusted and its <A REL=DEFINITION HREF="26_glo_f.htm#fill_pointer"><I>fill pointer</I></A>, if any, is not allowed to be changed. <P>
+<li><B>Hash-table traversal</B>  <P></li>
+ For <A REL=DEFINITION HREF="26_glo_h.htm#hash_table"><I>hash table</I></A> traversal operations, new elements may not be added or deleted except that the element corresponding to the current hash key may be changed or removed. <P>
+<li><B>Package traversal</B>  <P></li>
+ For <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> traversal operations (e.g., <A REL=DEFINITION HREF="m_do_sym.htm#do-symbols"><B>do-symbols</B></A>), new <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> may not be <A REL=DEFINITION HREF="26_glo_i.htm#interned"><I>interned</I></A> in or <A REL=DEFINITION HREF="26_glo_u.htm#uninterned"><I>uninterned</I></A> from the <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> being traversed or any <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> that it uses except that the current <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> may be <A REL=DEFINITION HREF="26_glo_u.htm#uninterned"><I>uninterned</I></A> from the <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> being traversed. <P>
+<P></ul><P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss240.htm">MAPPING-DESTRUCTIVE-INTERACTION:EXPLICITLY-VAGUE</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

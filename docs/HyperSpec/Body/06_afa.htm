@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 6.1.6.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="06_af.htm">
+<LINK REL=UP HREF="06_af.htm">
+<LINK REL=NEXT HREF="06_ag.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="06_af.htm">◀</A><A REL=UP HREF="06_af.htm">▲</A><A REL=NEXT HREF="06_ag.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+6.1.6.1 Examples of WHEN clause</H2> <P>
+<PRE>
+;; Signal an exceptional condition.
+ (loop for item in '(1 2 3 a 4 5)
+       when (not (numberp item))
+        return (cerror &quot;enter new value&quot; &quot;non-numeric value: ~s&quot; item))
+Error: non-numeric value: A
+ 
+;; The previous example is equivalent to the following one.
+ (loop for item in '(1 2 3 a 4 5)
+       when (not (numberp item))
+        do (return 
+            (cerror &quot;Enter new value&quot; &quot;non-numeric value: ~s&quot; item)))
+Error: non-numeric value: A
+</PRE>
+</b> <P>
+<PRE>
+;; This example parses a simple printed string representation from 
+;; BUFFER (which is itself a string) and returns the index of the
+;; closing double-quote character.
+ (let ((buffer &quot;\&quot;a\&quot; \&quot;b\&quot;&quot;))
+   (loop initially (unless (char= (char buffer 0) #\&quot;)
+                     (loop-finish))
+         for i of-type fixnum from 1 below (length (the string buffer))
+         when (char= (char buffer i) #\&quot;)
+          return i))
+=&gt;  2
+ 
+;; The collected value is returned.
+ (loop for i from 1 to 10
+       when (&gt; i 5)
+         collect i
+       finally (prin1 'got-here))
+&gt;&gt;  GOT-HERE
+=&gt;  (6 7 8 9 10) 
+
+;; Return both the count of collected numbers and the numbers.
+ (loop for i from 1 to 10
+       when (&gt; i 5)
+         collect i into number-list
+         and count i into number-count
+       finally (return (values number-count number-list)))
+=&gt;  5, (6 7 8 9 10)
+</PRE>
+</b> <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

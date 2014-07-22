@@ -1,0 +1,137 @@
+/* CSS Style Sheet for Common Lisp HyperSpec, Version 7.0 */
+/* :::: 蓝色通透版，会让人感觉眩晕…… :::: */
+/* 反馈也要定义 */
+
+
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 100%;
+	font-family: serif, sans-serif ;
+	text-shadow: 2px 2px 5px #DCDCDC;
+	padding: 0 5px 0 5px;
+}
+
+/* :::: 屏幕设定 :::: */
+
+@media all screen and (min-width:768px) {
+  body{font-size: 120%;}
+}
+
+@media all and (min-width:450px) and (max-width:768px) {
+  body{font-size: 100%;}
+}
+/* 局需要变成上下或左右滚，文字缩小，表格需要改进，图像需要缩小 */
+@media all and (max-width:450px) {
+  body{font-size: 80%;}
+}
+
+
+/* :::: 链接样式 :::: */
+a:link {  
+  color:#000000;
+  background: rgba(255, 255, 200, 0.75);
+  border-bottom:dashed 1px red;
+  text-decoration: none;
+  padding: 0 5px 0 5px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+a:visited {
+  color:#000000;
+  background: rgba(255, 255, 200, 0.75);
+  text-decoration:none;
+  padding: 0 5px 0 5px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+a:hover {
+  color: #ffffff;
+  background-color:rgba(0, 64, 0, 0.75);
+  text-decoration:none;
+  padding: 0 3px 0 3px;
+  border : 1px solid #004000;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  box-shadow: 0px 0 15px #999999;
+  -moz-box-shadow: 0px 0 15px #999999;
+  -webkit-box-shadow: 0px 0 15px #999999;
+}
+
+/* :::: 列表样式 变成按钮模式:::: */
+
+ol {
+  background-color: #FFC426;
+  border : 2px solid #CDCDCD;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+ul {
+  background-color: #FFC426;
+  border : 2px solid #CDCDCD;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+li {
+    margin: 0px;
+    padding: 5px 0 5px 10px; 
+    background-color:rgba(247, 247, 247, 0.75);
+    border : 1px solid #CDCDCD;
+}
+
+/* :::: 文档结构样式:::: */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: 0 5px 0 5px;
+}
+
+h1 { font-size: 200%; }
+h2 { font-size: 170%; }
+h3 { font-size: 150%; }
+h4 { font-size: 130%; }
+h5 { font-size: 120%; }
+h6 { font-size: 100%; }
+
+p { line-height: 1.5; }
+/* :::: 输入及反馈样式 :::: */
+
+
+/* :::: 表格样式 :::: */
+
+
+/* :::: 多媒体样式 :::: */
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+/* :::: 程序源码样式 :::: */
+pre {
+  font-size: 90%;
+  background-color: #EBF1F5;
+  padding: 5px;
+  border : 2px solid #BBCCDD;
+}
+
+
+
+
+
+
+
+
+
+

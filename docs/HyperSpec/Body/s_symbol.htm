@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Special Operator SYMBOL-MACROLET</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="m_defi_1.htm">
+<LINK REL=UP HREF="c_evalua.htm">
+<LINK REL=NEXT HREF="v_mexp_h.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="m_defi_1.htm">◀</A><A REL=UP HREF="c_evalua.htm">▲</A><A REL=NEXT HREF="v_mexp_h.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="symbol-macrolet"><I>Special Operator</I> <B>SYMBOL-MACROLET</B></A> <P>
+  <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>symbol-macrolet</B> <I>((symbol expansion)<B>*</B>) <I>declaration</I><B>*</B> <I>form</I><B>*</B></I><P> =&gt; <I><I>result</I><B>*</B></I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>symbol</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>. <P>
+<I>expansion</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. <P>
+ <I>declaration</I>---a <A REL=DEFINITION HREF="s_declar.htm#declare"><B>declare</B></A> <A REL=DEFINITION HREF="26_glo_e.htm#expression"><I>expression</I></A>; not evaluated.  <P>
+<I>forms</I>---an <A REL=DEFINITION HREF="26_glo_i.htm#implicit_progn"><I>implicit progn</I></A>. <P>
+<I>results</I>---the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> returned by the <I>forms</I>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#symbol-macrolet"><B>symbol-macrolet</B></A> provides a mechanism for affecting the <A REL=DEFINITION HREF="26_glo_m.htm#macro_expansion"><I>macro expansion</I></A> environment for <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A>. <P>
+<A REL=DEFINITION HREF="#symbol-macrolet"><B>symbol-macrolet</B></A> lexically establishes expansion functions for each of the <A REL=DEFINITION HREF="26_glo_s.htm#symbol_macro"><I>symbol macros</I></A> named by <I>symbols</I>.  The only guaranteed property of an expansion <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> for a <A REL=DEFINITION HREF="26_glo_s.htm#symbol_macro"><I>symbol macro</I></A> is that when it is applied to the <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> and the <A REL=DEFINITION HREF="26_glo_e.htm#environment"><I>environment</I></A> it returns the correct expansion. (In particular, it is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> whether the expansion is conceptually stored in the expansion function, the <A REL=DEFINITION HREF="26_glo_e.htm#environment"><I>environment</I></A>, or both.)  <P>
+Each reference to <I>symbol</I> as a variable within the lexical <A REL=DEFINITION HREF="26_glo_s.htm#scope"><I>scope</I></A> of <A REL=DEFINITION HREF="#symbol-macrolet"><B>symbol-macrolet</B></A> is expanded by the normal macro expansion process; see <A REL=CHILD HREF="03_abaa.htm">Section 3.1.2.1.1 (Symbols as Forms)</A>. The expansion of a symbol macro is subject to further macro expansion in the same lexical environment as the symbol macro invocation, exactly analogous to normal <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macros</I></A>. <P>
+ Exactly the same <I>declarations</I> are allowed as for <A REL=DEFINITION HREF="s_let_l.htm#let"><B>let</B></A> with one exception: <A REL=DEFINITION HREF="#symbol-macrolet"><B>symbol-macrolet</B></A> signals an error if a <A REL=DEFINITION HREF="d_specia.htm#special"><B>special</B></A> declaration names one of the <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> being defined by <A REL=DEFINITION HREF="#symbol-macrolet"><B>symbol-macrolet</B></A>.  <P>
+When the <I>forms</I> of the <A REL=DEFINITION HREF="#symbol-macrolet"><B>symbol-macrolet</B></A> form are expanded, any use of <A REL=DEFINITION HREF="s_setq.htm#setq"><B>setq</B></A> to set the value of one of the specified variables is treated as if it were a <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A>. <A REL=DEFINITION HREF="m_psetq.htm#psetq"><B>psetq</B></A> of a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> defined as a symbol macro is treated as if it were a <A REL=DEFINITION HREF="m_setf_.htm#psetf"><B>psetf</B></A>, and <A REL=DEFINITION HREF="m_mult_2.htm#multiple-value-setq"><B>multiple-value-setq</B></A> is treated as if it were a <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A> of <A REL=DEFINITION HREF="f_values.htm#values"><B>values</B></A>. <P>
+The use of <A REL=DEFINITION HREF="#symbol-macrolet"><B>symbol-macrolet</B></A> can be shadowed by <A REL=DEFINITION HREF="s_let_l.htm#let"><B>let</B></A>. In other words, <A REL=DEFINITION HREF="#symbol-macrolet"><B>symbol-macrolet</B></A> only substitutes for occurrences of <I>symbol</I> that would be in the <A REL=DEFINITION HREF="26_glo_s.htm#scope"><I>scope</I></A> of a lexical binding of <I>symbol</I> surrounding the <I>forms</I>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+;;; The following is equivalent to
+;;;   (list 'foo (let ((x 'bar)) x)),
+;;; not
+;;;   (list 'foo (let (('foo 'bar)) 'foo))
+ (symbol-macrolet ((x 'foo))
+   (list x (let ((x 'bar)) x))) 
+=&gt;  (foo bar)
+NOT=&gt;  (foo foo) 
+ 
+ (symbol-macrolet ((x '(foo x)))
+   (list x))
+=&gt;  ((FOO X))
+</PRE>
+</b> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+   If an attempt is made to bind a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> that is defined as a <A REL=DEFINITION HREF="26_glo_g.htm#global_variable"><I>global variable</I></A>, an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_progra.htm#program-error"><B>program-error</B></A> is signaled.   <P>
+If <I>declaration</I> contains a <A REL=DEFINITION HREF="d_specia.htm#special"><B>special</B></A> declaration that names one of the <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> being bound by <A REL=DEFINITION HREF="#symbol-macrolet"><B>symbol-macrolet</B></A>, an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_progra.htm#program-error"><B>program-error</B></A> is signaled. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_w_slts.htm#with-slots"><B>with-slots</B></A>, <A REL=DEFINITION HREF="f_mexp_.htm#macroexpand"><B>macroexpand</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+The special form <A REL=DEFINITION HREF="#symbol-macrolet"><B>symbol-macrolet</B></A> is the basic mechanism that is used to implement <A REL=DEFINITION HREF="m_w_slts.htm#with-slots"><B>with-slots</B></A>. <P>
+If a <A REL=DEFINITION HREF="#symbol-macrolet"><B>symbol-macrolet</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> is a <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level form</I></A>, the <I>forms</I> are also processed as <A REL=DEFINITION HREF="26_glo_t.htm#top_level_form"><I>top level forms</I></A>. See <A REL=CHILD HREF="03_bc.htm">Section 3.2.3 (File Compilation)</A>. <P>
+  <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss214.htm">LISP-SYMBOL-REDEFINITION:MAR89-X3J13</A><LI> <A REL=CHILD HREF="../Issues/iss340.htm">SYMBOL-MACROS-AND-PROCLAIMED-SPECIALS:SIGNALS-AN-ERROR</A><LI> <A REL=CHILD HREF="../Issues/iss337.htm">SYMBOL-MACROLET-DECLARE:ALLOW</A><LI> <A REL=CHILD HREF="../Issues/iss338.htm">SYMBOL-MACROLET-SEMANTICS:SPECIAL-FORM</A><LI> <A REL=CHILD HREF="../Issues/iss097.htm">DECLS-AND-DOC</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

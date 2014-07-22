@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 25.1.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="25_a.htm">
+<LINK REL=UP HREF="25_a.htm">
+<LINK REL=NEXT HREF="25_ab.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A><A REL=PREV HREF="25_a.htm">◀</A><A REL=UP HREF="25_a.htm">▲</A><A REL=NEXT HREF="25_ab.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+25.1.1 动态交互编码系统 Top level loop</H2> 
+The top level loop is the Common Lisp mechanism by which the user normally interacts with the Common Lisp system. This loop is sometimes referred to as the <A REL=DEFINITION HREF="26_glo_l.htm#lisp_read-eval-print_loop"><I>Lisp read-eval-print loop</I></A> because it typically consists of an endless loop that reads an expression, evaluates it and prints the results. <P>
+The top level loop is not completely specified; thus the user interface is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-defined"><I>implementation-defined</I></A>. The top level loop prints all values resulting from the evaluation of a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. The next figure lists variables that are maintained by the <A REL=DEFINITION HREF="26_glo_l.htm#lisp_read-eval-print_loop"><I>Lisp read-eval-print loop</I></A>. <P>
+<PRE>
+最近输出值查看 <A REL=DEFINITION HREF="a_sl.htm#SL">/</A> <A REL=DEFINITION HREF="v_sl_sls.htm#SLSL">//</A> <A REL=DEFINITION HREF="v_sl_sls.htm#SLSLSL">///</A>
+最近初始值查看 <A REL=DEFINITION HREF="a_st.htm#ST">*</A>   <A REL=DEFINITION HREF="v__stst_.htm#STST">**</A>   <A REL=DEFINITION HREF="v__stst_.htm#STSTST">***</A>
+最近运行的程序块查看 <A REL=DEFINITION HREF="a_pl.htm#PL">+</A>   <A REL=DEFINITION HREF="v_pl_plp.htm#PLPL">++</A>     <A REL=DEFINITION HREF="v_pl_plp.htm#PLPLPL">+++</A>  
+当前在运行的程序块 <A REL=DEFINITION HREF="a__.htm#-">-</A>
+</PRE>
+<p><b>■图表 25-1.  Variables maintained by the Read-Eval-Print Loop</B> <P>
+<HR>
+
+<a href="../Front/index.htm">【首页】</A><A REL=TOC HREF="../Front/Contents.htm">【章节目录】</A><A REL=INDEX HREF="../Front/X_Master.htm">【内容索引】</A><A REL=INDEX HREF="../Front/X_Symbol.htm">【符号索引】</A><A REL=GLOSSARY HREF="../Body/26_a.htm">【术语表】</A><A HREF="../Issues/I_Categ.htm">【设计文档】</A><BR>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

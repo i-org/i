@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Local Macro PPRINT-POP</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_ppr_nl.htm">
+<LINK REL=UP HREF="c_printe.htm">
+<LINK REL=NEXT HREF="f_ppr_ta.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_ppr_nl.htm">◀</A><A REL=UP HREF="c_printe.htm">▲</A><A REL=NEXT HREF="f_ppr_ta.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="pprint-pop"><I>Local Macro</I> <B>PPRINT-POP</B></A> <P>
+ <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>pprint-pop</B> <I><I>&lt;no arguments&gt;</I></I> =&gt; <I>object</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>object</I>---an <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>element</I></A> of the <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> being printed in the <I>lexically current logical block</I>, or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Pops one <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>element</I></A> from the <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> being printed in the <I>lexically current logical block</I>, obeying <A REL=DEFINITION HREF="v_pr_lev.htm#STprint-lengthST"><B>*print-length*</B></A> and <A REL=DEFINITION HREF="v_pr_cir.htm#STprint-circleST"><B>*print-circle*</B></A> as described below. <P>
+Each time <A REL=DEFINITION HREF="#pprint-pop"><B>pprint-pop</B></A> is called, it pops the next value off the <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> passed to the <I>lexically current logical block</I> and returns it. However, before doing this, it performs three tests: <P>
+<P><UL><LI>  If the remaining `list' is not a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A>, ``<b>. </b>'' is printed followed by the remaining `list.' (This makes it easier to write printing functions that are robust in the face of malformed arguments.) <P>
+ <LI>  If <A REL=DEFINITION HREF="v_pr_lev.htm#STprint-lengthST"><B>*print-length*</B></A> is <A REL=DEFINITION HREF="26_glo_n.htm#non-nil"><I>non-nil</I></A>, and <A REL=DEFINITION HREF="#pprint-pop"><B>pprint-pop</B></A> has already been called <A REL=DEFINITION HREF="v_pr_lev.htm#STprint-lengthST"><B>*print-length*</B></A> times within the immediately containing logical block, ``<b>...</b>'' is printed. (This makes it easy to write printing functions that properly handle <A REL=DEFINITION HREF="v_pr_lev.htm#STprint-lengthST"><B>*print-length*</B></A>.) <P>
+ <LI>  If <A REL=DEFINITION HREF="v_pr_cir.htm#STprint-circleST"><B>*print-circle*</B></A> is <A REL=DEFINITION HREF="26_glo_n.htm#non-nil"><I>non-nil</I></A>, and the remaining list is a circular (or shared) reference, then ``<b>. </b>'' is printed followed by an appropriate ``<b>#</b><I>n</I><b>#</b>'' marker. (This catches instances of <A REL=DEFINITION HREF="26_glo_c.htm#cdr"><I>cdr</I></A> circularity and sharing in lists.) <P></UL><P>
+If either of the three conditions above occurs, the indicated output is printed on the <A REL=DEFINITION HREF="26_glo_p.htm#pretty_printing_stream"><I>pretty printing stream</I></A> created by the immediately containing <A REL=DEFINITION HREF="m_ppr_lo.htm#pprint-logical-block"><B>pprint-logical-block</B></A> and the execution of the immediately containing <A REL=DEFINITION HREF="m_ppr_lo.htm#pprint-logical-block"><B>pprint-logical-block</B></A> is terminated except for the printing of the suffix. <P>
+If <A REL=DEFINITION HREF="m_ppr_lo.htm#pprint-logical-block"><B>pprint-logical-block</B></A> is given a `list' argument of <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>---because it is not processing a list---<A REL=DEFINITION HREF="#pprint-pop"><B>pprint-pop</B></A> can still be used to obtain support for <A REL=DEFINITION HREF="v_pr_lev.htm#STprint-lengthST"><B>*print-length*</B></A>. In this situation, the first and third tests above are disabled and <A REL=DEFINITION HREF="#pprint-pop"><B>pprint-pop</B></A> always returns <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. See <A REL=CHILD HREF="22_bb.htm">Section 22.2.2 (Examples of using the Pretty Printer)</A>---specifically, the <B>pprint-vector</B> example. <P>
+ Whether or not <A REL=DEFINITION HREF="#pprint-pop"><B>pprint-pop</B></A> is <A REL=DEFINITION HREF="26_glo_f.htm#fbound"><I>fbound</I></A> in the <A REL=DEFINITION HREF="26_glo_g.htm#global_environment"><I>global environment</I></A> is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A>; however, the restrictions on redefinition and <I>shadowing</I> of <A REL=DEFINITION HREF="#pprint-pop"><B>pprint-pop</B></A> are the same as for <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> in the <b>COMMON-LISP</b> package which are <A REL=DEFINITION HREF="26_glo_f.htm#fbound"><I>fbound</I></A> in the <A REL=DEFINITION HREF="26_glo_g.htm#global_environment"><I>global environment</I></A>. The consequences of attempting to use <A REL=DEFINITION HREF="#pprint-pop"><B>pprint-pop</B></A> outside of <A REL=DEFINITION HREF="m_ppr_lo.htm#pprint-logical-block"><B>pprint-logical-block</B></A> are undefined.  <P>
+<p><b>●例子:</b> None.
+ <P>
+<p><b>●副作用:</b><P>
+ <P>
+Might cause output to the <A REL=DEFINITION HREF="26_glo_p.htm#pretty_printing_stream"><I>pretty printing stream</I></A> associated with the lexically current logical block. <P>
+<p><b>●受制于:</b><P>
+ <P>
+<A REL=DEFINITION HREF="v_pr_lev.htm#STprint-lengthST"><B>*print-length*</B></A>, <A REL=DEFINITION HREF="v_pr_cir.htm#STprint-circleST"><B>*print-circle*</B></A>. <P>
+<p><b>●例外情况：</b><P>
+ <P>
+An error is signaled (either at macro expansion time or at run time) if a usage of <A REL=DEFINITION HREF="#pprint-pop"><B>pprint-pop</B></A> occurs where there is no lexically containing <A REL=DEFINITION HREF="m_ppr_lo.htm#pprint-logical-block"><B>pprint-logical-block</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. <P>
+The consequences are undefined if <A REL=DEFINITION HREF="#pprint-pop"><B>pprint-pop</B></A> is executed outside of the <A REL=DEFINITION HREF="26_glo_d.htm#dynamic_extent"><I>dynamic extent</I></A> of this <A REL=DEFINITION HREF="m_ppr_lo.htm#pprint-logical-block"><B>pprint-logical-block</B></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_ppr_ex.htm#pprint-exit-if-list-exhausted"><B>pprint-exit-if-list-exhausted</B></A>, <A REL=DEFINITION HREF="m_ppr_lo.htm#pprint-logical-block"><B>pprint-logical-block</B></A>. <P>
+<p><b>●说明:</b><P>
+ <P>
+It is frequently a good idea to call <A REL=DEFINITION HREF="m_ppr_ex.htm#pprint-exit-if-list-exhausted"><B>pprint-exit-if-list-exhausted</B></A> before calling <A REL=DEFINITION HREF="#pprint-pop"><B>pprint-pop</B></A>. <P>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss211.htm">LEXICAL-CONSTRUCT-GLOBAL-DEFINITION:UNDEFINED</A><LI> <A REL=CHILD HREF="../Issues/iss270.htm">PRETTY-PRINT-INTERFACE</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

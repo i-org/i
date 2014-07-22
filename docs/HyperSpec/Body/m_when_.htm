@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Macro WHEN, UNLESS</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="m_or.htm">
+<LINK REL=UP HREF="c_data_a.htm">
+<LINK REL=NEXT HREF="m_case_.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="m_or.htm">◀</A><A REL=UP HREF="c_data_a.htm">▲</A><A REL=NEXT HREF="m_case_.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="when"><A NAME="unless"><I>Macro</I> <B>WHEN, UNLESS</B></A></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>when</B> <I>test-form <I>form</I><B>*</B></I> =&gt; <I><I>result</I><B>*</B></I><P>
+ <P>
+
+<B>unless</B> <I>test-form <I>form</I><B>*</B></I> =&gt; <I><I>result</I><B>*</B></I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>test-form</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. <P>
+<I>forms</I>---an <A REL=DEFINITION HREF="26_glo_i.htm#implicit_progn"><I>implicit progn</I></A>. <P>
+<I>results</I>---the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> of the <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A> in a <A REL=DEFINITION HREF="#when"><B>when</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> if the <I>test-form</I> <A REL=DEFINITION HREF="26_glo_y.htm#yield"><I>yields</I></A> <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> or in an <A REL=DEFINITION HREF="#unless"><B>unless</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> if the <I>test-form</I> <A REL=DEFINITION HREF="26_glo_y.htm#yield"><I>yields</I></A> <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>; otherwise <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#when"><B>when</B></A> and <A REL=DEFINITION HREF="#unless"><B>unless</B></A> allow the execution of <I>forms</I> to be dependent on a single <I>test-form</I>. <P>
+In a <A REL=DEFINITION HREF="#when"><B>when</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>, if the <I>test-form</I> <A REL=DEFINITION HREF="26_glo_y.htm#yield"><I>yields</I></A> <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A>, the <I>forms</I> are <I>evaluated</I> in order from left to right and the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> returned by the <I>forms</I> are returned from the <A REL=DEFINITION HREF="#when"><B>when</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. Otherwise, if the <I>test-form</I> <A REL=DEFINITION HREF="26_glo_y.htm#yield"><I>yields</I></A> <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>, the <I>forms</I> are not <I>evaluated</I>, and the <A REL=DEFINITION HREF="#when"><B>when</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> returns <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+In an <A REL=DEFINITION HREF="#unless"><B>unless</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>, if the <I>test-form</I> <A REL=DEFINITION HREF="26_glo_y.htm#yield"><I>yields</I></A> <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>, the <I>forms</I> are <I>evaluated</I> in order from left to right and the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> returned by the <I>forms</I> are returned from the <A REL=DEFINITION HREF="#unless"><B>unless</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. Otherwise, if the <I>test-form</I> <A REL=DEFINITION HREF="26_glo_y.htm#yield"><I>yields</I></A> <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>, the <I>forms</I> are not <I>evaluated</I>, and the <A REL=DEFINITION HREF="#unless"><B>unless</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> returns <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (when t 'hello) =&gt;  HELLO
+ (unless t 'hello) =&gt;  NIL
+ (when nil 'hello) =&gt;  NIL
+ (unless nil 'hello) =&gt;  HELLO
+ (when t) =&gt;  NIL
+ (unless nil) =&gt;  NIL
+ (when t (prin1 1) (prin1 2) (prin1 3))
+&gt;&gt;  123
+=&gt;  3
+ (unless t (prin1 1) (prin1 2) (prin1 3)) =&gt;  NIL
+ (when nil (prin1 1) (prin1 2) (prin1 3)) =&gt;  NIL
+ (unless nil (prin1 1) (prin1 2) (prin1 3))
+&gt;&gt;  123
+=&gt;  3
+ (let ((x 3))
+   (list (when (oddp x) (incf x) (list x))
+         (when (oddp x) (incf x) (list x))
+         (unless (oddp x) (incf x) (list x))
+         (unless (oddp x) (incf x) (list x))
+         (if (oddp x) (incf x) (list x)) 
+         (if (oddp x) (incf x) (list x)) 
+         (if (not (oddp x)) (incf x) (list x)) 
+         (if (not (oddp x)) (incf x) (list x))))
+=&gt;  ((4) NIL (5) NIL 6 (6) 7 (7))
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>只有一条判断：only,never。两条判断：
+<A REL=DEFINITION HREF="m_and.htm#and"><B>and</B></A>, <A REL=DEFINITION HREF="s_if.htm#if"><B>if</B></A>, <A REL=DEFINITION HREF="m_or.htm#or"><B>or</B></A> ,多条判断： <A REL=DEFINITION HREF="m_cond.htm#cond"><B>cond</B></A><P>
+<p><b>●说明:</b><P>
+ <P>
+<PRE>
+ (when test {form}+) ==  (and test (progn {form}+))
+ (when test {form}+) ==  (cond (test {form}+))
+ (when test {form}+) ==  (if test (progn {form}+) nil)
+ (when test {form}+) ==  (unless (not test) {form}+)
+ (unless test {form}+) ==  (cond ((not test) {form}+))
+ (unless test {form}+) ==  (if test nil (progn {form}+))
+ (unless test {form}+) ==  (when (not test) {form}+)
+</PRE>
+</b> <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

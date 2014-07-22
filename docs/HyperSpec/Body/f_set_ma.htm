@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function SET-MACRO-CHARACTER, GET-MACRO-CHARACTER</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_set__1.htm">
+<LINK REL=UP HREF="c_reader.htm">
+<LINK REL=NEXT HREF="f_set_sy.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_set__1.htm">◀</A><A REL=UP HREF="c_reader.htm">▲</A><A REL=NEXT HREF="f_set_sy.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="set-macro-character"><A NAME="get-macro-character"><I>Function</I> <B>SET-MACRO-CHARACTER, GET-MACRO-CHARACTER</B></A></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>get-macro-character</B> <I>char <b>&amp;optional</b> readtable</I> =&gt; <I>function, non-terminating-p</I><P>
+ <P>
+
+<B>set-macro-character</B> <I>char new-function <b>&amp;optional</b> non-terminating-p readtable</I> =&gt; <I><A REL=DEFINITION HREF="a_t.htm#t"><B>t</B></A></I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>char</I>---a <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>character</I></A>. <P>
+<I>non-terminating-p</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. The default is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>. <P>
+ <I>readtable</I>---a <A REL=DEFINITION HREF="26_glo_r.htm#readtable_designator"><I>readtable designator</I></A>.  The default is the <A REL=DEFINITION HREF="26_glo_c.htm#current_readtable"><I>current readtable</I></A>. <P>
+<I>function</I>---<A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>, or a <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> of two <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>arguments</I></A>. <P>
+<I>new-function</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#function_designator"><I>function designator</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#get-macro-character"><B>get-macro-character</B></A> returns as its <A REL=DEFINITION HREF="26_glo_p.htm#primary_value"><I>primary value</I></A>, <I>function</I>, the <A REL=DEFINITION HREF="26_glo_r.htm#reader_macro_function"><I>reader macro function</I></A> associated with <I>char</I> in <I>readtable</I> (if any), or else <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> if <I>char</I> is not a <A REL=DEFINITION HREF="26_glo_m.htm#macro_character"><I>macro character</I></A> in <I>readtable</I>. The <A REL=DEFINITION HREF="26_glo_s.htm#secondary_value"><I>secondary value</I></A>, <I>non-terminating-p</I>, is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> if <I>char</I> is a <A REL=DEFINITION HREF="26_glo_n.htm#non-terminating"><I>non-terminating</I></A> <A REL=DEFINITION HREF="26_glo_m.htm#macro_character"><I>macro character</I></A>; otherwise, it is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>. <P>
+<A REL=DEFINITION HREF="#set-macro-character"><B>set-macro-character</B></A> causes <I>char</I> to be a <A REL=DEFINITION HREF="26_glo_m.htm#macro_character"><I>macro character</I></A> associated with the <A REL=DEFINITION HREF="26_glo_r.htm#reader_macro_function"><I>reader macro function</I></A> <I>new-function</I> (or the <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for <I>new-function</I>) in <I>readtable</I>. If <I>non-terminating-p</I> is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A>, <I>char</I> becomes a <A REL=DEFINITION HREF="26_glo_n.htm#non-terminating"><I>non-terminating</I></A> <A REL=DEFINITION HREF="26_glo_m.htm#macro_character"><I>macro character</I></A>; otherwise it becomes a <A REL=DEFINITION HREF="26_glo_t.htm#terminating"><I>terminating</I></A> <A REL=DEFINITION HREF="26_glo_m.htm#macro_character"><I>macro character</I></A>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (get-macro-character #\{) =&gt;  NIL, <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+ (not (get-macro-character #\;)) =&gt;  <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+</PRE>
+</b> <P>
+The following is a possible definition for the <A REL=DEFINITION HREF="26_glo_s.htm#single-quote"><I>single-quote</I></A> <A REL=DEFINITION HREF="26_glo_r.htm#reader_macro"><I>reader macro</I></A> in <A REL=DEFINITION HREF="26_glo_s.htm#standard_syntax"><I>standard syntax</I></A>: <P>
+<PRE>
+ (defun single-quote-reader (stream char)
+   (declare (ignore char))
+   (list 'quote (read stream t nil t))) =&gt;  SINGLE-QUOTE-READER
+ (set-macro-character #\' #'single-quote-reader) =&gt;  T
+</PRE>
+</b> <P>
+Here <b>single-quote-reader</b> reads an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> following the <A REL=DEFINITION HREF="26_glo_s.htm#single-quote"><I>single-quote</I></A> and returns a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> of <A REL=DEFINITION HREF="s_quote.htm#quote"><B>quote</B></A> and that <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. The <I>char</I> argument is ignored. <P>
+The following is a possible definition for the <A REL=DEFINITION HREF="26_glo_s.htm#semicolon"><I>semicolon</I></A> <A REL=DEFINITION HREF="26_glo_r.htm#reader_macro"><I>reader macro</I></A> in <A REL=DEFINITION HREF="26_glo_s.htm#standard_syntax"><I>standard syntax</I></A>: <P>
+<PRE>
+ (defun semicolon-reader (stream char)
+   (declare (ignore char))
+   ;; First swallow the rest of the current input line.
+   ;; End-of-file is acceptable for terminating the comment.
+   (do () ((char= (read-char stream nil #\Newline t) #\Newline)))
+   ;; Return zero values.
+   (values)) =&gt;  SEMICOLON-READER
+ (set-macro-character #\; #'semicolon-reader) =&gt;  T
+</PRE>
+</b> <P>
+<p><b>●副作用:</b><P>
+ <P>
+The <I>readtable</I> is modified. <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="v_rdtabl.htm#STreadtableST"><B>*readtable*</B></A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss184.htm">GET-MACRO-CHARACTER-READTABLE:NIL-STANDARD</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

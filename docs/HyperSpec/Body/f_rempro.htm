@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function REMPROP</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_get.htm">
+<LINK REL=UP HREF="c_symbol.htm">
+<LINK REL=NEXT HREF="f_boundp.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_get.htm">◀</A><A REL=UP HREF="c_symbol.htm">▲</A><A REL=NEXT HREF="f_boundp.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="remprop"><I>Function</I> <B>REMPROP</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>remprop</B> <I>symbol indicator</I> =&gt; <I>generalized-boolean</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>symbol</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>. <P>
+<I>indicator</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<I>generalized-boolean</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#remprop"><B>remprop</B></A> removes from the <A REL=DEFINITION HREF="26_glo_p.htm#property_list"><I>property list</I></A>[2] of <I>symbol</I> a <A REL=DEFINITION HREF="26_glo_p.htm#property"><I>property</I></A>[1] with a <A REL=DEFINITION HREF="26_glo_p.htm#property_indicator"><I>property indicator</I></A> <A REL=DEFINITION HREF="26_glo_i.htm#identical"><I>identical</I></A> to <I>indicator</I>.  If there are multiple <A REL=DEFINITION HREF="26_glo_p.htm#property"><I>properties</I></A>[1] with the <A REL=DEFINITION HREF="26_glo_i.htm#identical"><I>identical</I></A> key, <A REL=DEFINITION HREF="#remprop"><B>remprop</B></A> only removes the first such <A REL=DEFINITION HREF="26_glo_p.htm#property"><I>property</I></A>.  <A REL=DEFINITION HREF="#remprop"><B>remprop</B></A> returns <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A> if no such <A REL=DEFINITION HREF="26_glo_p.htm#property"><I>property</I></A> was found, or <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> if a property was found. <P>
+The <A REL=DEFINITION HREF="26_glo_p.htm#property_indicator"><I>property indicator</I></A> and the corresponding <A REL=DEFINITION HREF="26_glo_p.htm#property_value"><I>property value</I></A> are removed in an undefined order by destructively splicing the property list.  The permissible side-effects correspond to those permitted for <A REL=DEFINITION HREF="m_remf.htm#remf"><B>remf</B></A>, such that: <P>
+<PRE>
+ (remprop x y) ==  (remf (symbol-plist x) y)
+</PRE>
+</b>  <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (setq test (make-symbol &quot;PSEUDO-PI&quot;)) =&gt;  #:PSEUDO-PI
+ (symbol-plist test) =&gt;  ()
+ (setf (get test 'constant) t) =&gt;  T
+ (setf (get test 'approximation) 3.14) =&gt;  3.14
+ (setf (get test 'error-range) 'noticeable) =&gt;  NOTICEABLE
+ (symbol-plist test) 
+=&gt;  (ERROR-RANGE NOTICEABLE APPROXIMATION 3.14 CONSTANT T)
+ (setf (get test 'approximation) nil) =&gt;  NIL
+ (symbol-plist test) 
+=&gt;  (ERROR-RANGE NOTICEABLE APPROXIMATION NIL CONSTANT T)
+ (get test 'approximation) =&gt;  NIL
+ (remprop test 'approximation) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (get test 'approximation) =&gt;  NIL
+ (symbol-plist test)
+=&gt;  (ERROR-RANGE NOTICEABLE CONSTANT T)
+ (remprop test 'approximation) =&gt;  NIL
+ (symbol-plist test)
+=&gt;  (ERROR-RANGE NOTICEABLE CONSTANT T)
+ (remprop test 'error-range) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (setf (get test 'approximation) 3) =&gt;  3
+ (symbol-plist test)
+=&gt;  (APPROXIMATION 3 CONSTANT T)
+</PRE>
+</b> <P>
+<p><b>●副作用:</b><P>
+ <P>
+The <A REL=DEFINITION HREF="26_glo_p.htm#property_list"><I>property list</I></A> of <I>symbol</I> is modified. <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+Should signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if <I>symbol</I> is not a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_remf.htm#remf"><B>remf</B></A>, <A REL=DEFINITION HREF="f_symb_4.htm#symbol-plist"><B>symbol-plist</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<A REL=DEFINITION HREF="26_glo_n.htm#number"><I>Numbers</I></A> and <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>characters</I></A> are not recommended for use as <I>indicators</I> in portable code since <A REL=DEFINITION HREF="#remprop"><B>remprop</B></A> tests with <A REL=DEFINITION HREF="f_eq.htm#eq"><B>eq</B></A> rather than <A REL=DEFINITION HREF="f_eql.htm#eql"><B>eql</B></A>, and consequently the effect of using such <I>indicators</I> is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A>. Of course, if you've gotten as far as needing to remove such a <A REL=DEFINITION HREF="26_glo_p.htm#property"><I>property</I></A>, you don't have much choice---the time to have been thinking about this was when you used <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A> of <A REL=DEFINITION HREF="f_get.htm#get"><B>get</B></A> to establish the <A REL=DEFINITION HREF="26_glo_p.htm#property"><I>property</I></A>. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss293.htm">REMF-DESTRUCTION-UNSPECIFIED:X3J13-MAR-89</A><LI> <A REL=CHILD HREF="../Issues/iss269.htm">PLIST-DUPLICATES:ALLOW</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section The Environment Dictionary</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="25_add.htm">
+<LINK REL=UP HREF="25_.htm">
+<LINK REL=NEXT HREF="f_dec_un.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A><A REL=PREV HREF="25_add.htm">◀</A><A REL=UP HREF="25_.htm">▲</A><A REL=NEXT HREF="f_dec_un.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+25.2 运行环境相关字典 The Environment Dictionary</H2>
+
+<h3>时间相关 </h3>
+<ul>
+<LI><A REL=CHILD HREF="f_dec_un.htm"><I>Function</I> <B>DECODE-UNIVERSAL-TIME</B></A>通用时间解码
+
+ 
+<LI><A REL=CHILD HREF="f_encode.htm"><I>function</I> <B>ENCODE-UNIVERSAL-TIME</B></A>通用时间编码
+
+ 
+<LI><A REL=CHILD HREF="f_get_un.htm"><I>Function</I> <B>GET-UNIVERSAL-TIME, GET-DECODED-TIME</B></A>获得时间
+
+ 
+<LI><A REL=CHILD HREF="f_sleep.htm"><I>Function</I> <B>SLEEP</B> </A>等候
+</ul>
+<h3>排查系统</h3>
+<ul> 
+<LI><A REL=CHILD HREF="f_apropo.htm"><I>Function</I> <B>APROPOS, APROPOS-LIST</B> </A>查找
+
+ 
+<LI><A REL=CHILD HREF="f_descri.htm"><I>Function</I> <B>DESCRIBE</B></A>详情查看
+<LI><A REL=CHILD HREF="f_inspec.htm"><I>Function</I> <B>INSPECT</B></A>详查动态交互版
+ 
+<LI><A REL=CHILD HREF="f_desc_1.htm"><I>Standard Generic Function</I> <B>DESCRIBE-OBJECT</B></A>
+
+ 
+<LI><A REL=CHILD HREF="m_tracec.htm"><I>Macro</I> <B>TRACE, UNTRACE</B></A>追踪
+
+ 
+<LI><A REL=CHILD HREF="m_step.htm"><I>Macro</I> <B>STEP</B></A>
+
+ 
+<LI><A REL=CHILD HREF="m_time.htm"><I>Macro</I> <B>TIME</B></A>计时
+
+<LI><A REL=CHILD HREF="v_intern.htm"><I>Constant Variable</I> <B>INTERNAL-TIME-UNITS-PER-SECOND</B></A>
+ 
+<LI><A REL=CHILD HREF="f_get_in.htm"><I>Function</I> <B>GET-INTERNAL-REAL-TIME</B></A> 
+<LI><A REL=CHILD HREF="f_get__1.htm"><I>Function</I> <B>GET-INTERNAL-RUN-TIME</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_disass.htm"><I>Function</I> <B>DISASSEMBLE</B></A>分解
+ 
+
+ 
+<LI><A REL=CHILD HREF="f_docume.htm"><I>Standard Generic Function</I> <B>DOCUMENTATION, (SETF DOCUMENTATION)</B></A>文档
+ 
+
+ 
+<LI><A REL=CHILD HREF="f_room.htm"><I>Function</I> <B>ROOM</B></A>占用内存
+
+ 
+<LI><A REL=CHILD HREF="f_ed.htm"><I>Function</I> <B>ED</B></A>调用编辑器
+ 
+<LI><A REL=CHILD HREF="f_dribbl.htm"><I>Function</I> <B>DRIBBLE</B></A>记录
+</ul>
+<h3>动态交互编码环境下的操作记录</h3>
+<ul> 
+<LI><A REL=CHILD HREF="v__.htm"><I>Variable</I> <B>-</B></A>当前在运行的程序块
+<LI><A REL=CHILD HREF="v_pl_plp.htm"><I>Variable</I> <B>+, ++, +++</B></A>最近运行的程序块查看
+<LI><A REL=CHILD HREF="v__stst_.htm"><I>Variable</I> <B>*, **, ***</B></A>最近初始值查看
+<LI><A REL=CHILD HREF="v_sl_sls.htm"><I>Variable</I> <B>/, //, ///</B></A>最近输出值查看
+</ul>
+
+<h3>关于运行环境查看 </h3>
+<ul>
+<LI><A REL=CHILD HREF="f_lisp_i.htm"><I>Function</I> <B>LISP-IMPLEMENTATION-TYPE, LISP-IMPLEMENTATION-VERSION</B></A>历实现类型，版本
+
+ 
+<LI><A REL=CHILD HREF="f_short_.htm"><I>Function</I> <B>SHORT-SITE-NAME, LONG-SITE-NAME</B></A>机器物理地址
+
+ 
+<LI><A REL=CHILD HREF="f_mach_i.htm"><I>Function</I> <B>MACHINE-INSTANCE</B></A>机器特有例子
+
+ 
+<LI><A REL=CHILD HREF="f_mach_t.htm"><I>Function</I> <B>MACHINE-TYPE</B></A>机器类型
+
+ 
+<LI><A REL=CHILD HREF="f_mach_v.htm"><I>Function</I> <B>MACHINE-VERSION</B></A>机器版本
+
+ 
+<LI><A REL=CHILD HREF="f_sw_tpc.htm"><I>Function</I> <B>SOFTWARE-TYPE, SOFTWARE-VERSION</B></A>软件类型软件版本
+
+ 
+<LI><A REL=CHILD HREF="f_user_h.htm"><I>Function</I> <B>USER-HOMEDIR-PATHNAME</B></A>用户主目录路径
+</ul>
+
+
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss136.htm">DOCUMENTATION-FUNCTION-TANGLED:REQUIRE-ARGUMENT</A></UL><HR>
+
+<a href="../Front/index.htm">【首页】</A><A REL=TOC HREF="../Front/Contents.htm">【章节目录】</A><A REL=INDEX HREF="../Front/X_Master.htm">【内容索引】</A><A REL=INDEX HREF="../Front/X_Symbol.htm">【符号索引】</A><A REL=GLOSSARY HREF="../Body/26_a.htm">【术语表】</A><A HREF="../Issues/I_Categ.htm">【设计文档】</A><BR>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Condition Type SIMPLE-CONDITION</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_signal.htm">
+<LINK REL=UP HREF="c_condit.htm">
+<LINK REL=NEXT HREF="f_smp_cn.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_signal.htm">◀</A><A REL=UP HREF="c_condit.htm">▲</A><A REL=NEXT HREF="f_smp_cn.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="simple-condition"><I>Condition Type</I> <B>SIMPLE-CONDITION</B></A> <P>
+<p><b>●Class Precedence List:</b><P>
+ <A REL=DEFINITION HREF="#simple-condition"><B>simple-condition</B></A>, <A REL=DEFINITION HREF="e_cnd.htm#condition"><B>condition</B></A>, <A REL=DEFINITION HREF="t_t.htm#t"><B>t</B></A> <P>
+<p><b>●详情:</b><P>
+ <P>
+The <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="#simple-condition"><B>simple-condition</B></A> represents <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>conditions</I></A> that are signaled by <A REL=DEFINITION HREF="f_signal.htm#signal"><B>signal</B></A> whenever a <I>format-control</I> is supplied as the function's first argument.  The <A REL=DEFINITION HREF="26_glo_f.htm#format_control"><I>format control</I></A> and <A REL=DEFINITION HREF="26_glo_f.htm#format_argument"><I>format arguments</I></A> are initialized with the initialization arguments named :<b>format-control</b>  and <b>:format-arguments</b> to <A REL=DEFINITION HREF="f_mk_cnd.htm#make-condition"><B>make-condition</B></A>, and are <I>accessed</I> by the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>functions</I></A>  <A REL=DEFINITION HREF="f_smp_cn.htm#simple-condition-format-control"><B>simple-condition-format-control</B></A>  and <A REL=DEFINITION HREF="f_smp_cn.htm#simple-condition-format-arguments"><B>simple-condition-format-arguments</B></A>. If format arguments are not supplied to <A REL=DEFINITION HREF="f_mk_cnd.htm#make-condition"><B>make-condition</B></A>, <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> is used as a default. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+ <A REL=DEFINITION HREF="f_smp_cn.htm#simple-condition-format-control"><B>simple-condition-format-control</B></A>,  <A REL=DEFINITION HREF="f_smp_cn.htm#simple-condition-format-arguments"><B>simple-condition-format-arguments</B></A> <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss170.htm">FORMAT-STRING-ARGUMENTS:SPECIFY</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

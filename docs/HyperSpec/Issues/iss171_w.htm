@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Issue FUNCTION-CALL-EVALUATION-ORDER Writeup</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="../Issues/iss170_w.htm">
+<LINK REL=UP HREF="../Issues/iss171.htm">
+<LINK REL=NEXT HREF="../Issues/iss172_w.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="../Issues/iss170_w.htm">◀</A><A REL=UP HREF="../Issues/iss171.htm">▲</A><A REL=NEXT HREF="../Issues/iss172_w.htm">▶</A></h1>
+
+<HR>
+
+
+
+<H2>Issue FUNCTION-CALL-EVALUATION-ORDER Writeup</H2>
+
+<PRE><B>Status:</B>       passed v2 on 15-0 vote, Jun-90<P>
+<B>Issue:</B>        <A HREF="iss171.htm">FUNCTION-CALL-EVALUATION-ORDER</A><P>
+<P>
+<B>References:</B>   CLtL p 194 (&quot;...that order is always left to right&quot;)<P>
+              ANSI CL spec (Aug 29, 1989 draft) p.4-10 3rd paragraph<P>
+<P>
+<B>Category:</B>     CLARIFICATION<P>
+<P>
+<B>Edit history:</B> Version 1 by Clinger (22 March 1988)<P>
+              Version 2 by Moon (1 Feb 90), add MORE-UNSPECIFIED<P>
+<P>
+<B>Problem Description:<P>
+</B><P>
+  CLtL does not say whether the function expression of a call is evaluated<P>
+  before or after the argument expressions.<P>
+<P>
+  This is Symbolics issue #4.<P>
+<P>
+<B>Proposal (FUNCTION-CALL-EVALUATION-ORDER:UNSPECIFIED):<P>
+</B><P>
+  Common Lisp does not specify whether the function expression of a call is<P>
+  evaluated before or after the argument expressions.  Programs that rely<P>
+  on a particular order of evaluation are in error.<P>
+<P>
+  The above proposal was accepted in October 1988.  The following proposal<P>
+  is new in version 2.<P>
+<P>
+<B>Proposal (FUNCTION-CALL-EVALUATION-ORDER:MORE-UNSPECIFIED):<P>
+</B><P>
+  Common Lisp does not specify whether the function expression of a call is<P>
+  evaluated before the argument expressions, after the argument<P>
+  expressions, or between any two argument expressions if there is more<P>
+  than one argument.  Programs that rely on a particular order of<P>
+  evaluation are in error.<P>
+<P>
+<B>Example:<P>
+</B><P>
+  (<A REL=DEFINITION HREF="../Body/m_defun.htm#defun"><B>defun</B></A> foo (x) (+ x 3))<P>
+  (<A REL=DEFINITION HREF="../Body/m_defun.htm#defun"><B>defun</B></A> bar () (<A REL=DEFINITION HREF="../Body/a_setf.htm#setf"><B>setf</B></A> (<A REL=DEFINITION HREF="../Body/f_symb_1.htm#symbol-function"><B>symbol-function</B></A> 'foo) #'(<A REL=DEFINITION HREF="../Body/a_lambda.htm#lambda"><B>lambda</B></A> (x) (+ x 4))))<P>
+  (foo (<A REL=DEFINITION HREF="../Body/s_progn.htm#progn"><B>progn</B></A> (bar) 20))<P>
+  ; may return 23 or 24<P>
+<P>
+  (<A REL=DEFINITION HREF="../Body/m_defun.htm#defun"><B>defun</B></A> foo2 (x y) (+ x y))<P>
+  (<A REL=DEFINITION HREF="../Body/m_defun.htm#defun"><B>defun</B></A> bar2 () (<A REL=DEFINITION HREF="../Body/a_setf.htm#setf"><B>setf</B></A> (<A REL=DEFINITION HREF="../Body/f_symb_1.htm#symbol-function"><B>symbol-function</B></A> 'foo2) #'(<A REL=DEFINITION HREF="../Body/a_lambda.htm#lambda"><B>lambda</B></A> (x y) (* x y))))<P>
+  (<A REL=DEFINITION HREF="../Body/m_defun.htm#defun"><B>defun</B></A> bar3 () (<A REL=DEFINITION HREF="../Body/a_setf.htm#setf"><B>setf</B></A> (<A REL=DEFINITION HREF="../Body/f_symb_1.htm#symbol-function"><B>symbol-function</B></A> 'foo2) #'(<A REL=DEFINITION HREF="../Body/a_lambda.htm#lambda"><B>lambda</B></A> (x y) (- x y))))<P>
+  (foo2 (<A REL=DEFINITION HREF="../Body/s_progn.htm#progn"><B>progn</B></A> (bar2) 6) (<A REL=DEFINITION HREF="../Body/s_progn.htm#progn"><B>progn</B></A> (bar3) 7))<P>
+  ; under UNSPECIFIED, may return 13 or -1<P>
+  ; under MORE-UNSPECIFIED, may return 13, -1, or 42<P>
+<P>
+<B>Rationale:<P>
+</B><P>
+  UNSPECIFIED makes the status quo explicit.<P>
+<P>
+  MORE-UNSPECIFIED allows complete freedom to the implementation; as long<P>
+  as we are not going to <A REL=DEFINITION HREF="../Body/f_provid.htm#require"><B>require</B></A> all implementations to be consistent, it<P>
+  seems useless to impose half a restriction on the implementation.  Some<P>
+  RISC machines with delayed branches would prefer to evaluate the function<P>
+  between evaluating the penultimate argument and the last argument in<P>
+  some situations.<P>
+<P>
+<B>Current Practice:<P>
+</B>  <P>
+  TI and Symbolics used to evaluate the function expression last.<P>
+  Symbolics currently evaluates the function expression either first or<P>
+  last depending on the hardware and whether the code is compiled or<P>
+  interpreted.  I'm not sure if TI has changed in the past two years.<P>
+  Lucid and Coral sometimes evaluate the function expression first and at<P>
+  other times evaluate the function expression last.<P>
+<P>
+<B>Cost to implementors:<P>
+</B><P>
+  None.<P>
+<P>
+<B>Cost to users:<P>
+</B><P>
+  None.<P>
+<P>
+<B>Benefits:<P>
+</B><P>
+  Codifies an ambiguity.<P>
+<P>
+<B>Aesthetics:<P>
+</B>  <P>
+  Since Common Lisp evaluates argument expressions from left to right, it<P>
+  would be more consistent for the function expression to be evaluated<P>
+  before the argument expressions.  On the other hand, the evaluation rules<P>
+  for function expressions are already quite different from the rules for<P>
+  argument expressions, and nobody in their right mind would write code<P>
+  that depends on the order of evaluation, so aesthetics should not count<P>
+  for much in this case.  Requiring left to right evaluation would force<P>
+  some implementations to consume an extra register for many function<P>
+  calls.  The efficiency argument seems more important than the aesthetic<P>
+  argument.<P>
+</PRE>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

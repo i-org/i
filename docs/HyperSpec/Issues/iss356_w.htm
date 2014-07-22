@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Issue UNREAD-CHAR-AFTER-PEEK-CHAR Writeup</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="../Issues/iss355_w.htm">
+<LINK REL=UP HREF="../Issues/iss356.htm">
+<LINK REL=NEXT HREF="../Issues/iss357_w.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="../Issues/iss355_w.htm">◀</A><A REL=UP HREF="../Issues/iss356.htm">▲</A><A REL=NEXT HREF="../Issues/iss357_w.htm">▶</A></h1>
+
+<HR>
+
+
+
+<H2>Issue UNREAD-CHAR-AFTER-PEEK-CHAR Writeup</H2>
+
+<PRE><B>Issue:</B>         <A HREF="iss356.htm">UNREAD-CHAR-AFTER-PEEK-CHAR</A><P>
+<P>
+<B>References:</B>    pp 379, 380 of CLtL<P>
+<P>
+<B>Category:</B>      CLARIFICATION<P>
+<P>
+<B>Edit history:</B>  Version 1 by Doug Cutting &lt;Cutting.PA@Xerox.COM&gt; on July 29, 1988<P>
+               Version 2 by Masinter  2-Dec-88<P>
+<P>
+<B>Problem description:<P>
+</B><P>
+<A REL=DEFINITION HREF="../Body/f_peek_c.htm#peek-char"><B>PEEK-CHAR</B></A> and <A REL=DEFINITION HREF="../Body/f_unrd_c.htm#unread-char"><B>UNREAD-CHAR</B></A> are very similar mechanisms.  The description of<P>
+<A REL=DEFINITION HREF="../Body/f_peek_c.htm#peek-char"><B>PEEK-CHAR</B></A> in CLtL even states that &quot;it is as if one had called <A REL=DEFINITION HREF="../Body/f_rd_cha.htm#read-char"><B>READ-CHAR</B></A> and<P>
+then <A REL=DEFINITION HREF="../Body/f_unrd_c.htm#unread-char"><B>UNREAD-CHAR</B></A> in succession.&quot;  But while CLtL prohibits calling <A REL=DEFINITION HREF="../Body/f_unrd_c.htm#unread-char"><B>UNREAD-CHAR</B></A><P>
+twice in succession it does not prohibit calling <A REL=DEFINITION HREF="../Body/f_unrd_c.htm#unread-char"><B>UNREAD-CHAR</B></A> after <A REL=DEFINITION HREF="../Body/f_peek_c.htm#peek-char"><B>PEEK-CHAR</B></A>.<P>
+The obvious implementation of <A REL=DEFINITION HREF="../Body/f_peek_c.htm#peek-char"><B>PEEK-CHAR</B></A> and <A REL=DEFINITION HREF="../Body/f_unrd_c.htm#unread-char"><B>UNREAD-CHAR</B></A> (a one-character buffer)<P>
+will not work unless this prohibition is present.<P>
+<P>
+<B>Proposal (UNREAD-CHAR-AFTER-PEEK-CHAR:DONT-ALLOW): <P>
+</B><P>
+   Rewrite the specification so that it is clear that doing either a<P>
+   <A REL=DEFINITION HREF="../Body/f_peek_c.htm#peek-char"><B>PEEK-CHAR</B></A> or <A REL=DEFINITION HREF="../Body/f_rd_cha.htm#read-char"><B>READ-CHAR</B></A> `commits' all previous characters. <A REL=DEFINITION HREF="../Body/f_unrd_c.htm#unread-char"><B>UNREAD-CHAR</B></A><P>
+   on any character preceding that which is seen by the <A REL=DEFINITION HREF="../Body/f_peek_c.htm#peek-char"><B>PEEK-CHAR</B></A> (including<P>
+   those passed over by <A REL=DEFINITION HREF="../Body/f_peek_c.htm#peek-char"><B>PEEK-CHAR</B></A> when `seeking' with a non-NIL first<P>
+   argument) is not specified.<P>
+<P>
+   In particular, the results of calling  <A REL=DEFINITION HREF="../Body/f_unrd_c.htm#unread-char"><B>UNREAD-CHAR</B></A> after <A REL=DEFINITION HREF="../Body/f_peek_c.htm#peek-char"><B>PEEK-CHAR</B></A><P>
+   is unspecified.<P>
+<P>
+<B>Example:<P>
+</B><P>
+   (<A REL=DEFINITION HREF="../Body/m_defun.htm#defun"><B>defun</B></A> test (<A REL=DEFINITION HREF="../Body/03_da.htm#AMoptional"><B>&amp;optional</B></A> (<A REL=DEFINITION HREF="../Body/t_stream.htm#stream"><B>stream</B></A> <A REL=DEFINITION HREF="../Body/v_debug_.htm#STstandard-inputST"><B>*standard-input*</B></A>))<P>
+     (<A REL=DEFINITION HREF="../Body/s_let_l.htm#letST"><B>let*</B></A> ((char1a (<A REL=DEFINITION HREF="../Body/f_rd_cha.htm#read-char"><B>read-char</B></A> <A REL=DEFINITION HREF="../Body/t_stream.htm#stream"><B>stream</B></A>))	<P>
+	    (char2a (<A REL=DEFINITION HREF="../Body/f_peek_c.htm#peek-char"><B>peek-char</B></A> <A REL=DEFINITION HREF="../Body/a_nil.htm#nil"><B>nil</B></A> <A REL=DEFINITION HREF="../Body/t_stream.htm#stream"><B>stream</B></A>))<P>
+	    (char1b (<A REL=DEFINITION HREF="../Body/s_progn.htm#progn"><B>progn</B></A> (<A REL=DEFINITION HREF="../Body/f_unrd_c.htm#unread-char"><B>unread-char</B></A> char1a <A REL=DEFINITION HREF="../Body/t_stream.htm#stream"><B>stream</B></A>)<P>
+			   (<A REL=DEFINITION HREF="../Body/f_rd_cha.htm#read-char"><B>read-char</B></A> <A REL=DEFINITION HREF="../Body/t_stream.htm#stream"><B>stream</B></A>)))<P>
+	    (char2b (<A REL=DEFINITION HREF="../Body/f_rd_cha.htm#read-char"><B>read-char</B></A> <A REL=DEFINITION HREF="../Body/t_stream.htm#stream"><B>stream</B></A>)))<P>
+       (<A REL=DEFINITION HREF="../Body/a_list.htm#list"><B>list</B></A> char1a char2a char1b char2b)))<P>
+<P>
+<P>
+This is not legal, since the <A REL=DEFINITION HREF="../Body/f_peek_c.htm#peek-char"><B>PEEK-CHAR</B></A> for char2a &quot;commits&quot;<P>
+the character read by char1a, and so the <A REL=DEFINITION HREF="../Body/f_unrd_c.htm#unread-char"><B>unread-char</B></A> is not legal.<P>
+<P>
+<B>Rationale:<P>
+</B><P>
+<A REL=DEFINITION HREF="../Body/f_peek_c.htm#peek-char"><B>PEEK-CHAR</B></A> and <A REL=DEFINITION HREF="../Body/f_unrd_c.htm#unread-char"><B>UNREAD-CHAR</B></A> <A REL=DEFINITION HREF="../Body/f_provid.htm#provide"><B>provide</B></A> equivalent functionality and it is thus<P>
+reasonable for an implementation to implement them in terms of the same<P>
+mechanism.<P>
+<P>
+<B>Current practice:<P>
+</B><P>
+In Xerox Common Lisp, different (non-random-access) stream types behave<P>
+differently. One, (TCP/FTP) handled this correctly, while another did not.<P>
+<P>
+In Symbolics Genera, for the Example above:<P>
+<P>
+     (test)ab<P>
+     =&gt; (#\a #\b #\a #\b)<P>
+<P>
+     (<A REL=DEFINITION HREF="../Body/m_w_in_f.htm#with-input-from-string"><B>with-input-from-string</B></A> (s &quot;abc&quot;) (test s))<P>
+     =&gt; (#\a #\b #\a #\b)<P>
+<P>
+     (<A REL=DEFINITION HREF="../Body/s_progn.htm#progn"><B>progn</B></A> (<A REL=DEFINITION HREF="../Body/m_w_open.htm#with-open-file"><B>with-open-file</B></A> (s &quot;foo.output&quot; :direction :output)<P>
+	      (<A REL=DEFINITION HREF="../Body/f_wr_stg.htm#write-string"><B>write-string</B></A> &quot;abc&quot; s))<P>
+            (<A REL=DEFINITION HREF="../Body/m_w_open.htm#with-open-file"><B>with-open-file</B></A> (s &quot;foo.output&quot; :direction :input) <P>
+	      (test s)))<P>
+     Signals an error about unreading #\a when #\b was already unread.<P>
+<P>
+<P>
+<B>Cost to Implementors:<P>
+</B><P>
+Presumably none.  Implementations which allow this are still correct.<P>
+<P>
+<B>Cost to Users:<P>
+</B><P>
+Small.  I suspect there is very little code which depends upon this working<P>
+correctly, as most code uses either <A REL=DEFINITION HREF="../Body/f_peek_c.htm#peek-char"><B>PEEK-CHAR</B></A> or <A REL=DEFINITION HREF="../Body/f_unrd_c.htm#unread-char"><B>UNREAD-CHAR</B></A>, but not both.<P>
+<P>
+<B>Cost of non-adoption:<P>
+</B><P>
+Implementations of sequential streams are forced to be unnecessarily complex in<P>
+order to be correct.<P>
+<P>
+<B>Benefits:<P>
+</B><P>
+Allows simple yet adequately powerful implementation of sequential streams.<P>
+<P>
+<B>Esthetics:<P>
+</B><P>
+Requires that users have shared, one-char buffer model of how <A REL=DEFINITION HREF="../Body/f_unrd_c.htm#unread-char"><B>UNREAD-CHAR</B></A> and<P>
+<A REL=DEFINITION HREF="../Body/f_peek_c.htm#peek-char"><B>PEEK-CHAR</B></A> work, rather than two separate one-char buffers.<P>
+<P>
+<B>Discussion:<P>
+</B><P>
+&lt;none&gt;<P>
+<P>
+</PRE>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

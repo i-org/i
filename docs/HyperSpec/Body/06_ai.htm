@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 6.1.9</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="06_aha.htm">
+<LINK REL=UP HREF="06_a.htm">
+<LINK REL=NEXT HREF="c_iterat.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="06_aha.htm">◀</A><A REL=UP HREF="06_a.htm">▲</A><A REL=NEXT HREF="c_iterat.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+6.1.9 Notes about Loop</H2> <P>
+<A REL=DEFINITION HREF="26_glo_t.htm#type"><I>Types</I></A> can be supplied for loop variables. It is not necessary to supply a <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> for any variable, but supplying the <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> can ensure that the variable has a correctly typed initial value, and it can also enable compiler optimizations (depending on the <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A>). <P>
+The clause <b>repeat</b> <I>n</I> ... is roughly equivalent to a clause such as <P>
+<PRE>
+ (loop for internal-variable downfrom (- n 1) to 0 ...)
+</PRE>
+</b> <P>
+but in some <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementations</I></A>, the <b>repeat</b> construct might be more efficient. <P>
+Within the executable parts of the loop clauses and around the entire <A REL=DEFINITION HREF="m_loop.htm#loop"><B>loop</B></A> form, variables can be bound by using <A REL=DEFINITION HREF="s_let_l.htm#let"><B>let</B></A>. <P>
+ Use caution when using a variable named <b>IT</b> (in any <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A>) in connection with <A REL=DEFINITION HREF="m_loop.htm#loop"><B>loop</B></A>, since <b>it</b> is a <A REL=DEFINITION HREF="26_glo_l.htm#loop_keyword"><I>loop keyword</I></A> that can be used in place of a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> in certain contexts.  <P>
+There is  no  <A REL=DEFINITION HREF="26_glo_s.htm#standardized"><I>standardized</I></A> mechanism for users to add extensions to <A REL=DEFINITION HREF="m_loop.htm#loop"><B>loop</B></A>. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss223.htm">LOOP-MISCELLANEOUS-REPAIRS:FIX</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

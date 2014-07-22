@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function READ-DELIMITED-LIST</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_rd_rd.htm">
+<LINK REL=UP HREF="c_reader.htm">
+<LINK REL=NEXT HREF="f_rd_fro.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_rd_rd.htm">◀</A><A REL=UP HREF="c_reader.htm">▲</A><A REL=NEXT HREF="f_rd_fro.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="read-delimited-list"><I>Function</I> <B>READ-DELIMITED-LIST</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>read-delimited-list</B> <I>char <b>&amp;optional</b> input-stream recursive-p</I> =&gt; <I>list</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>char</I>---a <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>character</I></A>. <P>
+<I>input-stream</I>---an <A REL=DEFINITION HREF="26_glo_i.htm#input"><I>input</I></A> <A REL=DEFINITION HREF="26_glo_s.htm#stream_designator"><I>stream designator</I></A>. The default is <A REL=DEFINITION HREF="26_glo_s.htm#standard_input"><I>standard input</I></A>. <P>
+<I>recursive-p</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. The default is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>. <P>
+<I>list</I>---a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> of the <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A> read. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#read-delimited-list"><B>read-delimited-list</B></A> reads <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A> from <I>input-stream</I> until the next character after an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>'s representation (ignoring <A REL=DEFINITION HREF="26_glo_w.htm#whitespace"><I>whitespace</I></A>[2] characters and comments) is <I>char</I>. <P>
+<A REL=DEFINITION HREF="#read-delimited-list"><B>read-delimited-list</B></A> looks ahead at each step for the next non-<A REL=DEFINITION HREF="26_glo_w.htm#whitespace"><I>whitespace</I></A>[2] <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>character</I></A> and peeks at it as if with <A REL=DEFINITION HREF="f_peek_c.htm#peek-char"><B>peek-char</B></A>. If it is <I>char</I>, then the <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>character</I></A> is consumed and the <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> of <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A> is returned. If it is a <A REL=DEFINITION HREF="26_glo_c.htm#constituent"><I>constituent</I></A> or <A REL=DEFINITION HREF="26_glo_e.htm#escape"><I>escape</I></A> <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>character</I></A>, then <A REL=DEFINITION HREF="f_rd_rd.htm#read"><B>read</B></A> is used to read an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>, which is added to the end of the <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A>. If it is a <A REL=DEFINITION HREF="26_glo_m.htm#macro_character"><I>macro character</I></A>, its <A REL=DEFINITION HREF="26_glo_r.htm#reader_macro_function"><I>reader macro function</I></A> is called; if the function returns a <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A>, that <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> is added to the <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A>. The peek-ahead process is then repeated. <P>
+If <I>recursive-p</I> is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A>, this call is expected to be embedded in a higher-level call to <A REL=DEFINITION HREF="f_rd_rd.htm#read"><B>read</B></A> or a similar function. <P>
+It is an error to reach end-of-file during the operation of <A REL=DEFINITION HREF="#read-delimited-list"><B>read-delimited-list</B></A>. <P>
+The consequences are undefined if <I>char</I> has a <A REL=DEFINITION HREF="26_glo_s.htm#syntax_type"><I>syntax type</I></A> of <A REL=DEFINITION HREF="26_glo_w.htm#whitespace"><I>whitespace</I></A>[2] in the <A REL=DEFINITION HREF="26_glo_c.htm#current_readtable"><I>current readtable</I></A>. <P>
+<p><b>●例子:</b><P>
+ 
+<PRE>
+ (read-delimited-list #\]) 1 2 3 4 5 6 ]
+=&gt;  (1 2 3 4 5 6)
+</PRE>
+</b> Suppose you wanted <b>#{</b><I>a</I><b> </b><I>b</I><b> </b><I>c</I><b> ... </b><I>z</I><b>}</b> to read as a list of all pairs of the elements <I>a</I>, <I>b</I>, <I>c</I>, ..., <I>z</I>, for example. <P>
+<PRE>
+ #{p q z a}  reads as  ((p q) (p z) (p a) (q z) (q a) (z a))
+</PRE>
+</b> This can be done by specifying a macro-character definition for <b>#{</b> that does two things: reads in all the items up to the <b>}</b>, and constructs the pairs. <A REL=DEFINITION HREF="#read-delimited-list"><B>read-delimited-list</B></A> performs the first task. <P>
+<PRE>
+ (defun |#{-reader| (stream char arg)
+   (declare (ignore char arg))
+   (mapcon #'(lambda (x)
+              (mapcar #'(lambda (y) (list (car x) y)) (cdr x)))
+          (read-delimited-list #\} stream t))) =&gt;  |#{-reader|
+
+ (set-dispatch-macro-character #\# #\{ #'|#{-reader|) =&gt;  T 
+ (set-macro-character #\} (get-macro-character #\) <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>))
+</PRE>
+</b> Note that <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> is supplied for the <I>recursive-p</I> argument. <P>
+It is necessary here to give a definition to the character <b>}</b> as well to prevent it from being a constituent. If the line <P>
+<PRE>
+ (set-macro-character #\} (get-macro-character #\) <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>))
+</PRE>
+</b> shown above were not included, then the <b>}</b> in <P>
+<PRE>
+ #{ p q z a}
+</PRE>
+</b> would be considered a constituent character, part of the symbol named <b>a}</b>. This could be corrected by putting a space before the <b>}</b>, but it is better to call <A REL=DEFINITION HREF="f_set_ma.htm#set-macro-character"><B>set-macro-character</B></A>. <P>
+Giving <b>}</b> the same definition as the standard definition of the character <b>)</b> has the twin benefit of making it terminate tokens for use with <A REL=DEFINITION HREF="#read-delimited-list"><B>read-delimited-list</B></A> and also making it invalid for use in any other context. Attempting to read a stray <b>}</b> will signal an error. <P>
+<p><b>●受制于:</b><P>
+ <P>
+<A REL=DEFINITION HREF="v_debug_.htm#STstandard-inputST"><B>*standard-input*</B></A>, <A REL=DEFINITION HREF="v_rdtabl.htm#STreadtableST"><B>*readtable*</B></A>, <A REL=DEFINITION HREF="v_termin.htm#STterminal-ioST"><B>*terminal-io*</B></A>. <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_rd_rd.htm#read"><B>read</B></A>, <A REL=DEFINITION HREF="f_peek_c.htm#peek-char"><B>peek-char</B></A>, <A REL=DEFINITION HREF="f_rd_cha.htm#read-char"><B>read-char</B></A>, <A REL=DEFINITION HREF="f_unrd_c.htm#unread-char"><B>unread-char</B></A>. <P>
+<p><b>●说明:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#read-delimited-list"><B>read-delimited-list</B></A> is intended for use in implementing <A REL=DEFINITION HREF="26_glo_r.htm#reader_macro"><I>reader macros</I></A>. Usually it is desirable for <I>char</I> to be a <A REL=DEFINITION HREF="26_glo_t.htm#terminating"><I>terminating</I></A> <A REL=DEFINITION HREF="26_glo_m.htm#macro_character"><I>macro character</I></A> so that it can be used to delimit tokens; however, <A REL=DEFINITION HREF="#read-delimited-list"><B>read-delimited-list</B></A> makes no attempt to alter the syntax specified for <I>char</I> by the current readtable. The caller must make any necessary changes to the readtable syntax explicitly. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

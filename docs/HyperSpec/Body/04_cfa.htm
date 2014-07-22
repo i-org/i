@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 4.3.6.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="04_cf.htm">
+<LINK REL=UP HREF="04_cf.htm">
+<LINK REL=NEXT HREF="04_cfb.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="04_cf.htm">◀</A><A REL=UP HREF="04_cf.htm">▲</A><A REL=NEXT HREF="04_cfb.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+4.3.6.1 Modifying the Structure of Instances</H2> <P>
+ The first step modifies the structure of <A REL=DEFINITION HREF="26_glo_i.htm#instance"><I>instances</I></A> of the redefined <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> to conform to its new <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> definition. <A REL=DEFINITION HREF="26_glo_l.htm#local_slot"><I>Local slots</I></A> specified by the new <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> definition that are not specified as either local or shared by the old <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> are added, and <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A> not specified as either local or shared by the new <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> definition that are specified as local by the old <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> are discarded. The <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>names</I></A> of these added and discarded <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A> are passed as arguments to <A REL=DEFINITION HREF="f_upda_1.htm#update-instance-for-redefined-class"><B>update-instance-for-redefined-class</B></A> as described in the next section. <P>
+The values of <A REL=DEFINITION HREF="26_glo_l.htm#local_slot"><I>local slots</I></A> specified by both the new and old <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>classes</I></A> are retained. If such a <A REL=DEFINITION HREF="26_glo_l.htm#local_slot"><I>local slot</I></A> was unbound, it remains unbound. <P>
+The value of a <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slot</I></A> that is specified as shared in the old <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> and as local in the new <A REL=DEFINITION HREF="26_glo_c.htm#class"><I>class</I></A> is retained. If such a <A REL=DEFINITION HREF="26_glo_s.htm#shared_slot"><I>shared slot</I></A> was unbound, the <A REL=DEFINITION HREF="26_glo_l.htm#local_slot"><I>local slot</I></A> is unbound. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

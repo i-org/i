@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Macro DOTIMES</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="m_do_do.htm">
+<LINK REL=UP HREF="c_iterat.htm">
+<LINK REL=NEXT HREF="m_dolist.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="m_do_do.htm">◀</A><A REL=UP HREF="c_iterat.htm">▲</A><A REL=NEXT HREF="m_dolist.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="dotimes"><I>Macro</I> <B>DOTIMES</B></A> <P>
+ <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>dotimes</B> <I>(var count-form [result-form]) <I>declaration</I><B>*</B> {tag | statement}*</I><P> =&gt; <I><I>result</I><B>*</B></I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>var</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>. <P>
+<I>count-form</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. <P>
+<I>result-form</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. <P>
+<I>declaration</I>---a <A REL=DEFINITION HREF="s_declar.htm#declare"><B>declare</B></A> <A REL=DEFINITION HREF="26_glo_e.htm#expression"><I>expression</I></A>; not evaluated. <P>
+<I>tag</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#go_tag"><I>go tag</I></A>; not evaluated. <P>
+<I>statement</I>---a <A REL=DEFINITION HREF="26_glo_c.htm#compound_form"><I>compound form</I></A>; evaluated as described below. <P>
+<I>results</I>---if a <A REL=DEFINITION HREF="m_return.htm#return"><B>return</B></A> or <A REL=DEFINITION HREF="s_ret_fr.htm#return-from"><B>return-from</B></A> form is executed, the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> passed from that <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>; otherwise, the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> returned by the <I>result-form</I> or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> if there is no <I>result-form</I>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#dotimes"><B>dotimes</B></A> iterates over a series of <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integers</I></A>. <P>
+<A REL=DEFINITION HREF="#dotimes"><B>dotimes</B></A> evaluates <I>count-form</I>, which should produce an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>. If <I>count-form</I> is zero or negative, the body is not executed. <A REL=DEFINITION HREF="#dotimes"><B>dotimes</B></A> then executes the body once for each <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> from 0 up to but not including the value of <I>count-form</I>, in the order in which the <I>tags</I> and <I>statements</I> occur, with <I>var</I> bound to each <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>. Then <I>result-form</I> is evaluated. At the time <I>result-form</I> is processed, <I>var</I> is bound to the number of times the body was executed. <I>Tags</I> label <I>statements</I>. <P>
+An <A REL=DEFINITION HREF="26_glo_i.htm#implicit_block"><I>implicit block</I></A> named <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> surrounds <A REL=DEFINITION HREF="#dotimes"><B>dotimes</B></A>. <A REL=DEFINITION HREF="m_return.htm#return"><B>return</B></A> may be used to terminate the loop immediately without performing any further iterations, returning zero or more <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A>. <P>
+The body of the loop is an <A REL=DEFINITION HREF="26_glo_i.htm#implicit_tagbody"><I>implicit tagbody</I></A>; it may contain tags to serve as the targets of <A REL=DEFINITION HREF="s_go.htm#go"><B>go</B></A> statements. Declarations may appear before the body of the loop. <P>
+The <A REL=DEFINITION HREF="26_glo_s.htm#scope"><I>scope</I></A> of the binding of <I>var</I> does not include the <I>count-form</I>, but the <I>result-form</I> is included. <P>
+It is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> whether <A REL=DEFINITION HREF="#dotimes"><B>dotimes</B></A> <A REL=DEFINITION HREF="26_glo_e.htm#establish"><I>establishes</I></A> a new <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>binding</I></A> of <I>var</I> on each iteration or whether it <A REL=DEFINITION HREF="26_glo_e.htm#establish"><I>establishes</I></A> a binding for <I>var</I> once at the beginning and then <I>assigns</I> it on any subsequent iterations. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (dotimes (temp-one 10 temp-one)) =&gt;  10
+ (setq temp-two 0) =&gt;  0
+ (dotimes (temp-one 10 t) (incf temp-two)) =&gt;  T
+ temp-two =&gt;  10
+</PRE>
+</b> <P>
+Here is an example of the use of <b>dotimes</b> in processing strings: <P>
+<PRE>
+;;; True if the specified subsequence of the string is a
+;;; palindrome (reads the same forwards and backwards).
+ (defun palindromep (string <b>&amp;optional</b>
+                           (start 0)
+                           (end (length string)))
+   (dotimes (k (floor (- end start) 2) t)
+    (unless (char-equal (char string (+ start k))
+                        (char string (- end k 1)))
+      (return nil))))
+ (palindromep &quot;Able was I ere I saw Elba&quot;) =&gt;  T
+ (palindromep &quot;A man, a plan, a canal--Panama!&quot;) =&gt;  NIL
+ (remove-if-not #'alpha-char-p          ;Remove punctuation.
+               &quot;A man, a plan, a canal--Panama!&quot;)
+=&gt;  &quot;AmanaplanacanalPanama&quot;
+ (palindromep
+  (remove-if-not #'alpha-char-p
+                &quot;A man, a plan, a canal--Panama!&quot;)) =&gt;  T
+ (palindromep
+  (remove-if-not
+   #'alpha-char-p
+   &quot;Unremarkable was I ere I saw Elba Kramer, nu?&quot;)) =&gt;  T
+ (palindromep
+  (remove-if-not
+   #'alpha-char-p
+   &quot;A man, a plan, a cat, a ham, a yak,
+                  a yam, a hat, a canal--Panama!&quot;)) =&gt;  T
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_do_do.htm#do"><B>do</B></A>, <A REL=DEFINITION HREF="m_dolist.htm#dolist"><B>dolist</B></A>, <A REL=DEFINITION HREF="s_tagbod.htm#tagbody"><B>tagbody</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<A REL=DEFINITION HREF="s_go.htm#go"><B>go</B></A> may be used within the body of <A REL=DEFINITION HREF="#dotimes"><B>dotimes</B></A> to transfer control to a statement labeled by a <I>tag</I>. <P>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss097.htm">DECLS-AND-DOC</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

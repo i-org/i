@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Accessor SVREF</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_smp_ve.htm">
+<LINK REL=UP HREF="c_arrays.htm">
+<LINK REL=NEXT HREF="f_vector.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_smp_ve.htm">◀</A><A REL=UP HREF="c_arrays.htm">▲</A><A REL=NEXT HREF="f_vector.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="svref"><I>Accessor</I> <B>SVREF</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>svref</B> <I>simple-vector index</I> =&gt; <I>element</I><P>
+ 
+<b>(setf (</b><B>svref</B> <I>simple-vector index</I><b>) </b><I>new-element</I><b>)</b><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>simple-vector</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#simple_vector"><I>simple vector</I></A>. <P>
+<I>index</I>---a <A REL=DEFINITION HREF="26_glo_v.htm#valid_array_index"><I>valid array index</I></A> for the <I>simple-vector</I>. <P>
+<I>element</I>, <I>new-element</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> (whose <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> is a <A REL=DEFINITION HREF="26_glo_s.htm#subtype"><I>subtype</I></A> of the <A REL=DEFINITION HREF="26_glo_a.htm#array_element_type"><I>array element type</I></A> of the <I>simple-vector</I>). <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="26_glo_a.htm#access"><I>Accesses</I></A> the <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>element</I></A> of <I>simple-vector</I> specified by <I>index</I>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (simple-vector-p (setq v (vector 1 2 'sirens))) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (svref v 0) =&gt;  1
+ (svref v 2) =&gt;  SIRENS
+ (setf (svref v 1) 'newcomer) =&gt;  NEWCOMER               
+ v =&gt;  #(1 NEWCOMER SIRENS)
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_aref.htm#aref"><B>aref</B></A>, <A REL=DEFINITION HREF="f_bt_sb.htm#sbit"><B>sbit</B></A>, <A REL=DEFINITION HREF="f_char_.htm#schar"><B>schar</B></A>, <A REL=DEFINITION HREF="f_vector.htm#vector"><B>vector</B></A>,  <A REL=CHILD HREF="03_ba.htm">Section 3.2.1 (Compiler Terminology)</A>  <P>
+<p><b>●说明:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#svref"><B>svref</B></A> is identical to <A REL=DEFINITION HREF="f_aref.htm#aref"><B>aref</B></A> except that it requires its first argument to be a <A REL=DEFINITION HREF="26_glo_s.htm#simple_vector"><I>simple vector</I></A>. <P>
+<PRE>
+ (svref v i) ==  (aref (the simple-vector v) i)
+</PRE>
+</b> <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss083.htm">CONSTANT-MODIFICATION:DISALLOW</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

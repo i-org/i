@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Macro MULTIPLE-VALUE-BIND</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="m_tpcase.htm">
+<LINK REL=UP HREF="c_data_a.htm">
+<LINK REL=NEXT HREF="s_multip.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="m_tpcase.htm">◀</A><A REL=UP HREF="c_data_a.htm">▲</A><A REL=NEXT HREF="s_multip.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="multiple-value-bind"><I>Macro</I> <B>MULTIPLE-VALUE-BIND</B></A> <P>
+ <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>multiple-value-bind</B> <I>(<I>var</I><B>*</B>) <I>values-form</I> <I>declaration</I><B>*</B> <I>form</I><B>*</B></I><P> =&gt; <I><I>result</I><B>*</B></I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>var</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> naming a variable; not evaluated. <P>
+<I>values-form</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>; evaluated. <P>
+<I>declaration</I>---a <A REL=DEFINITION HREF="s_declar.htm#declare"><B>declare</B></A> <A REL=DEFINITION HREF="26_glo_e.htm#expression"><I>expression</I></A>; not evaluated. <P>
+<I>forms</I>---an <A REL=DEFINITION HREF="26_glo_i.htm#implicit_progn"><I>implicit progn</I></A>. <P>
+<I>results</I>---the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> returned by the <I>forms</I>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Creates new variable <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>bindings</I></A> for the <I>vars</I> and executes a series of <I>forms</I> that use these <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>bindings</I></A>. <P>
+The variable <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>bindings</I></A> created are lexical unless <A REL=DEFINITION HREF="d_specia.htm#special"><B>special</B></A> declarations are specified. <P>
+<I>Values-form</I> is evaluated, and each of the <I>vars</I> is bound to the respective value returned by that <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. If there are more <I>vars</I> than values returned, extra values of <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> are given to the remaining <I>vars</I>. If there are more values than <I>vars</I>, the excess values are discarded. The <I>vars</I> are bound to the values over the execution of the <I>forms</I>, which make up an implicit <A REL=DEFINITION HREF="s_progn.htm#progn"><B>progn</B></A>. The consequences are unspecified if a type <I>declaration</I> is specified for a <I>var</I>, but the value to which that <I>var</I> is bound is not consistent with the type <I>declaration</I>. <P>
+The <A REL=DEFINITION HREF="26_glo_s.htm#scope"><I>scopes</I></A> of the name binding and <I>declarations</I> do not include the <I>values-form</I>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (multiple-value-bind (f r) 
+     (floor 130 11)
+   (list f r)) =&gt;  (11 9)
+</PRE>
+</b> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="s_let_l.htm#let"><B>let</B></A>, <A REL=DEFINITION HREF="s_multip.htm#multiple-value-call"><B>multiple-value-call</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<PRE>
+ (multiple-value-bind (var*) values-form form*)
+ ==  (multiple-value-call #'(lambda (&amp;optional var* &amp;rest #1=#:ignore)
+                             (declare (ignore #1#))
+                             form*)
+                         values-form)
+</PRE>
+</b> <P>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss097.htm">DECLS-AND-DOC</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 1.5.2.1.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="01_eba.htm">
+<LINK REL=UP HREF="01_eba.htm">
+<LINK REL=NEXT HREF="01_ebb.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="01_eba.htm">◀</A><A REL=UP HREF="01_eba.htm">▲</A><A REL=NEXT HREF="01_ebb.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+1.5.2.1.1 Use of Read-Time Conditionals</H2>  <P>
+Use of <b>#+</b> and <b>#-</b> does not automatically disqualify a program from being conforming. A program which uses <b>#+</b> and <b>#-</b> is considered conforming if there is no set of <A REL=DEFINITION HREF="26_glo_f.htm#feature"><I>features</I></A> in which the program would not be conforming. Of course, <A REL=DEFINITION HREF="26_glo_c.htm#conforming_program"><I>conforming programs</I></A> are not necessarily working programs. The following program is conforming: <P>
+<PRE>
+(defun foo ()
+  #+ACME (acme:initialize-something)
+  (print 'hello-there))
+</PRE>
+</b> <P>
+However, this program might or might not work, depending on whether the presence of the feature <b>ACME</b> really implies that a function named <b>acme:initialize-something</b> is present in the environment. In effect, using <b>#+</b> or <b>#-</b> in a <A REL=DEFINITION HREF="26_glo_c.htm#conforming_program"><I>conforming program</I></A> means that the variable <A REL=DEFINITION HREF="v_featur.htm#STfeaturesST"><B>*features*</B></A> becomes just one more piece of input data to that program. Like any other data coming into a program, the programmer is responsible for assuring that the program does not make unwarranted assumptions on the basis of input data. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function ADJOIN</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_isec_.htm">
+<LINK REL=UP HREF="c_conses.htm">
+<LINK REL=NEXT HREF="m_pshnew.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_isec_.htm">◀</A><A REL=UP HREF="c_conses.htm">▲</A><A REL=NEXT HREF="m_pshnew.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="adjoin"><I>Function</I> <B>ADJOIN</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>adjoin</B> <I>item list <b>&amp;key</b> key test test-not</I> =&gt; <I>new-list</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>item</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<I>list</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#proper_list"><I>proper list</I></A>. <P>
+<I>test</I>---a <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> of two <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>arguments</I></A> that returns a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<I>test-not</I>---a <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> of two <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>arguments</I></A> that returns a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<I>key</I>---a <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> of one argument, or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<I>new-list</I>---a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Tests whether <I>item</I> is the same as an existing element of <I>list</I>. If the <I>item</I> is not an existing element, <A REL=DEFINITION HREF="#adjoin"><B>adjoin</B></A> adds it to <I>list</I> (as if by <A REL=DEFINITION HREF="f_cons.htm#cons"><B>cons</B></A>) and returns the resulting <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A>; otherwise, nothing is added and the original <I>list</I> is returned. <P>
+The <I>test</I>, <I>test-not</I>, and <I>key</I> affect how it is determined whether <I>item</I> is the same as an <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>element</I></A> of <I>list</I>. For details, see <A REL=CHILD HREF="17_ba.htm">Section 17.2.1 (Satisfying a Two-Argument Test)</A>.<P>
+ <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (setq slist '()) =&gt;  NIL 
+ (adjoin 'a slist) =&gt;  (A) 
+ slist =&gt;  NIL 
+ (setq slist (adjoin '(test-item 1) slist)) =&gt;  ((TEST-ITEM 1)) 
+ (adjoin '(test-item 1) slist) =&gt;  ((TEST-ITEM 1) (TEST-ITEM 1)) 
+ (adjoin '(test-item 1) slist :test 'equal) =&gt;  ((TEST-ITEM 1)) 
+ (adjoin '(new-test-item 1) slist :key #'cadr) =&gt;  ((TEST-ITEM 1)) 
+ (adjoin '(new-test-item 1) slist) =&gt;  ((NEW-TEST-ITEM 1) (TEST-ITEM 1)) 
+</PRE>
+</b> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+Should be prepared to signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if <I>list</I> is not a <A REL=DEFINITION HREF="26_glo_p.htm#proper_list"><I>proper list</I></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_pshnew.htm#pushnew"><B>pushnew</B></A>,  <A REL=CHILD HREF="03_f.htm">Section 3.6 (Traversal Rules and Side Effects)</A>  <P>
+<p><b>●说明:</b><P>
+ <P>
+ The <b>:test-not</b> parameter is deprecated.  <P>
+<PRE>
+ (adjoin item list :key fn)
+   ==  (if (member (fn item) list :key fn) list (cons item list))
+</PRE>
+</b> <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss345.htm">TEST-NOT-IF-NOT:FLUSH-ALL</A><LI> <A REL=CHILD HREF="../Issues/iss240.htm">MAPPING-DESTRUCTIVE-INTERACTION:EXPLICITLY-VAGUE</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

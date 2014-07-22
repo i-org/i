@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 11.1.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="11_a.htm">
+<LINK REL=UP HREF="11_a.htm">
+<LINK REL=NEXT HREF="11_aaa.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="11_a.htm">◀</A><A REL=UP HREF="11_a.htm">▲</A><A REL=NEXT HREF="11_aaa.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+11.1.1 Introduction to Packages</H2> <P>
+A <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> establishes a mapping from names to <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A>. At any given time, one <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> is current. The <A REL=DEFINITION HREF="26_glo_c.htm#current_package"><I>current package</I></A> is the one that is the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> of <A REL=DEFINITION HREF="v_pkg.htm#STpackageST"><B>*package*</B></A>. When using the <A REL=DEFINITION HREF="26_glo_l.htm#lisp_reader"><I>Lisp reader</I></A>, it is possible to refer to <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> in <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>packages</I></A> other than the current one through the use of <A REL=DEFINITION HREF="26_glo_p.htm#package_prefix"><I>package prefixes</I></A> in the printed representation of the <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>. <P>
+The next figure lists some <A REL=DEFINITION HREF="26_glo_d.htm#defined_name"><I>defined names</I></A> that are applicable to <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>packages</I></A>. Where an <A REL=DEFINITION HREF="26_glo_o.htm#operator"><I>operator</I></A> takes an argument that is either a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> or a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> of <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A>, an argument of <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> is treated as an empty <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> of <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A>. Any <I>package</I> argument may be either a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A>, a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>, or a <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A>. If a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> is supplied, its name will be used as the <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> name.  <PRE>
+<A REL=DEFINITION HREF="v_module.htm#STmodulesST">*modules*</A>            <A REL=DEFINITION HREF="f_import.htm#import">import</A>                     <A REL=DEFINITION HREF="f_provid.htm#provide">provide</A>           
+<A REL=DEFINITION HREF="v_pkg.htm#STpackageST">*package*</A>            <A REL=DEFINITION HREF="m_in_pkg.htm#in-package">in-package</A>                 <A REL=DEFINITION HREF="f_rn_pkg.htm#rename-package">rename-package</A>    
+<A REL=DEFINITION HREF="m_defpkg.htm#defpackage">defpackage</A>           <A REL=DEFINITION HREF="f_intern.htm#intern">intern</A>                     <A REL=DEFINITION HREF="f_provid.htm#require">require</A>           
+<A REL=DEFINITION HREF="m_do_sym.htm#do-all-symbols">do-all-symbols</A>       <A REL=DEFINITION HREF="f_list_a.htm#list-all-packages">list-all-packages</A>          <A REL=DEFINITION HREF="f_shadow.htm#shadow">shadow</A>            
+<A REL=DEFINITION HREF="m_do_sym.htm#do-external-symbols">do-external-symbols</A>  <A REL=DEFINITION HREF="f_mk_pkg.htm#make-package">make-package</A>               <A REL=DEFINITION HREF="f_shdw_i.htm#shadowing-import">shadowing-import</A>  
+<A REL=DEFINITION HREF="m_do_sym.htm#do-symbols">do-symbols</A>           <A REL=DEFINITION HREF="f_pkg_na.htm#package-name">package-name</A>               <A REL=DEFINITION HREF="f_unexpo.htm#unexport">unexport</A>          
+<A REL=DEFINITION HREF="f_export.htm#export">export</A>               <A REL=DEFINITION HREF="f_pkg_ni.htm#package-nicknames">package-nicknames</A>          <A REL=DEFINITION HREF="f_uninte.htm#unintern">unintern</A>          
+<A REL=DEFINITION HREF="f_find_a.htm#find-all-symbols">find-all-symbols</A>     <A REL=DEFINITION HREF="f_pkg_sh.htm#package-shadowing-symbols">package-shadowing-symbols</A>  <A REL=DEFINITION HREF="f_unuse_.htm#unuse-package">unuse-package</A>     
+<A REL=DEFINITION HREF="f_find_p.htm#find-package">find-package</A>         <A REL=DEFINITION HREF="f_pkg_us.htm#package-use-list">package-use-list</A>           <A REL=DEFINITION HREF="f_use_pk.htm#use-package">use-package</A>       
+<A REL=DEFINITION HREF="f_find_s.htm#find-symbol">find-symbol</A>          <A REL=DEFINITION HREF="f_pkg__1.htm#package-used-by-list">package-used-by-list</A>                         
+</PRE>
+<p><b>■图表 11-1.  Some Defined Names related to Packages</B>  <P>
+
+ 
+<h2><A REL=CHILD HREF="11_aaa.htm">
+11.1.1.1 Package Names and Nicknames</a></h2>
+ 
+<h2><A REL=CHILD HREF="11_aab.htm">
+11.1.1.2 Symbols in a Package</a></h2><p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss296.htm">REQUIRE-PATHNAME-DEFAULTS:ELIMINATE</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

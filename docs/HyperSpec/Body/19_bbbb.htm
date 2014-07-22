@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 19.2.2.2.2</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="19_bbba.htm">
+<LINK REL=UP HREF="19_bbb.htm">
+<LINK REL=NEXT HREF="19_bbbc.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="19_bbba.htm">◀</A><A REL=UP HREF="19_bbb.htm">▲</A><A REL=NEXT HREF="19_bbbc.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+19.2.2.2.2 :WILD as a Component Value</H2>  <P>
+If <b>:wild</b> is the value of a <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathname</I></A> component, that component is considered to be a wildcard, which matches anything. <P>
+A <A REL=DEFINITION HREF="26_glo_c.htm#conforming_program"><I>conforming program</I></A> must be prepared to encounter a value of <b>:wild</b> as the value of any <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathname</I></A> component, or as an <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>element</I></A> of a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> that is the value of the directory component. <P>
+ When constructing a <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathname</I></A>, a <A REL=DEFINITION HREF="26_glo_c.htm#conforming_program"><I>conforming program</I></A> may use <b>:wild</b> as the value of any or all of the directory, name, type, or version component, but must not use <b>:wild</b> as the value of the host, or device component. <P>
+If <b>:wild</b> is used as the value of the directory component in the construction of a <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathname</I></A>, the effect is equivalent to specifying the list <b>(:absolute :wild-inferiors)</b>, or the same as <b>(:absolute :wild)</b> in a <A REL=DEFINITION HREF="26_glo_f.htm#file_system"><I>file system</I></A> that does not support <b>:wild-inferiors</b>.  <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss263.htm">PATHNAME-SUBDIRECTORY-LIST:NEW-REPRESENTATION</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

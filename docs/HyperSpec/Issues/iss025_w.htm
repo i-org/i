@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Issue CHARACTER-LOOSE-ENDS Writeup</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="../Issues/iss024_w.htm">
+<LINK REL=UP HREF="../Issues/iss025.htm">
+<LINK REL=NEXT HREF="../Issues/iss026_w.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="../Issues/iss024_w.htm">◀</A><A REL=UP HREF="../Issues/iss025.htm">▲</A><A REL=NEXT HREF="../Issues/iss026_w.htm">▶</A></h1>
+
+<HR>
+
+
+
+<H2>Issue CHARACTER-LOOSE-ENDS Writeup</H2>
+
+<PRE><B>Issue:</B>         <A HREF="iss025.htm">CHARACTER-LOOSE-ENDS</A><P>
+<P>
+<B>References:</B>    CLtL p.354, pp.51-2<P>
+<P>
+<B>Category:</B>      CLARIFICATION<P>
+<P>
+<B>Edit history:</B>  29-Apr-90, Version 1 by Moon (for Steele)<P>
+<P>
+<B>Problem description:<P>
+</B><P>
+  The issues passed on the character proposal did not explicitly address<P>
+  the following, but they no longer make sense in light of the new<P>
+  character scheme that has been adopted.<P>
+<P>
+  The #nnn\x reader syntax creates a character with font attribute nnn,<P>
+  but there is no longer a font attribute.<P>
+<P>
+  <A REL=DEFINITION HREF="../Body/f_coerce.htm#coerce"><B>COERCE</B></A> coerces an integer to a character by calling INT-CHAR, but the<P>
+  INT-CHAR function no longer exists.<P>
+<P>
+  This is Symbolics issue #26.<P>
+<P>
+<B>Proposal (CHARACTER-LOOSE-ENDS:FIX):<P>
+</B><P>
+  Remove the #nnn\x reader syntax; an implementation can define it as an<P>
+  extension.<P>
+<P>
+  Remove coercion from integer to character.<P>
+<P>
+<B>Rationale:<P>
+</B><P>
+  Presumably the character subcommittee simply overlooked these points and<P>
+  the above proposal would have passed with the other character proposals<P>
+  if it had been proposed.<P>
+<P>
+<B>Current practice:<P>
+</B><P>
+  I don't know.<P>
+<P>
+<B>Cost to Implementors:<P>
+</B><P>
+  Easy.<P>
+<P>
+<B>Cost to Users:<P>
+</B><P>
+  None.<P>
+<P>
+<B>Cost of non-adoption:<P>
+</B><P>
+  These two features will still be in the language, but their specification<P>
+  will not make any sense.<P>
+<P>
+<B>Performance impact:<P>
+</B><P>
+  None.<P>
+<P>
+<B>Benefits:<P>
+</B><P>
+  Consistent language.<P>
+<P>
+<B>Esthetics:<P>
+</B><P>
+  Consistent language.<P>
+<P>
+<B>Discussion:<P>
+</B><P>
+  None.<P>
+</PRE>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

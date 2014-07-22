@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Issue ALLOW-OTHER-KEYS-NIL Writeup</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="../Issues/iss007_w.htm">
+<LINK REL=UP HREF="../Issues/iss008.htm">
+<LINK REL=NEXT HREF="../Issues/iss009_w.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="../Issues/iss007_w.htm">◀</A><A REL=UP HREF="../Issues/iss008.htm">▲</A><A REL=NEXT HREF="../Issues/iss009_w.htm">▶</A></h1>
+
+<H2>Issue ALLOW-OTHER-KEYS-NIL Writeup</H2>
+
+<B>Issue:</B>        <A HREF="iss008.htm">ALLOW-OTHER-KEYS-NIL</A><P>
+<B>Forum:</B>	      Cleanup<P>
+<B>References:</B>   :ALLOW-OTHER-KEYS (pp62-63)<P>
+<B>Category:</B>     CLARIFICATION/CHANGE<P>
+<B>Edit history:</B> 22-Aug-90, Version 1 by Pitman<P>
+	      23-Aug-90, Version 2 by Pitman (merge RWK's comments)<P>
+	      23-Aug-90, Version 3 by Pitman (merge Moon's comments)<P>
+	      13-Mar-91, Version 4 by Pitman (comments from JonL, Barmar)<P>
+<B>Status:</B>	      For Internal Discussion<P>
+<P>
+<B>Problem Description:</B><P>
+  CLtL specifies that a keyword argument pair of :ALLOW-OTHER-KEYS is always permissible when the value is non-null, 
+  in which case all other keyword arguments in that actual call are allowed regardless of the formal <A REL=DEFINITION HREF="../Body/03_da.htm#AMkey"><B>&amp;KEY</B></A> parameter). 
+  It doesn't specify any particular meaning when the value for :ALLOW-OTHER-KEYS is null; 
+  consequently such an actual argument pair will be in error unless there is a formal <A REL=DEFINITION HREF="../Body/03_da.htm#AMkey"><B>&amp;KEY</B></A> parameter of that name to receive it.<P>
+<P>
+  The fact that :ALLOW-OTHER-KEYS <A REL=DEFINITION HREF="../Body/a_nil.htm#nil"><B>NIL</B></A> either does not work or does not work reliably causes some coding to be more cumbersome than necessary.<P>
+  For example, a function that might be written as:<P>
+    (<A REL=DEFINITION HREF="../Body/m_defun.htm#defun"><B>DEFUN</B></A> FOO-MEMBER (ITEM <A REL=DEFINITION HREF="../Body/a_list.htm#list"><B>LIST</B></A> PERMISSIVE-P <A REL=DEFINITION HREF="../Body/03_da.htm#AMrest"><B>&amp;REST</B></A> OPTIONS)<P>
+      (<A REL=DEFINITION HREF="../Body/f_apply.htm#apply"><B>APPLY</B></A> #'<A REL=DEFINITION HREF="../Body/a_member.htm#member"><B>MEMBER</B></A> ITEM <A REL=DEFINITION HREF="../Body/a_list.htm#list"><B>LIST</B></A> :ALLOW-OTHER-KEYS PERMISSIVE-P OPTIONS)) must in fact be written as:<P>
+    (<A REL=DEFINITION HREF="../Body/m_defun.htm#defun"><B>DEFUN</B></A> FOO-MEMBER (ITEM <A REL=DEFINITION HREF="../Body/a_list.htm#list"><B>LIST</B></A> PERMISSIVE-P <A REL=DEFINITION HREF="../Body/03_da.htm#AMrest"><B>&amp;REST</B></A> OPTIONS)<P>
+      (<A REL=DEFINITION HREF="../Body/s_if.htm#if"><B>IF</B></A> PERMISSIVE-P<P>
+	  (<A REL=DEFINITION HREF="../Body/f_apply.htm#apply"><B>APPLY</B></A> #'<A REL=DEFINITION HREF="../Body/a_member.htm#member"><B>MEMBER</B></A> ITEM <A REL=DEFINITION HREF="../Body/a_list.htm#list"><B>LIST</B></A> :ALLOW-OTHER-KEYS T OPTIONS)<P>
+	  (<A REL=DEFINITION HREF="../Body/f_apply.htm#apply"><B>APPLY</B></A> #'<A REL=DEFINITION HREF="../Body/a_member.htm#member"><B>MEMBER</B></A> ITEM <A REL=DEFINITION HREF="../Body/a_list.htm#list"><B>LIST</B></A> OPTIONS)))<P>
+  because :ALLOW-OTHER-KEYS <A REL=DEFINITION HREF="../Body/a_nil.htm#nil"><B>NIL</B></A> is not given the `obvious' meaning.<P>
+<P>
+  Some people have raised concerns about the permissibility and semantics<P>
+  of :ALLOW-OTHER-KEYS (including :ALLOW-OTHER-KEYS <A REL=DEFINITION HREF="../Body/a_nil.htm#nil"><B>NIL</B></A>) if either<P>
+  <A REL=DEFINITION HREF="../Body/03_da.htm#AMallow-other-keys"><B>&amp;ALLOW-OTHER-KEYS</B></A> is used or an explicit <A REL=DEFINITION HREF="../Body/03_da.htm#AMkey"><B>&amp;KEY</B></A> argument such as<P>
+  ALLOW-OTHER-KEYS is specified.  Some clarification about such issues<P>
+  is probably warranted.<P>
+<P>
+<B>Proposal (ALLOW-OTHER-KEYS-NIL:PERMIT):</B><P>
+  1. Define that :ALLOW-OTHER-KEYS is always permitted as an argument<P>
+     to any function which has specified <A REL=DEFINITION HREF="../Body/03_da.htm#AMkey"><B>&amp;KEY</B></A> in the <A REL=DEFINITION HREF="../Body/a_lambda.htm#lambda"><B>lambda</B></A> list of its<P>
+     definition.<P>
+<P>
+     If the value is non-NIL, then other non-matching keywords are<P>
+     also tolerated (i.e., ignored). If the value is <A REL=DEFINITION HREF="../Body/a_nil.htm#nil"><B>NIL</B></A>, then other <P>
+     non-matching keyword are not tolerated (i.e., an error should be<P>
+     signalled in accordance with rules for argument mismatches <P>
+     established by other proposals) unless <A REL=DEFINITION HREF="../Body/03_da.htm#AMallow-other-keys"><B>&amp;ALLOW-OTHER-KEYS</B></A> was used.<P>
+<P>
+  2. Clarify that if the receiving argument list specifies an argument which would be flagged by :ALLOW-OTHER-KEYS, then :ALLOW-OTHER-KEYS has both its special-cased meaning (identifying whether additional keywords are permitted) and its normal meaning (data flow into the function in question).<P>
+<B>Rationale:</B><P>
+  1. There can't be any reasonable use for :ALLOW-OTHER-KEYS as a keyword<P>
+     to designate `real' information coming into the function since the keyword is already reserved just in case the value it carries with it will be non-NIL.  As such, there is no ambiguity about the programmer's intent in the case of :ALLOW-OTHER-KEYS <A REL=DEFINITION HREF="../Body/a_nil.htm#nil"><B>NIL</B></A>.  Failing<P>
+     to admit :ALLOW-OTHER-KEYS <A REL=DEFINITION HREF="../Body/a_nil.htm#nil"><B>NIL</B></A> just makes it unnecessarily clumsy<P>
+     to write functions like FOO-MEMBER (see Problem Description).<P>
+     It also defeats the purpose of there being a value associated with<P>
+     :ALLOW-OTHER-KEYS in the first place.<P>
+  2. This allows functions which do their own keyword processing on <A REL=DEFINITION HREF="../Body/03_da.htm#AMrest"><B>&amp;REST</B></A><P>
+     arguments to respect this flag, as well as being conceptually the most<P>
+     uniform meaning.<P>
+<B>Test Case:</B><P>
+  #1: ((<A REL=DEFINITION HREF="../Body/a_lambda.htm#lambda"><B>LAMBDA</B></A> (<A REL=DEFINITION HREF="../Body/03_da.htm#AMkey"><B>&amp;KEY</B></A>) T) :ALLOW-OTHER-KEYS <A REL=DEFINITION HREF="../Body/a_nil.htm#nil"><B>NIL</B></A>)<P>
+  #2: (<A REL=DEFINITION HREF="../Body/m_defun.htm#defun"><B>DEFUN</B></A> FOO-MEMBER (ITEM <A REL=DEFINITION HREF="../Body/a_list.htm#list"><B>LIST</B></A> PERMISSIVE-P <A REL=DEFINITION HREF="../Body/03_da.htm#AMrest"><B>&amp;REST</B></A> OPTIONS)<P>
+	(<A REL=DEFINITION HREF="../Body/f_apply.htm#apply"><B>APPLY</B></A> #'<A REL=DEFINITION HREF="../Body/a_member.htm#member"><B>MEMBER</B></A> ITEM <A REL=DEFINITION HREF="../Body/a_list.htm#list"><B>LIST</B></A> :ALLOW-OTHER-KEYS PERMISSIVE-P OPTIONS))<P>
+      (FOO-MEMBER 'X '(Z Y X) <A REL=DEFINITION HREF="../Body/a_nil.htm#nil"><B>NIL</B></A>)<P>
+  #3: ((<A REL=DEFINITION HREF="../Body/a_lambda.htm#lambda"><B>LAMBDA</B></A> (<A REL=DEFINITION HREF="../Body/03_da.htm#AMkey"><B>&amp;KEY</B></A> ALLOW-OTHER-KEYS) ALLOW-OTHER-KEYS)<P>
+       :ALLOW-OTHER-KEYS 6 :FRED 7)<P>
+  #4: ((<A REL=DEFINITION HREF="../Body/a_lambda.htm#lambda"><B>LAMBDA</B></A> (<A REL=DEFINITION HREF="../Body/03_da.htm#AMkey"><B>&amp;KEY</B></A> ALLOW-OTHER-KEYS) ALLOW-OTHER-KEYS)<P>
+       :ALLOW-OTHER-KEYS <A REL=DEFINITION HREF="../Body/a_nil.htm#nil"><B>NIL</B></A> :FRED 7)<P>
+  #5: ((<A REL=DEFINITION HREF="../Body/a_lambda.htm#lambda"><B>LAMBDA</B></A> (<A REL=DEFINITION HREF="../Body/03_da.htm#AMkey"><B>&amp;KEY</B></A> ((:ALLOW-OTHER-KEYS FOO))) FOO)<P>
+       :ALLOW-OTHER-KEYS 6 :FRED 7)<P>
+
+<B>Current Practice:</B><P>
+  #1: Symbolics Genera 8.0 and Sun Common Lisp 3.0.1 signal an error.<P>
+      Symbolics Genera 8.1 returns T, which is consistent with proposal <P>
+      PERMIT.<P>
+  #2: Symbolics Genera 8.0 and Sun Common Lisp 3.0.1 signal an error.<P>
+      Symbolics Genera 8.1 returns (X), which is consistent with proposal<P>
+      PERMIT.<P>
+  #3: Sun Common Lisp 3.0.1 signals an error.<P>
+      Symbolics Genera 8.0 and 8.1 return 6, which is consistent with <P>
+      proposal PERMIT.<P>
+  #4: Symbolics Genera 8.0, Symbolics Genera 8.1, and Sun Common Lisp 3.0.1<P>
+      signal an error, which is consistent with proposal PERMIT.<P>
+  #5: Sun Common Lisp 3.0.1 signals an error.<P>
+      Symbolics Genera 8.0 and 8.1 return 6, which is consistent with<P>
+      proposal PERMIT.<P>
+
+<B>Cost to Implementors:</B><P>
+  Relatively small.<P>
+<P>
+<B>Cost to Users:</B><P>
+  None.  Currently, a valid user program must avoid stepping on this error situation.<P>
+<P>
+<B>Cost of Non-Adoption:</B><P>
+  See aesthetics.<P>
+<P>
+<B>Benefits:</B><P>
+  See aesthetics.<P>
+
+<B>Aesthetics:</B><P>
+  This simplifies the user model by making the value associated with 
+  :ALLOW-OTHER-KEYS be what controls whether other keys are permitted, 
+  rather than by making the presence of the sequence ``:ALLOW-OTHER-KEYS T'' in the arglist what controls it.  
+  In the status quo, the description of how :ALLOW-OTHER-KEYS works is like no other keyword in the language.<P>
+
+<B>Discussion:</B><P>
+  Pitman, RWK, and Moon support this proposal.<P>
+  RWK comments: ``Together with my addenda above, [this] proposal  means that <A REL=DEFINITION HREF="../Body/03_da.htm#AMkey"><B>&amp;KEY</B></A> without 
+  <A REL=DEFINITION HREF="../Body/03_da.htm#AMallow-other-keys"><B>&amp;ALLOW-OTHER-KEYS</B></A> implies a &quot;hidden&quot;  
+   keyword argument of :ALLOW-OTHER-KEYS that the <A REL=DEFINITION HREF="../Body/03_da.htm#AMkey"><B>&amp;KEY</B></A> processing  checks.  
+   In all other regards, it is a perfectly ordinary keyword <P>
+   argument.''<P>
+
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

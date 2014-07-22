@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 2.3.2.2</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="02_cbab.htm">
+<LINK REL=UP HREF="02_cb.htm">
+<LINK REL=NEXT HREF="02_cbc.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="02_cbab.htm">◀</A><A REL=UP HREF="02_cb.htm">▲</A><A REL=NEXT HREF="02_cbc.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+2.3.2.2 Syntax of a Float</H2>  <P>
+<A REL=DEFINITION HREF="26_glo_f.htm#float"><I>Floats</I></A> can be written in either decimal fraction or computerized scientific notation: an optional sign, then a non-empty sequence of digits with an embedded decimal point, then an optional decimal exponent specification. If there is no exponent specifier, then the decimal point is required, and there must be digits after it. The exponent specifier consists of an <A REL=DEFINITION HREF="26_glo_e.htm#exponent_marker"><I>exponent marker</I></A>, an optional sign, and a non-empty sequence of digits. If no exponent specifier is present, or if the <A REL=DEFINITION HREF="26_glo_e.htm#exponent_marker"><I>exponent marker</I></A> <b>e</b> (or <b>E</b>) is used, then the format specified by <A REL=DEFINITION HREF="v_rd_def.htm#STread-default-float-formatST"><B>*read-default-float-format*</B></A> is used. See <A REL=DEFINITION HREF="02_ca.htm#syntaxfornumerictokens">Figure 2-9</A>. <P>
+An implementation may provide one or more kinds of <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A> that collectively make up the <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="t_float.htm#float"><B>float</B></A>. The letters <b>s</b>, <b>f</b>, <b>d</b>, and <b>l</b> (or their respective uppercase equivalents) explicitly specify the use of the <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>types</I></A> <A REL=DEFINITION HREF="t_short_.htm#short-float"><B>short-float</B></A>, <A REL=DEFINITION HREF="t_short_.htm#single-float"><B>single-float</B></A>, <A REL=DEFINITION HREF="t_short_.htm#double-float"><B>double-float</B></A>, and <A REL=DEFINITION HREF="t_short_.htm#long-float"><B>long-float</B></A>, respectively. <P>
+The internal format used for an external representation depends only on the <A REL=DEFINITION HREF="26_glo_e.htm#exponent_marker"><I>exponent marker</I></A>, and not on the number of decimal digits in the external representation. <P>
+The next figure contains examples of notations for <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>floats</I></A>: <P>
+<PRE>
+0.0       ;Floating-point zero in default format                          
+0E0       ;As input, this is also floating-point zero in default format.  
+          ;As output, this would appear as 0.0.                           
+0e0       ;As input, this is also floating-point zero in default format.  
+          ;As output, this would appear as 0.0.                           
+-.0       ;As input, this might be a zero or a minus zero,                
+          ; depending on whether the implementation supports              
+          ; a distinct minus zero.                                        
+          ;As output, 0.0 is zero and -0.0 is minus zero.                 
+0.        ;On input, the integer zero---not a floating-point number!      
+          ;Whether this appears as 0 or 0. on output depends              
+          ;on the <A REL=DEFINITION HREF="26_glo_v.htm#value">value</A> of <A REL=DEFINITION HREF="v_pr_bas.htm#STprint-radixST">*print-radix*</A>.                                 
+0.0s0     ;A floating-point zero in short format                          
+0s0       ;As input, this is a floating-point zero in short format.       
+          ;As output, such a zero would appear as 0.0s0                   
+          ; (or as 0.0 if <A REL=DEFINITION HREF="t_short_.htm#short-float">short-float</A> was the default format).            
+6.02E+23  ;Avogadro's number, in default format                           
+602E+21   ;Also Avogadro's number, in default format                      
+</PRE>
+<p><b>■图表 2-14.  Examples of Floating-point numbers</B> <P>
+For information on how <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>floats</I></A> are printed, see <A REL=CHILD HREF="22_acac.htm">Section 22.1.3.1.3 (Printing Floats)</A>. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

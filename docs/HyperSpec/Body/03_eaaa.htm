@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 3.5.1.1.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="03_eaa.htm">
+<LINK REL=UP HREF="03_eaa.htm">
+<LINK REL=NEXT HREF="03_eab.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="03_eaa.htm">◀</A><A REL=UP HREF="03_eaa.htm">▲</A><A REL=NEXT HREF="03_eab.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+3.5.1.1.1 Error Detection Time in Safe Calls</H2>  <P>
+If an error is signaled in a <A REL=DEFINITION HREF="26_glo_s.htm#safe_call"><I>safe call</I></A>, the exact point of the <A REL=DEFINITION HREF="26_glo_s.htm#signal"><I>signal</I></A> is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A>. In particular, it might be signaled at compile time or at run time, and if signaled at run time, it might be prior to, during, or after <I>executing</I> the <A REL=DEFINITION HREF="26_glo_c.htm#call"><I>call</I></A>. However, it is always prior to the execution of the body of the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> being <I>called</I>. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

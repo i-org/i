@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 3.2.4.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="03_bd.htm">
+<LINK REL=UP HREF="03_bd.htm">
+<LINK REL=NEXT HREF="03_bdb.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="03_bd.htm">◀</A><A REL=UP HREF="03_bd.htm">▲</A><A REL=NEXT HREF="03_bdb.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+3.2.4.1 Externalizable Objects</H2>  <P>
+ The fact that the <A REL=DEFINITION HREF="26_glo_f.htm#file_compiler"><I>file compiler</I></A> represents <A REL=DEFINITION HREF="26_glo_l.htm#literal"><I>literal</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A> externally in a <A REL=DEFINITION HREF="26_glo_c.htm#compiled_file"><I>compiled file</I></A> and must later reconstruct suitable equivalents of those <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A> when that <A REL=DEFINITION HREF="26_glo_f.htm#file"><I>file</I></A> is loaded imposes a need for constraints on the nature of the <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A> that can be used as <A REL=DEFINITION HREF="26_glo_l.htm#literal"><I>literal</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A> in <A REL=DEFINITION HREF="26_glo_c.htm#code"><I>code</I></A> to be processed by the <A REL=DEFINITION HREF="26_glo_f.htm#file_compiler"><I>file compiler</I></A>. <P>
+An <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> that can be used as a <A REL=DEFINITION HREF="26_glo_l.htm#literal"><I>literal</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> in <A REL=DEFINITION HREF="26_glo_c.htm#code"><I>code</I></A> to be processed by the <A REL=DEFINITION HREF="26_glo_f.htm#file_compiler"><I>file compiler</I></A> is called an <A REL=DEFINITION HREF="26_glo_e.htm#externalizable_object"><I>externalizable object</I></A>. <P>
+We define that two <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A> are <A REL=DEFINITION HREF="26_glo_s.htm#similar"><I>similar</I></A> if they satisfy a two-place conceptual equivalence predicate (defined below), which is independent of the <A REL=DEFINITION HREF="26_glo_l.htm#lisp_image"><I>Lisp image</I></A> so that the two <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A> in different <A REL=DEFINITION HREF="26_glo_l.htm#lisp_image"><I>Lisp images</I></A> can be understood to be equivalent under this predicate. Further, by inspecting the definition of this conceptual predicate, the programmer can anticipate what aspects of an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> are reliably preserved by <A REL=DEFINITION HREF="26_glo_f.htm#file"><I>file</I></A> <A REL=DEFINITION HREF="26_glo_c.htm#compilation"><I>compilation</I></A>. <P>
+The <A REL=DEFINITION HREF="26_glo_f.htm#file_compiler"><I>file compiler</I></A> must cooperate with the <A REL=DEFINITION HREF="26_glo_l.htm#loader"><I>loader</I></A> in order to assure that in each case where an <A REL=DEFINITION HREF="26_glo_e.htm#externalizable_object"><I>externalizable object</I></A> is processed as a <A REL=DEFINITION HREF="26_glo_l.htm#literal"><I>literal</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>, the <A REL=DEFINITION HREF="26_glo_l.htm#loader"><I>loader</I></A> will construct a <A REL=DEFINITION HREF="26_glo_s.htm#similar"><I>similar</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+The set of <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A> that are <A REL=DEFINITION HREF="26_glo_e.htm#externalizable_object"><I>externalizable objects</I></A> are those for which the new conceptual term ``<A REL=DEFINITION HREF="26_glo_s.htm#similar"><I>similar</I></A>'' is defined, such that when a <A REL=DEFINITION HREF="26_glo_c.htm#compiled_file"><I>compiled file</I></A> is <I>loaded</I>, an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> can be constructed which can be shown to be <A REL=DEFINITION HREF="26_glo_s.htm#similar"><I>similar</I></A> to the original <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> which existed at the time the <A REL=DEFINITION HREF="26_glo_f.htm#file_compiler"><I>file compiler</I></A> was operating.  <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss081.htm">CONSTANT-COMPILABLE-TYPES:SPECIFY</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Declaration OPTIMIZE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="d_declar.htm">
+<LINK REL=UP HREF="c_evalua.htm">
+<LINK REL=NEXT HREF="d_specia.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="d_declar.htm">◀</A><A REL=UP HREF="c_evalua.htm">▲</A><A REL=NEXT HREF="d_specia.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="optimize"><I>Declaration</I> <B>OPTIMIZE</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+<b>(optimize </b>{<b></b><I>quality</I><b> </b>|<b> (</b><I>quality</I><b> </b><I>value</I><b>)</b>}<b></b>*<b>)</b> <A NAME="compilation-speed"></A><A NAME="debug"></A><A NAME="safety"></A><A NAME="space"></A><A NAME="speed"></A> <P>
+<P><B>Arguments:</B><P>
+ <P>
+<I>quality</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#optimize_quality"><I>optimize quality</I></A>. <P>
+<I>value</I>---one of the <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integers</I></A> <b>0</b>, <b>1</b>, <b>2</b>, or <b>3</b>. <P>
+<P><B>Valid Context:</B><P>
+ <P>
+<A REL=DEFINITION HREF="26_glo_d.htm#declaration"><I>declaration</I></A> or <A REL=DEFINITION HREF="26_glo_p.htm#proclamation"><I>proclamation</I></A> <P>
+<P><B>Binding Types Affected:</B> None.
+ <P>
+<p><b>●详情:</b><P>
+ <P>
+Advises the compiler that each <I>quality</I> should be given attention according to the specified corresponding <I>value</I>. Each <I>quality</I> must be a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> naming an <A REL=DEFINITION HREF="26_glo_o.htm#optimize_quality"><I>optimize quality</I></A>; the names and meanings of the standard <I>optimize qualities</I> are shown in the next figure. <P>
+ <PRE>
+Name               Meaning                            
+<A REL=DEFINITION HREF="#compilation-speed">compilation-speed</A>  speed of the compilation process   
+<A REL=DEFINITION HREF="#debug">debug</A>              ease of debugging                  
+<A REL=DEFINITION HREF="#safety">safety</A>             run-time error checking            
+<A REL=DEFINITION HREF="#space">space</A>              both code size and run-time space  
+<A REL=DEFINITION HREF="#speed">speed</A>              speed of the object code           
+</PRE>
+<p><b>■图表 3-25.  Optimize qualities</B>  <P>
+There may be other, <A REL=DEFINITION HREF="26_glo_i.htm#implementation-defined"><I>implementation-defined</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#optimize_quality"><I>optimize qualities</I></A>. <P>
+A <I>value</I> <b>0</b> means that the corresponding <I>quality</I> is totally unimportant, and <b>3</b> that the <I>quality</I> is extremely important; <b>1</b> and <b>2</b> are intermediate values, with <b>1</b> the neutral value. <b>(</b><I>quality</I><b> 3)</b> can be abbreviated to <I>quality</I>. <P>
+Note that <A REL=DEFINITION HREF="26_glo_c.htm#code"><I>code</I></A> which has the optimization <b>(safety 3)</b>, or just <B>safety</B>, is called <A REL=DEFINITION HREF="26_glo_s.htm#safe"><I>safe</I></A> <A REL=DEFINITION HREF="26_glo_c.htm#code"><I>code</I></A>. <P>
+The consequences are unspecified if a <I>quality</I> appears more than once with <A REL=DEFINITION HREF="26_glo_d.htm#different"><I>different</I></A> <I>values</I>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (defun often-used-subroutine (x y)
+   (declare (optimize (safety 2)))
+   (error-check x y)
+   (hairy-setup x)
+   (do ((i 0 (+ i 1))
+        (z x (cdr z)))
+       ((null z))
+     ;; This inner loop really needs to burn.
+     (declare (optimize speed))
+     (declare (fixnum i))
+     ))
+</PRE>
+</b> <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="s_declar.htm#declare"><B>declare</B></A>, <A REL=DEFINITION HREF="m_declai.htm#declaim"><B>declaim</B></A>, <A REL=DEFINITION HREF="f_procla.htm#proclaim"><B>proclaim</B></A>, <A REL=CHILD HREF="03_cd.htm">Section 3.3.4 (Declaration Scope)</A> <P>
+<p><b>●说明:</b><P>
+ <P>
+An <A REL=DEFINITION HREF="#optimize"><B>optimize</B></A> declaration never applies to either a <A REL=DEFINITION HREF="26_glo_v.htm#variable"><I>variable</I></A> or a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>binding</I></A>. An <A REL=DEFINITION HREF="#optimize"><B>optimize</B></A> declaration can only be a <A REL=DEFINITION HREF="26_glo_f.htm#free_declaration"><I>free declaration</I></A>. For more information, see <A REL=CHILD HREF="03_cd.htm">Section 3.3.4 (Declaration Scope)</A>. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss251.htm">OPTIMIZE-DEBUG-INFO:NEW-QUALITY</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function COUNT, COUNT-IF, COUNT-IF-NOT</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_reduce.htm">
+<LINK REL=UP HREF="c_sequen.htm">
+<LINK REL=NEXT HREF="f_length.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_reduce.htm">◀</A><A REL=UP HREF="c_sequen.htm">▲</A><A REL=NEXT HREF="f_length.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="count"><A NAME="count-if"><A NAME="count-if-not"><I>Function</I> <B>COUNT, COUNT-IF, COUNT-IF-NOT</B></A></A></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>count</B> <I>item sequence <b>&amp;key</b> from-end start end key test test-not</I> =&gt; <I>n</I><P>
+ 
+<B>count-if</B> <I>predicate sequence <b>&amp;key</b> from-end start end key</I> =&gt; <I>n</I><P>
+ 
+<B>count-if-not</B> <I>predicate sequence <b>&amp;key</b> from-end start end key</I> =&gt; <I>n</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>item</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<I>sequence</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#proper_sequence"><I>proper sequence</I></A>. <P>
+<I>predicate</I>---a <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> of one <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A> that returns a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<I>from-end</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. The default is <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>. <P>
+<I>test</I>---a <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> of two <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>arguments</I></A> that returns a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<I>test-not</I>---a <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> of two <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>arguments</I></A> that returns a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+  <I>start</I>, <I>end</I>---<A REL=DEFINITION HREF="26_glo_b.htm#bounding_index_designator"><I>bounding index designators</I></A> of <I>sequence</I>. The defaults for <I>start</I> and <I>end</I> are <b>0</b> and <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>, respectively.   <P>
+<I>key</I>---a <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> of one argument, or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<I>n</I>---a non-negative <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> less than or equal to the <A REL=DEFINITION HREF="26_glo_l.htm#length"><I>length</I></A> of <I>sequence</I>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#count"><B>count</B></A>, <A REL=DEFINITION HREF="#count-if"><B>count-if</B></A>, and <A REL=DEFINITION HREF="#count-if-not"><B>count-if-not</B></A> count and return the number of <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>elements</I></A> in the <I>sequence</I> <A REL=DEFINITION HREF="26_glo_b.htm#bounded"><I>bounded</I></A> by <I>start</I> and <I>end</I> that <A REL=DEFINITION HREF="26_glo_s.htm#satisfy_the_test"><I>satisfy the test</I></A>. <P>
+The <I>from-end</I> has no direct effect on the result. However, if <I>from-end</I> is <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A>, the <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>elements</I></A> of <I>sequence</I> will be supplied as <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>arguments</I></A> to the <I>test</I>, <I>test-not</I>, and <I>key</I> in reverse order, which may change the side-effects, if any, of those functions. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (count #\a &quot;how many A's are there in here?&quot;) =&gt;  2
+ (count-if-not #'oddp '((1) (2) (3) (4)) :key #'car) =&gt;  2
+ (count-if #'upper-case-p &quot;The Crying of Lot 49&quot; :start 4) =&gt;  2 
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+Should be prepared to signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if <I>sequence</I> is not a <A REL=DEFINITION HREF="26_glo_p.htm#proper_sequence"><I>proper sequence</I></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=CHILD HREF="17_b.htm">Section 17.2 (Rules about Test Functions)</A>,  <A REL=CHILD HREF="03_f.htm">Section 3.6 (Traversal Rules and Side Effects)</A>  <P>
+<p><b>●说明:</b><P>
+ <P>
+ The <b>:test-not</b> <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A> is deprecated.  <P>
+ The <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="#count-if-not"><B>count-if-not</B></A> is deprecated.  <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss345.htm">TEST-NOT-IF-NOT:FLUSH-ALL</A><LI> <A REL=CHILD HREF="../Issues/iss240.htm">MAPPING-DESTRUCTIVE-INTERACTION:EXPLICITLY-VAGUE</A><LI> <A REL=CHILD HREF="../Issues/iss284.htm">RANGE-OF-START-AND-END-PARAMETERS:INTEGER-AND-INTEGER-NIL</A><LI> <A REL=CHILD HREF="../Issues/iss332.htm">SUBSEQ-OUT-OF-BOUNDS</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

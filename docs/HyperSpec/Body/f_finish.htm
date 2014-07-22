@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function FINISH-OUTPUT, FORCE-OUTPUT...</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_clear_.htm">
+<LINK REL=UP HREF="c_stream.htm">
+<LINK REL=NEXT HREF="f_y_or_n.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_clear_.htm">◀</A><A REL=UP HREF="c_stream.htm">▲</A><A REL=NEXT HREF="f_y_or_n.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="finish-output"><A NAME="force-output"><A NAME="clear-output"><I>Function</I> <B>FINISH-OUTPUT, FORCE-OUTPUT, CLEAR-OUTPUT</B></A></A></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>finish-output</B> <I><b>&amp;optional</b> output-stream</I> =&gt; <I><A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A></I><P>
+ 
+<B>force-output</B> <I><b>&amp;optional</b> output-stream</I> =&gt; <I><A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A></I><P>
+ 
+<B>clear-output</B> <I><b>&amp;optional</b> output-stream</I> =&gt; <I><A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A></I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>output-stream</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#output"><I>output</I></A> <A REL=DEFINITION HREF="26_glo_s.htm#stream_designator"><I>stream designator</I></A>. The default is <A REL=DEFINITION HREF="26_glo_s.htm#standard_output"><I>standard output</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#finish-output"><B>finish-output</B></A>, <A REL=DEFINITION HREF="#force-output"><B>force-output</B></A>, and <A REL=DEFINITION HREF="#clear-output"><B>clear-output</B></A> exercise control over the internal handling of buffered stream output. <P>
+<A REL=DEFINITION HREF="#finish-output"><B>finish-output</B></A> attempts to ensure that any buffered output sent to <I>output-stream</I> has reached its destination, and then returns. <P>
+<A REL=DEFINITION HREF="#force-output"><B>force-output</B></A> initiates the emptying of any internal buffers but does not wait for completion or acknowledgment to return. <P>
+<A REL=DEFINITION HREF="#clear-output"><B>clear-output</B></A> attempts to abort any outstanding output operation in progress in order to allow as little output as possible to continue to the destination. <P>
+If any of these operations does not make sense for <I>output-stream</I>, then it does nothing. The precise actions of these <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>functions</I></A> are <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A>. <P>
+<p><b>●例子:</b><P>
+ 
+<PRE>
+;; Implementation A
+ (progn (princ &quot;am i seen?&quot;) (clear-output))
+=&gt;  NIL
+
+;; Implementation B
+ (progn (princ &quot;am i seen?&quot;) (clear-output))
+&gt;&gt;  am i seen?
+=&gt;  NIL
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于:</b><P>
+ <P>
+<A REL=DEFINITION HREF="v_debug_.htm#STstandard-outputST"><B>*standard-output*</B></A> <P>
+<p><b>●例外情况：</b><P>
+ <P>
+Should signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if <I>output-stream</I> is not a <A REL=DEFINITION HREF="26_glo_s.htm#stream_designator"><I>stream designator</I></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_clear_.htm#clear-input"><B>clear-input</B></A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Issue FORMAT-COMMA-INTERVAL Writeup</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="../Issues/iss165_w.htm">
+<LINK REL=UP HREF="../Issues/iss166.htm">
+<LINK REL=NEXT HREF="../Issues/iss167_w.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="../Issues/iss165_w.htm">◀</A><A REL=UP HREF="../Issues/iss166.htm">▲</A><A REL=NEXT HREF="../Issues/iss167_w.htm">▶</A></h1>
+
+<HR>
+
+
+
+<H2>Issue FORMAT-COMMA-INTERVAL Writeup</H2>
+
+<PRE><B>Issue:</B>        <A HREF="iss166.htm">FORMAT-COMMA-INTERVAL</A><P>
+<B>References:</B>   <A REL=DEFINITION HREF="../Body/f_format.htm#format"><B>FORMAT</B></A> integer printing (p. 388-9)<P>
+<B>Category:</B>     ADDITION<P>
+<B>Edit history:</B> Version 1, Pavel, 10-Jun-87<P>
+              Version 2, Masinter, 15-Jun-87<P>
+<P>
+<B>Problem description:  <P>
+</B><P>
+There are times when users would like to print out numbers with some punctuation<P>
+between groups of digits.  The &quot;commachar&quot; argument to the ~D, ~B, ~O, ~X, and<P>
+~R <A REL=DEFINITION HREF="../Body/f_format.htm#format"><B>FORMAT</B></A> directives was introduced to fill that need.  Unfortunately, the<P>
+interval at which the commachar should be printed is always every three digits.<P>
+This constraint is annoying when a different interval would be more appropriate.<P>
+<P>
+<B>Proposal (FORMAT-COMMA-INTERVAL:YES):<P>
+</B><P>
+Add a fourth argument to the ~D, ~B, ~X, and ~O <A REL=DEFINITION HREF="../Body/f_format.htm#format"><B>FORMAT</B></A> directives, and a fifth<P>
+argument to the ~R directive, to be called the &quot;comma-interval&quot;.  This value<P>
+must be an integer and defaults to 3.  When the : modifier is given to any of<P>
+these directives, the &quot;commachar&quot; is printed between groups of &quot;comma-interval&quot;<P>
+digits.<P>
+<P>
+<B>Test Cases:<P>
+</B><P>
+Under the proposal, the following forms return the indicated values:<P>
+	(format nil &quot;~,,' ,4:B&quot; 13) =&gt; &quot;1101&quot;<P>
+	(format nil &quot;~,,' ,4:B&quot; 17) =&gt; &quot;1 0001&quot;<P>
+	(format nil &quot;~19,0,' ,4:B&quot; 3333) =&gt; &quot;0000 1101 0000 0101&quot;<P>
+	(format nil &quot;~3,,,' ,2:R&quot; 17) =&gt; &quot;1 22&quot;<P>
+	(format nil &quot;~,,'|,2:D&quot; #xFFFF) =&gt; &quot;6|55|35&quot;<P>
+<P>
+<B>Rationale: <P>
+</B><P>
+The current specification of <A REL=DEFINITION HREF="../Body/f_format.htm#format"><B>FORMAT</B></A> gives the user control over almost all of<P>
+the facets of printing integers.  Only the wired-in constant for the<P>
+comma-interval remains, even though there are uses for varying that number.  For<P>
+example, in many contexts, it would be convenient to be able to print out<P>
+numbers in binary with a space between each group of four bits.  <A REL=DEFINITION HREF="../Body/f_format.htm#format"><B>FORMAT</B></A> does not<P>
+currently allow specification of the commachar printing interval so users<P>
+needing this functionality must write it themselves, duplicating much of the<P>
+logic in every implementation's integer printing code.  Other uses, requiring<P>
+other intervals, can be imagined.  For example, using a &quot;commachar&quot; of #\Newline<P>
+and a &quot;comma-interval&quot; of, say, 72, very large bignums could be printed in such<P>
+a way as to ensure line-breaks at appropriate places.<P>
+<P>
+<B>Current practice:<P>
+</B><P>
+No released implementations currently support this feature.<P>
+<P>
+<B>Cost to implementors: <P>
+</B><P>
+The change in the implementation of <A REL=DEFINITION HREF="../Body/f_format.htm#format"><B>FORMAT</B></A> is reasonably minor and, in most<P>
+cases, highly localized.  Usually, the change is as simple as taking an extra<P>
+parameter and using it instead of a wired-in value of 3.<P>
+<P>
+<B>Cost to users:<P>
+</B><P>
+Since the proposal involves the addition of an argument to certain directives,<P>
+the change would be entirely upward-compatible. No user code would need to be<P>
+converted.<P>
+<P>
+<B>Cost of non-adoption: <P>
+</B><P>
+Users desiring this functionality will have to write it themselves, duplicating<P>
+much of the logic involved in printing integers at all.<P>
+<P>
+<B>Benefits: <P>
+</B><P>
+One of the few remaining inflexibilities in integer printing is eliminated with<P>
+a net increase in user-visible functionality.<P>
+<P>
+<B>Esthetics: <P>
+</B><P>
+By parameterizing one of the final pieces of wired-in behavior from integer<P>
+printing, this small part of the workings of <A REL=DEFINITION HREF="../Body/f_format.htm#format"><B>FORMAT</B></A> would be perceived as having<P>
+been cleaned up.<P>
+<P>
+<B>Discussion: <P>
+</B><P>
+Several members of the cleanup committee endorsed this proposal. No objections<P>
+were raised.<P>
+<P>
+</PRE>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 25.1.4.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="25_ad.htm">
+<LINK REL=UP HREF="25_ad.htm">
+<LINK REL=NEXT HREF="25_adb.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="25_ad.htm">◀</A><A REL=UP HREF="25_ad.htm">▲</A><A REL=NEXT HREF="25_adb.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+25.1.4.1 Decoded Time</H2>  <P>
+A <A REL=DEFINITION HREF="26_glo_d.htm#decoded_time"><I>decoded time</I></A> is an ordered series of nine values that, taken together, represent a point in calendar time (ignoring <A REL=DEFINITION HREF="26_glo_l.htm#leap_seconds"><I>leap seconds</I></A>): <P>
+<P><ul><li><B>Second</B>  <P></li>
+An <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> between 0 and 59, inclusive. <P>
+<li><B>Minute</B>  <P></li>
+An <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> between 0 and 59, inclusive. <P>
+<li><B>Hour</B>  <P></li>
+An <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> between 0 and 23, inclusive. <P>
+<li><B>Date</B>  <P></li>
+An <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> between 1 and 31, inclusive (the upper limit actually depends on the month and year, of course). <P>
+<li><B>Month</B>  <P></li>
+An <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> between 1 and 12, inclusive; 1 means January, 2 means February, and so on; 12 means December. <P>
+<li><B>Year</B>  <P></li>
+An <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> indicating the year A.D. However, if this <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> is between 0 and 99, the ``obvious'' year is used; more precisely, that year is assumed that is equal to the <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> modulo 100 and within fifty years of the current year (inclusive backwards and exclusive forwards). Thus, in the year 1978, year 28 is 1928 but year 27 is 2027. (Functions that return time in this format always return a full year number.) <P>
+<li><B>Day of week</B>  <P></li>
+An <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> between 0 and 6, inclusive; 0 means Monday, 1 means Tuesday, and so on; 6 means Sunday. <P>
+<li><B>Daylight saving time flag</B>  <P></li>
+A <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A> that, if <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A>, indicates that daylight saving time is in effect. <P>
+<li><B>Time zone</B>  <P></li>
+A <A REL=DEFINITION HREF="26_glo_t.htm#time_zone"><I>time zone</I></A>. <P>
+<P></ul><P>
+The next figure shows <A REL=DEFINITION HREF="26_glo_d.htm#defined_name"><I>defined names</I></A> relating to <A REL=DEFINITION HREF="26_glo_d.htm#decoded_time"><I>decoded time</I></A>. <P>
+<PRE>
+<A REL=DEFINITION HREF="f_dec_un.htm#decode-universal-time">decode-universal-time</A>  <A REL=DEFINITION HREF="f_get_un.htm#get-decoded-time">get-decoded-time</A>  
+</PRE>
+<p><b>■图表 25-5.  Defined names involving time in Decoded Time.</B> <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

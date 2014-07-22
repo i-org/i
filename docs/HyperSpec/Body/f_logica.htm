@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Accessor LOGICAL-PATHNAME-TRANSLATIONS</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_ld_log.htm">
+<LINK REL=UP HREF="c_filena.htm">
+<LINK REL=NEXT HREF="f_logi_1.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_ld_log.htm">◀</A><A REL=UP HREF="c_filena.htm">▲</A><A REL=NEXT HREF="f_logi_1.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="logical-pathname-translations"><I>Accessor</I> <B>LOGICAL-PATHNAME-TRANSLATIONS</B></A> <P>
+ <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>logical-pathname-translations</B> <I>host</I> =&gt; <I>translations</I><P>
+ 
+<b>(setf (</b><B>logical-pathname-translations</B> <I>host</I><b>) </b><I>new-translations</I><b>)</b><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>host</I>--a <A REL=DEFINITION HREF="26_glo_l.htm#logical_host_designator"><I>logical host designator</I></A>. <P>
+<I>translations</I>, <I>new-translations</I>---a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Returns the host's <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> of translations. Each translation is a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> of at least two elements: <I>from-wildcard</I> and <I>to-wildcard</I>. Any additional elements are <A REL=DEFINITION HREF="26_glo_i.htm#implementation-defined"><I>implementation-defined</I></A>. <I>From-wildcard</I> is a <A REL=DEFINITION HREF="26_glo_l.htm#logical_pathname"><I>logical pathname</I></A> whose host is <I>host</I>. <I>To-wildcard</I> is a <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathname</I></A>.  <P>
+<b>(setf (logical-pathname-translations </b><I>host</I><b>) </b><I>translations</I><b>)</b> sets a <A REL=DEFINITION HREF="26_glo_l.htm#logical_pathname"><I>logical pathname</I></A> host's <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> of <I>translations</I>. If <I>host</I> is a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> that has not been previously used as a <A REL=DEFINITION HREF="26_glo_l.htm#logical_pathname"><I>logical pathname</I></A> host, a new <A REL=DEFINITION HREF="26_glo_l.htm#logical_pathname"><I>logical pathname</I></A> host is defined; otherwise an existing host's translations are replaced. <A REL=DEFINITION HREF="26_glo_l.htm#logical_pathname"><I>logical pathname</I></A> host names are compared with <A REL=DEFINITION HREF="f_stgeq_.htm#string-equal"><B>string-equal</B></A>. <P>
+ When setting the translations list, each <I>from-wildcard</I> can be a <A REL=DEFINITION HREF="26_glo_l.htm#logical_pathname"><I>logical pathname</I></A> whose host is <I>host</I> or a <A REL=DEFINITION HREF="26_glo_l.htm#logical_pathname"><I>logical pathname</I></A> namestring parseable by <b>(parse-namestring <A REL=DEFINITION HREF="26_glo_s.htm#string"></b><I>string</I><b></A> </b><I>host</I><b>)</b>, where <I>host</I> represents the appropriate <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> as defined by <A REL=DEFINITION HREF="f_pars_1.htm#parse-namestring"><B>parse-namestring</B></A>. Each <I>to-wildcard</I> can be anything coercible to a <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathname</I></A> by <b>(pathname </b><I>to-wildcard</I><b>)</b>. If <I>to-wildcard</I> coerces to a <A REL=DEFINITION HREF="26_glo_l.htm#logical_pathname"><I>logical pathname</I></A>, <A REL=DEFINITION HREF="f_tr_log.htm#translate-logical-pathname"><B>translate-logical-pathname</B></A> will perform repeated translation steps when it uses it. <P>
+<I>host</I> is either the host component of a <A REL=DEFINITION HREF="26_glo_l.htm#logical_pathname"><I>logical pathname</I></A> or a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> that has been defined as a <A REL=DEFINITION HREF="26_glo_l.htm#logical_pathname"><I>logical pathname</I></A> host name by <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A> of <A REL=DEFINITION HREF="#logical-pathname-translations"><B>logical-pathname-translations</B></A>. <P>
+<p><b>●例子:</b><P>
+ <P>
+ <P>
+<PRE>
+ ;;;A very simple example of setting up a logical pathname host.  No
+ ;;;translations are necessary to get around file system restrictions, so
+ ;;;all that is necessary is to specify the root of the physical directory
+ ;;;tree that contains the logical file system.
+ ;;;The namestring syntax on the right-hand side is implementation-dependent.
+ (setf (logical-pathname-translations &quot;foo&quot;)
+       '((&quot;**;*.*.*&quot;              &quot;MY-LISPM:&gt;library&gt;foo&gt;**&gt;&quot;)))
+ 
+ ;;;Sample use of that logical pathname.  The return value
+ ;;;is implementation-dependent.          
+ (translate-logical-pathname &quot;foo:bar;baz;mum.quux.3&quot;)
+=&gt;  #P&quot;MY-LISPM:&gt;library&gt;foo&gt;bar&gt;baz&gt;mum.quux.3&quot;
+ 
+ ;;;A more complex example, dividing the files among two file servers
+ ;;;and several different directories.  This Unix doesn't support
+ ;;;:WILD-INFERIORS in the directory, so each directory level must
+ ;;;be translated individually.  No file name or type translations
+ ;;;are required except for .MAIL to .MBX.
+ ;;;The namestring syntax on the right-hand side is implementation-dependent.
+ (setf (logical-pathname-translations &quot;prog&quot;)
+       '((&quot;RELEASED;*.*.*&quot;        &quot;MY-UNIX:/sys/bin/my-prog/&quot;)
+         (&quot;RELEASED;*;*.*.*&quot;      &quot;MY-UNIX:/sys/bin/my-prog/*/&quot;)
+         (&quot;EXPERIMENTAL;*.*.*&quot;    &quot;MY-UNIX:/usr/Joe/development/prog/&quot;)
+         (&quot;EXPERIMENTAL;DOCUMENTATION;*.*.*&quot;
+                                  &quot;MY-VAX:SYS$DISK:[JOE.DOC]&quot;)
+         (&quot;EXPERIMENTAL;*;*.*.*&quot;  &quot;MY-UNIX:/usr/Joe/development/prog/*/&quot;)
+         (&quot;MAIL;**;*.MAIL&quot;        &quot;MY-VAX:SYS$DISK:[JOE.MAIL.PROG...]*.MBX&quot;)))
+
+ ;;;Sample use of that logical pathname.  The return value
+ ;;;is implementation-dependent.          
+ (translate-logical-pathname &quot;prog:mail;save;ideas.mail.3&quot;)
+=&gt;  #P&quot;MY-VAX:SYS$DISK:[JOE.MAIL.PROG.SAVE]IDEAS.MBX.3&quot;
+
+ ;;;Example translations for a program that uses three files main.lisp,
+ ;;;auxiliary.lisp, and documentation.lisp.  These translations might be
+ ;;;supplied by a software supplier as examples.
+
+ ;;;For Unix with long file names
+ (setf (logical-pathname-translations &quot;prog&quot;)
+       '((&quot;CODE;*.*.*&quot;             &quot;/lib/prog/&quot;)))
+
+ ;;;Sample use of that logical pathname.  The return value
+ ;;;is implementation-dependent.          
+ (translate-logical-pathname &quot;prog:code;documentation.lisp&quot;)
+=&gt;  #P&quot;/lib/prog/documentation.lisp&quot;
+
+ ;;;For Unix with 14-character file names, using .lisp as the type
+ (setf (logical-pathname-translations &quot;prog&quot;)
+       '((&quot;CODE;DOCUMENTATION.*.*&quot; &quot;/lib/prog/docum.*&quot;)
+         (&quot;CODE;*.*.*&quot;             &quot;/lib/prog/&quot;)))
+
+ ;;;Sample use of that logical pathname.  The return value
+ ;;;is implementation-dependent.          
+ (translate-logical-pathname &quot;prog:code;documentation.lisp&quot;)
+=&gt;  #P&quot;/lib/prog/docum.lisp&quot;
+
+ ;;;For Unix with 14-character file names, using .l as the type
+ ;;;The second translation shortens the compiled file type to .b
+ (setf (logical-pathname-translations &quot;prog&quot;)
+       `((&quot;**;*.LISP.*&quot;            ,(logical-pathname &quot;PROG:**;*.L.*&quot;))
+         (,(compile-file-pathname (logical-pathname &quot;PROG:**;*.LISP.*&quot;))
+                                   ,(logical-pathname &quot;PROG:**;*.B.*&quot;))
+         (&quot;CODE;DOCUMENTATION.*.*&quot; &quot;/lib/prog/documentatio.*&quot;)
+         (&quot;CODE;*.*.*&quot;             &quot;/lib/prog/&quot;)))
+
+ ;;;Sample use of that logical pathname.  The return value
+ ;;;is implementation-dependent.          
+ (translate-logical-pathname &quot;prog:code;documentation.lisp&quot;)
+=&gt;  #P&quot;/lib/prog/documentatio.l&quot;
+
+ ;;;For a Cray with 6 character names and no directories, types, or versions.
+ (setf (logical-pathname-translations &quot;prog&quot;)
+       (let ((l '((&quot;MAIN&quot; &quot;PGMN&quot;)
+                  (&quot;AUXILIARY&quot; &quot;PGAUX&quot;)
+                  (&quot;DOCUMENTATION&quot; &quot;PGDOC&quot;)))
+             (logpath (logical-pathname &quot;prog:code;&quot;))
+             (phypath (pathname &quot;XXX&quot;)))
+         (append
+           ;; Translations for source files
+           (mapcar #'(lambda (x)
+                       (let ((log (first x))
+                             (phy (second x)))
+                         (list (make-pathname :name log
+                                              :type &quot;LISP&quot;
+                                              :version :wild
+                                              :defaults logpath)
+                               (make-pathname :name phy
+                                              :defaults phypath))))
+                   l)
+           ;; Translations for compiled files
+           (mapcar #'(lambda (x)
+                       (let* ((log (first x))
+                              (phy (second x))
+                              (com (compile-file-pathname
+                                     (make-pathname :name log
+                                                    :type &quot;LISP&quot;
+                                                    :version :wild
+                                                    :defaults logpath))))
+                         (setq phy (concatenate 'string phy &quot;B&quot;))
+                         (list com
+                               (make-pathname :name phy
+                                              :defaults phypath))))
+                   l))))
+
+ ;;;Sample use of that logical pathname.  The return value
+ ;;;is implementation-dependent.          
+ (translate-logical-pathname &quot;prog:code;documentation.lisp&quot;)
+=&gt;  #P&quot;PGDOC&quot;
+</PRE>
+</b> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+If <I>host</I> is incorrectly supplied, an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> is signaled. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="t_logica.htm#logical-pathname"><B>logical-pathname</B></A>,  <h2><A REL=CHILD HREF="19_ab.htm">Section 19.1.2 (Pathnames as Filenames)</A>  <P>
+<p><b>●说明:</b><P>
+ <P>
+Implementations can define additional <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>functions</I></A> that operate on <A REL=DEFINITION HREF="26_glo_l.htm#logical_pathname"><I>logical pathname</I></A> hosts, for example to specify additional translation rules or options. <P>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss157.htm">FILE-OPEN-ERROR:SIGNAL-FILE-ERROR</A><LI> <A REL=CHILD HREF="../Issues/iss259.htm">PATHNAME-LOGICAL:ADD</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

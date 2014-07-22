@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Symbol DECLARE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="m_declai.htm">
+<LINK REL=UP HREF="c_evalua.htm">
+<LINK REL=NEXT HREF="d_ignore.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="m_declai.htm">◀</A><A REL=UP HREF="c_evalua.htm">▲</A><A REL=NEXT HREF="d_ignore.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="declare"><I>Symbol</I> <B>DECLARE</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>declare</B> <I><I>declaration-specifier</I><B>*</B></I><P>
+ <P>
+<P><B>Arguments:</B><P>
+ <P>
+<I>declaration-specifier</I>---a <A REL=DEFINITION HREF="26_glo_d.htm#declaration_specifier"><I>declaration specifier</I></A>; not evaluated. <P>
+<p><b>●详情:</b><P>
+ <P>
+A <A REL=DEFINITION HREF="#declare"><B>declare</B></A> <A REL=DEFINITION HREF="26_glo_e.htm#expression"><I>expression</I></A>, sometimes called a <A REL=DEFINITION HREF="26_glo_d.htm#declaration"><I>declaration</I></A>, can occur only at the beginning of the bodies of certain <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A>; that is, it may be preceded only by other <A REL=DEFINITION HREF="#declare"><B>declare</B></A> <A REL=DEFINITION HREF="26_glo_e.htm#expression"><I>expressions</I></A>, or by a <A REL=DEFINITION HREF="26_glo_d.htm#documentation_string"><I>documentation string</I></A> if the context permits. <P>
+A <A REL=DEFINITION HREF="#declare"><B>declare</B></A> <A REL=DEFINITION HREF="26_glo_e.htm#expression"><I>expression</I></A> can occur in a <A REL=DEFINITION HREF="26_glo_l.htm#lambda_expression"><I>lambda expression</I></A> or in any of the <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A> listed in the next figure. <P>
+     <PRE>
+<A REL=DEFINITION HREF="m_defgen.htm#defgeneric">defgeneric</A>                 <A REL=DEFINITION HREF="m_do_sym.htm#do-external-symbols">do-external-symbols</A>   <A REL=DEFINITION HREF="m_prog_.htm#prog">prog</A>                      
+<A REL=DEFINITION HREF="m_define.htm#define-compiler-macro">define-compiler-macro</A>      <A REL=DEFINITION HREF="m_do_sym.htm#do-symbols">do-symbols</A>            <A REL=DEFINITION HREF="m_prog_.htm#progST">prog*</A>                     
+<A REL=DEFINITION HREF="m_defi_4.htm#define-method-combination">define-method-combination</A>  <A REL=DEFINITION HREF="m_dolist.htm#dolist">dolist</A>                <A REL=DEFINITION HREF="m_rst_ca.htm#restart-case">restart-case</A>              
+<A REL=DEFINITION HREF="m_defi_3.htm#define-setf-expander">define-setf-expander</A>       <A REL=DEFINITION HREF="m_dotime.htm#dotimes">dotimes</A>               <A REL=DEFINITION HREF="s_symbol.htm#symbol-macrolet">symbol-macrolet</A>           
+<A REL=DEFINITION HREF="m_defmac.htm#defmacro">defmacro</A>                   <A REL=DEFINITION HREF="s_flet_.htm#flet">flet</A>                  <A REL=DEFINITION HREF="m_w_acce.htm#with-accessors">with-accessors</A>            
+<A REL=DEFINITION HREF="m_defmet.htm#defmethod">defmethod</A>                  <A REL=DEFINITION HREF="m_hand_1.htm#handler-case">handler-case</A>          <A REL=DEFINITION HREF="m_w_hash.htm#with-hash-table-iterator">with-hash-table-iterator</A>  
+<A REL=DEFINITION HREF="m_defset.htm#defsetf">defsetf</A>                    <A REL=DEFINITION HREF="s_flet_.htm#labels">labels</A>                <A REL=DEFINITION HREF="m_w_in_f.htm#with-input-from-string">with-input-from-string</A>    
+<A REL=DEFINITION HREF="m_deftp.htm#deftype">deftype</A>                    <A REL=DEFINITION HREF="s_let_l.htm#let">let</A>                   <A REL=DEFINITION HREF="m_w_open.htm#with-open-file">with-open-file</A>            
+<A REL=DEFINITION HREF="m_defun.htm#defun">defun</A>                      <A REL=DEFINITION HREF="s_let_l.htm#letST">let*</A>                  <A REL=DEFINITION HREF="m_w_op_1.htm#with-open-stream">with-open-stream</A>          
+<A REL=DEFINITION HREF="m_destru.htm#destructuring-bind">destructuring-bind</A>         <A REL=DEFINITION HREF="s_locall.htm#locally">locally</A>               <A REL=DEFINITION HREF="m_w_out_.htm#with-output-to-string">with-output-to-string</A>     
+<A REL=DEFINITION HREF="m_do_do.htm#do">do</A>                         <A REL=DEFINITION HREF="s_flet_.htm#macrolet">macrolet</A>              <A REL=DEFINITION HREF="m_w_pkg_.htm#with-package-iterator">with-package-iterator</A>     
+<A REL=DEFINITION HREF="m_do_do.htm#doST">do*</A>                        <A REL=DEFINITION HREF="m_multip.htm#multiple-value-bind">multiple-value-bind</A>   <A REL=DEFINITION HREF="m_w_slts.htm#with-slots">with-slots</A>                
+<A REL=DEFINITION HREF="m_do_sym.htm#do-all-symbols">do-all-symbols</A>             <A REL=DEFINITION HREF="m_ppr_lo.htm#pprint-logical-block">pprint-logical-block</A>                            
+</PRE>
+<p><b>■图表 3-23.  Standardized Forms In Which Declarations Can Occur</B>      <P>
+A <A REL=DEFINITION HREF="#declare"><B>declare</B></A> <A REL=DEFINITION HREF="26_glo_e.htm#expression"><I>expression</I></A> can only occur where specified by the syntax of these <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A>. The consequences of attempting to evaluate a <A REL=DEFINITION HREF="#declare"><B>declare</B></A> <A REL=DEFINITION HREF="26_glo_e.htm#expression"><I>expression</I></A> are undefined. In situations where such <A REL=DEFINITION HREF="26_glo_e.htm#expression"><I>expressions</I></A> can appear, explicit checks are made for their presence and they are never actually evaluated; it is for this reason that they are called ``<A REL=DEFINITION HREF="#declare"><B>declare</B></A> <A REL=DEFINITION HREF="26_glo_e.htm#expression"><I>expressions</I></A>'' rather than ``<A REL=DEFINITION HREF="#declare"><B>declare</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A>.'' <P>
+ <A REL=DEFINITION HREF="26_glo_m.htm#macro_form"><I>Macro forms</I></A> cannot expand into declarations; <A REL=DEFINITION HREF="#declare"><B>declare</B></A> <A REL=DEFINITION HREF="26_glo_e.htm#expression"><I>expressions</I></A> must appear as actual <A REL=DEFINITION HREF="26_glo_s.htm#subexpression"><I>subexpressions</I></A> of the <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> to which they refer.  <P>
+The next figure shows a list of <A REL=DEFINITION HREF="26_glo_d.htm#declaration_identifier"><I>declaration identifiers</I></A> that can be used with <A REL=DEFINITION HREF="#declare"><B>declare</B></A>. <P>
+  <PRE>
+<A REL=DEFINITION HREF="d_dynami.htm#dynamic-extent">dynamic-extent</A>  <A REL=DEFINITION HREF="d_ignore.htm#ignore">ignore</A>     <A REL=DEFINITION HREF="d_optimi.htm#optimize">optimize</A>  
+<A REL=DEFINITION HREF="d_ftype.htm#ftype">ftype</A>           <A REL=DEFINITION HREF="d_inline.htm#inline">inline</A>     <A REL=DEFINITION HREF="d_specia.htm#special">special</A>   
+<A REL=DEFINITION HREF="d_ignore.htm#ignorable">ignorable</A>       <A REL=DEFINITION HREF="d_inline.htm#notinline">notinline</A>  <A REL=DEFINITION HREF="a_type.htm#type">type</A>      
+</PRE>
+<p><b>■图表 3-24.  Local Declaration Specifiers</B>   <P>
+An implementation is free to support other (<A REL=DEFINITION HREF="26_glo_i.htm#implementation-defined"><I>implementation-defined</I></A>) <A REL=DEFINITION HREF="26_glo_d.htm#declaration_identifier"><I>declaration identifiers</I></A> as well. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (defun nonsense (k x z)
+   (foo z x)                     ;First call to foo
+   (let ((j (foo k x))           ;Second call to foo
+         (x (* k k)))
+     (declare (inline foo) (special x z))
+     (foo x j z)))               ;Third call to foo
+</PRE>
+</b> <P>
+In this example, the <A REL=DEFINITION HREF="d_inline.htm#inline"><B>inline</B></A> declaration applies only to the third call to <b>foo</b>, but not to the first or second ones. The <A REL=DEFINITION HREF="d_specia.htm#special"><B>special</B></A> declaration of <b>x</b> causes <A REL=DEFINITION HREF="s_let_l.htm#let"><B>let</B></A> to make a dynamic <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>binding</I></A> for <b>x</b>, and causes the reference to <b>x</b> in the body of <A REL=DEFINITION HREF="s_let_l.htm#let"><B>let</B></A> to be a dynamic reference. The reference to <b>x</b> in the second call to <b>foo</b> is a local reference to the second parameter of <b>nonsense</b>. The reference to <b>x</b> in the first call to <b>foo</b> is a local reference, not a <A REL=DEFINITION HREF="d_specia.htm#special"><B>special</B></A> one. The <A REL=DEFINITION HREF="d_specia.htm#special"><B>special</B></A> declaration of <b>z</b> causes the reference to <b>z</b> in the third call to <b>foo</b> to be a dynamic 
+reference; it does not refer to the parameter to <b>nonsense</b> named <b>z</b>, because that parameter <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>binding</I></A> has not been declared to be <A REL=DEFINITION HREF="d_specia.htm#special"><B>special</B></A>. (The <A REL=DEFINITION HREF="d_specia.htm#special"><B>special</B></A> declaration of <b>z</b> does not appear in the body of <A REL=DEFINITION HREF="m_defun.htm#defun"><B>defun</B></A>, but in an inner <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>, and therefore does not affect the <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>binding</I></A> of the <A REL=DEFINITION HREF="26_glo_p.htm#parameter"><I>parameter</I></A>.) <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+The consequences of trying to use a <A REL=DEFINITION HREF="#declare"><B>declare</B></A> <A REL=DEFINITION HREF="26_glo_e.htm#expression"><I>expression</I></A> as a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> to be <I>evaluated</I> are undefined. <P>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_procla.htm#proclaim"><B>proclaim</B></A>, <A REL=CHILD HREF="04_bc.htm">Section 4.2.3 (Type Specifiers)</A>, <A REL=DEFINITION HREF="d_declar.htm#declaration"><B>declaration</B></A>, <A REL=DEFINITION HREF="d_dynami.htm#dynamic-extent"><B>dynamic-extent</B></A>, <A REL=DEFINITION HREF="d_ftype.htm#ftype"><B>ftype</B></A>, <A REL=DEFINITION HREF="d_ignore.htm#ignorable"><B>ignorable</B></A>, <A REL=DEFINITION HREF="d_ignore.htm#ignore"><B>ignore</B></A>, <A REL=DEFINITION HREF="d_inline.htm#inline"><B>inline</B></A>, <A REL=DEFINITION HREF="d_inline.htm#notinline"><B>notinline</B></A>, <A REL=DEFINITION HREF="d_optimi.htm#optimize"><B>optimize</B></A>, <A REL=DEFINITION HREF="d_type.htm#type"><B>type</B></A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss094.htm">DECLARE-FUNCTION-AMBIGUITY:DELETE-FTYPE-ABBREVIATION</A><LI> <A REL=CHILD HREF="../Issues/iss142.htm">DYNAMIC-EXTENT:NEW-DECLARATION</A><LI> <A REL=CHILD HREF="../Issues/iss095.htm">DECLARE-MACROS:FLUSH</A><LI> <A REL=CHILD HREF="../Issues/iss181.htm">GENERIC-FLET-POORLY-DESIGNED:DELETE</A><LI> <A REL=CHILD HREF="../Issues/iss359.htm">WITH-ADDED-METHODS:DELETE</A><LI> <A REL=CHILD HREF="../Issues/iss337.htm">SYMBOL-MACROLET-DECLARE:ALLOW</A><LI> <A REL=CHILD HREF="../Issues/iss308.htm">SETF-METHOD-VS-SETF-METHOD:RENAME-OLD-TERMS</A><LI> <A REL=CHILD HREF="../Issues/iss097.htm">DECLS-AND-DOC</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

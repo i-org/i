@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section The Printer Dictionary</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="22_cl.htm">
+<LINK REL=UP HREF="22_.htm">
+<LINK REL=NEXT HREF="f_cp_ppr.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="22_cl.htm">◀</A><A REL=UP HREF="22_.htm">▲</A><A REL=NEXT HREF="f_cp_ppr.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+22.4 The Printer Dictionary</H2> 
+ 
+ <ul>
+
+ 
+<LI><A REL=CHILD HREF="f_cp_ppr.htm"><I>Function</I> <B>COPY-PPRINT-DISPATCH</B></A>
+
+ 
+<LI><A REL=CHILD HREF="m_format.htm"><I>Macro</I> <B>FORMATTER</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_ppr_di.htm"><I>Function</I> <B>PPRINT-DISPATCH</B></A>
+
+ 
+<LI><A REL=CHILD HREF="m_ppr_ex.htm"><I>Local Macro</I> <B>PPRINT-EXIT-IF-LIST-EXHAUSTED</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_ppr_fi.htm"><I>Function</I> <B>PPRINT-FILL, PPRINT-LINEAR, PPRINT-TABULAR</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_ppr_in.htm"><I>Function</I> <B>PPRINT-INDENT</B></A>
+
+ 
+<LI><A REL=CHILD HREF="m_ppr_lo.htm"><I>Macro</I> <B>PPRINT-LOGICAL-BLOCK</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_ppr_nl.htm"><I>Function</I> <B>PPRINT-NEWLINE</B></A>
+
+ 
+<LI><A REL=CHILD HREF="m_ppr_po.htm"><I>Local Macro</I> <B>PPRINT-POP</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_ppr_ta.htm"><I>Function</I> <B>PPRINT-TAB</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_pr_obj.htm"><I>Standard Generic Function</I> <B>PRINT-OBJECT</B></A>
+
+ 
+<LI><A REL=CHILD HREF="m_pr_unr.htm"><I>Macro</I> <B>PRINT-UNREADABLE-OBJECT</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_set_pp.htm"><I>Function</I> <B>SET-PPRINT-DISPATCH</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_wr_pr.htm"><I>Function</I> <B>WRITE, PRIN1, PRINT, PPRINT, PRINC</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_wr_to_.htm"><I>Function</I> <B>WRITE-TO-STRING, PRIN1-TO-STRING, PRINC-TO-STRING</B></A>
+
+ 
+<LI><A REL=CHILD HREF="v_pr_ar.htm"><I>Variable</I> <B>*PRINT-ARRAY*</B></A>
+
+ 
+<LI><A REL=CHILD HREF="v_pr_bas.htm"><I>Variable</I> <B>*PRINT-BASE*, *PRINT-RADIX*</B></A>
+
+ 
+<LI><A REL=CHILD HREF="v_pr_cas.htm"><I>Variable</I> <B>*PRINT-CASE*</B></A>
+
+ 
+<LI><A REL=CHILD HREF="v_pr_cir.htm"><I>Variable</I> <B>*PRINT-CIRCLE*</B></A>
+
+ 
+<LI><A REL=CHILD HREF="v_pr_esc.htm"><I>Variable</I> <B>*PRINT-ESCAPE*</B></A>
+
+ 
+<LI><A REL=CHILD HREF="v_pr_gen.htm"><I>Variable</I> <B>*PRINT-GENSYM*</B></A>
+
+ 
+<LI><A REL=CHILD HREF="v_pr_lev.htm"><I>Variable</I> <B>*PRINT-LEVEL*, *PRINT-LENGTH*</B></A>
+
+ 
+<LI><A REL=CHILD HREF="v_pr_lin.htm"><I>Variable</I> <B>*PRINT-LINES*</B></A>
+
+ 
+<LI><A REL=CHILD HREF="v_pr_mis.htm"><I>Variable</I> <B>*PRINT-MISER-WIDTH*</B></A>
+
+ 
+<LI><A REL=CHILD HREF="v_pr_ppr.htm"><I>Variable</I> <B>*PRINT-PPRINT-DISPATCH*</B></A>
+
+ 
+<LI><A REL=CHILD HREF="v_pr_pre.htm"><I>Variable</I> <B>*PRINT-PRETTY*</B></A>
+
+ 
+<LI><A REL=CHILD HREF="v_pr_rda.htm"><I>Variable</I> <B>*PRINT-READABLY*</B></A>
+
+ 
+<LI><A REL=CHILD HREF="v_pr_rig.htm"><I>Variable</I> <B>*PRINT-RIGHT-MARGIN*</B></A>
+
+ 
+<LI><A REL=CHILD HREF="e_pr_not.htm"><I>Condition Type</I> <B>PRINT-NOT-READABLE</B></A>
+ 
+<LI><A REL=CHILD HREF="f_pr_not.htm"><I>Function</I> <B>PRINT-NOT-READABLE-OBJECT</B></A>
+
+ 
+<LI><A REL=CHILD HREF="f_format.htm"><I>Function</I> <B>FORMAT</B></A>
+</ul><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

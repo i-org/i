@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 6.1.4.2</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="06_ada.htm">
+<LINK REL=UP HREF="06_ad.htm">
+<LINK REL=NEXT HREF="06_adc.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="06_ada.htm">◀</A><A REL=UP HREF="06_ad.htm">▲</A><A REL=NEXT HREF="06_adc.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+6.1.4.2 Examples of ALWAYS, NEVER, and THEREIS clauses</H2> <P>
+<PRE>
+;; Make sure I is always less than 11 (two ways).
+;; The FOR construct terminates these loops.
+ (loop for i from 0 to 10
+       always (&lt; i 11))
+=&gt;  T
+ (loop for i from 0 to 10
+       never (&gt; i 11))
+=&gt;  T
+ 
+;; If I exceeds 10 return I; otherwise, return NIL.
+;; The THEREIS construct terminates this loop.
+ (loop for i from 0
+       thereis (when (&gt; i 10) i) )
+=&gt;  11
+
+;;; The FINALLY clause is not evaluated in these examples.
+ (loop for i from 0 to 10
+       always (&lt; i 9)
+       finally (print &quot;you won't see this&quot;))
+=&gt;  NIL
+ (loop never t
+       finally (print &quot;you won't see this&quot;))
+=&gt;  NIL
+ (loop thereis &quot;Here is my value&quot;
+       finally (print &quot;you won't see this&quot;))
+=&gt;  &quot;Here is my value&quot;
+ 
+;; The FOR construct terminates this loop, so the FINALLY clause 
+;; is evaluated.
+ (loop for i from 1 to 10
+       thereis (&gt; i 11)
+       finally (prin1 'got-here))
+&gt;&gt;  GOT-HERE
+=&gt;  NIL
+ 
+;; If this code could be used to find a counterexample to Fermat's
+;; last theorem, it would still not return the value of the
+;; counterexample because all of the THEREIS clauses in this example
+;; only return T.  But if Fermat is right, that won't matter
+;; because this won't terminate.
+ 
+ (loop for z upfrom 2
+       thereis
+         (loop for n upfrom 3 below (log z 2)
+               thereis
+                 (loop for x below z
+                       thereis
+                         (loop for y below z
+                               thereis (= (+ (expt x n) (expt y n))
+                                          (expt z n))))))
+</PRE>
+</b> <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

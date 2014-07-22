@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Issue NOT-AND-NULL-RETURN-VALUE Writeup</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="../Issues/iss247_w.htm">
+<LINK REL=UP HREF="../Issues/iss249.htm">
+<LINK REL=NEXT HREF="../Issues/iss250_w.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="../Issues/iss247_w.htm">◀</A><A REL=UP HREF="../Issues/iss249.htm">▲</A><A REL=NEXT HREF="../Issues/iss250_w.htm">▶</A></h1>
+
+<HR>
+
+
+
+<H2>Issue NOT-AND-NULL-RETURN-VALUE Writeup</H2>
+
+<PRE><B>Forum:</B>          Public Review<P>
+<B>Issue:</B>          <A HREF="iss249.htm">NOT-AND-NULL-RETURN-VALUE</A><P>
+<B>References:</B>     Margolin's public review comment #6<P>
+		Pitman's public review comment #4<P>
+<B>Category:</B>       CHANGE<P>
+<B>Edit history:</B>   12 Sept 1993, Version 1 by Loosemore<P>
+<B>Status:</B>		Proposal X3J13-MARCH-1993 passed 6-2 at the March 1993 meeting<P>
+<P>
+<P>
+<B>Problem description:<P>
+</B><P>
+  Due to an editing error, the semantics of <A REL=DEFINITION HREF="../Body/a_not.htm#not"><B>NOT</B></A> and <A REL=DEFINITION HREF="../Body/a_null.htm#null"><B>NULL</B></A> have been<P>
+  changed to say that they return true/false rather than T/NIL.  This<P>
+  change was accidentally introduced; there was no foundation for it in<P>
+  any X3J13 vote.<P>
+<P>
+<P>
+<B>Proposal (NOT-AND-NULL-RETURN-VALUE:X3J13-MARCH-1993):<P>
+</B><P>
+  Restore the CLtL semantics.<P>
+<P>
+<B>Rationale:<P>
+</B><P>
+  This is what users expect.  It supports idioms such as <P>
+    (<A REL=DEFINITION HREF="../Body/f_eq.htm#eq"><B>EQ</B></A> (<A REL=DEFINITION HREF="../Body/a_not.htm#not"><B>NOT</B></A> (<A REL=DEFINITION HREF="../Body/a_not.htm#not"><B>NOT</B></A> X)) 'T)<P>
+  and <P>
+    (<A REL=DEFINITION HREF="../Body/m_defun.htm#defun"><B>DEFUN</B></A> BOOLEAN-EQUAL-P (X Y) (<A REL=DEFINITION HREF="../Body/f_eq.htm#eq"><B>EQ</B></A> (<A REL=DEFINITION HREF="../Body/a_not.htm#not"><B>NOT</B></A> X) (<A REL=DEFINITION HREF="../Body/a_not.htm#not"><B>NOT</B></A> Y)))<P>
+<P>
+<B>Current practice:<P>
+</B><P>
+  Unknown.<P>
+<P>
+<P>
+<B>Cost to implementors:<P>
+</B><P>
+  Unknown.<P>
+<P>
+<P>
+<B>Cost to users:<P>
+</B><P>
+  None.<P>
+<P>
+<P>
+<B>Aesthetics:<P>
+</B><P>
+<P>
+<B>Editorial impact:<P>
+</B><P>
+<P>
+<B>Discussion:<P>
+</B><P>
+<P>
+<P>
+</PRE>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

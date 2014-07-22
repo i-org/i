@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Accessor SUBSEQ</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_mk_seq.htm">
+<LINK REL=UP HREF="c_sequen.htm">
+<LINK REL=NEXT HREF="f_map.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_mk_seq.htm">◀</A><A REL=UP HREF="c_sequen.htm">▲</A><A REL=NEXT HREF="f_map.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="subseq"><I>Accessor</I> <B>SUBSEQ</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>subseq</B> <I>sequence start <b>&amp;optional</b> end</I> =&gt; <I>subsequence</I><P>
+ 
+<b>(setf (</b><B>subseq</B> <I>sequence start <b>&amp;optional</b> end</I><b>) </b><I>new-subsequence</I><b>)</b><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>sequence</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#proper_sequence"><I>proper sequence</I></A>. <P>
+  <I>start</I>, <I>end</I>---<A REL=DEFINITION HREF="26_glo_b.htm#bounding_index_designator"><I>bounding index designators</I></A> of <I>sequence</I>. The default for <I>end</I> is <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>.   <P>
+<I>subsequence</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#proper_sequence"><I>proper sequence</I></A>. <P>
+<I>new-subsequence</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#proper_sequence"><I>proper sequence</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#subseq"><B>subseq</B></A> creates a <A REL=DEFINITION HREF="26_glo_s.htm#sequence"><I>sequence</I></A> that is a copy of the subsequence of <I>sequence</I> <I>bounded</I> by <I>start</I> and <I>end</I>. <P>
+<I>Start</I> specifies an offset into the original <I>sequence</I> and marks the beginning position of the subsequence. <I>end</I> marks the position following the last element of the subsequence. <P>
+<A REL=DEFINITION HREF="#subseq"><B>subseq</B></A> always allocates a new <A REL=DEFINITION HREF="26_glo_s.htm#sequence"><I>sequence</I></A> for a result; it never shares storage with an old <A REL=DEFINITION HREF="26_glo_s.htm#sequence"><I>sequence</I></A>. The result subsequence is always of the same <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> as <I>sequence</I>. <P>
+If <I>sequence</I> is a <A REL=DEFINITION HREF="26_glo_v.htm#vector"><I>vector</I></A>, the result is a <A REL=DEFINITION HREF="26_glo_f.htm#fresh"><I>fresh</I></A> <A REL=DEFINITION HREF="26_glo_s.htm#simple_array"><I>simple array</I></A> of <A REL=DEFINITION HREF="26_glo_r.htm#rank"><I>rank</I></A> one that has the same <A REL=DEFINITION HREF="26_glo_a.htm#actual_array_element_type"><I>actual array element type</I></A> as <I>sequence</I>. If <I>sequence</I> is a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A>, the result is a <A REL=DEFINITION HREF="26_glo_f.htm#fresh"><I>fresh</I></A> <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A>. <P>
+<A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A> may be used with <A REL=DEFINITION HREF="#subseq"><B>subseq</B></A> to destructively replace <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>elements</I></A> of a subsequence with <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>elements</I></A> taken from a <A REL=DEFINITION HREF="26_glo_s.htm#sequence"><I>sequence</I></A> of new values. If the subsequence and the new sequence are not of equal length, the shorter length determines the number of elements that are replaced. The remaining <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>elements</I></A> at the end of the longer sequence are not modified in the operation. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (setq str &quot;012345&quot;) =&gt;  &quot;012345&quot;
+ (subseq str 2) =&gt;  &quot;2345&quot;
+ (subseq str 3 5) =&gt;  &quot;34&quot;
+ (setf (subseq str 4) &quot;abc&quot;) =&gt;  &quot;abc&quot;
+ str =&gt;  &quot;0123ab&quot;
+ (setf (subseq str 0 2) &quot;A&quot;) =&gt;  &quot;A&quot;
+ str =&gt;  &quot;A123ab&quot;
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+Should be prepared to signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if <I>sequence</I> is not a <A REL=DEFINITION HREF="26_glo_p.htm#proper_sequence"><I>proper sequence</I></A>. Should be prepared to signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if <I>new-subsequence</I> is not a <A REL=DEFINITION HREF="26_glo_p.htm#proper_sequence"><I>proper sequence</I></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_replac.htm#replace"><B>replace</B></A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss284.htm">RANGE-OF-START-AND-END-PARAMETERS:INTEGER-AND-INTEGER-NIL</A><LI> <A REL=CHILD HREF="../Issues/iss332.htm">SUBSEQ-OUT-OF-BOUNDS</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

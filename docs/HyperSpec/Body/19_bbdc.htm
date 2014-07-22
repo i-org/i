@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 19.2.2.4.3</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="19_bbdb.htm">
+<LINK REL=UP HREF="19_bbd.htm">
+<LINK REL=NEXT HREF="19_bbdca.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="19_bbdb.htm">◀</A><A REL=UP HREF="19_bbd.htm">▲</A><A REL=NEXT HREF="19_bbdca.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+19.2.2.4.3 Restrictions on Examining a Pathname Directory Component</H2> <P>
+The directory might be a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A>, <b>:wild</b>, <b>:unspecific</b>, or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+The directory can be a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> of <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>strings</I></A> and <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A>.  The <A REL=DEFINITION HREF="26_glo_c.htm#car"><I>car</I></A> of the <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> is one of the symbols <b>:absolute</b> or <b>:relative</b>, meaning: <P>
+<P><ul><P>
+<li><b>:absolute</b>  <P></li>
+ A <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> whose <A REL=DEFINITION HREF="26_glo_c.htm#car"><I>car</I></A> is the symbol <b>:absolute</b> represents a directory path starting from the root directory. The list <b>(:absolute)</b> represents the root directory. The list <b>(:absolute &quot;foo&quot; &quot;bar&quot; &quot;baz&quot;)</b> represents the directory called <b>&quot;/foo/bar/baz&quot;</b> in Unix (except possibly for <A REL=DEFINITION HREF="26_glo_c.htm#case"><I>case</I></A>). <P>
+<li><b>:relative</b>  <P></li>
+ A <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> whose <A REL=DEFINITION HREF="26_glo_c.htm#car"><I>car</I></A> is the symbol <b>:relative</b> represents a directory path starting from a default directory. The list <b>(:relative)</b> has the same meaning as <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> and hence is not used. The list <b>(:relative &quot;foo&quot; &quot;bar&quot;)</b> represents the directory named <b>&quot;bar&quot;</b> in the directory named <b>&quot;foo&quot;</b> in the default directory. <P>
+<P></ul><P>
+Each remaining element of the <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> is a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> or a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>. <P>
+Each <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> names a single level of directory structure. The <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>strings</I></A> should contain only the directory names themselves---no punctuation characters. <P>
+In place of a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A>, at any point in the <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A>, <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> can occur to indicate special file notations. The next figure lists the <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> that have standard meanings. Implementations are permitted to add additional <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A> of any <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> that is disjoint from <A REL=DEFINITION HREF="t_string.htm#string"><B>string</B></A> if necessary to represent features of their file systems that cannot be represented with the standard <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>strings</I></A> and <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A>. <P>
+Supplying any non-<A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A>, including any of the <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> listed below, to a file system for which it does not make sense signals an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_file_e.htm#file-error"><B>file-error</B></A>. For example, Unix does not support <b>:wild-inferiors</b> in most implementations. <P>
+<PRE>
+Symbol           Meaning                                             
+:wild            Wildcard match of one level of directory structure  
+:wild-inferiors  Wildcard match of any number of directory levels    
+:up              Go upward in directory structure (semantic)         
+:back            Go upward in directory structure (syntactic)        
+</PRE>
+<p><b>■图表 19-3.  Special Markers In Directory Component</B> <P>
+The following notes apply to the previous figure: <P>
+<P><ul><li>Invalid Combinations  <P></li>
+Using <b>:absolute</b> or <b>:wild-inferiors</b> immediately followed by <b>:up</b> or <b>:back</b> signals an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_file_e.htm#file-error"><B>file-error</B></A>. <P>
+<li>Syntactic vs Semantic  <P></li>
+``Syntactic'' means that the action of <b>:back</b> depends only on the <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathname</I></A> and not on the contents of the file system. <P>
+``Semantic'' means that the action of <b>:up</b> depends on the contents of the file system; to resolve a <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathname</I></A> containing <b>:up</b> to a <A REL=DEFINITION HREF="26_glo_p.htm#pathname"><I>pathname</I></A> whose directory component contains only <b>:absolute</b> and <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>strings</I></A> requires probing the file system. <P>
+<b>:up</b> differs from <b>:back</b> only in file systems that support multiple names for directories, perhaps via symbolic links. For example, suppose that there is a directory <b>(:absolute &quot;X&quot; &quot;Y&quot; &quot;Z&quot;)</b> linked to <b>(:absolute &quot;A&quot; &quot;B&quot; &quot;C&quot;)</b> and there also exist directories <b>(:absolute &quot;A&quot; &quot;B&quot; &quot;Q&quot;)</b> and <b>(:absolute &quot;X&quot; &quot;Y&quot; &quot;Q&quot;)</b>. Then <b>(:absolute &quot;X&quot; &quot;Y&quot; &quot;Z&quot; :up &quot;Q&quot;)</b> designates <b>(:absolute &quot;A&quot; &quot;B&quot; &quot;Q&quot;)</b> while <b>(:absolute &quot;X&quot; &quot;Y&quot; &quot;Z&quot; :back &quot;Q&quot;)</b> designates <b>(:absolute &quot;X&quot; &quot;Y&quot; &quot;Q&quot;)</b> <P></ul><P>
+ <P>
+
+ 
+<h2><A REL=CHILD HREF="19_bbdca.htm">
+19.2.2.4.3.1 Directory Components in Non-Hierarchical File Systems</a></h2><p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss263.htm">PATHNAME-SUBDIRECTORY-LIST:NEW-REPRESENTATION</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

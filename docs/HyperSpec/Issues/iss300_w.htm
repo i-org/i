@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Issue ROOM-DEFAULT-ARGUMENT Writeup</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="../Issues/iss299_w.htm">
+<LINK REL=UP HREF="../Issues/iss300.htm">
+<LINK REL=NEXT HREF="../Issues/iss301_w.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="../Issues/iss299_w.htm">◀</A><A REL=UP HREF="../Issues/iss300.htm">▲</A><A REL=NEXT HREF="../Issues/iss301_w.htm">▶</A></h1>
+
+<HR>
+
+
+
+<H2>Issue ROOM-DEFAULT-ARGUMENT Writeup</H2>
+
+<PRE><B>Issue:</B>        <A HREF="iss300.htm">ROOM-DEFAULT-ARGUMENT</A><P>
+<B>References:</B>   <A REL=DEFINITION HREF="../Body/f_room.htm#room"><B>ROOM</B></A> (p442)<P>
+<B>Category:</B>     ADDITION<P>
+<B>Edit history:</B> 12-Sep-88, Version 1 by Pitman<P>
+<P>
+<B>Problem Description:<P>
+</B><P>
+  Passing no argument to <A REL=DEFINITION HREF="../Body/f_room.htm#room"><B>ROOM</B></A> is not equivalent to any argument which<P>
+  can be passed. This makes data-flow from another function which wants<P>
+  to call <A REL=DEFINITION HREF="../Body/f_room.htm#room"><B>ROOM</B></A> inconvenient. Rather than simply passing a value through,<P>
+  the correct calling sequence must be selected as well. For example,<P>
+  one might have to do something like<P>
+  (<A REL=DEFINITION HREF="../Body/m_case_.htm#case"><B>CASE</B></A> FLAG<P>
+    (:DEFAULT (<A REL=DEFINITION HREF="../Body/f_room.htm#room"><B>ROOM</B></A>))<P>
+    ((T <A REL=DEFINITION HREF="../Body/a_nil.htm#nil"><B>NIL</B></A>) (<A REL=DEFINITION HREF="../Body/f_room.htm#room"><B>ROOM</B></A> FLAG)))<P>
+  where (<A REL=DEFINITION HREF="../Body/f_room.htm#room"><B>ROOM</B></A> FLAG) would suffice<P>
+<P>
+<B>Proposal (ROOM-DEFAULT-ARGUMENT:NEW-VALUE):<P>
+</B><P>
+  Specify that passing an argument of :DEFAULT is equivalent to passing<P>
+  no argument to <A REL=DEFINITION HREF="../Body/f_room.htm#room"><B>ROOM</B></A>.<P>
+<P>
+<B>Test Case:<P>
+</B><P>
+  (<A REL=DEFINITION HREF="../Body/f_room.htm#room"><B>ROOM</B></A> ':DEFAULT) is functionally equivalent to (<A REL=DEFINITION HREF="../Body/f_room.htm#room"><B>ROOM</B></A>).<P>
+<P>
+<B>Rationale:<P>
+</B><P>
+  Minimal change needed to get around the stated problem.<P>
+<P>
+  Allows <A REL=DEFINITION HREF="../Body/f_room.htm#room"><B>ROOM</B></A> to be describable without reference to supplied-p<P>
+  information.<P>
+<P>
+<B>Current Practice:<P>
+</B><P>
+  Symbolics Genera defines <A REL=DEFINITION HREF="../Body/f_room.htm#room"><B>ROOM</B></A> using <A REL=DEFINITION HREF="../Body/03_da.htm#AMrest"><B>&amp;REST</B></A> and looks for <A REL=DEFINITION HREF="../Body/a_nil.htm#nil"><B>NIL</B></A>, (T), or (<A REL=DEFINITION HREF="../Body/a_nil.htm#nil"><B>NIL</B></A>).<P>
+  [This reduces its ability to do compile-time number-of-argument checking.]<P>
+<P>
+  Some other implementations probably have a magic undocumented value<P>
+  to avoid use of a SUPPLIED-P argument.<P>
+<P>
+<B>Cost to Implementors:<P>
+</B><P>
+  Probably it involves negligible resources to change this.<P>
+  In most implementations, the resulting code would probably look better.<P>
+<P>
+<B>Cost to Users:<P>
+</B><P>
+  None. This change is upward compatible.<P>
+<P>
+<B>Cost of Non-Adoption:<P>
+</B><P>
+  The description of <A REL=DEFINITION HREF="../Body/f_room.htm#room"><B>ROOM</B></A> will look yucky in the emerging specification.<P>
+  The source code for <A REL=DEFINITION HREF="../Body/f_room.htm#room"><B>ROOM</B></A> will look yucky.<P>
+  [How's that for objective? -kmp]<P>
+  Error checking in some implementations may be sub-optimal.<P>
+<P>
+<B>Benefits:<P>
+</B><P>
+  The description of <A REL=DEFINITION HREF="../Body/f_room.htm#room"><B>ROOM</B></A> in the now-being-written specification would<P>
+  be less complicated.<P>
+<P>
+<B>Aesthetics:<P>
+</B><P>
+  This proposal would make a minor improvement in aesthetics.<P>
+<P>
+<B>Discussion:<P>
+</B><P>
+  This is obviously a low-priority issue, but would <A REL=DEFINITION HREF="../Body/f_provid.htm#require"><B>require</B></A> such little<P>
+  resources to fix that it seems worth doing.<P>
+<P>
+  Pitman supports this addition.<P>
+<P>
+  It's perhaps too bad that keywords like :SHORT, :MEDIUM, and :LONG<P>
+  weren't chosen instead of T and <A REL=DEFINITION HREF="../Body/a_nil.htm#nil"><B>NIL</B></A>, since T and <A REL=DEFINITION HREF="../Body/a_nil.htm#nil"><B>NIL</B></A> have a bit of a<P>
+  binary feel to them and it's hard to think of a good name for the<P>
+  default case.<P>
+<P>
+</PRE>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

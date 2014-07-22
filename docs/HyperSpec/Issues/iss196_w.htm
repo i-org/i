@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Issue IN-SYNTAX Writeup</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="../Issues/iss195_w.htm">
+<LINK REL=UP HREF="../Issues/iss196.htm">
+<LINK REL=NEXT HREF="../Issues/iss197_w.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="../Issues/iss195_w.htm">◀</A><A REL=UP HREF="../Issues/iss196.htm">▲</A><A REL=NEXT HREF="../Issues/iss197_w.htm">▶</A></h1>
+
+<HR>
+
+
+
+<H2>Issue IN-SYNTAX Writeup</H2>
+
+<PRE><B>Status:</B> Passed, Mar 89 X3J13<P>
+<B>Issue:</B> <A HREF="iss196.htm">IN-SYNTAX</A><P>
+<B>Edit History:</B> 21-Oct-88, Version 1 by Pitman<P>
+		Version 2, KMP 3/30/89<P>
+		Version 3,  9-Apr-89, Masinter<P>
+			(Include discussion from Version 1)<P>
+<P>
+<B>Problem Description:<P>
+</B><P>
+  There is no way to bind read syntax within a file.<P>
+<P>
+  As a result, applications which <A REL=DEFINITION HREF="../Body/f_provid.htm#require"><B>require</B></A> extended syntax of some sort<P>
+  tend to globally modify the lisp <A REL=DEFINITION HREF="../Body/t_rdtabl.htm#readtable"><B>readtable</B></A> at compile and load time,<P>
+  sometimes interfering with other modules and/or user interaction.<P>
+<P>
+  Conscientious developers often avoid the creation of any stylized<P>
+  syntax because of its likely effect on parts of the environment which<P>
+  don't really belong to the application developer. This need for<P>
+  paranoia is probably contrived and the result of what amounts to<P>
+  an oversight in the design of Common Lisp.<P>
+<P>
+<P>
+<B>Proposal (IN-SYNTAX:MINIMAL):<P>
+</B><P>
+    Define that <A REL=DEFINITION HREF="../Body/f_cmp_fi.htm#compile-file"><B>COMPILE-FILE</B></A> and <A REL=DEFINITION HREF="../Body/f_load.htm#load"><B>LOAD</B></A> bind <A REL=DEFINITION HREF="../Body/v_rdtabl.htm#STreadtableST"><B>*READTABLE*</B></A> to its current value.<P>
+<P>
+<B>Rationale:<P>
+</B><P>
+   This allows portable programs to do<P>
+<P>
+     (<A REL=DEFINITION HREF="../Body/m_in_pkg.htm#in-package"><B>IN-PACKAGE</B></A> &quot;FOO&quot;)<P>
+     (<A REL=DEFINITION HREF="../Body/s_eval_w.htm#eval-when"><B>EVAL-WHEN</B></A> (<A REL=DEFINITION HREF="../Body/f_eval.htm#eval"><B>EVAL</B></A> <A REL=DEFINITION HREF="../Body/f_load.htm#load"><B>LOAD</B></A> <A REL=DEFINITION HREF="../Body/f_cmp.htm#compile"><B>COMPILE</B></A>)<P>
+       (<A REL=DEFINITION HREF="../Body/s_setq.htm#setq"><B>SETQ</B></A> <A REL=DEFINITION HREF="../Body/v_rdtabl.htm#STreadtableST"><B>*READTABLE*</B></A> FOO:MY-READTABLE))<P>
+<P>
+   at the top of a file without globally side-effecting the<P>
+   environment.<P>
+<P>
+   Currently, there is no portable way to change the syntax only for<P>
+   the duration of a file, which in turn makes customized syntax<P>
+   difficult to use safely.<P>
+<P>
+   Programs that want to side effect the environment can instead<P>
+   continue to modify <A REL=DEFINITION HREF="../Body/v_rdtabl.htm#STreadtableST"><B>*READTABLE*</B></A>.<P>
+<P>
+    This is enough of a foothold to implement a more elaborate facility<P>
+    for using readtables in a localized way.<P>
+<P>
+<P>
+<B>Current Practice:<P>
+</B><P>
+   mixed<P>
+<P>
+<B>Cost to Implementors:<P>
+</B><P>
+  Very small.<P>
+<P>
+<B>Cost to Users:<P>
+</B><P>
+small<P>
+<P>
+<B>Cost of Non-Adoption:<P>
+</B><P>
+  Readtables would continue to be hard to use in a clean way.<P>
+<P>
+<B>Benefits:<P>
+</B><P>
+  If people could use readtables safely, we might see more interesting<P>
+  experimentation with read syntax.<P>
+<P>
+<B>Aesthetics:<P>
+</B><P>
+  A slight improvement to aesthetics by controlling what was formerly<P>
+  an unbounded side-effect (modification to the global <A REL=DEFINITION HREF="../Body/t_rdtabl.htm#readtable"><B>readtable</B></A>).<P>
+<P>
+</PRE>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

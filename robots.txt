@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /static/
+Disallow: /themes/
+
+Sitemap: http://i-org.tk/sitemap.xml

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Accessor MACRO-FUNCTION</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="m_defmac.htm">
+<LINK REL=UP HREF="c_evalua.htm">
+<LINK REL=NEXT HREF="f_mexp_.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="m_defmac.htm">◀</A><A REL=UP HREF="c_evalua.htm">▲</A><A REL=NEXT HREF="f_mexp_.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="macro-function"><I>Accessor</I> <B>MACRO-FUNCTION</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>macro-function</B> <I>symbol <b>&amp;optional</b> environment</I> =&gt; <I>function</I><P>
+  
+<b>(setf (</b><B>macro-function</B> <I>symbol <b>&amp;optional</b> environment</I><b>) </b><I>new-function</I><b>)</b><P>
+  <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>symbol</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>. <P>
+ <I>environment</I>---an <A REL=DEFINITION HREF="26_glo_e.htm#environment"><I>environment</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>.  <P>
+<I>function</I>---a <A REL=DEFINITION HREF="26_glo_m.htm#macro_function"><I>macro function</I></A> or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<I>new-function</I>---a <A REL=DEFINITION HREF="26_glo_m.htm#macro_function"><I>macro function</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Determines whether <I>symbol</I> has a function definition as a macro in the specified <I>environment</I>. <P>
+If so, the macro expansion function, a function of two arguments, is returned. If <I>symbol</I> has no function definition in the lexical environment <I>environment</I>, or its definition is not a <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macro</I></A>, <A REL=DEFINITION HREF="#macro-function"><B>macro-function</B></A> returns <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+    <P>
+   <P>
+It is possible for both <A REL=DEFINITION HREF="#macro-function"><B>macro-function</B></A> and  <A REL=DEFINITION HREF="f_specia.htm#special-operator-p"><B>special-operator-p</B></A>  to return <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> of <I>symbol</I>. The <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macro</I></A> definition must be available for use by programs that understand only the standard Common Lisp <A REL=DEFINITION HREF="26_glo_s.htm#special_form"><I>special forms</I></A>. <P>
+<p><b>●例子:</b><P>
+ 
+<PRE>
+ (defmacro macfun (x) '(macro-function 'macfun)) =&gt;  MACFUN 
+ (not (macro-function 'macfun)) =&gt;  <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A> 
+</PRE>
+</b>  
+<PRE>
+ (macrolet ((foo (&amp;environment env)
+               (if (macro-function 'bar env)
+                  ''yes
+                  ''no)))
+    (list (foo)
+          (macrolet ((bar () :beep))
+             (foo))))
+ 
+=&gt;  (NO YES)
+</PRE>
+</b>  <P>
+<p><b>●受制于:</b><P>
+ <b>(setf macro-function)</b>, <A REL=DEFINITION HREF="m_defmac.htm#defmacro"><B>defmacro</B></A>, and <A REL=DEFINITION HREF="s_flet_.htm#macrolet"><B>macrolet</B></A>. <P>
+<p><b>●例外情况：</b><P>
+ <P>
+ The consequences are undefined if <I>environment</I> is <A REL=DEFINITION HREF="26_glo_n.htm#non-nil"><I>non-nil</I></A> in a use of <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A> of <A REL=DEFINITION HREF="#macro-function"><B>macro-function</B></A>.  <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_defmac.htm#defmacro"><B>defmacro</B></A>, <h2><A REL=CHILD HREF="03_a.htm">Section 3.1 (Evaluation)</A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A> can be used with <A REL=DEFINITION HREF="#macro-function"><B>macro-function</B></A> to install a <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macro</I></A> as a symbol's global function definition: <P>
+<PRE>
+ (setf (macro-function symbol) fn)
+</PRE>
+</b> The value installed must be a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> that accepts two arguments, the entire macro call and an <A REL=DEFINITION HREF="26_glo_e.htm#environment"><I>environment</I></A>, and computes the expansion for that call. Performing this operation causes <I>symbol</I> to have only that macro definition as its global function definition; any previous definition, whether as a <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macro</I></A> or as a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A>, is lost. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss321.htm">SPECIAL-FORM-P-MISNOMER:RENAME</A><LI> <A REL=CHILD HREF="../Issues/iss230.htm">MACRO-FUNCTION-ENVIRONMENT</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

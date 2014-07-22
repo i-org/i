@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function SYMBOL-PACKAGE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_symb_2.htm">
+<LINK REL=UP HREF="c_symbol.htm">
+<LINK REL=NEXT HREF="f_symb_4.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_symb_2.htm">◀</A><A REL=UP HREF="c_symbol.htm">▲</A><A REL=NEXT HREF="f_symb_4.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="symbol-package"><I>Function</I> <B>SYMBOL-PACKAGE</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>symbol-package</B> <I>symbol</I> =&gt; <I>contents</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>symbol</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>. <P>
+<I>contents</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Returns the <A REL=DEFINITION HREF="26_glo_h.htm#home_package"><I>home package</I></A> of <I>symbol</I>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (in-package &quot;CL-USER&quot;) =&gt;  #&lt;PACKAGE &quot;COMMON-LISP-USER&quot;&gt;
+ (symbol-package 'car) =&gt;  #&lt;PACKAGE &quot;COMMON-LISP&quot;&gt;
+ (symbol-package 'bus) =&gt;  #&lt;PACKAGE &quot;COMMON-LISP-USER&quot;&gt;
+ (symbol-package :optional) =&gt;  #&lt;PACKAGE &quot;KEYWORD&quot;&gt;
+ ;; Gensyms are uninterned, so have no home package.
+ (symbol-package (gensym)) =&gt;  NIL
+ (make-package 'pk1) =&gt;  #&lt;PACKAGE &quot;PK1&quot;&gt;
+ (intern &quot;SAMPLE1&quot; &quot;PK1&quot;) =&gt;  PK1::SAMPLE1, NIL
+ (export (find-symbol &quot;SAMPLE1&quot; &quot;PK1&quot;) &quot;PK1&quot;) =&gt;  T
+ (make-package 'pk2 :use '(pk1)) =&gt;  #&lt;PACKAGE &quot;PK2&quot;&gt;
+ (find-symbol &quot;SAMPLE1&quot; &quot;PK2&quot;) =&gt;  PK1:SAMPLE1, :INHERITED
+ (symbol-package 'pk1::sample1) =&gt;  #&lt;PACKAGE &quot;PK1&quot;&gt;
+ (symbol-package 'pk2::sample1) =&gt;  #&lt;PACKAGE &quot;PK1&quot;&gt;
+ (symbol-package 'pk1::sample2) =&gt;  #&lt;PACKAGE &quot;PK1&quot;&gt;
+ (symbol-package 'pk2::sample2) =&gt;  #&lt;PACKAGE &quot;PK2&quot;&gt;
+ ;; The next several forms create a scenario in which a symbol
+ ;; is not really uninterned, but is &quot;apparently uninterned&quot;,
+ ;; and so SYMBOL-PACKAGE still returns NIL.
+ (setq s3 'pk1::sample3) =&gt;  PK1::SAMPLE3
+ (import s3 'pk2) =&gt;  T
+ (unintern s3 'pk1) =&gt;  T
+ (symbol-package s3) =&gt;  NIL
+ (eq s3 'pk2::sample3) =&gt;  T
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_import.htm#import"><B>import</B></A>, <A REL=DEFINITION HREF="f_intern.htm#intern"><B>intern</B></A>, <A REL=DEFINITION HREF="f_uninte.htm#unintern"><B>unintern</B></A> <P>
+<p><b>●例外情况：</b><P>
+ <P>
+Should signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if <I>symbol</I> is not a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_intern.htm#intern"><B>intern</B></A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Macro TYPECASE, CTYPECASE, ETYPECASE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="m_case_.htm">
+<LINK REL=UP HREF="c_data_a.htm">
+<LINK REL=NEXT HREF="m_multip.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="m_case_.htm">◀</A><A REL=UP HREF="c_data_a.htm">▲</A><A REL=NEXT HREF="m_multip.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="typecase"><A NAME="ctypecase"><A NAME="etypecase"><I>Macro</I> <B>TYPECASE, CTYPECASE, ETYPECASE</B></A></A></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>typecase</B> <I>keyform {<I>normal-clause</I>}<B>*</B> [<I>otherwise-clause</I>]</I> =&gt; <I><I>result</I><B>*</B></I><P>
+ 
+<B>ctypecase</B> <I>keyplace {<I>normal-clause</I>}<B>*</B></I> =&gt; <I><I>result</I><B>*</B></I><P>
+ 
+<B>etypecase</B> <I>keyform {<I>normal-clause</I>}<B>*</B></I> =&gt; <I><I>result</I><B>*</B></I><P>
+ <P>
+<PRE>
+normal-clause::= (type form*) 
+</PRE>
+ <PRE>
+otherwise-clause::= ({otherwise | t} form*) 
+</PRE>
+ <PRE>
+clause::= normal-clause | otherwise-clause 
+</PRE>
+  <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>keyform</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>; evaluated to produce a <I>test-key</I>. <P>
+<I>keyplace</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>; evaluated initially to produce a <I>test-key</I>. Possibly also used later as a <A REL=DEFINITION HREF="26_glo_p.htm#place"><I>place</I></A> if no <I>types</I> match. <P>
+<I>test-key</I>---an object produced by evaluating <I>keyform</I> or <I>keyplace</I>. <P>
+<I>type</I>---a <A REL=DEFINITION HREF="26_glo_t.htm#type_specifier"><I>type specifier</I></A>. <P>
+<I>forms</I>---an <A REL=DEFINITION HREF="26_glo_i.htm#implicit_progn"><I>implicit progn</I></A>. <P>
+<I>results</I>---the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> returned by the <I>forms</I> in the matching <I>clause</I>. <P>
+<p><b>●详情:</b><P>
+ <P>
+These <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macros</I></A> allow the conditional execution of a body of <I>forms</I> in a <I>clause</I> that is selected by matching the <I>test-key</I> on the basis of its <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A>. <P>
+The <I>keyform</I> or <I>keyplace</I> is <I>evaluated</I> to produce the <I>test-key</I>. <P>
+Each of the <I>normal-clauses</I> is then considered in turn. If the <I>test-key</I> is of the <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> given by the <I>clauses</I>'s <I>type</I>, the <I>forms</I> in that <I>clause</I> are <I>evaluated</I> as an <A REL=DEFINITION HREF="26_glo_i.htm#implicit_progn"><I>implicit progn</I></A>, and the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> it returns are returned as the value of the <A REL=DEFINITION HREF="#typecase"><B>typecase</B></A>, <A REL=DEFINITION HREF="#ctypecase"><B>ctypecase</B></A>, or <A REL=DEFINITION HREF="#etypecase"><B>etypecase</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. <P>
+These <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macros</I></A> differ only in their <I>behavior</I> when no <I>normal-clause</I> matches; specifically: <P>
+<P><ul><P>
+<li><A REL=DEFINITION HREF="#typecase"><B>typecase</B></A>  <P>
+If no <I>normal-clause</I> matches, and there is an <I>otherwise-clause</I>, then that <I>otherwise-clause</I> automatically matches; the <I>forms</I> in that <I>clause</I> are <I>evaluated</I> as an <A REL=DEFINITION HREF="26_glo_i.htm#implicit_progn"><I>implicit progn</I></A>, and the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> it returns are returned as the value of the <A REL=DEFINITION HREF="#typecase"><B>typecase</B></A>. <P>
+If there is no <I>otherwise-clause</I>, <A REL=DEFINITION HREF="#typecase"><B>typecase</B></A> returns <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P></li>
+<li><A REL=DEFINITION HREF="#ctypecase"><B>ctypecase</B></A>  <P>
+If no <I>normal-clause</I> matches, a <A REL=DEFINITION HREF="26_glo_c.htm#correctable"><I>correctable</I></A> <A REL=DEFINITION HREF="26_glo_e.htm#error"><I>error</I></A> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> is signaled. The offending datum is the <I>test-key</I> and the expected type is <A REL=DEFINITION HREF="26_glo_t.htm#type_equivalent"><I>type equivalent</I></A> to <b>(or </b><I>type1</I><b> </b><I>type2</I><b> ...)</b>. The <A REL=DEFINITION HREF="a_store_.htm#store-value"><B>store-value</B></A> <A REL=DEFINITION HREF="26_glo_r.htm#restart"><I>restart</I></A> can be used to correct the error. <P>
+If the <A REL=DEFINITION HREF="a_store_.htm#store-value"><B>store-value</B></A> <A REL=DEFINITION HREF="26_glo_r.htm#restart"><I>restart</I></A> is invoked, its <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A> becomes the new <I>test-key</I>, and is stored in <I>keyplace</I> as if by <b>(setf </b><I>keyplace</I><b> </b><I>test-key</I><b>)</b>. Then <A REL=DEFINITION HREF="#ctypecase"><B>ctypecase</B></A> starts over, considering each <I>clause</I> anew. <P>
+If the <A REL=DEFINITION HREF="a_store_.htm#store-value"><B>store-value</B></A> <A REL=DEFINITION HREF="26_glo_r.htm#restart"><I>restart</I></A> is invoked interactively, the user is prompted for a new <I>test-key</I> to use. <P>
+The subforms of <I>keyplace</I> might be evaluated again if none of the cases holds. <P></li>
+<li><A REL=DEFINITION HREF="#etypecase"><B>etypecase</B></A>  <P>
+If no <I>normal-clause</I> matches, a <A REL=DEFINITION HREF="26_glo_n.htm#non-correctable"><I>non-correctable</I></A> <A REL=DEFINITION HREF="26_glo_e.htm#error"><I>error</I></A> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> is signaled. The offending datum is the <I>test-key</I> and the expected type is <A REL=DEFINITION HREF="26_glo_t.htm#type_equivalent"><I>type equivalent</I></A> to <b>(or </b><I>type1</I><b> </b><I>type2</I><b> ...)</b>. <P>
+Note that in contrast with <A REL=DEFINITION HREF="#ctypecase"><B>ctypecase</B></A>, the caller of <A REL=DEFINITION HREF="#etypecase"><B>etypecase</B></A> may rely on the fact that <A REL=DEFINITION HREF="#etypecase"><B>etypecase</B></A> does not return if a <I>normal-clause</I> does not match. <P></li>
+<P></ul><P>
+In all three cases, is permissible for more than one <I>clause</I> to specify a matching <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A>, particularly if one is a <A REL=DEFINITION HREF="26_glo_s.htm#subtype"><I>subtype</I></A> of another; the earliest applicable <I>clause</I> is chosen. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+;;; (Note that the parts of this example which use TYPE-OF 
+;;;  are implementation-dependent.)
+ (defun what-is-it (x)
+   (format t &quot;~&amp;~S is ~A.~%&quot;
+           x (typecase x
+               (float &quot;a float&quot;)
+               (null &quot;a symbol, boolean false, or the empty list&quot;)
+               (list &quot;a list&quot;)
+               (t (format nil &quot;a(n) ~(~A~)&quot; (type-of x))))))
+=&gt;  WHAT-IS-IT
+ (map 'nil #'what-is-it '(nil (a b) 7.0 7 box))
+&gt;&gt;  NIL is a symbol, boolean false, or the empty list.
+&gt;&gt;  (A B) is a list.
+&gt;&gt;  7.0 is a float.
+&gt;&gt;  7 is a(n) integer.
+&gt;&gt;  BOX is a(n) symbol.
+=&gt;  NIL
+ (setq x 1/3)
+=&gt;  1/3
+ (ctypecase x
+     (integer (* x 4))
+     (symbol  (symbol-value x)))
+&gt;&gt;  Error: The value of X, 1/3, is neither an integer nor a symbol.
+&gt;&gt;  To continue, type :CONTINUE followed by an option number:
+&gt;&gt;   1: Specify a value to use instead.
+&gt;&gt;   2: Return to Lisp Toplevel.
+&gt;&gt;  Debug&gt; :CONTINUE 1
+&gt;&gt;  Use value: 3.7
+&gt;&gt;  Error: The value of X, 3.7, is neither an integer nor a symbol.
+&gt;&gt;  To continue, type :CONTINUE followed by an option number:
+&gt;&gt;   1: Specify a value to use instead.
+&gt;&gt;   2: Return to Lisp Toplevel.
+&gt;&gt;  Debug&gt; :CONTINUE 1
+&gt;&gt;  Use value: 12
+=&gt;  48
+ x =&gt;  12
+</PRE>
+</b> <P>
+<p><b>●受制于:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#ctypecase"><B>ctypecase</B></A> and <A REL=DEFINITION HREF="#etypecase"><B>etypecase</B></A>, since they might signal an error, are potentially affected by existing <I>handlers</I> and <A REL=DEFINITION HREF="v_debug_.htm#STdebug-ioST"><B>*debug-io*</B></A>. <P>
+<p><b>●例外情况：</b><P>
+ <P>
+<A REL=DEFINITION HREF="#ctypecase"><B>ctypecase</B></A> and <A REL=DEFINITION HREF="#etypecase"><B>etypecase</B></A> signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if no <I>normal-clause</I> matches. <P>
+The <A REL=DEFINITION HREF="26_glo_c.htm#compiler"><I>compiler</I></A> may choose to issue a warning of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_style_.htm#style-warning"><B>style-warning</B></A> if a <I>clause</I> will never be selected because it is completely shadowed by earlier clauses. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_case_.htm#case"><B>case</B></A>, <A REL=DEFINITION HREF="m_cond.htm#cond"><B>cond</B></A>, <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A>, <A REL=CHILD HREF="05_a.htm">Section 5.1 (Generalized Reference)</A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<PRE>
+(typecase test-key
+  {(type form*)}*)
+== 
+(let ((#1=#:g0001 test-key))
+  (cond {((typep #1# 'type) form*)}*))
+</PRE>
+</b> <P>
+The specific error message used by <A REL=DEFINITION HREF="#etypecase"><B>etypecase</B></A> and <A REL=DEFINITION HREF="#ctypecase"><B>ctypecase</B></A> can vary between implementations. In situations where control of the specific wording of the error message is important, it is better to use <A REL=DEFINITION HREF="#typecase"><B>typecase</B></A> with an <I>otherwise-clause</I> that explicitly signals an error with an appropriate message. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

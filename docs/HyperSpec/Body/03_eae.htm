@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 3.5.1.5</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="03_ead.htm">
+<LINK REL=UP HREF="03_ea.htm">
+<LINK REL=NEXT HREF="03_eaf.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="03_ead.htm">◀</A><A REL=UP HREF="03_ea.htm">▲</A><A REL=NEXT HREF="03_eaf.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+3.5.1.5 Invalid Keyword Arguments</H2>  <P>
+It is not permitted to supply a keyword argument to a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> using a name that is not a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A>. <P>
+ If this <A REL=DEFINITION HREF="26_glo_s.htm#situation"><I>situation</I></A> occurs in a <A REL=DEFINITION HREF="26_glo_s.htm#safe_call"><I>safe call</I></A>,  an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_progra.htm#program-error"><B>program-error</B></A> must be signaled unless keyword argument checking is suppressed as described in <A REL HREF="03_dada.htm">Section 3.4.1.4.1 (Suppressing Keyword Argument Checking)</A>; and in an <A REL=DEFINITION HREF="26_glo_u.htm#unsafe_call"><I>unsafe call</I></A> the <A REL=DEFINITION HREF="26_glo_s.htm#situation"><I>situation</I></A> has undefined consequences. <P>
+  <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss011.htm">ARGUMENT-MISMATCH-ERROR-MOON:FIX</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

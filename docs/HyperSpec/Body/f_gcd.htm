@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function GCD</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_exp_e.htm">
+<LINK REL=UP HREF="c_number.htm">
+<LINK REL=NEXT HREF="m_incf_.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_exp_e.htm">◀</A><A REL=UP HREF="c_number.htm">▲</A><A REL=NEXT HREF="m_incf_.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="gcd"><I>Function</I> <B>GCD</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>gcd</B> <I><b>&amp;rest</b> integers</I> =&gt; <I>greatest-common-denominator</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>integer</I>---an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>. <P>
+<I>greatest-common-denominator</I>---a non-negative <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Returns the greatest common divisor of <I>integers</I>. If only one <I>integer</I> is supplied, its absolute value is returned. If no <I>integers</I> are given, <A REL=DEFINITION HREF="#gcd"><B>gcd</B></A> returns <b>0</b>, which is an identity for this operation. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (gcd) =&gt;  0
+ (gcd 60 42) =&gt;  6
+ (gcd 3333 -33 101) =&gt;  1
+ (gcd 3333 -33 1002001) =&gt;  11
+ (gcd 91 -49) =&gt;  7
+ (gcd 63 -42 35) =&gt;  7
+ (gcd 5) =&gt;  5
+ (gcd -4) =&gt;  4
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+Should signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if any <I>integer</I> is not an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_lcm.htm#lcm"><B>lcm</B></A> <P>
+<p><b>●说明:</b><P>
+ For three or more arguments, <P>
+<PRE>
+ (gcd b c ... z) ==  (gcd (gcd a b) c ... z)
+</PRE>
+</b> <HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

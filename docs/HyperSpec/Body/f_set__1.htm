@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function SET-DISPATCH-MACRO-CHARACTER...</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_rdta_1.htm">
+<LINK REL=UP HREF="c_reader.htm">
+<LINK REL=NEXT HREF="f_set_ma.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_rdta_1.htm">◀</A><A REL=UP HREF="c_reader.htm">▲</A><A REL=NEXT HREF="f_set_ma.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="set-dispatch-macro-character"><A NAME="get-dispatch-macro-character"><I>Function</I> <B>SET-DISPATCH-MACRO-CHARACTER, GET-DISPATCH-MACRO-CHARACTER</B></A></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>get-dispatch-macro-character</B> <I>disp-char sub-char <b>&amp;optional</b> readtable</I> =&gt; <I>function</I><P>
+ <P>
+
+<B>set-dispatch-macro-character</B> <I>disp-char sub-char new-function <b>&amp;optional</b> readtable</I> =&gt; <I><A REL=DEFINITION HREF="a_t.htm#t"><B>t</B></A></I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>disp-char</I>---a <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>character</I></A>. <P>
+<I>sub-char</I>---a <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>character</I></A>. <P>
+ <I>readtable</I>---a <A REL=DEFINITION HREF="26_glo_r.htm#readtable_designator"><I>readtable designator</I></A>.  The default is the <A REL=DEFINITION HREF="26_glo_c.htm#current_readtable"><I>current readtable</I></A>. <P>
+<I>function</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#function_designator"><I>function designator</I></A> or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<I>new-function</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#function_designator"><I>function designator</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#set-dispatch-macro-character"><B>set-dispatch-macro-character</B></A> causes <I>new-function</I> to be called when <I>disp-char</I> followed by <I>sub-char</I> is read. If <I>sub-char</I> is a lowercase letter, it is converted to its uppercase equivalent. It is an error if <I>sub-char</I> is one of the ten decimal digits. <P>
+<A REL=DEFINITION HREF="#set-dispatch-macro-character"><B>set-dispatch-macro-character</B></A> installs a <I>new-function</I> to be called when a particular <A REL=DEFINITION HREF="26_glo_d.htm#dispatching_macro_character"><I>dispatching macro character</I></A> pair is read. <I>New-function</I> is installed as the dispatch function to be called when <I>readtable</I> is in use and when <I>disp-char</I> is followed by <I>sub-char</I>. <P>
+For more information about how the <I>new-function</I> is invoked, see <A REL=CHILD HREF="02_add.htm">Section 2.1.4.4 (Macro Characters)</A>. <P>
+<A REL=DEFINITION HREF="#get-dispatch-macro-character"><B>get-dispatch-macro-character</B></A> retrieves the dispatch function associated with <I>disp-char</I> and <I>sub-char</I> in <I>readtable</I>. <P>
+<A REL=DEFINITION HREF="#get-dispatch-macro-character"><B>get-dispatch-macro-character</B></A> returns the macro-character function for <I>sub-char</I> under <I>disp-char</I>, or <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A> if there is no function associated with <I>sub-char</I>. If <I>sub-char</I> is a decimal digit, <A REL=DEFINITION HREF="#get-dispatch-macro-character"><B>get-dispatch-macro-character</B></A> returns <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (get-dispatch-macro-character #\# #\{) =&gt;  NIL
+ (set-dispatch-macro-character #\# #\{        ;dispatch on #{
+    #'(lambda(s c n)
+        (let ((list (read s nil (values) t)))  ;list is object after #n{
+          (when (consp list)                   ;return nth element of list
+            (unless (and n (&lt; 0 n (length list))) (setq n 0))
+            (setq list (nth n list)))
+         list))) =&gt;  T
+ #{(1 2 3 4) =&gt;  1
+ #3{(0 1 2 3) =&gt;  3
+ #{123 =&gt;  123
+</PRE>
+</b> If it is desired that <b>#$</b><I>foo</I><b></b> : as if it were <b>(dollars </b><I>foo</I><b>)</b>. <P>
+<PRE>
+(defun |#$-reader| (stream subchar arg)
+   (declare (ignore subchar arg))
+   (list 'dollars (read stream t nil t))) =&gt;  |#$-reader|
+ (set-dispatch-macro-character #\# #\$ #'|#$-reader|) =&gt;  T
+</PRE>
+</b> <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<h2><A REL=CHILD HREF="02_add.htm">Section 2.1.4.4 (Macro Characters)</A> <P>
+<p><b>●副作用:</b><P>
+ <P>
+The <I>readtable</I> is modified. <P>
+<p><b>●受制于:</b><P>
+ <P>
+<A REL=DEFINITION HREF="v_rdtabl.htm#STreadtableST"><B>*readtable*</B></A>. <P>
+<p><b>●例外情况：</b><P>
+ <P>
+For either function, an error is signaled if <I>disp-char</I> is not a <A REL=DEFINITION HREF="26_glo_d.htm#dispatching_macro_character"><I>dispatching macro character</I></A> in <I>readtable</I>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="v_rdtabl.htm#STreadtableST"><B>*readtable*</B></A> <P>
+<p><b>●说明:</b><P>
+ It is necessary to use <A REL=DEFINITION HREF="f_mk_dis.htm#make-dispatch-macro-character"><B>make-dispatch-macro-character</B></A> to set up the dispatch character before specifying its sub-characters. <p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss184.htm">GET-MACRO-CHARACTER-READTABLE:NIL-STANDARD</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

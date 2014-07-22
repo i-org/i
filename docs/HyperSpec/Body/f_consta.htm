@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function CONSTANTP</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_specia.htm">
+<LINK REL=UP HREF="c_evalua.htm">
+<LINK REL=NEXT HREF="04_.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_specia.htm">◀</A><A REL=UP HREF="c_evalua.htm">▲</A><A REL=NEXT HREF="04_.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="constantp"><I>Function</I> <B>CONSTANTP</B></A> <P>
+  <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>constantp</B> <I>form <b>&amp;optional</b> environment</I> =&gt; <I>generalized-boolean</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>form</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. <P>
+<I>environment</I>---an <A REL=DEFINITION HREF="26_glo_e.htm#environment"><I>environment</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. The default is <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P>
+<I>generalized-boolean</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Returns <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> if <I>form</I> can be determined by the <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> to be a <A REL=DEFINITION HREF="26_glo_c.htm#constant_form"><I>constant form</I></A> in the indicated <I>environment</I>; otherwise, it returns <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A> indicating either that the <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> is not a <A REL=DEFINITION HREF="26_glo_c.htm#constant_form"><I>constant form</I></A> or that it cannot be determined whether or not <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> is a <A REL=DEFINITION HREF="26_glo_c.htm#constant_form"><I>constant form</I></A>. <P>
+The following kinds of <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A> are considered <A REL=DEFINITION HREF="26_glo_c.htm#constant_form"><I>constant forms</I></A>: <P><ul><li>*  <A REL=DEFINITION HREF="26_glo_s.htm#self-evaluating_object"><I>Self-evaluating objects</I></A> (such as <A REL=DEFINITION HREF="26_glo_n.htm#number"><I>numbers</I></A>, <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>characters</I></A>, and the various kinds of <A REL=DEFINITION HREF="26_glo_a.htm#array"><I>arrays</I></A>) are always considered <A REL=DEFINITION HREF="26_glo_c.htm#constant_form"><I>constant forms</I></A> and must be recognized as such by <A REL=DEFINITION HREF="#constantp"><B>constantp</B></A>. <P></li>
+<li>*  <A REL=DEFINITION HREF="26_glo_c.htm#constant_variable"><I>Constant variables</I></A>, such as <A REL=DEFINITION HREF="26_glo_k.htm#keyword"><I>keywords</I></A>, symbols defined by Common Lisp as constant (such as <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>, <A REL=DEFINITION HREF="a_t.htm#t"><B>t</B></A>, and <A REL=DEFINITION HREF="v_pi.htm#pi"><B>pi</B></A>), and symbols declared as constant by the user in the indicated <I>environment</I> using <A REL=DEFINITION HREF="m_defcon.htm#defconstant"><B>defconstant</B></A> are always considered <A REL=DEFINITION HREF="26_glo_c.htm#constant_form"><I>constant forms</I></A> and must be recognized as such by <A REL=DEFINITION HREF="#constantp"><B>constantp</B></A>. <P></li>
+<li>*  <A REL=DEFINITION HREF="s_quote.htm#quote"><B>quote</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A> are always considered <A REL=DEFINITION HREF="26_glo_c.htm#constant_form"><I>constant forms</I></A> and must be recognized as such by <A REL=DEFINITION HREF="#constantp"><B>constantp</B></A>. <P></li>
+<li>*  An <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> is permitted, but not required, to detect additional <A REL=DEFINITION HREF="26_glo_c.htm#constant_form"><I>constant forms</I></A>. If it does, it is also permitted, but not required, to make use of information in the <I>environment</I>. Examples of <A REL=DEFINITION HREF="26_glo_c.htm#constant_form"><I>constant forms</I></A> for which <A REL=DEFINITION HREF="#constantp"><B>constantp</B></A> might or might not return <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> are: <b>(sqrt pi)</b>, <b>(+ 3 2)</b>, <b>(length '(a b c))</b>, and <b>(let ((x 7)) (zerop x))</b>. <P></li></ul><P>
+If an <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> chooses to make use of the <I>environment</I> information, such actions as expanding <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macros</I></A> or performing function inlining are permitted to be used, but not required; however, expanding <A REL=DEFINITION HREF="26_glo_c.htm#compiler_macro"><I>compiler macros</I></A> is not permitted. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (constantp 1) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (constantp 'temp) =&gt;  <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+ (constantp ''temp)) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (defconstant this-is-a-constant 'never-changing) =&gt;  THIS-IS-A-CONSTANT 
+ (constantp 'this-is-a-constant) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (constantp &quot;temp&quot;) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (setq a 6) =&gt;  6 
+ (constantp a) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (constantp '(sin pi)) =&gt;  <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent">implementation-dependent</A>
+ (constantp '(car '(x))) =&gt;  <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent">implementation-dependent</A>
+ (constantp '(eql x x)) =&gt;  <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent">implementation-dependent</A>
+ (constantp '(typep x 'nil)) =&gt;  <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent">implementation-dependent</A>
+ (constantp '(typep x 't)) =&gt;  <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent">implementation-dependent</A>
+ (constantp '(values this-is-a-constant)) =&gt;  <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent">implementation-dependent</A>
+ (constantp '(values 'x 'y)) =&gt;  <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent">implementation-dependent</A>
+ (constantp '(let ((a '(a b c))) (+ (length a) 6))) =&gt;  <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent">implementation-dependent</A>
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于:</b><P>
+ <P>
+The state of the global environment (e.g., which <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> have been declared to be the <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>names</I></A> of <A REL=DEFINITION HREF="26_glo_c.htm#constant_variable"><I>constant variables</I></A>). <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_defcon.htm#defconstant"><B>defconstant</B></A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+  <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss085.htm">CONSTANTP-ENVIRONMENT:ADD-ARG</A><LI> <A REL=CHILD HREF="../Issues/iss084.htm">CONSTANTP-DEFINITION:INTENTIONAL</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

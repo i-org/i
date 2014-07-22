@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 22.3.6.2</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="22_cfa.htm">
+<LINK REL=UP HREF="22_cf.htm">
+<LINK REL=NEXT HREF="22_cfc.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="22_cfa.htm">◀</A><A REL=UP HREF="22_cf.htm">▲</A><A REL=NEXT HREF="22_cfc.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+22.3.6.2 Tilde Less-Than-Sign: Justification</H2>   <P>
+<b>~</b><I>mincol</I><b>,</b><I>colinc</I><b>,</b><I>minpad</I><b>,</b><I>padchar</I><b>&lt;</b><I>str</I><b>~&gt;</b> <P>
+This justifies the text produced by processing <I>str</I> within a field at least <I>mincol</I> columns wide. <I>str</I> may be divided up into segments with <b>~;</b>, in which case the spacing is evenly divided between the text segments. <P>
+With no modifiers, the leftmost text segment is left justified in the field, and the rightmost text segment is right justified. If there is only one text element, as a special case, it is right justified. The <b>:</b> modifier causes spacing to be introduced before the first text segment; the <b>@</b> modifier causes spacing to be added after the last. The <I>minpad</I> parameter (default <b>0</b>) is the minimum number of padding characters to be output between each segment. The padding character is supplied by <I>padchar</I>, which defaults to the space character. If the total width needed to satisfy these constraints is greater than <I>mincol</I>, then the width used is <I>mincol</I>+<I>k</I>*<I>colinc</I> for the smallest possible non-negative integer value <I>k</I>. <I>colinc</I> defaults to <b>1</b>, and <I>mincol</I> defaults to <b>0</b>. <P>
+Note that <I>str</I> may include <A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A> directives. All the clauses in <I>str</I> are processed in order; it is the resulting pieces of text that are justified. <P>
+The <b>~^</b> directive may be used to terminate processing of the clauses prematurely, in which case only the completely processed clauses are justified. <P>
+If the first clause of a <b>~&lt;</b> is terminated with <b>~:;</b> instead of <b>~;</b>, then it is used in a special way. All of the clauses are processed (subject to <b>~^</b>, of course), but the first one is not used in performing the spacing and padding. When the padded result has been determined, then if it will fit on the current line of output, it is output, and the text for the first clause is discarded. If, however, the padded text will not fit on the current line, then the text segment for the first clause is output before the padded text. The first clause ought to contain a newline (such as a <b>~%</b> directive). The first clause is always processed, and so any arguments it refers to will be used; the decision is whether to use the resulting segment of text, not whether to process the first clause. If the <b>~:;</b> has a prefix parameter <I>n</I>, then the padded text must fit on the current line with <I>n</I> character positions to spare to avoid outputting the first clause's text. For example, the control string <P>
+<PRE>
+ &quot;~%;; ~{ ~&lt;~%;; ~1:; ~S~&gt;~^ ,~} .~%&quot;
+</PRE>
+</b> <P>
+can be used to print a list of items separated by commas without breaking items over line boundaries, beginning each line with <b>;; </b>. The prefix parameter <b>1</b> in <b>~1:;</b> accounts for the width of the comma that will follow the justified item if it is not the last element in the list, or the period if it is. If <b>~:;</b> has a second prefix parameter, then it is used as the width of the line, thus overriding the natural line width of the output stream. To make the preceding example use a line width of 50, one would write <P>
+<PRE>
+ &quot;~%;; ~{ ~&lt;~%;; ~1,50:; ~S~&gt;~^ ,~}  .~%&quot;
+</PRE>
+</b> If the second argument is not supplied, then <A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A> uses the line width of the <I>destination</I> output stream. If this cannot be determined (for example, when producing a <A REL=DEFINITION HREF="26_glo_s.htm#string"><I>string</I></A> result), then <A REL=DEFINITION HREF="f_format.htm#format"><B>format</B></A> uses <b>72</b> as the line length. <P>
+See also <h2><A REL=CHILD HREF="22_ceb.htm">Section 22.3.5.2 (Tilde Less-Than-Sign: Logical Block)</A>. <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

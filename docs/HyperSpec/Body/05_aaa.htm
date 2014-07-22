@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 5.1.1.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="05_aa.htm">
+<LINK REL=UP HREF="05_aa.htm">
+<LINK REL=NEXT HREF="05_aaaa.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="05_aa.htm">◀</A><A REL=UP HREF="05_aa.htm">▲</A><A REL=NEXT HREF="05_aaaa.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+5.1.1.1 Evaluation of Subforms to Places</H2>  <P>
+The following rules apply to the <A REL=DEFINITION HREF="26_glo_e.htm#evaluation"><I>evaluation</I></A> of <A REL=DEFINITION HREF="26_glo_s.htm#subform"><I>subforms</I></A> in a <A REL=DEFINITION HREF="26_glo_p.htm#place"><I>place</I></A>: <P>
+<P><ul><li>1.  The evaluation ordering of <A REL=DEFINITION HREF="26_glo_s.htm#subform"><I>subforms</I></A> within a <A REL=DEFINITION HREF="26_glo_p.htm#place"><I>place</I></A> is determined by the order specified by the second value returned by  <A REL=DEFINITION HREF="f_get_se.htm#get-setf-expansion"><B>get-setf-expansion</B></A>.  For all <A REL=DEFINITION HREF="26_glo_p.htm#place"><I>places</I></A> defined by this specification (e.g., <A REL=DEFINITION HREF="f_getf.htm#getf"><B>getf</B></A>, <A REL=DEFINITION HREF="f_ldb.htm#ldb"><B>ldb</B></A>, ...), this order of evaluation is left-to-right. When a <A REL=DEFINITION HREF="26_glo_p.htm#place"><I>place</I></A> is derived from a macro expansion, this rule is applied after the macro is expanded to find the appropriate <A REL=DEFINITION HREF="26_glo_p.htm#place"><I>place</I></A>. <P></li>
+<A REL=DEFINITION HREF="26_glo_p.htm#place"><I>Places</I></A> defined by using <A REL=DEFINITION HREF="m_defmac.htm#defmacro"><B>defmacro</B></A> or  <A REL=DEFINITION HREF="m_defi_3.htm#define-setf-expander"><B>define-setf-expander</B></A>  use the evaluation order defined by those definitions. For example, consider the following: <P>
+<PRE>
+ (defmacro wrong-order (x y) `(getf ,y ,x))
+</PRE>
+</b> <P>
+This following <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A> evaluates <b>place2</b> first and then <b>place1</b> because that is the order they are evaluated in the macro expansion: <P>
+<PRE>
+ (push value (wrong-order place1 place2))
+</PRE>
+</b> <P>
+<li>2.   For the <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macros</I></A> that manipulate <A REL=DEFINITION HREF="26_glo_p.htm#place"><I>places</I></A> (<A REL=DEFINITION HREF="m_push.htm#push"><B>push</B></A>, <A REL=DEFINITION HREF="m_pshnew.htm#pushnew"><B>pushnew</B></A>, <A REL=DEFINITION HREF="m_remf.htm#remf"><B>remf</B></A>, <A REL=DEFINITION HREF="m_incf_.htm#incf"><B>incf</B></A>, <A REL=DEFINITION HREF="m_incf_.htm#decf"><B>decf</B></A>, <A REL=DEFINITION HREF="m_shiftf.htm#shiftf"><B>shiftf</B></A>, <A REL=DEFINITION HREF="m_rotate.htm#rotatef"><B>rotatef</B></A>, <A REL=DEFINITION HREF="m_setf_.htm#psetf"><B>psetf</B></A>, <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A>, <A REL=DEFINITION HREF="m_pop.htm#pop"><B>pop</B></A>, and those defined by <A REL=DEFINITION HREF="m_defi_2.htm#define-modify-macro"><B>define-modify-macro</B></A>) the <A REL=DEFINITION HREF="26_glo_s.htm#subform"><I>subforms</I></A> of the macro call are evaluated exactly once in left-to-right order, with the <A REL=DEFINITION HREF="26_glo_s.htm#subform"><I>subforms</I></A> of the <A REL=DEFINITION HREF="26_glo_p.htm#place"><I>places</I></A> evaluated in the order specified in (1).  <P></li>
+<A REL=DEFINITION HREF="m_push.htm#push"><B>push</B></A>, <A REL=DEFINITION HREF="m_pshnew.htm#pushnew"><B>pushnew</B></A>, <A REL=DEFINITION HREF="m_remf.htm#remf"><B>remf</B></A>, <A REL=DEFINITION HREF="m_incf_.htm#incf"><B>incf</B></A>, <A REL=DEFINITION HREF="m_incf_.htm#decf"><B>decf</B></A>, <A REL=DEFINITION HREF="m_shiftf.htm#shiftf"><B>shiftf</B></A>, <A REL=DEFINITION HREF="m_rotate.htm#rotatef"><B>rotatef</B></A>, <A REL=DEFINITION HREF="m_setf_.htm#psetf"><B>psetf</B></A>, <A REL=DEFINITION HREF="m_pop.htm#pop"><B>pop</B></A> evaluate all <A REL=DEFINITION HREF="26_glo_s.htm#subform"><I>subforms</I></A> before modifying any of the <A REL=DEFINITION HREF="26_glo_p.htm#place"><I>place</I></A> locations. <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A> (in the case when <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A> has more than two arguments) performs its operation on each pair in sequence. For example, in <P>
+<PRE>
+ (setf place1 value1 place2 value2 ...)
+</PRE>
+</b> the <A REL=DEFINITION HREF="26_glo_s.htm#subform"><I>subforms</I></A> of <b>place1</b> and <b>value1</b> are evaluated, the location specified by <b>place1</b> is modified to contain the value returned by <b>value1</b>, and then the rest of the <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A> form is processed in a like manner. <P>
+<li>3.  For <A REL=DEFINITION HREF="m_check_.htm#check-type"><B>check-type</B></A>, <A REL=DEFINITION HREF="m_tpcase.htm#ctypecase"><B>ctypecase</B></A>, and <A REL=DEFINITION HREF="m_case_.htm#ccase"><B>ccase</B></A>, <A REL=DEFINITION HREF="26_glo_s.htm#subform"><I>subforms</I></A> of the <A REL=DEFINITION HREF="26_glo_p.htm#place"><I>place</I></A> are evaluated once as in (1), but might be evaluated again if the type check fails in the case of <A REL=DEFINITION HREF="m_check_.htm#check-type"><B>check-type</B></A> or none of the cases hold in <A REL=DEFINITION HREF="m_tpcase.htm#ctypecase"><B>ctypecase</B></A> and <A REL=DEFINITION HREF="m_case_.htm#ccase"><B>ccase</B></A>. <P></li>
+<li>4.  For <A REL=DEFINITION HREF="m_assert.htm#assert"><B>assert</B></A>, the order of evaluation of the generalized references is not specified. <P></li>
+<P></ul>Rules 2, 3 and 4 cover all <A REL=DEFINITION HREF="26_glo_s.htm#standardized"><I>standardized</I></A> <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macros</I></A> that manipulate <A REL=DEFINITION HREF="26_glo_p.htm#place"><I>places</I></A>. <P>
+
+ 
+<h2><A REL=CHILD HREF="05_aaaa.htm">
+5.1.1.1.1 Examples of Evaluation of Subforms to Places</a></h2><p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss205.htm">JUN90-TRIVIAL-ISSUES:4</A><LI> <A REL=CHILD HREF="../Issues/iss308.htm">SETF-METHOD-VS-SETF-METHOD:RENAME-OLD-TERMS</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

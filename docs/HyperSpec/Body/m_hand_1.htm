@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Macro HANDLER-CASE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="m_handle.htm">
+<LINK REL=UP HREF="c_condit.htm">
+<LINK REL=NEXT HREF="m_ignore.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="m_handle.htm">◀</A><A REL=UP HREF="c_condit.htm">▲</A><A REL=NEXT HREF="m_ignore.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="handler-case"><I>Macro</I> <B>HANDLER-CASE</B></A> <P>
+ <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>handler-case</B> <I><I>expression</I> [[{<I>error-clause</I>}<B>*</B> | <I>no-error-clause</I>]]</I> =&gt; <I><I>result</I><B>*</B></I><P>
+ <P>
+<PRE>
+clause::= error-clause | no-error-clause 
+</PRE>
+ <PRE>
+error-clause::= (typespec ([var]) declaration* form*) 
+</PRE>
+ <PRE>
+no-error-clause::= (:no-error lambda-list declaration* form*) 
+</PRE>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>expression</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. <P>
+<I>typespec</I>---a <A REL=DEFINITION HREF="26_glo_t.htm#type_specifier"><I>type specifier</I></A>. <P>
+<I>var</I>---a <A REL=DEFINITION HREF="26_glo_v.htm#variable"><I>variable</I></A> <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>name</I></A>. <P>
+<I>lambda-list</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#ordinary_lambda_list"><I>ordinary lambda list</I></A>. <P>
+<I>declaration</I>---a <A REL=DEFINITION HREF="s_declar.htm#declare"><B>declare</B></A> <A REL=DEFINITION HREF="26_glo_e.htm#expression"><I>expression</I></A>; not evaluated. <P>
+<I>form</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. <P>
+<I>results</I>---In the normal situation, the values returned are those that result from the evaluation of <I>expression</I>; in the exceptional situation when control is transferred to a <I>clause</I>, the value of the last <I>form</I> in that <I>clause</I> is returned. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#handler-case"><B>handler-case</B></A> executes <I>expression</I> in a <A REL=DEFINITION HREF="26_glo_d.htm#dynamic_environment"><I>dynamic environment</I></A> where various handlers are active. Each <I>error-clause</I> specifies how to handle a <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> matching the indicated <I>typespec</I>. A <I>no-error-clause</I> allows the specification of a particular action if control returns normally. <P>
+If a <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> is signaled for which there is an appropriate <I>error-clause</I> during the execution of <I>expression</I> (i.e., one for which <b>(typep <A REL=DEFINITION HREF="26_glo_c.htm#condition"></b><I>condition</I><b></A> '</b><I>typespec</I><b>)</b> returns <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A>) and if there is no intervening handler for a <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> of that <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A>, then control is transferred to the body of the relevant <I>error-clause</I>. In this case, the dynamic state is unwound appropriately (so that the handlers established around the <I>expression</I> are no longer active), and <I>var</I> is bound to the <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> that had been signaled. If more than one case is provided, those cases are made accessible in parallel. That is, in <P>
+<PRE>
+  (handler-case form
+    (typespec1 (var1) form1)
+    (typespec2 (var2) form2))
+</PRE>
+</b> <P>
+if the first <I>clause</I> (containing <I>form1</I>) has been selected, the handler for the second is no longer visible (or vice versa). <P>
+ The <I>clauses</I> are searched sequentially from top to bottom. If there is <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> overlap between <I>typespecs</I>, the earlier of the <I>clauses</I> is selected. <P>
+ If <I>var</I> is not needed, it can be omitted. That is, a <I>clause</I> such as: <P>
+<PRE>
+  (typespec (var) (declare (ignore var)) form)
+</PRE>
+</b> <P>
+can be written <b>(</b><I>typespec</I><b> () </b><I>form</I><b>)</b>. <P>
+ If there are no <I>forms</I> in a selected <I>clause</I>, the case, and therefore <A REL=DEFINITION HREF="#handler-case"><B>handler-case</B></A>, returns <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. If execution of <I>expression</I> returns normally and no <I>no-error-clause</I> exists, the values returned by <I>expression</I> are returned by <A REL=DEFINITION HREF="#handler-case"><B>handler-case</B></A>. If execution of <I>expression</I> returns normally and a <I>no-error-clause</I> does exist, the values returned are used as arguments to the function described by constructing <b>(lambda </b><I>lambda-list</I><b> </b><I>form</I><b></b><B>*</B><b>)</b> from the <I>no-error-clause</I>, and the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>values</I></A> of that function call are returned by <A REL=DEFINITION HREF="#handler-case"><B>handler-case</B></A>. The handlers which were established around the <I>expression</I> are no longer active at the time of this call. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (defun assess-condition (condition)
+   (handler-case (signal condition)
+     (warning () &quot;Lots of smoke, but no fire.&quot;)
+     ((or arithmetic-error control-error cell-error stream-error)
+        (condition)
+       (format nil &quot;~S looks especially bad.&quot; condition))
+     (serious-condition (condition)
+       (format nil &quot;~S looks serious.&quot; condition))
+     (condition () &quot;Hardly worth mentioning.&quot;)))
+=&gt;  ASSESS-CONDITION
+ (assess-condition (make-condition 'stream-error :stream *terminal-io*))
+=&gt;  &quot;#&lt;STREAM-ERROR 12352256&gt; looks especially bad.&quot;
+ (define-condition random-condition (condition) () 
+   (:report (lambda (condition stream)
+              (declare (ignore condition))
+              (princ &quot;Yow&quot; stream))))
+=&gt;  RANDOM-CONDITION
+ (assess-condition (make-condition 'random-condition))
+=&gt;  &quot;Hardly worth mentioning.&quot;
+</PRE>
+</b> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_handle.htm#handler-bind"><B>handler-bind</B></A>, <A REL=DEFINITION HREF="m_ignore.htm#ignore-errors"><B>ignore-errors</B></A>, <A REL=CHILD HREF="09_a.htm">Section 9.1 (Condition System Concepts)</A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<PRE>
+ (handler-case form
+   (type1 (var1) . body1)
+   (type2 (var2) . body2) ...)
+</PRE>
+</b> is approximately equivalent to: <P>
+<PRE>
+ (block #1=#:g0001
+   (let ((#2=#:g0002 nil))
+     (tagbody
+       (handler-bind ((type1 #'(lambda (temp)
+                                       (setq #1# temp)
+                                       (go #3=#:g0003)))
+                      (type2 #'(lambda (temp)
+                                       (setq #2# temp)
+                                       (go #4=#:g0004))) ...)
+       (return-from #1# form))
+         #3# (return-from #1# (let ((var1 #2#)) . body1))
+         #4# (return-from #1# (let ((var2 #2#)) . body2)) ...)))
+</PRE>
+</b> <P>
+<PRE>
+ (handler-case form
+   (type1 (var1) . body1)
+   ...
+   (:no-error (varN-1 varN-2 ...) . bodyN))
+</PRE>
+</b> is approximately equivalent to: <P>
+<PRE>
+
+ (block #1=#:error-return
+  (multiple-value-call #'(lambda (varN-1 varN-2 ...) . bodyN)
+     (block #2=#:normal-return
+       (return-from #1#
+         (handler-case (return-from #2# form)
+           (type1 (var1) . body1) ...)))))
+</PRE>
+</b> <P>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss097.htm">DECLS-AND-DOC</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

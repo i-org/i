@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Standard Generic Function INITIALIZE-INSTANCE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_add_me.htm">
+<LINK REL=UP HREF="c_object.htm">
+<LINK REL=NEXT HREF="f_class_.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_add_me.htm">◀</A><A REL=UP HREF="c_object.htm">▲</A><A REL=NEXT HREF="f_class_.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="initialize-instance"><I>Standard Generic Function</I> <B>INITIALIZE-INSTANCE</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+ 
+<B>initialize-instance</B> <I>instance <b>&amp;rest</b> initargs <b>&amp;key</b> <b>&amp;allow-other-keys</b></I> =&gt; <I>instance</I><P>
+  <P>
+<P><B>Method Signatures:</B><P>
+ <P>
+
+<B>initialize-instance</B> <I>(<I>instance</I><B> <A REL=DEFINITION HREF="t_std_ob.htm#standard-object">standard-object</A></B>) <b>&amp;rest</b> initargs</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>instance</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<I>initargs</I>---a <A REL=DEFINITION HREF="26_glo_d.htm#defaulted_initialization_argument_list"><I>defaulted initialization argument list</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Called by <A REL=DEFINITION HREF="f_mk_ins.htm#make-instance"><B>make-instance</B></A> to initialize a newly created <A REL=DEFINITION HREF="26_glo_i.htm#instance"><I>instance</I></A>. The generic function is called with the new <I>instance</I> and the <A REL=DEFINITION HREF="26_glo_d.htm#defaulted_initialization_argument_list"><I>defaulted initialization argument list</I></A>. <P>
+The system-supplied primary <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> on <A REL=DEFINITION HREF="#initialize-instance"><B>initialize-instance</B></A> initializes the <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A> of the <I>instance</I> with values according to the <I>initargs</I> and the <b>:initform</b> forms of the <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A>. It does this by calling the generic function <A REL=DEFINITION HREF="f_shared.htm#shared-initialize"><B>shared-initialize</B></A> with the following arguments: the <I>instance</I>, <A REL=DEFINITION HREF="a_t.htm#t"><B>t</B></A> (this indicates that all <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A> for which no initialization arguments are provided should be initialized according to their <b>:initform</b> forms), and the <I>initargs</I>. <P>
+Programmers can define <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>methods</I></A> for <A REL=DEFINITION HREF="#initialize-instance"><B>initialize-instance</B></A> to specify actions to be taken when an instance is initialized. If only <A REL=DEFINITION HREF="26_glo_a.htm#after_method"><I>after methods</I></A> are defined, they will be run after the system-supplied primary <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> for initialization and therefore will not interfere with the default behavior of <A REL=DEFINITION HREF="#initialize-instance"><B>initialize-instance</B></A>. <P>
+<p><b>●例子:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_shared.htm#shared-initialize"><B>shared-initialize</B></A>, <A REL=DEFINITION HREF="f_mk_ins.htm#make-instance"><B>make-instance</B></A>, <A REL=DEFINITION HREF="f_slt_bo.htm#slot-boundp"><B>slot-boundp</B></A>, <A REL=DEFINITION HREF="f_slt_ma.htm#slot-makunbound"><B>slot-makunbound</B></A>, <A REL=CHILD HREF="07_a.htm">Section 7.1 (Object Creation and Initialization)</A>, <A REL=CHILD HREF="07_ad.htm">Section 7.1.4 (Rules for Initialization Arguments)</A>, <A REL=CHILD HREF="07_ab.htm">Section 7.1.2 (Declaring the Validity of Initialization Arguments)</A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss197.htm">INITIALIZATION-FUNCTION-KEYWORD-CHECKING</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

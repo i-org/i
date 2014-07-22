@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 23.1.2</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="23_aa.htm">
+<LINK REL=UP HREF="23_a.htm">
+<LINK REL=NEXT HREF="23_aba.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="23_aa.htm">◀</A><A REL=UP HREF="23_a.htm">▲</A><A REL=NEXT HREF="23_aba.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+23.1.2 Effect of Readtable Case on the Lisp Reader</H2>  <P>
+The <A REL=DEFINITION HREF="26_glo_r.htm#readtable_case"><I>readtable case</I></A> of the <A REL=DEFINITION HREF="26_glo_c.htm#current_readtable"><I>current readtable</I></A> affects the <A REL=DEFINITION HREF="26_glo_l.htm#lisp_reader"><I>Lisp reader</I></A> in the following ways: <P>
+<P><ul><li><b>:upcase</b>  <P></li>
+ When the <A REL=DEFINITION HREF="26_glo_r.htm#readtable_case"><I>readtable case</I></A> is <b>:upcase</b>, unescaped constituent <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>characters</I></A> are converted to <A REL=DEFINITION HREF="26_glo_u.htm#uppercase"><I>uppercase</I></A>, as specified in <A REL HREF="02_b.htm">Section 2.2 (Reader Algorithm)</A>. <P>
+<li><b>:downcase</b>  <P></li>
+ When the <A REL=DEFINITION HREF="26_glo_r.htm#readtable_case"><I>readtable case</I></A> is <b>:downcase</b>, unescaped constituent <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>characters</I></A> are converted to <A REL=DEFINITION HREF="26_glo_l.htm#lowercase"><I>lowercase</I></A>. <P>
+<li><b>:preserve</b>  <P></li>
+When the <A REL=DEFINITION HREF="26_glo_r.htm#readtable_case"><I>readtable case</I></A> is <b>:preserve</b>, the case of all <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>characters</I></A> remains unchanged. <P>
+<li><b>:invert</b>  <P></li>
+When the <A REL=DEFINITION HREF="26_glo_r.htm#readtable_case"><I>readtable case</I></A> is <b>:invert</b>, then if all of the unescaped letters in the extended token are of the same <A REL=DEFINITION HREF="26_glo_c.htm#case"><I>case</I></A>, those (unescaped) letters are converted to the opposite <A REL=DEFINITION HREF="26_glo_c.htm#case"><I>case</I></A>. <P>
+<P></ul><P>
+
+ 
+<h2><A REL=CHILD HREF="23_aba.htm">
+23.1.2.1 Examples of Effect of Readtable Case on the Lisp Reader</a></h2><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

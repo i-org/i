@@ -1,8 +1,0 @@
----
-layout: none
----
-User-agent: *
-Disallow: /static/
-Disallow: /themes/
-
-Sitemap: {{ site.url }}/sitemap.xml

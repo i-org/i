@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function ZEROP</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_minusp.htm">
+<LINK REL=UP HREF="c_number.htm">
+<LINK REL=NEXT HREF="f_floorc.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_minusp.htm">◀</A><A REL=UP HREF="c_number.htm">▲</A><A REL=NEXT HREF="f_floorc.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="zerop"><I>Function</I> <B>ZEROP</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>zerop</B> <I>number</I> =&gt; <I>generalized-boolean</I><P>
+ <P>
+<p><b>●发音：</b><P>
+ <P>
+['zee(,)roh(,)pee] <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>number</I>---a <A REL=DEFINITION HREF="26_glo_n.htm#number"><I>number</I></A>. <P>
+<I>generalized-boolean</I>---a <A REL=DEFINITION HREF="26_glo_g.htm#generalized_boolean"><I>generalized boolean</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Returns <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A> if <I>number</I> is zero (<A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>, <A REL=DEFINITION HREF="26_glo_f.htm#float"><I>float</I></A>, or <A REL=DEFINITION HREF="26_glo_c.htm#complex"><I>complex</I></A>); otherwise, returns <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A>. <P>
+Regardless of whether an <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> provides distinct representations for positive and negative floating-point zeros, <b>(zerop -0.0)</b> always returns <A REL=DEFINITION HREF="26_glo_t.htm#true"><I>true</I></A>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (zerop 0) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (zerop 1) =&gt;  <A REL=DEFINITION HREF="26_glo_f.htm#false">false</A>
+ (zerop -0.0) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (zerop 0/100) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (zerop #c(0 0.0)) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+Should signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if <I>number</I> is not a <A REL=DEFINITION HREF="26_glo_n.htm#number"><I>number</I></A>. <P>
+<p><b>●更多信息:</b> None.
+ <P>
+<p><b>●说明:</b><P>
+ <P>
+<PRE>
+ (zerop number) ==  (= number 0)
+</PRE>
+</b> <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Issue TAGBODY-TAG-EXPANSION Writeup</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="../Issues/iss342_w.htm">
+<LINK REL=UP HREF="../Issues/iss343.htm">
+<LINK REL=NEXT HREF="../Issues/iss344_w.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="../Issues/iss342_w.htm">◀</A><A REL=UP HREF="../Issues/iss343.htm">▲</A><A REL=NEXT HREF="../Issues/iss344_w.htm">▶</A></h1>
+
+<HR>
+
+
+
+<H2>Issue TAGBODY-TAG-EXPANSION Writeup</H2>
+
+<PRE><B>Issue:</B>             <A HREF="iss343.htm">TAGBODY-TAG-EXPANSION</A><P>
+<B>References:</B>        <A REL=DEFINITION HREF="../Body/s_tagbod.htm#tagbody"><B>TAGBODY</B></A> (CLtL-II p 173-175)<P>
+<B>Related issues:<P>
+</B><B>Category:</B>          CLARIFICATION<P>
+<B>Edit history:</B>      v1, 27 Feb 91, Sandra Loosemore<P>
+                   v2, 11 Mar 91, Sandra Loosemore (update discussion)<P>
+                   v3, 14 Mar 91, Sandra Loosemore (fix bug in example)<P>
+<B>Status:</B>            v3 (proposal NO) accepted by X3J13, Mar 1991<P>
+<P>
+<B>Problem description:<P>
+</B><P>
+  It's not clear whether items in the body of a <A REL=DEFINITION HREF="../Body/s_tagbod.htm#tagbody"><B>TAGBODY</B></A> are <P>
+  macroexpanded before determining whether they are &quot;tags&quot; or<P>
+  &quot;statements&quot;.  The (original) text on p. 173 of CLtL-II seems to <P>
+  imply that they are not, but the (new) commentary on p. 175 <P>
+  hints that some implementations might expand macros.  This ambiguity<P>
+  can lead to different behavior in different implementations.<P>
+<P>
+<B>Proposal (TAGBODY-TAG-EXPANSION:NO):<P>
+</B><P>
+  Clarify items in the body of a <A REL=DEFINITION HREF="../Body/s_tagbod.htm#tagbody"><B>TAGBODY</B></A> are not macroexpanded in <P>
+  determining whether they are &quot;tags&quot; or &quot;statements&quot;.  <P>
+<P>
+<B>Examples:<P>
+</B><P>
+  #1: (<A REL=DEFINITION HREF="../Body/s_flet_.htm#macrolet"><B>macrolet</B></A> ((foo-macro () 'foo))<P>
+        (<A REL=DEFINITION HREF="../Body/s_let_l.htm#let"><B>let</B></A> ((<A REL=DEFINITION HREF="../Body/f_countc.htm#count"><B>count</B></A> 0) (foo <A REL=DEFINITION HREF="../Body/a_nil.htm#nil"><B>nil</B></A>))<P>
+          (<A REL=DEFINITION HREF="../Body/s_tagbod.htm#tagbody"><B>tagbody</B></A><P>
+            (foo-macro)<P>
+            (<A REL=DEFINITION HREF="../Body/m_when_.htm#when"><B>when</B></A> (&lt; <A REL=DEFINITION HREF="../Body/f_countc.htm#count"><B>count</B></A> 5) (<A REL=DEFINITION HREF="../Body/m_incf_.htm#incf"><B>incf</B></A> <A REL=DEFINITION HREF="../Body/f_countc.htm#count"><B>count</B></A>) (<A REL=DEFINITION HREF="../Body/s_go.htm#go"><B>go</B></A> foo)))))<P>
+<P>
+      This example is in error because (FOO-MACRO) is treated as a &quot;statement&quot; <P>
+      rather than as a &quot;tag&quot;.  Therefore there is no tag FOO as a target<P>
+      of the <A REL=DEFINITION HREF="../Body/s_go.htm#go"><B>GO</B></A>.<P>
+<P>
+  #2: (<A REL=DEFINITION HREF="../Body/s_symbol.htm#symbol-macrolet"><B>symbol-macrolet</B></A> ((foo  (print 'loses)))<P>
+        (<A REL=DEFINITION HREF="../Body/s_let_l.htm#let"><B>let</B></A> ((<A REL=DEFINITION HREF="../Body/f_countc.htm#count"><B>count</B></A> 0))<P>
+          (<A REL=DEFINITION HREF="../Body/s_tagbod.htm#tagbody"><B>tagbody</B></A><P>
+            foo<P>
+            (<A REL=DEFINITION HREF="../Body/m_when_.htm#when"><B>when</B></A> (&lt; <A REL=DEFINITION HREF="../Body/f_countc.htm#count"><B>count</B></A> 5) (<A REL=DEFINITION HREF="../Body/m_incf_.htm#incf"><B>incf</B></A> <A REL=DEFINITION HREF="../Body/f_countc.htm#count"><B>count</B></A>) (<A REL=DEFINITION HREF="../Body/s_go.htm#go"><B>go</B></A> foo)))))<P>
+<P>
+      This example returns <A REL=DEFINITION HREF="../Body/a_nil.htm#nil"><B>NIL</B></A> without printing anything, because FOO is<P>
+      treated as a &quot;tag&quot; rather than as a &quot;statement&quot;.<P>
+<P>
+<B>Rationale:<P>
+</B><P>
+  This seems to be consistent with current practice.<P>
+<P>
+<B>Current Practice:<P>
+</B><P>
+  Lucid CL version 4.0, Allegro CL version 3.1, Chestnut's Lisp-to-C<P>
+  translator, and Symbolics Genera all signal an error for test case #1.<P>
+<P>
+<B>Cost to Implementors:<P>
+</B><P>
+  Small.<P>
+<P>
+<B>Cost to Users:<P>
+</B><P>
+  Probably the only <A REL=DEFINITION HREF="../Body/t_class.htm#class"><B>class</B></A> of programs that would be affected are <P>
+  codewalkers.  Codewalkers that produce code in which macro calls are <P>
+  replaced with macro expansions need to be careful that things that<P>
+  are initially parsed as <A REL=DEFINITION HREF="../Body/s_tagbod.htm#tagbody"><B>tagbody</B></A> &quot;statements&quot; still appear to be <P>
+  &quot;statements&quot; in the output of the codewalker.<P>
+<P>
+<B>Cost of non-adoption:<P>
+</B><P>
+  Unnecessary confusion in the language <A REL=DEFINITION HREF="../Body/07_ffb.htm#standard"><B>standard</B></A>.  Implementations might<P>
+  differ for no good reason.  Without an explicit clarification, people<P>
+  writing codewalkers might not realize that this is something they need<P>
+  to watch out for.<P>
+<P>
+<B>Performance impact:<P>
+</B><P>
+  Probably none.<P>
+<P>
+<B>Benefits:<P>
+</B><P>
+  The cost of non-adoption is avoided.<P>
+<P>
+<B>Esthetics:<P>
+</B><P>
+  I think the alternatives are worse.<P>
+  <P>
+<B>Discussion:<P>
+</B><P>
+  This issue doesn't address the questions of whether duplicate tags are<P>
+  permitted or whether items that are not symbols, integers, or lists are<P>
+  permitted.  It is probably acceptable to leave these unspecified in<P>
+  the <A REL=DEFINITION HREF="../Body/07_ffb.htm#standard"><B>standard</B></A> on the assumption that syntax that isn't explicitly <P>
+  documented as being meaningful, isn't.  <P>
+<P>
+  Kent Pitman says:<P>
+<P>
+    Ugh.  Yes, please count me as a supporter of <A HREF="iss343.htm">TAGBODY-TAG-EXPANSION:NO</A>.<P>
+<P>
+  Barry Margolin says:<P>
+<P>
+    I've always been satisfied to treat this as implicitly vague, and I<P>
+    tell people to make sure their macros expand into a <A REL=DEFINITION HREF="../Body/s_progn.htm#progn"><B>PROGN</B></A> form if they<P>
+    want to be able to expand into an atom (e.g. expand into (<A REL=DEFINITION HREF="../Body/s_progn.htm#progn"><B>PROGN</B></A>)<P>
+    rather than <A REL=DEFINITION HREF="../Body/a_nil.htm#nil"><B>NIL</B></A> to do nothing).<P>
+<P>
+  Loosemore notes:<P>
+<P>
+    I think the idea of forcing *every* user-defined macro to deal with <P>
+    this lossage is pretty disgusting.  The &quot;right&quot; place to deal with<P>
+    this is in the code-walkers that do the parsing of <A REL=DEFINITION HREF="../Body/s_tagbod.htm#tagbody"><B>TAGBODY</B></A> forms.<P>
+</PRE>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

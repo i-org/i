@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 3.5.1.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="03_ea.htm">
+<LINK REL=UP HREF="03_ea.htm">
+<LINK REL=NEXT HREF="03_eaaa.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="03_ea.htm">◀</A><A REL=UP HREF="03_ea.htm">▲</A><A REL=NEXT HREF="03_eaaa.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+3.5.1.1 Safe and Unsafe Calls</H2>  <P>
+A <A REL=DEFINITION HREF="26_glo_c.htm#call"><I>call</I></A> is a <A REL=DEFINITION HREF="26_glo_s.htm#safe_call"><I>safe call</I></A> if each of the following is either <A REL=DEFINITION HREF="26_glo_s.htm#safe"><I>safe</I></A> <A REL=DEFINITION HREF="26_glo_c.htm#code"><I>code</I></A> or <A REL=DEFINITION HREF="26_glo_s.htm#system_code"><I>system code</I></A> (other than <A REL=DEFINITION HREF="26_glo_s.htm#system_code"><I>system code</I></A> that results from <A REL=DEFINITION HREF="26_glo_m.htm#macro_expansion"><I>macro expansion</I></A> of <A REL=DEFINITION HREF="26_glo_p.htm#programmer_code"><I>programmer code</I></A>): <P><ul><li>*  the <A REL=DEFINITION HREF="26_glo_c.htm#call"><I>call</I></A>. </li><li>*  the definition of the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> being <I>called</I>. </li><li>*  the point of <A REL=DEFINITION HREF="26_glo_f.htm#functional_evaluation"><I>functional evaluation</I></A> <P></li></ul><P>
+The following special cases require some elaboration: <P>
+<P><ul><li>*  If the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> being called is a <A REL=DEFINITION HREF="26_glo_g.htm#generic_function"><I>generic function</I></A>, it is considered <A REL=DEFINITION HREF="26_glo_s.htm#safe"><I>safe</I></A> if all of the following are  <A REL=DEFINITION HREF="26_glo_s.htm#safe"><I>safe</I></A> <A REL=DEFINITION HREF="26_glo_c.htm#code"><I>code</I></A> or <A REL=DEFINITION HREF="26_glo_s.htm#system_code"><I>system code</I></A>:  <P></li>
+<P><ul><li>--  its definition (if it was defined explicitly). </li><li>--  the <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> definitions for all <A REL=DEFINITION HREF="26_glo_a.htm#applicable"><I>applicable</I></A> <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>methods</I></A>. </li><li>--  the definition of its <A REL=DEFINITION HREF="26_glo_m.htm#method_combination"><I>method combination</I></A>. <P></li></ul><P>
+<li>*  For the form <b>(coerce </b><I>x</I><b> 'function)</b>, where <I>x</I> is a <A REL=DEFINITION HREF="26_glo_l.htm#lambda_expression"><I>lambda expression</I></A>, the value of the <A REL=DEFINITION HREF="26_glo_o.htm#optimize_quality"><I>optimize quality</I></A> <A REL=DEFINITION HREF="d_optimi.htm#safety"><B>safety</B></A> in the global environment at the time the <A REL=DEFINITION HREF="f_coerce.htm#coerce"><B>coerce</B></A> is <I>executed</I> applies to the resulting <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A>. <P></li>
+  <P>
+  <P>
+<li>*  For a call to the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> <A REL=DEFINITION HREF="f_ensure.htm#ensure-generic-function"><B>ensure-generic-function</B></A>, the value of the <A REL=DEFINITION HREF="26_glo_o.htm#optimize_quality"><I>optimize quality</I></A> <A REL=DEFINITION HREF="d_optimi.htm#safety"><B>safety</B></A> in the <A REL=DEFINITION HREF="26_glo_e.htm#environment"><I>environment</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A> passed as the <b>:environment</b> <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A> applies to the resulting <A REL=DEFINITION HREF="26_glo_g.htm#generic_function"><I>generic function</I></A>. <P></li>
+<li>*  For a call to <A REL=DEFINITION HREF="f_cmp.htm#compile"><B>compile</B></A> with a <A REL=DEFINITION HREF="26_glo_l.htm#lambda_expression"><I>lambda expression</I></A> as the <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A>, the value of the <A REL=DEFINITION HREF="26_glo_o.htm#optimize_quality"><I>optimize quality</I></A> <B>safety</B> in the <A REL=DEFINITION HREF="26_glo_g.htm#global_environment"><I>global environment</I></A> at the time <A REL=DEFINITION HREF="f_cmp.htm#compile"><B>compile</B></A> is <I>called</I> applies to the resulting <A REL=DEFINITION HREF="26_glo_c.htm#compiled_function"><I>compiled function</I></A>. <P></li>
+<li>*  For a call to <A REL=DEFINITION HREF="f_cmp.htm#compile"><B>compile</B></A> with only one argument, if the original definition of the <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> was <A REL=DEFINITION HREF="26_glo_s.htm#safe"><I>safe</I></A>, then the resulting <A REL=DEFINITION HREF="26_glo_c.htm#compiled_function"><I>compiled function</I></A> must also be <A REL=DEFINITION HREF="26_glo_s.htm#safe"><I>safe</I></A>. <P></li>
+<li>*  A <A REL=DEFINITION HREF="26_glo_c.htm#call"><I>call</I></A> to a <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> by <A REL=DEFINITION HREF="f_call_n.htm#call-next-method"><B>call-next-method</B></A> must be considered <A REL=DEFINITION HREF="26_glo_s.htm#safe"><I>safe</I></A> if each of the following is  <A REL=DEFINITION HREF="26_glo_s.htm#safe"><I>safe</I></A> <A REL=DEFINITION HREF="26_glo_c.htm#code"><I>code</I></A> or <A REL=DEFINITION HREF="26_glo_s.htm#system_code"><I>system code</I></A>:  <P></li>
+<P><ul><li>--  the definition of the <A REL=DEFINITION HREF="26_glo_g.htm#generic_function"><I>generic function</I></A> (if it was defined explicitly). </li><li>--  the <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> definitions for all <A REL=DEFINITION HREF="26_glo_a.htm#applicable"><I>applicable</I></A> <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>methods</I></A>. </li><li>--  the definition of the <A REL=DEFINITION HREF="26_glo_m.htm#method_combination"><I>method combination</I></A>. </li><li>--  the point of entry into the body of the <A REL=DEFINITION HREF="26_glo_m.htm#method"><I>method</I></A> <A REL=DEFINITION HREF="26_glo_d.htm#defining_form"><I>defining form</I></A>, where the <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>binding</I></A> of <A REL=DEFINITION HREF="f_call_n.htm#call-next-method"><B>call-next-method</B></A> is established. </li><li>--  the point of <A REL=DEFINITION HREF="26_glo_f.htm#functional_evaluation"><I>functional evaluation</I></A> of the name <A REL=DEFINITION HREF="f_call_n.htm#call-next-method"><B>call-next-method</B></A>. <P></li></ul><P>
+<P></ul><P>
+An <A REL=DEFINITION HREF="26_glo_u.htm#unsafe_call"><I>unsafe call</I></A> is a <A REL=DEFINITION HREF="26_glo_c.htm#call"><I>call</I></A> that is not a <A REL=DEFINITION HREF="26_glo_s.htm#safe_call"><I>safe call</I></A>. <P>
+The informal intent is that the <A REL=DEFINITION HREF="26_glo_p.htm#programmer"><I>programmer</I></A> can rely on a <A REL=DEFINITION HREF="26_glo_c.htm#call"><I>call</I></A> to be <A REL=DEFINITION HREF="26_glo_s.htm#safe"><I>safe</I></A>, even when <A REL=DEFINITION HREF="26_glo_s.htm#system_code"><I>system code</I></A> is involved, if all reasonable steps have been taken to ensure that the <A REL=DEFINITION HREF="26_glo_c.htm#call"><I>call</I></A> is <A REL=DEFINITION HREF="26_glo_s.htm#safe"><I>safe</I></A>. For example, if a <A REL=DEFINITION HREF="26_glo_p.htm#programmer"><I>programmer</I></A> calls <A REL=DEFINITION HREF="f_mapc_.htm#mapcar"><B>mapcar</B></A> from <A REL=DEFINITION HREF="26_glo_s.htm#safe"><I>safe</I></A> <A REL=DEFINITION HREF="26_glo_c.htm#code"><I>code</I></A> and supplies a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> that was <I>compiled</I> as <A REL=DEFINITION HREF="26_glo_s.htm#safe"><I>safe</I></A>, the <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> is required to ensure that <A REL=DEFINITION HREF="f_mapc_.htm#mapcar"><B>mapcar</B></A> makes a <A REL=DEFINITION HREF="26_glo_s.htm#safe_call"><I>safe call</I></A> as well. <P>
+
+ 
+<h2><A REL=CHILD HREF="03_eaaa.htm">
+3.5.1.1.1 Error Detection Time in Safe Calls</a></h2><p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss181.htm">GENERIC-FLET-POORLY-DESIGNED:DELETE</A><LI> <A REL=CHILD HREF="../Issues/iss342.htm">SYNTACTIC-ENVIRONMENT-ACCESS:RETRACTED-MAR91</A><LI> <A REL=CHILD HREF="../Issues/iss011.htm">ARGUMENT-MISMATCH-ERROR-MOON:FIX</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

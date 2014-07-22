@@ -1,0 +1,57 @@
+/* CSS Style Sheet for Common Lisp HyperSpec, Version 7.0 */
+/* Copyright 2005 LispWorks Ltd.  All Rights Reserved.    */
+/* :::: 蓝色通透版，会让人感觉眩晕…… :::: */
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 18px;
+	font-family: serif, sans-serif ;
+	color: #000000;
+	text-shadow: 2px 2px 5px #cccccc;
+	background: #ffffff;
+}
+
+hr { color: "#808080"; }
+img { border: 0; }
+
+/* :::: 链接样式 :::: */
+a:link {  
+  background: rgba(222, 247, 255, 0.75);
+  text-decoration: none;
+  padding: 0 5px 0 5px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+a:visited {
+  color:#0000FF;
+  background: rgba(230, 253, 255, 0.75);
+  text-decoration:none;
+  border-bottom:dashed 1px red;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+a:hover {
+  color: #ffffff;
+  background-color:rgba(0, 0, 255, 0.75);
+  text-decoration:none;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  box-shadow: 0px 0 15px #999999;
+  -moz-box-shadow: 0px 0 15px #999999;
+  -webkit-box-shadow: 0px 0 15px #999999;
+}
+
+/* :::: 列表样式 变成按钮模式:::: */
+
+
+
+/* :::: 程序源码样式 :::: */
+pre {
+  background-color: #EBF1F5;
+  padding: 0 5px 0 5px;
+  border : 2px solid #BBCCDD;
+}
+

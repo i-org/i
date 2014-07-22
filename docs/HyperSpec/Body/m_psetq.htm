@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Macro PSETQ</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="s_setq.htm">
+<LINK REL=UP HREF="c_data_a.htm">
+<LINK REL=NEXT HREF="s_block.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="s_setq.htm">◀</A><A REL=UP HREF="c_data_a.htm">▲</A><A REL=NEXT HREF="s_block.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="psetq"><I>Macro</I> <B>PSETQ</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>psetq</B> <I>{<I>pair</I>}<B>*</B></I> =&gt; <I><A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A></I><P>
+ <P>
+<PRE>
+pair::= var form 
+</PRE>
+ <P>
+<p><b>●发音：</b><P>
+ <P>
+<A REL=DEFINITION HREF="#psetq"><B>psetq</B></A>: [;pee'set,kyoo] <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>var</I>---a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> naming a <A REL=DEFINITION HREF="26_glo_v.htm#variable"><I>variable</I></A> other than a <A REL=DEFINITION HREF="26_glo_c.htm#constant_variable"><I>constant variable</I></A>. <P>
+<I>form</I>---a <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Assigns values to <A REL=DEFINITION HREF="26_glo_v.htm#variable"><I>variables</I></A>. <P>
+This is just like <A REL=DEFINITION HREF="s_setq.htm#setq"><B>setq</B></A>, except that the assignments happen ``in parallel.'' That is, first all of the forms are evaluated, and only then are the variables set to the resulting values. In this way, the assignment to one variable does not affect the value computation of another in the way that would occur with <A REL=DEFINITION HREF="s_setq.htm#setq"><B>setq</B></A>'s sequential assignment. <P>
+ If any <I>var</I> refers to a <A REL=DEFINITION HREF="26_glo_b.htm#binding"><I>binding</I></A> made by <A REL=DEFINITION HREF="s_symbol.htm#symbol-macrolet"><B>symbol-macrolet</B></A>, then that <I>var</I> is treated as if <A REL=DEFINITION HREF="m_setf_.htm#psetf"><B>psetf</B></A> (not <A REL=DEFINITION HREF="#psetq"><B>psetq</B></A>) had been used.  <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ ;; A simple use of PSETQ to establish values for variables.
+ ;; As a matter of style, many programmers would prefer SETQ 
+ ;; in a simple situation like this where parallel assignment
+ ;; is not needed, but the two have equivalent effect.
+ (psetq a 1 b 2 c 3) =&gt;  NIL
+ a =&gt;  1
+ b =&gt;  2
+ c =&gt;  3
+
+ ;; Use of PSETQ to update values by parallel assignment.
+ ;; The effect here is very different than if SETQ had been used.
+ (psetq a (1+ b) b (1+ a) c (+ a b)) =&gt;  NIL
+ a =&gt;  3
+ b =&gt;  2
+ c =&gt;  3
+
+ ;; Use of PSETQ on a symbol macro.
+ (let ((x (list 10 20 30)))
+   (symbol-macrolet ((y (car x)) (z (cadr x)))
+     (psetq y (1+ z) z (1+ y))
+     (list x y z)))
+=&gt;  ((21 11 30) 21 11)
+
+ ;; Use of parallel assignment to swap values of A and B.
+ (let ((a 1) (b 2))
+   (psetq a b  b a)
+   (values a b))
+=&gt;  2, 1
+</PRE>
+</b> <P>
+<p><b>●副作用:</b><P>
+ <P>
+The values of <I>forms</I> are assigned to <I>vars</I>. <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="m_setf_.htm#psetf"><B>psetf</B></A>, <A REL=DEFINITION HREF="s_setq.htm#setq"><B>setq</B></A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss338.htm">SYMBOL-MACROLET-SEMANTICS:SPECIAL-FORM</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function VECTOR</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_svref.htm">
+<LINK REL=UP HREF="c_arrays.htm">
+<LINK REL=NEXT HREF="f_vec_po.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_svref.htm">◀</A><A REL=UP HREF="c_arrays.htm">▲</A><A REL=NEXT HREF="f_vec_po.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="vector"><I>Function</I> <B>VECTOR</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>vector</B> <I><b>&amp;rest</b> objects</I> =&gt; <I>vector</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>object</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<I>vector</I>---a <A REL=DEFINITION HREF="26_glo_v.htm#vector"><I>vector</I></A> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <b>(vector t *)</b>. <P>
+<p><b>●详情:</b><P>
+ <P>
+Creates a <A REL=DEFINITION HREF="26_glo_f.htm#fresh"><I>fresh</I></A> <A REL=DEFINITION HREF="26_glo_s.htm#simple_general_vector"><I>simple general vector</I></A> whose size corresponds to the number of <I>objects</I>. <P>
+The <A REL=DEFINITION HREF="26_glo_v.htm#vector"><I>vector</I></A> is initialized to contain the <I>objects</I>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (arrayp (setq v (vector 1 2 'sirens))) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (vectorp v) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>
+ (simple-vector-p v) =&gt;  <A REL=DEFINITION HREF="26_glo_t.htm#true">true</A>         
+ (length v) =&gt;  3
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_mk_ar.htm#make-array"><B>make-array</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#vector"><B>vector</B></A> is analogous to <A REL=DEFINITION HREF="f_list_.htm#list"><B>list</B></A>. <P>
+<PRE>
+ (vector a1 a2 ... an)
+  ==  (make-array (list n) :element-type t
+                          :initial-contents 
+                            (list a1 a2 ... an))
+</PRE>
+</b> <HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

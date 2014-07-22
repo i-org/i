@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Accessor VALUES</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="m_mult_2.htm">
+<LINK REL=UP HREF="c_data_a.htm">
+<LINK REL=NEXT HREF="f_vals_l.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="m_mult_2.htm">◀</A><A REL=UP HREF="c_data_a.htm">▲</A><A REL=NEXT HREF="f_vals_l.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="values"><I>Accessor</I> <B>VALUES</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>values</B> <I><b>&amp;rest</b> object</I> =&gt; <I><I>object</I><B>*</B></I><P>
+  
+<b>(setf (</b><B>values</B> <I><b>&amp;rest</b> place</I><b>) </b><I>new-values</I><b>)</b><P>
+  <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>object</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+ <I>place</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#place"><I>place</I></A>. <P>
+<I>new-value</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>.  <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#values"><B>values</B></A> returns the <I>objects</I> as <A REL=DEFINITION HREF="26_glo_m.htm#multiple_values"><I>multiple values</I></A>[2]. <P>
+ <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A> of <A REL=DEFINITION HREF="#values"><B>values</B></A> is used to store the <A REL=DEFINITION HREF="26_glo_m.htm#multiple_values"><I>multiple values</I></A>[2] <I>new-values</I> into the <I>places</I>. See <A REL=CHILD HREF="05_abc.htm">Section 5.1.2.3 (VALUES Forms as Places)</A>.  <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (values) =&gt;  &lt;no values&gt;
+ (values 1) =&gt;  1
+ (values 1 2) =&gt;  1, 2
+ (values 1 2 3) =&gt;  1, 2, 3
+ (values (values 1 2 3) 4 5) =&gt;  1, 4, 5
+ (defun polar (x y)
+   (values (sqrt (+ (* x x) (* y y))) (atan y x))) =&gt;  POLAR
+ (multiple-value-bind (r theta) (polar 3.0 4.0)
+   (vector r theta))
+=&gt;  #(5.0 0.927295)
+</PRE>
+</b> <P>
+Sometimes it is desirable to indicate explicitly that a function returns exactly one value. For example, the function <P>
+<PRE>
+ (defun foo (x y)
+   (floor (+ x y) y)) =&gt;  FOO
+</PRE>
+</b> returns two values because <A REL=DEFINITION HREF="f_floorc.htm#floor"><B>floor</B></A> returns two values. It may be that the second value makes no sense, or that for efficiency reasons it is desired not to compute the second value. <A REL=DEFINITION HREF="#values"><B>values</B></A> is the standard idiom for indicating that only one value is to be returned: <P>
+<PRE>
+ (defun foo (x y)
+   (values (floor (+ x y) y))) =&gt;  FOO
+</PRE>
+</b> This works because <A REL=DEFINITION HREF="#values"><B>values</B></A> returns exactly one value for each of <I>args</I>; as for any function call, if any of <I>args</I> produces more than one value, all but the first are discarded. <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_vals_l.htm#values-list"><B>values-list</B></A>, <A REL=DEFINITION HREF="m_multip.htm#multiple-value-bind"><B>multiple-value-bind</B></A>, <A REL=DEFINITION HREF="v_multip.htm#multiple-values-limit"><B>multiple-values-limit</B></A>, <A REL=CHILD HREF="03_a.htm">Section 3.1 (Evaluation)</A> <P>
+<p><b>●说明:</b><P>
+ <P>
+Since <A REL=DEFINITION HREF="#values"><B>values</B></A> is a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A>, not a <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macro</I></A> or <A REL=DEFINITION HREF="26_glo_s.htm#special_form"><I>special form</I></A>, it receives as <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>arguments</I></A> only the <A REL=DEFINITION HREF="26_glo_p.htm#primary_value"><I>primary values</I></A> of its <A REL=DEFINITION HREF="26_glo_a.htm#argument"><I>argument</I></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>forms</I></A>. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss311.htm">SETF-OF-VALUES:ADD</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

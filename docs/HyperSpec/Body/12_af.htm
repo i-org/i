@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 12.1.6</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="12_aed.htm">
+<LINK REL=UP HREF="12_a.htm">
+<LINK REL=NEXT HREF="12_ag.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="12_aed.htm">◀</A><A REL=UP HREF="12_a.htm">▲</A><A REL=NEXT HREF="12_ag.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+12.1.6 Interval Designators</H2>  <P>
+The <A REL=DEFINITION HREF="26_glo_c.htm#compound_type_specifier"><I>compound type specifier</I></A> form of the numeric <A REL=DEFINITION HREF="26_glo_t.htm#type_specifier"><I>type specifiers</I></A> permit the user to specify an interval on the real number line which describe a <A REL=DEFINITION HREF="26_glo_s.htm#subtype"><I>subtype</I></A> of the <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> which would be described by the corresponding <A REL=DEFINITION HREF="26_glo_a.htm#atomic_type_specifier"><I>atomic type specifier</I></A>. A <A REL=DEFINITION HREF="26_glo_s.htm#subtype"><I>subtype</I></A> of some <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <I>T</I> is specified using an ordered pair of <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A> called <A REL=DEFINITION HREF="26_glo_i.htm#interval_designator"><I>interval designators</I></A> for <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <I>T</I>. <P>
+The first of the two <A REL=DEFINITION HREF="26_glo_i.htm#interval_designator"><I>interval designators</I></A> for <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <I>T</I> can be any of the following: <P>
+<P><ul><P>
+<li>a number <I>N</I> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <I>T</I>  <P></li>
+This denotes a lower inclusive bound of <I>N</I>. That is, <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>elements</I></A> of the <A REL=DEFINITION HREF="26_glo_s.htm#subtype"><I>subtype</I></A> of <I>T</I> will be greater than or equal to <I>N</I>. <P>
+<li>a <A REL=DEFINITION HREF="26_glo_s.htm#singleton"><I>singleton</I></A> <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> whose <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>element</I></A> is a number <I>M</I> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <I>T</I>  <P></li>
+This denotes a lower exclusive bound of <I>M</I>. That is, <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>elements</I></A> of the <A REL=DEFINITION HREF="26_glo_s.htm#subtype"><I>subtype</I></A> of <I>T</I> will be greater than <I>M</I>. <P>
+<li>the symbol <A REL=DEFINITION HREF="a_st.htm#ST"><B>*</B></A>  <P></li>
+This denotes the absence of a lower bound on the interval. <P>
+<P></ul><P>
+The second of the two <A REL=DEFINITION HREF="26_glo_i.htm#interval_designator"><I>interval designators</I></A> for <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <I>T</I> can be any of the following: <P>
+<P><ul><P>
+<li>a number <I>N</I> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <I>T</I>  <P></li>
+This denotes an upper inclusive bound of <I>N</I>. That is, <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>elements</I></A> of the <A REL=DEFINITION HREF="26_glo_s.htm#subtype"><I>subtype</I></A> of <I>T</I> will be less than or equal to <I>N</I>. <P>
+<li>a <A REL=DEFINITION HREF="26_glo_s.htm#singleton"><I>singleton</I></A> <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> whose <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>element</I></A> is a number <I>M</I> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <I>T</I>  <P></li>
+This denotes an upper exclusive bound of <I>M</I>. That is, <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>elements</I></A> of the <A REL=DEFINITION HREF="26_glo_s.htm#subtype"><I>subtype</I></A> of <I>T</I> will be less than <I>M</I>. <P>
+<li>the symbol <A REL=DEFINITION HREF="a_st.htm#ST"><B>*</B></A>  <P></li>
+This denotes the absence of an upper bound on the interval. <P>
+<P></ul><P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function CHAR-CODE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_upper_.htm">
+<LINK REL=UP HREF="c_charac.htm">
+<LINK REL=NEXT HREF="f_char_i.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_upper_.htm">◀</A><A REL=UP HREF="c_charac.htm">▲</A><A REL=NEXT HREF="f_char_i.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="char-code"><I>Function</I> <B>CHAR-CODE</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>char-code</B> <I>character</I> =&gt; <I>code</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>character</I>---a <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>character</I></A>. <P>
+<I>code</I>---a <A REL=DEFINITION HREF="26_glo_c.htm#character_code"><I>character code</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#char-code"><B>char-code</B></A> returns the <A REL=DEFINITION HREF="26_glo_c.htm#code"><I>code</I></A> <A REL=DEFINITION HREF="26_glo_a.htm#attribute"><I>attribute</I></A> of <I>character</I>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+;; An implementation using ASCII character encoding 
+;; might return these values:
+(char-code #\$) =&gt;  36
+(char-code #\a) =&gt;  97
+</PRE>
+</b> <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b><P>
+ <P>
+Should signal an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> if <I>character</I> is not a <A REL=DEFINITION HREF="26_glo_c.htm#character"><I>character</I></A>. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<B>char-code-limit</B> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

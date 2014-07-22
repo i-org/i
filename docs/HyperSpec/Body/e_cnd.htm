@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Condition Type CONDITION</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="c_condit.htm">
+<LINK REL=UP HREF="c_condit.htm">
+<LINK REL=NEXT HREF="e_warnin.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="c_condit.htm">◀</A><A REL=UP HREF="c_condit.htm">▲</A><A REL=NEXT HREF="e_warnin.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="condition"><I>Condition Type</I> <B>CONDITION</B></A> <P>
+   <P>
+<p><b>●Class Precedence List:</b><P>
+ <A REL=DEFINITION HREF="#condition"><B>condition</B></A>, <A REL=DEFINITION HREF="t_t.htm#t"><B>t</B></A> <P>
+<p><b>●详情:</b><P>
+ <P>
+All types of <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>conditions</I></A>, whether error or non-error, must inherit from this <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A>.     <P>
+No additional <A REL=DEFINITION HREF="26_glo_s.htm#subtype"><I>subtype</I></A> relationships among the specified <A REL=DEFINITION HREF="26_glo_s.htm#subtype"><I>subtypes</I></A> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="#condition"><B>condition</B></A> are allowed, except when explicitly mentioned in the text; however implementations are permitted to introduce additional <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>types</I></A> and one of these <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>types</I></A> can be a <A REL=DEFINITION HREF="26_glo_s.htm#subtype"><I>subtype</I></A> of any number of the <A REL=DEFINITION HREF="26_glo_s.htm#subtype"><I>subtypes</I></A> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="#condition"><B>condition</B></A>. <P>
+ Whether a user-defined <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> has <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A> that are accessible by <A REL=DEFINITION HREF="m_w_slts.htm#with-slots"><I>with-slots</I></A> is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A>. Furthermore, even in an <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> in which user-defined <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>types</I></A> would have <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A>, it is <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> whether any <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>types</I></A> defined in this document have such <A REL=DEFINITION HREF="26_glo_s.htm#slot"><I>slots</I></A> or, if they do, what their <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>names</I></A> might be; only the reader functions documented by this specification may be relied upon by portable code.  <P>
+ <A REL=DEFINITION HREF="26_glo_c.htm#conforming_code"><I>Conforming code</I></A> must observe the following restrictions related to <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>conditions</I></A>: <P>
+<P><ul><li>*  <A REL=DEFINITION HREF="m_defi_5.htm#define-condition"><B>define-condition</B></A>, not <A REL=DEFINITION HREF="m_defcla.htm#defclass"><B>defclass</B></A>, must be used to define new <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>types</I></A>. <P></li>
+<li>*  <A REL=DEFINITION HREF="f_mk_cnd.htm#make-condition"><B>make-condition</B></A>, not <A REL=DEFINITION HREF="f_mk_ins.htm#make-instance"><B>make-instance</B></A>, must be used to create <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A> explicitly. <P></li>
+<li>*  The <b>:report</b> option of <A REL=DEFINITION HREF="m_defi_5.htm#define-condition"><B>define-condition</B></A>, not <A REL=DEFINITION HREF="m_defmet.htm#defmethod"><B>defmethod</B></A> for <A REL=DEFINITION HREF="f_pr_obj.htm#print-object"><B>print-object</B></A>, must be used to define a condition reporter. <P></li>
+<li>*  <A REL=DEFINITION HREF="f_slt_va.htm#slot-value"><B>slot-value</B></A>, <A REL=DEFINITION HREF="f_slt_bo.htm#slot-boundp"><B>slot-boundp</B></A>, <A REL=DEFINITION HREF="f_slt_ma.htm#slot-makunbound"><B>slot-makunbound</B></A>, and <A REL=DEFINITION HREF="m_w_slts.htm#with-slots"><B>with-slots</B></A> must not be used on <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>objects</I></A>. Instead, the appropriate accessor functions (defined by <A REL=DEFINITION HREF="m_defi_5.htm#define-condition"><B>define-condition</B></A>) should be used. <P></li></ul> <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss077.htm">CONDITION-SLOTS:HIDDEN</A><LI> <A REL=CHILD HREF="../Issues/iss049.htm">CLOS-CONDITIONS:INTEGRATE</A><LI> <A REL=CHILD HREF="../Issues/iss048.htm">CLOS-CONDITIONS-AGAIN:ALLOW-SUBSET</A><LI> <A REL=CHILD HREF="../Issues/iss075.htm">CONDITION-RESTARTS:BUGGY</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

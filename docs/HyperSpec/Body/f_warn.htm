@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function WARN</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_smp_cn.htm">
+<LINK REL=UP HREF="c_condit.htm">
+<LINK REL=NEXT HREF="e_smp_wa.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_smp_cn.htm">◀</A><A REL=UP HREF="c_condit.htm">▲</A><A REL=NEXT HREF="e_smp_wa.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="warn"><I>Function</I> <B>WARN</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>warn</B> <I>datum <b>&amp;rest</b> arguments</I> =&gt; <I><A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A></I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>datum</I>, <I>arguments</I>---<A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designators</I></A> for a <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> of default type <A REL=DEFINITION HREF="e_smp_wa.htm#simple-warning"><B>simple-warning</B></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="26_glo_s.htm#signal"><I>Signals</I></A> a <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_warnin.htm#warning"><B>warning</B></A>. If the <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> is not <I>handled</I>, reports the <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> to <A REL=DEFINITION HREF="26_glo_e.htm#error_output"><I>error output</I></A>. <P>
+The precise mechanism for warning is as follows: <P>
+  <P>
+<P><ul><P>
+<li><B>The warning condition is signaled</B>  <P>
+While the <A REL=DEFINITION HREF="e_warnin.htm#warning"><B>warning</B></A> <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> is being signaled, the <A REL=DEFINITION HREF="a_muffle.htm#muffle-warning"><B>muffle-warning</B></A> <A REL=DEFINITION HREF="26_glo_r.htm#restart"><I>restart</I></A> is established for use by a <A REL=DEFINITION HREF="26_glo_h.htm#handler"><I>handler</I></A>. If invoked, this <A REL=DEFINITION HREF="26_glo_r.htm#restart"><I>restart</I></A> bypasses further action by <A REL=DEFINITION HREF="#warn"><B>warn</B></A>, which in turn causes <A REL=DEFINITION HREF="#warn"><B>warn</B></A> to immediately return <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P></li>
+<li><B>If no handler for the warning condition is found</B>  <P>
+If no handlers for the warning condition are found, or if all such handlers decline, then the <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> is reported to <A REL=DEFINITION HREF="26_glo_e.htm#error_output"><I>error output</I></A> by <A REL=DEFINITION HREF="#warn"><B>warn</B></A> in an <A REL=DEFINITION HREF="26_glo_i.htm#implementation-dependent"><I>implementation-dependent</I></A> format. <P></li>
+<li><B><A REL=DEFINITION HREF="a_nil.htm#nil">nil</A> is returned</B>  <P>
+The value returned by <A REL=DEFINITION HREF="#warn"><B>warn</B></A> if it returns is <A REL=DEFINITION HREF="a_nil.htm#nil"><B>nil</B></A>. <P></li></ul><P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+  (defun foo (x)
+    (let ((result (* x 2)))
+      (if (not (typep result 'fixnum))
+          (warn &quot;You're using very big numbers.&quot;))
+      result))
+=&gt;  FOO
+ 
+  (foo 3)
+=&gt;  6
+ 
+  (foo most-positive-fixnum)
+&gt;&gt;  Warning: You're using very big numbers.
+=&gt;  4294967294
+ 
+  (setq *break-on-signals* t)
+=&gt;  T
+ 
+  (foo most-positive-fixnum)
+&gt;&gt;  Break: Caveat emptor.
+&gt;&gt;  To continue, type :CONTINUE followed by an option number.
+&gt;&gt;   1: Return from Break.
+&gt;&gt;   2: Abort to Lisp Toplevel.
+&gt;&gt;  Debug&gt; :continue 1
+&gt;&gt;  Warning: You're using very big numbers.
+=&gt;  4294967294
+</PRE>
+</b> <P>
+<p><b>●副作用:</b><P>
+ <P>
+A warning is issued. The debugger might be entered. <P>
+<p><b>●受制于:</b><P>
+ <P>
+Existing handler bindings. <P>
+<A REL=DEFINITION HREF="v_break_.htm#STbreak-on-signalsST"><B>*break-on-signals*</B></A>, <A REL=DEFINITION HREF="v_debug_.htm#STerror-outputST"><B>*error-output*</B></A>. <P>
+<p><b>●例外情况：</b><P>
+ <P>
+If <I>datum</I> is a <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> and if the <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> is not of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_warnin.htm#warning"><B>warning</B></A>, or <I>arguments</I> is <A REL=DEFINITION HREF="26_glo_n.htm#non-nil"><I>non-nil</I></A>, an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> is signaled. <P>
+If <I>datum</I> is a condition type, the result of <b>(apply #'make-condition datum arguments)</b> must be of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_warnin.htm#warning"><B>warning</B></A> or an error of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A> is signaled. <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="v_break_.htm#STbreak-on-signalsST"><B>*break-on-signals*</B></A>, <A REL=DEFINITION HREF="f_abortc.htm#muffle-warning"><B>muffle-warning</B></A>, <A REL=DEFINITION HREF="f_signal.htm#signal"><B>signal</B></A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss020.htm">BREAK-ON-WARNINGS-OBSOLETE:REMOVE</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

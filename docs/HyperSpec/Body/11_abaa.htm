@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 11.1.2.1.1</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="11_aba.htm">
+<LINK REL=UP HREF="11_aba.htm">
+<LINK REL=NEXT HREF="11_abab.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="11_aba.htm">◀</A><A REL=UP HREF="11_aba.htm">▲</A><A REL=NEXT HREF="11_abab.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+11.1.2.1.1 Constraints on the COMMON-LISP Package for Conforming Implementations</H2> <P>
+ In a <A REL=DEFINITION HREF="26_glo_c.htm#conforming_implementation"><I>conforming implementation</I></A>, an <I>external</I> <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> of the <b>COMMON-LISP</b> package can have a <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A>, <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macro</I></A>, or <A REL=DEFINITION HREF="26_glo_s.htm#special_operator"><I>special operator</I></A> definition, a <A REL=DEFINITION HREF="26_glo_g.htm#global_variable"><I>global variable</I></A> definition (or other status as a <A REL=DEFINITION HREF="26_glo_d.htm#dynamic_variable"><I>dynamic variable</I></A> due to a <A REL=DEFINITION HREF="d_specia.htm#special"><B>special</B></A> <A REL=DEFINITION HREF="26_glo_p.htm#proclamation"><I>proclamation</I></A>), or a <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> definition only if explicitly permitted in this standard. For example, <A REL=DEFINITION HREF="f_fbound.htm#fboundp"><B>fboundp</B></A> <A REL=DEFINITION HREF="26_glo_y.htm#yield"><I>yields</I></A> <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A> for any <A REL=DEFINITION HREF="26_glo_e.htm#external_symbol"><I>external symbol</I></A> of the <b>COMMON-LISP</b> package that is not the <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>name</I></A> of a <A REL=DEFINITION HREF="26_glo_s.htm#standardized"><I>standardized</I></A> <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A>, <A REL=DEFINITION HREF="26_glo_m.htm#macro"><I>macro</I></A> or <A REL=DEFINITION HREF="26_glo_s.htm#special_operator"><I>special operator</I></A>, and <A REL=DEFINITION HREF="f_boundp.htm#boundp"><B>boundp</B></A> returns <A REL=DEFINITION HREF="26_glo_f.htm#false"><I>false</I></A> for any <A REL=DEFINITION HREF="26_glo_e.htm#external_symbol"><I>external symbol</I></A> of the <b>COMMON-LISP</b> package that is not the <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>name</I></A> of a <A REL=DEFINITION HREF="26_glo_s.htm#standardized"><I>standardized</I></A> <A REL=DEFINITION HREF="26_glo_g.htm#global_variable"><I>global variable</I></A>. It also follows that <A REL=DEFINITION HREF="26_glo_c.htm#conforming_program"><I>conforming programs</I></A> can use <A REL=DEFINITION HREF="26_glo_e.htm#external_symbol"><I>external symbols</I></A> of the <b>COMMON-LISP</b> package as the <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>names</I></A> of local <A REL=DEFINITION HREF="26_glo_l.htm#lexical_variable"><I>lexical variables</I></A> with confidence that those <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>names</I></A> have not been <I>proclaimed</I> <A REL=DEFINITION HREF="d_specia.htm#special"><B>special</B></A> by the <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> unless those <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> are <A REL=DEFINITION HREF="26_glo_n.htm#name"><I>names</I></A> of <A REL=DEFINITION HREF="26_glo_s.htm#standardized"><I>standardized</I></A> <A REL=DEFINITION HREF="26_glo_g.htm#global_variable"><I>global variables</I></A>. <P>
+A <A REL=DEFINITION HREF="26_glo_c.htm#conforming_implementation"><I>conforming implementation</I></A> must not place any <A REL=DEFINITION HREF="26_glo_p.htm#property"><I>property</I></A> on an <A REL=DEFINITION HREF="26_glo_e.htm#external_symbol"><I>external symbol</I></A> of the <b>COMMON-LISP</b> package using a <A REL=DEFINITION HREF="26_glo_p.htm#property_indicator"><I>property indicator</I></A> that is either an <A REL=DEFINITION HREF="26_glo_e.htm#external_symbol"><I>external symbol</I></A> of any <A REL=DEFINITION HREF="26_glo_s.htm#standardized"><I>standardized</I></A> <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> or a <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> that is otherwise <A REL=DEFINITION HREF="26_glo_a.htm#accessible"><I>accessible</I></A> in the <b>COMMON-LISP-USER</b> package. <P>
+ <p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss252.htm">PACKAGE-CLUTTER:REDUCE</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

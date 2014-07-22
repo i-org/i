@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Accessor LDB</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_dpb.htm">
+<LINK REL=UP HREF="c_number.htm">
+<LINK REL=NEXT HREF="f_ldb_te.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_dpb.htm">◀</A><A REL=UP HREF="c_number.htm">▲</A><A REL=NEXT HREF="f_ldb_te.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="ldb"><I>Accessor</I> <B>LDB</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>ldb</B> <I>bytespec integer</I> =&gt; <I>byte</I><P>
+ <P>
+
+<b>(setf (</b><B>ldb</B> <I>bytespec place</I><b>) </b><I>new-byte</I><b>)</b><P>
+ <P>
+<p><b>●发音：</b><P>
+ <P>
+ ['lidib] or ['liduhb] or ['el'dee'bee] <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>bytespec</I>---a <A REL=DEFINITION HREF="26_glo_b.htm#byte_specifier"><I>byte specifier</I></A>. <P>
+<I>integer</I>---an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>. <P>
+<I>byte</I>, <I>new-byte</I>---a non-negative <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#ldb"><B>ldb</B></A> extracts and returns the <A REL=DEFINITION HREF="26_glo_b.htm#byte"><I>byte</I></A> of <I>integer</I> specified by <I>bytespec</I>. <P>
+<A REL=DEFINITION HREF="#ldb"><B>ldb</B></A> returns an <A REL=DEFINITION HREF="26_glo_i.htm#integer"><I>integer</I></A> in which the bits with weights 2^(<I>s</I>-1) through 2^0 are the same as those in <I>integer</I> with weights 2^(<I>p</I>+<I>s</I>-1) through 2^<I>p</I>, and all other bits zero; <I>s</I> is <b>(byte-size </b><I>bytespec</I><b>)</b> and <I>p</I> is <b>(byte-position </b><I>bytespec</I><b>)</b>. <P>
+<A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A> may be used with <A REL=DEFINITION HREF="#ldb"><B>ldb</B></A> to modify a byte within the <I>integer</I> that is stored in a given <I>place</I>.  The order of evaluation, when an <A REL=DEFINITION HREF="#ldb"><B>ldb</B></A> form is supplied to <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A>, is exactly left-to-right.  The effect is to perform a <A REL=DEFINITION HREF="f_dpb.htm#dpb"><B>dpb</B></A> operation and then store the result back into the <I>place</I>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (ldb (byte 2 1) 10) =&gt;  1
+ (setq a (list 8)) =&gt;  (8)
+ (setf (ldb (byte 2 1) (car a)) 1) =&gt;  1
+ a =&gt;  (10)
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_by_by.htm#byte"><B>byte</B></A>, <A REL=DEFINITION HREF="f_by_by.htm#byte-position"><B>byte-position</B></A>, <A REL=DEFINITION HREF="f_by_by.htm#byte-size"><B>byte-size</B></A>, <A REL=DEFINITION HREF="f_dpb.htm#dpb"><B>dpb</B></A> <P>
+<p><b>●说明:</b><P>
+ <P>
+<PRE>
+ (logbitp j (ldb (byte s p) n))
+    ==  (and (&lt; j s) (logbitp (+ j p) n))
+</PRE>
+</b> <P>
+In general, <P>
+<PRE>
+ (ldb (byte 0 x) y) =&gt;  0
+</PRE>
+</b> <P>
+for all valid values of <I>x</I> and <I>y</I>. <P>
+Historically, the name ``ldb'' comes from a DEC PDP-10 assembly language instruction meaning ``load byte.'' <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss279.htm">PUSH-EVALUATION-ORDER:FIRST-ITEM</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function TYPE-ERROR-DATUM, TYPE-ERROR-EXPECTED-TYPE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="e_tp_err.htm">
+<LINK REL=UP HREF="c_types_.htm">
+<LINK REL=NEXT HREF="e_smp_tp.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="e_tp_err.htm">◀</A><A REL=UP HREF="c_types_.htm">▲</A><A REL=NEXT HREF="e_smp_tp.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="type-error-datum"><A NAME="type-error-expected-type"><I>Function</I> <B>TYPE-ERROR-DATUM, TYPE-ERROR-EXPECTED-TYPE</B></A></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>type-error-datum</B> <I>condition</I> =&gt; <I>datum</I><P>
+ 
+<B>type-error-expected-type</B> <I>condition</I> =&gt; <I>expected-type</I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+<I>condition</I>---a <A REL=DEFINITION HREF="26_glo_c.htm#condition"><I>condition</I></A> of <A REL=DEFINITION HREF="26_glo_t.htm#type"><I>type</I></A> <A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A>. <P>
+<I>datum</I>---an <A REL=DEFINITION HREF="26_glo_o.htm#object"><I>object</I></A>. <P>
+<I>expected-type</I>---a <A REL=DEFINITION HREF="26_glo_t.htm#type_specifier"><I>type specifier</I></A>. <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#type-error-datum"><B>type-error-datum</B></A> returns the offending datum in the <A REL=DEFINITION HREF="26_glo_s.htm#situation"><I>situation</I></A> represented by the <I>condition</I>. <P>
+<A REL=DEFINITION HREF="#type-error-expected-type"><B>type-error-expected-type</B></A> returns the expected type of the offending datum in the <A REL=DEFINITION HREF="26_glo_s.htm#situation"><I>situation</I></A> represented by the <I>condition</I>. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (defun fix-digits (condition)
+   (check-type condition type-error)
+   (let* ((digits '(zero one two three four
+                   five six seven eight nine))
+         (val (position (type-error-datum condition) digits)))
+     (if (and val (subtypep 'fixnum (type-error-expected-type condition)))
+         (store-value 7))))
+ 
+ (defun foo (x)
+   (handler-bind ((type-error #'fix-digits))
+     (check-type x number)
+     (+ x 3)))
+ 
+ (foo 'seven)
+=&gt;  10
+</PRE>
+</b> <P>
+<p><b>●副作用:</b> None.
+ <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <P>
+<p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="e_tp_err.htm#type-error"><B>type-error</B></A>, <A REL=CHILD HREF="09_.htm">Section 9 (Conditions)</A> <P>
+<p><b>●说明：</b> 无。</p>
+ <P>
+<HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

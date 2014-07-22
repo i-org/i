@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>爱编</title>
+    <description>第一种国际化编程语言</description>
+    <link>http://i-org.tk/</link>
+    <atom:link href="http://i-org.tk/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>关于爱编</title>
+        <description>&lt;p&gt;&lt;img src=&quot;/static/i-org-standard.png&quot; alt=&quot;i-logo-min&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;open-source-internationl-programing-language&quot;&gt;&lt;strong&gt;爱编 Open Source Internationl Programing Language&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;惠,爱也。——《尔雅》&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;编程语言世界通用化&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;使用本土语言编程&lt;/li&gt;
+  &lt;li&gt;任何语种代码都自动显示为本土语言代码&lt;/li&gt;
+  &lt;li&gt;等效且沟通无障碍&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;ambition&quot;&gt;我们的目标 Ambition：&lt;/h3&gt;
+
+&lt;p&gt;让世界上的每个种族、文化背景的人，都可以使用其最熟悉的名词、术语、语法、工具，快速地写出适合自己需求的代码；而且，这些代码在不同的语言环境下的效果都是无差别的。&lt;/p&gt;
+
+&lt;p&gt;I programming language explores to program with any idiom and character system in the world.&lt;/p&gt;
+
+&lt;p&gt;With your familiar terminology, you can easily write your code, which is neat translated into any race, any religion, any cultrue background… &lt;/p&gt;
+
+&lt;h3 id=&quot;example&quot;&gt;实例 Example：&lt;/h3&gt;
+
+&lt;p&gt;本地语言编程，效果等价：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt; print： “天地玄黄”
+&amp;gt; 曰： “天地玄黄”
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;内文翻译：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt; print： “hello world”
+&amp;gt; print： “天地玄黄”
+&amp;gt; 曰： “hello world”
+&amp;gt; 曰： “天地玄黄”
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;to-be-fullfilled&quot;&gt;要达成的具体目标 To be fullfilled：&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;形成一个各种语种的语法规范&lt;/li&gt;
+  &lt;li&gt;有一个可写简单应用的编程语言&lt;/li&gt;
+  &lt;li&gt;不同语种代码简单相互翻译的机制：只需要手动简单翻译变量名即可。内置函数名自动翻译，特定语言的函数名内名显示（如有翻译方案，则自动翻译）！&lt;/li&gt;
+  &lt;li&gt;计划初期实现中、英、佛、道以及发起者版&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;perspective&quot;&gt;远期目标 Perspective：&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;形成一整套覆盖全语种的语法标准，作为其他编程语言支持国际化编程的参考。&lt;/li&gt;
+  &lt;li&gt;更大目的是促进现存的各编程语言注重国际化、跨语种的支持。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;we-need-help&quot;&gt;我们需要 We Need Help：&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;更多的合作者：包括编程人员参与程序实现，各种语言和文化背景精通者参与翻译。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;更多的意见建议者&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;更多的宣传者，学习者&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;background&quot;&gt;项目提出背景 Background：&lt;/h3&gt;
+&lt;p&gt;现有编程语言的不足：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;学习效率不足&lt;/strong&gt;：非母语的编程语言，对学习者非常的不友好！曾见过一个人，母语学习通链（common lisp），仅仅3周看完一本实战，2月变成自己拿手工具。而作为非母语的学习者，则很难有三周能够搞定的，更何况还要应付各种蛋疼的翻译。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;编写效率有限&lt;/strong&gt;：&lt;/p&gt;
+
+    &lt;ol&gt;
+      &lt;li&gt;
+        &lt;p&gt;因输入设备演进带来的问题：这绝大部分是英文字母固有的问题。&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;在小键盘平台上，英文键盘输入困难（字母多，键盘小，易出错——个人曾经用手机连续写码三天，深受其害，效率还不到平时一成）、手写识别率低，大大影响到输入的效率。&lt;/li&gt;
+          &lt;li&gt;现有主流编程语言没有考虑到流行的新输入设备，使用了一些不太方便新输入设备的语法设定，比如python使用缩进，在手写系统里，很难有效区分。&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;制约生产力形成：非母语的软接口名字难于理解，提升熟悉接口难度，影响编写效率。
+ 比如，我们经常可以看到编码的时候，需要不断翻阅英文的接口手册和中英翻译字典，这严重制约了生产效率。&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;由于学习效率限制，使得对各种更新，很难保持应有的了解，尤其是非专业领域的人员，从而影响到日常的代码编写。
+ 也由于学习效率的不足，严重影响使用者接触新领域。&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;交流障碍&lt;/strong&gt;：为了学习、提高、推广、测试、反馈，编程人员免不了要进行各种交流。
+但编程人员之间代码交流，往往需要借用第三方语言——英语，而不是他们自己最熟悉最娴熟的语言，这相当于排斥几十亿非英语世界的人。
+在这个全球文化大交流、大融合的时代，这种行为是逆潮流、狭隘、封闭、倒退的英文中心主义！&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;需求：&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;全民编程时代：编码作为现代生活的基本技能，需要更简单、更易掌握的编程语言。&lt;/li&gt;
+  &lt;li&gt;专业领域需要更简单、易掌握的编程语言，使得可以把更多心思放在专业领域。&lt;/li&gt;
+  &lt;li&gt;适应更多输入设备的需要&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;设计之初深受链码影响：&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;快速成型&lt;/li&gt;
+  &lt;li&gt;其基础技术标准完备稳定&lt;/li&gt;
+  &lt;li&gt;需要改进的方面：因为历史原因，其用语晦涩，有些规则不统一，比如对矢量和散列表的定位语法不同： &lt;code&gt;ELT&lt;/code&gt; 是 &lt;code&gt;矢量名+位置&lt;/code&gt; ，而 &lt;code&gt;GETHASH&lt;/code&gt; 是 &lt;code&gt;位+散列表名&lt;/code&gt; 。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;solution&quot;&gt;解决方案 Solution：&lt;/h3&gt;
+&lt;p&gt;为了解决上述提到的各种问题和需求，我们的解决方案：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;统一规则&lt;/strong&gt;：改进原有语法规则，统一化，简化&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;内建多语言规则&lt;/strong&gt;：不同语言通过内置中介转码器，自动编译成一样的机器码。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;内建同一语言多版本规则&lt;/strong&gt;：为了满足爱好者个人的自由喜好，以及解决本语言现在以及将来的历史名词沿革问题，对同一语种，可用多种版本，比如对于中文，可以有：现代汉语版、文言文版、火星文版、淘宝版、咆哮版、道教版、佛教版，黑传说版，某某人版等。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;自动显示代码本地版本&lt;/strong&gt;：通过代码编辑器内建的自动翻译，不用通过第三方语言，直接实现以语言-语言间的互译。&lt;/li&gt;
+  &lt;li&gt;最终达到的效果：可以 &lt;strong&gt;使用自己最熟悉的词汇系统来编程&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;application&quot;&gt;应用方向 Application：&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;日常简单编程&lt;/li&gt;
+  &lt;li&gt;中介语言，用于沟通其他编程语言&lt;/li&gt;
+  &lt;li&gt;团队项目级快速编码&lt;/li&gt;
+  &lt;li&gt;专业领域的快速编程&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;argument&quot;&gt;争论 Argument：&lt;/h3&gt;
+
+&lt;p&gt;以实际成果来证明自己的正确性，而不是靠华美辞藻来证明自己装逼成功！
+工作进度就是话语权。&lt;/p&gt;
+
+&lt;h3 id=&quot;organization&quot;&gt;组织 Organization：&lt;/h3&gt;
+
+&lt;p&gt;尔雅国际化编程语言促进会：一个致力于推动编程语言国际化的组织。&lt;/p&gt;
+
+&lt;p&gt;i.org = International Programming Language Stardard Promotion Org&lt;/p&gt;
+
+&lt;h3 id=&quot;notes&quot;&gt;注 Notes：&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;此项目已经设想多年，由于初始设计者本身一直较忙，断断续续积累，直到最近才开立这个项目，让诸位久违了，在此致歉。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;此项目尽可能做到说明文字双语甚至多语翻译。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        <pubDate>Fri, 2014 Apr 25 01:38:33 +0800</pubDate>
+        <link>http://i-org.tk/%E8%AF%B4%E6%98%8E/2014/04/25/%E5%85%B3%E4%BA%8E%E7%88%B1%E7%BC%96/</link>
+        <guid isPermaLink="true">http://i-org.tk/%E8%AF%B4%E6%98%8E/2014/04/25/%E5%85%B3%E4%BA%8E%E7%88%B1%E7%BC%96/</guid>
+      </item>
+    
+  </channel>
+</rss>

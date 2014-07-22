@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Section 5.1.2.5</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="05_abd.htm">
+<LINK REL=UP HREF="05_ab.htm">
+<LINK REL=NEXT HREF="05_abf.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="05_abd.htm">◀</A><A REL=UP HREF="05_ab.htm">▲</A><A REL=NEXT HREF="05_abf.htm">▶</A></H1>
+
+<HR>
+
+<H2>
+5.1.2.5 APPLY Forms as Places</H2>  <P>
+The following situations involving <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A> of <A REL=DEFINITION HREF="f_apply.htm#apply"><B>apply</B></A> must be supported: <P>
+<P><ul><li>*  <b>(setf (apply #'aref </b><I>array</I><b> </b><I>subscript</I><b></b><B>*</B><b> </b><I>more-subscripts</I><b>) </b><I>new-element</I><b>)</b> </li><li>*  <b>(setf (apply #'bit </b><I>array</I><b> </b><I>subscript</I><b></b><B>*</B><b> </b><I>more-subscripts</I><b>) </b><I>new-element</I><b>)</b> </li><li>*  <b>(setf (apply #'sbit </b><I>array</I><b> </b><I>subscript</I><b></b><B>*</B><b> </b><I>more-subscripts</I><b>) </b><I>new-element</I><b>)</b> <P></li></ul><P>
+In all three cases, the <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>element</I></A> of <I>array</I> designated by the concatenation of <I>subscripts</I> and <I>more-subscripts</I> (i.e., the same <A REL=DEFINITION HREF="26_glo_e.htm#element"><I>element</I></A> which would be <A REL=DEFINITION HREF="26_glo_r.htm#read"><I>read</I></A> by the call to <A REL=DEFINITION HREF="26_glo_a.htm#apply"><I>apply</I></A> if it were not part of a <A REL=DEFINITION HREF="m_setf_.htm#setf"><B>setf</B></A> <A REL=DEFINITION HREF="26_glo_f.htm#form"><I>form</I></A>) is changed to have the <A REL=DEFINITION HREF="26_glo_v.htm#value"><I>value</I></A> given by <I>new-element</I>.  For these usages, the function name (<A REL=DEFINITION HREF="f_aref.htm#aref"><B>aref</B></A>, <A REL=DEFINITION HREF="f_bt_sb.htm#bit"><B>bit</B></A>, or <A REL=DEFINITION HREF="f_bt_sb.htm#sbit"><B>sbit</B></A>) must refer to the global function definition, rather than a locally defined <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A>.  <P>
+No other <A REL=DEFINITION HREF="26_glo_s.htm#standardized"><I>standardized</I></A> <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> is required to be supported, but an <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> may define such support. An <A REL=DEFINITION HREF="26_glo_i.htm#implementation"><I>implementation</I></A> may also define support for <A REL=DEFINITION HREF="26_glo_i.htm#implementation-defined"><I>implementation-defined</I></A> <A REL=DEFINITION HREF="26_glo_o.htm#operator"><I>operators</I></A>. <P>
+If a user-defined <A REL=DEFINITION HREF="26_glo_f.htm#function"><I>function</I></A> is used in this context, the following equivalence is true, except that care is taken to preserve proper left-to-right evaluation of argument <A REL=DEFINITION HREF="26_glo_s.htm#subform"><I>subforms</I></A>: <P>
+<PRE>
+ (setf (apply #'name arg*) val)
+ ==  (apply #'(setf name) val arg*)
+</PRE>
+</b> <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss174.htm">FUNCTION-NAME:LARGE</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>

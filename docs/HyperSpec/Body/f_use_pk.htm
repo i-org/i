@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<TITLE>CLHS: Function USE-PACKAGE</TITLE>
+<LINK HREF="../Data/style.css" REL="stylesheet" TYPE="text/css" />
+<META HTTP-EQUIV="Author" CONTENT="Kent M. Pitman">
+<META HTTP-EQUIV="Organization" CONTENT="LispWorks Ltd.">
+<LINK REL=TOP HREF="../Front/index.htm">
+<LINK REL=COPYRIGHT HREF="../Front/Help.htm#Legal">
+<LINK REL=DISCLAIMER HREF="../Front/Help.htm#Disclaimer">
+<LINK REL=PREV HREF="f_unuse_.htm">
+<LINK REL=UP HREF="c_packag.htm">
+<LINK REL=NEXT HREF="m_defpkg.htm">
+</HEAD>
+<BODY>
+<h1><A REL=TOP HREF="../Front/index.htm">《通链参考手册》</A> <A REL=PREV HREF="f_unuse_.htm">◀</A><A REL=UP HREF="c_packag.htm">▲</A><A REL=NEXT HREF="m_defpkg.htm">▶</A></H1>
+
+<HR>
+
+<A NAME="use-package"><I>Function</I> <B>USE-PACKAGE</B></A> <P>
+<p><b>●语法设定:</b><p>
+ <P>
+
+<B>use-package</B> <I>packages-to-use <b>&amp;optional</b> package</I> =&gt; <I><A REL=DEFINITION HREF="a_t.htm#t"><B>t</B></A></I><P>
+ <P>
+<p><b>●参数和值:</b><P>
+ <P>
+ <I>packages-to-use</I>---a <A REL=DEFINITION HREF="26_glo_d.htm#designator"><I>designator</I></A> for a <A REL=DEFINITION HREF="26_glo_l.htm#list"><I>list</I></A> of <A REL=DEFINITION HREF="26_glo_p.htm#package_designator"><I>package designators</I></A>. The <b>KEYWORD</b> package may not be supplied. <P>
+<I>package</I>---a <A REL=DEFINITION HREF="26_glo_p.htm#package_designator"><I>package designator</I></A>. The default is the <A REL=DEFINITION HREF="26_glo_c.htm#current_package"><I>current package</I></A>. The <I>package</I> cannot be the <b>KEYWORD</b> package.  <P>
+<p><b>●详情:</b><P>
+ <P>
+<A REL=DEFINITION HREF="#use-package"><B>use-package</B></A> causes <I>package</I> to inherit all the <A REL=DEFINITION HREF="26_glo_e.htm#external_symbol"><I>external symbols</I></A> of <I>packages-to-use</I>. The inherited <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> become <A REL=DEFINITION HREF="26_glo_a.htm#accessible"><I>accessible</I></A> as <A REL=DEFINITION HREF="26_glo_i.htm#internal_symbol"><I>internal symbols</I></A> of <I>package</I>. <P>
+<I>Packages-to-use</I> are added to the <A REL=DEFINITION HREF="26_glo_u.htm#use_list"><I>use list</I></A> of <I>package</I> if they are not there already. All <A REL=DEFINITION HREF="26_glo_e.htm#external_symbol"><I>external symbols</I></A> in <I>packages-to-use</I> become <A REL=DEFINITION HREF="26_glo_a.htm#accessible"><I>accessible</I></A> in <I>package</I> as <A REL=DEFINITION HREF="26_glo_i.htm#internal_symbol"><I>internal symbols</I></A>. <A REL=DEFINITION HREF="#use-package"><B>use-package</B></A> does not cause any new <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbols</I></A> to be <A REL=DEFINITION HREF="26_glo_p.htm#present"><I>present</I></A> in <I>package</I> but only makes them <A REL=DEFINITION HREF="26_glo_a.htm#accessible"><I>accessible</I></A> by inheritance. <P>
+<A REL=DEFINITION HREF="#use-package"><B>use-package</B></A> checks for name conflicts between the newly imported symbols and those already <A REL=DEFINITION HREF="26_glo_a.htm#accessible"><I>accessible</I></A> in <I>package</I>. A name conflict in <A REL=DEFINITION HREF="#use-package"><B>use-package</B></A> between two external symbols inherited by <I>package</I> from <I>packages-to-use</I> may be resolved in favor of either <A REL=DEFINITION HREF="26_glo_s.htm#symbol"><I>symbol</I></A> by <I>importing</I> one of them into <I>package</I> and making it a shadowing symbol. <P>
+<p><b>●例子:</b><P>
+ <P>
+<PRE>
+ (export (intern &quot;LAND-FILL&quot; (make-package 'trash)) 'trash) =&gt;  T
+ (find-symbol &quot;LAND-FILL&quot; (make-package 'temp)) =&gt;  NIL, NIL
+ (package-use-list 'temp) =&gt;  (#&lt;PACKAGE &quot;TEMP&quot;&gt;)
+ (use-package 'trash 'temp) =&gt;  T
+ (package-use-list 'temp) =&gt;  (#&lt;PACKAGE &quot;TEMP&quot;&gt; #&lt;PACKAGE &quot;TRASH&quot;&gt;)
+ (find-symbol &quot;LAND-FILL&quot; 'temp) =&gt;  TRASH:LAND-FILL, :INHERITED
+</PRE>
+</b> <P>
+<p><b>●副作用:</b><P>
+ <P>
+The <A REL=DEFINITION HREF="26_glo_u.htm#use_list"><I>use list</I></A> of <I>package</I> may be modified. <P>
+<p><b>●受制于：</b> 无。</p>
+ <P>
+<p><b>●例外情况：</b> 无。</p>
+ <p><b>●更多信息:</b><P>
+ <P>
+<A REL=DEFINITION HREF="f_unuse_.htm#unuse-package"><B>unuse-package</B></A>, <A REL=DEFINITION HREF="f_pkg_us.htm#package-use-list"><B>package-use-list</B></A>, <A REL=CHILD HREF="11_a.htm">Section 11.1 (Package Concepts)</A> <P>
+<p><b>●说明:</b><P>
+ <P>
+It is permissible for a <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> P1 to <A REL=DEFINITION HREF="26_glo_u.htm#use"><I>use</I></A> a <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>package</I></A> P2 even if P2 already uses P1. The using of <A REL=DEFINITION HREF="26_glo_p.htm#package"><I>packages</I></A> is not transitive, so no problem results from the apparent circularity. <P>
+<p><hr> <a rel=meta href="../Issues/I_Categ.htm">X3J13设计清单</A><i>非标准部分</i>，可查下面章节：<p><UL><LI> <A REL=CHILD HREF="../Issues/iss254.htm">PACKAGE-FUNCTION-CONSISTENCY:MORE-PERMISSIVE</A><P></UL><HR>
+
+<a href="../Front/index.htm"> ◇首页 </A> § <a href="../Front/Contents.htm"> ◎章节目录 </a> § <a href="../Front/X_Master.htm"> □内容索引 </a> § <a  href="../Front/X_Symbol.htm"> ○符号索引 </a> § <a href="../Body/26_a.htm"> △术语表 </a> § <a href="../Issues/I_Categ.htm"> ※设计草案 </a><hr>
+
+<div class="footer"><a rel=copyright href="../Front/Help.htm#Legal"><i>2012 此修改版放弃所有版权</i></a></div>
+</BODY>
+</HTML>
