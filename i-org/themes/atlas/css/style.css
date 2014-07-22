@@ -522,7 +522,7 @@ body {
 
 h1,h2,h3,h4,h5,h6,p,li,
 p code,li code,pre,th,td,blockquote,aside,footer,
-.post-pre,.post-tag a,.post-next,.post-categories a:hover,
+.post-categories a,
 {
     -webkit-transition: all 1s ease-in-out;
     -moz-transition: all 1s ease-in-out;
@@ -583,47 +583,61 @@ h6 {
 /* 上篇 话题 下篇 */
 .post-shift {
     display: block;
-    left: 0;
-    bottom: 0;
+    right: -3px;
+    bottom: -2px;
     position: fixed;
     z-index: 2;
-
+    
+    border: 1px solid white;
+    
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    
     
     box-shadow: 0 0 10px #c3c3c3;
     -moz-box-shadow: 0 0 10px #c3c3c3;
     -webkit-box-shadow: 0 0 10px #c3c3c3;
 }
-.back-top {
-    background-color: black;
-    display: block;
-    float: left;
-    padding: 0 10px;
+.post-pre a,
+.back-top a,
+.post-next a {
+    color: white;
 }
 
-.post-pre {
+.post-pre,
+.back-top,
+.post-next {
     display: block;
     float: left;
-    background-color: #e9e9e9;
+    
 }
-.post-pre a:hover {
+.post-pre {
+    text-align: right;
+    background-color: rgba(220,220,220,0.75);
+}
+.post-pre:hover {
+    background-color: rgba(255,0,0,0.75);
     padding-right: 10px;
-    background-color: green;
-    color: white;
+}
+
+.back-top {
+    text-align: center;
+    background-color: rgba(200,200,200,0.75);
+}
+
+.back-top:hover {
+    background-color: rgba(0,255,0,0.75);
 }
 
 .post-next {
-    display: block;
-    float: right;
-    background-color: white;
+    background-color: rgba(180,180,180,0.75);
+    
 }
 
-.post-next a:hover {
-    padding-left: 10px;
-    background-color: #6c71c4;
-    color: white;
+.post-next:hover {
+    background-color: rgba(0,0,255,0.75);
+    padding-right: 10px;
 }
 
 /* 相关推荐 */
@@ -657,7 +671,8 @@ a:visited {
 }
 
 a,
-sup {
+sup,
+.post-pre,.back-top,.post-next {
     -webkit-transition: all 0.4s ease-in-out;
     -moz-transition: all 0.4s ease-in-out;
     -o-transition: all 0.4s ease-in-out;
@@ -843,31 +858,6 @@ td {
 td:hover {
     background-color: #C0FFC0;
 }
-
-
-/*****************************************************************************/
-/*
-/* 直观话题设定
-/*
-/*****************************************************************************/
-.subject-archive {
-
-}
-
-.tag-vision {
-    background-color: #C0FFC0;
-}
-
-.tag-vision:hover {
-    
-}
-
-.subject-vision {
-    
-}
-
-
-
 
 /* :::: 其他 :::: */
 
@@ -1090,7 +1080,6 @@ nav {
 
 
 nav li,
-.resource-list li,
 .post-list li {
     padding: 0;
     
@@ -1102,14 +1091,17 @@ nav li a {
 }
 
 nav li a:hover,
-.resource-list li a:hover,
 .post-list li a:hover {
     background-color: #6C71C4;
 }
 
+
+
 .post-date {
     float: right;
     color: #dcdcdc;
+    margin-right: 10px;
+    font-size: 80%;
 }
 
 .post-description {
@@ -1117,11 +1109,10 @@ nav li a:hover,
     font-size: 80%;
 }
 
-.resource-list li a,
 .post-list li a {
     background: white;
     display: block;
-    padding: 5px 0 5px 10px;
+    padding: 5px 0 5px 20px;
 }
 
 .post-list {
@@ -1154,15 +1145,55 @@ nav li a:hover,
 
 }
 
-/* 屏幕大时宽屏陈列，小时列表 */
+/* 屏幕大时，菜单内容宽屏陈列，小时列表 */
 @media all and (max-width: 36em) {
-
+    .post-list li {
+       diplay: block;
+       float: left;
+       width: 49.5%;
+       border-left: 1px solid #dcdcdc;
+    }
+    .post-list li a {
+        height: 60px;
+        padding: 5px 0 5px 5px;
+    }
+    .post-list {
+    margin-left: -2.0em;
+    }
+    .subject-head {
+        
+        float: left;
+        width: 100%;
+    }
 }
 
-/* 屏幕超大时悬浮，小时隐藏 */
+/* 屏幕超大时菜单悬浮，小时隐藏 */
 @media all and (min-width: 128em) {
 
 }
+
+/*****************************************************************************/
+/*
+/* 直观话题设定
+/*
+/*****************************************************************************/
+.subject-archive {
+
+}
+
+.tag-vision {
+    
+}
+
+.tag-vision:hover {
+    
+}
+
+.subject-vision {
+    
+}
+
+
 
 /*****************************************************************************/
 /*
@@ -1255,8 +1286,9 @@ footer {
     color: gray;
     background-color: rgba(50,50,50,0.8);
     margin-top: 1em;
-    width:100%;
-    position: absolute;
+    width: 100%;
+    float: left;
+    position: relative;
     
     box-shadow: 0px 0 55px #000000;
     -moz-box-shadow: 0px 0 55px #000000;
@@ -1271,7 +1303,8 @@ footer ul {
 }
 footer li {
     display: block;
-    width: 300px;
+    width: 24%;
+    height: 50px;
     float: left;
     border: 0;
 }
@@ -1289,7 +1322,14 @@ footer .rss-img {
 
 }
 
+/* 屏幕小时列表 */
+@media all and (max-width: 36em) {
+    footer li {
+        width: 90%;
 
+    }
+  
+}
 
 /*****************************************************************************/
 /*

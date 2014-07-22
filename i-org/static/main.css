@@ -20,18 +20,27 @@
 	-webkit-column-gap: 35px;
     }
 }
+/* :::: 文章底部设定 :::: */
+
 
 /*****************************************************************************/
 /*
 /* 首页设定
 /*
 /*****************************************************************************/
-.home {
-
+#home {
+    
 }
 .index-show {
     text-align: center;
 }
+
+.index-background {
+    top: 0;
+    position: absolute;
+    z-index: -1;  
+}
+
 .site-name,
 .slogan {
     text-shadow: #ee3333 -20px 0px 8px, #33ee33 20px 0px 5px;
@@ -40,7 +49,7 @@
 .site-name {
     font-size: 350%;
     font-weight: bold;
-    margin: -250px 0 10px 0;
+    margin: 50px 0 10px 0;
 }
 .slogan {
     font-size: 200%;
@@ -56,17 +65,31 @@
 }
 
 .index-maxim {
-      background: #BBBBFF;
+    background: #BBBBFF;
     font-size: 90%;
 
     padding: 5px 5px 5px 5px;
     display: block;
     margin: 1em 0;
-  
+    
+    
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
 }
 
 .index-maxim:hover {
     background: #DEDFFF;
+}
+
+.rounded1,
+.rounded2,
+.rounded3,
+.rounded4,
+.rounded5,
+.rounded6 {
+    position: absolute;
 }
 
 
@@ -88,7 +111,7 @@
     -webkit-border-radius: 30px;
     border-radius: 30px;
     background-color: rgba(255,187,187, 0.75);
-    margin-top: -35px;
+    margin-top: 235px;
     margin-left: 690px;
 }
 
@@ -99,7 +122,7 @@
     -webkit-border-radius: 90px;
     border-radius: 90px;
     background-color: rgba(255,187,187, 0.75);
-    margin-top: -180px;
+    margin-top: 90px;
     margin-left: 470px;
 }
 
@@ -110,7 +133,7 @@
     -webkit-border-radius: 60px;
     border-radius: 60px;
     background-color: rgba(187,187,255, 0.75);
-    margin-top: -180px;
+    margin-top: 90px;
     margin-left: 220px;
 }
 
@@ -124,7 +147,7 @@
     -moz-border-radius: 30px;
     -webkit-border-radius: 30px;
     
-    margin-top: -210px;
+    margin-top: 20px;
     margin-left: 150px;
     
     box-shadow: 0px 0 50px gold;
@@ -148,9 +171,8 @@
     border-radius: 90px;
     background-color: rgba(255,187,187, 0.75);
     margin-left: 60px;
-    margin-top: 110px;
+    margin-top: 160px;
 }       
-
 
 /*****************************************************************************/
 /*
@@ -160,7 +182,6 @@
 #uyan_frame {
     margin-top: 20px;
 }
-
 
 /*****************************************************************************/
 /*
@@ -193,7 +214,7 @@
     display: block;
     width: 110px;
     height: 65px;
-    top: 30%;
+    top: 25%;
     position: fixed;
     z-index: 101;
 
@@ -237,5 +258,9 @@
 
 .to-right a:hover {
     background: url(/static/operation.png) 3px -489px;
+}
+.to-hot {
+    display: none;
+    z-index: 101;
 }
 
