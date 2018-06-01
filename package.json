@@ -1,0 +1,12 @@
+{
+    "name": "i",
+    "version": "0.0.1",
+    "description": "the international programming language",
+    "main": "index.js",
+    "author": "atlas jobinson",
+    "homepage": "https://i-org.org",
+    "license": "MIT",
+    "devDependencies": {
+	
+    }
+}
